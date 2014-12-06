@@ -18,4 +18,4 @@ Route::post('/image-sequence', ['as' => 'imageSequence', 'uses' => 'HomeControll
 Route::post('/save-audio', ['as' => 'saveAudio', 'uses' => 'HomeController@saveAudio']);
 /*END VIDEO CANVAS AND AUDIO*/
 
-Route::post('/select-dominio', ['as' => 'selectDominio', 'uses' => 'HomeController@selectDominio']);
+Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);

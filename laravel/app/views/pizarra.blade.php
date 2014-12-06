@@ -34,24 +34,29 @@
 
 			<!-- CONECTANDO EL FORMULARIO CON LOS SELECTS A LA BASE DE DATOS -->
 
-			{{ Form::open(['']) }}
-
 			<div id="presentacionHerramientas" class="MenuHerramientas">
 				<select id="dominio" class="ComboBoxDominio">
-					<option value="#">Dominio</option>
-					<option value="1">Value 1</option>
-					<option value="2">Value 2</option>
-					<option value="3">Value 3</option>
+					<option value="">Dominio</option>
+
+					<!-- ESTO ES UN CICLO FOREACH DE PHP CON SINTAXIS DEL MOTOR DE PLANTILLAS BLADE 
+					LO UTILIZAMOS PARA AÑADIR LOS OPTIONS NECESARIOS AL SELECT DEPENDIENDO DE LOS
+					DOMINIOS DE LA BASE DE DATOS -->
+
+					@foreach($dominios as $d)
+						<?php 
+							$name = $d->Nombre;
+							$id   = $d->id; 
+						?>
+						<option id="dom{{ $id }}" value="{{ $id }}">{{ $name }}</option>	
+					@endforeach
+
 				</select>
 				<select id="clase" class="ComboBoxClase">
-					<option value="#">Clase</option>
-					<option value="1">Value 1</option>
-					<option value="2">Value 2</option>
-			{{ Form::close() }}
+					<option id="claseOption" value="#">Clase</option>									
 				</select>
 
 			<!-- CONECTANDO EL FORMULARIO CON LOS SELECTS A LA BASE DE DATOS -->
-			
+
 				<div class="CuadroInformativo">
 					<p class="CuadroP1"></p>
 					<p class="CuadroP2"></p>

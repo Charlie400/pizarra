@@ -1,5 +1,7 @@
 <?php
 
+use Pizarra\Entities\Dominio;
+
 class HomeController extends BaseController {
 
 	/*
@@ -19,7 +21,20 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		return View::make('pizarra');
+		$dominios = Dominio::all();
+
+		return View::make('pizarra', compact('dominios'));
+	}
+
+	//MÉTODO QUE GESTIONA UNA PETICIÓN AJAX DANDO COMO RESULTADO LAS CLASES
+
+	public function getClasses()
+	{
+		$id = $_GET['data'];
+		$dominio = Dominio::find($id);
+		$clases  = $dominio->clase;
+
+		echo json_encode($clases);
 	}
 
 	/*--------------TERMINAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/

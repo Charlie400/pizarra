@@ -250,20 +250,23 @@ function ShowHideButtons(pOkButton, pAddButton, pCancelButton){
 
 /*---------FUNCIÓN AJAX----------*/
 
-function createAjaxRequest(data, url, id, text)
+var ajaxData;
+
+function createAjaxRequest(data, url, id, befSendText, responseText)
 {
 	$.ajax({
 		data: {data: data},
 		url: url, 
 		dataType: 'json',
 		beforeSend: function(){
-			$(id).text(text);				
+			$(id).text(befSendText);				
 		},
 		timeout: 3000,
 		success: function(response){
-			var r = response;
-			console.log(r);
-			return r;
+			ajaxData = response;					
+
+			$(id).text(responseText);
+
 		},
 		error: function (jqXHR,estado,error) {
 			console.log(estado);
@@ -271,13 +274,44 @@ function createAjaxRequest(data, url, id, text)
 		}
 	});
 
+
 }
 
 /*------------COMIENZAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO------------*/
 
-function selectDominios()
-{
-	
+var dominio = $("#dominio"), clase = $('#clase'), dominioOption = $('[id*=dom]'), working = false;
+
+//SI SE HACE CLICK EN LOS OPTIONS DEL SELECT CON ID 'dominio' SE LLAMA A LA FUNCIÓN
+
+dominioOption.click(dominioVal);
+
+//FUNCIÓN ENCARGADA DE TRAER LAS CLASES DEPENDIENDO DEL DOMINIO SELECCIONADO
+
+function dominioVal()
+{	
+	if ( ! working)
+	{
+		working = true;
+		var val = dominio.val();		
+
+		if (val != "")
+		{
+			var url = location.protocol+'//'+location.hostname+'/laravel/public/mostrar-clases';
+
+			createAjaxRequest(val, url, '#claseOption', 'Cargando...', 'Clase');
+
+			setTimeout(function () {						
+				clase.text("");
+
+				$.each(ajaxData, function (i, value){				
+					clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value+'">'+value['Nombre']+'</option>');				
+				});
+
+			}
+			, 500);
+		}
+		working = false;
+	}
 }
 
 /*------------TERMINAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO-----------*/
