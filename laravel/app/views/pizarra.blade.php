@@ -126,14 +126,20 @@
 			<div class="AlertTittleContainer">
 				<h4>Título</h4><img onClick="closeAlert()" src="images/CloseButton.png" height="20" id="closeButton">
 			</div>
-			<div class="AlertContent">
-				Esto es una alerta
-			</div>
-			<div class="AlertElement">
-			</div>
-			<div class="ButtonsContainer">
-				<div class="OkButton Button">Aceptar</div><div class="AddButton Button">Agregar</div><div class="CancelButton Button">Cancelar</div>
-			</div>
+
+			{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form']) }}
+				<div class="AlertContent">
+
+				</div>
+				<div class="AlertElement">
+				</div>
+				<div class="ButtonsContainer">
+					<button class="OkButton Button">Aceptar</button>
+					<button class="AddButton Button">Agregar</button>
+					<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+				</div>
+			{{ Form::close() }}
+
 		</div>
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>

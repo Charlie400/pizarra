@@ -18,4 +18,8 @@ Route::post('/image-sequence', ['as' => 'imageSequence', 'uses' => 'HomeControll
 Route::post('/save-audio', ['as' => 'saveAudio', 'uses' => 'HomeController@saveAudio']);
 /*END VIDEO CANVAS AND AUDIO*/
 
+/*COMIENZAN FUNCIONALIDADES DEL HOME*/
 Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
+Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
+Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
+/*TERMINAN FUNCIONALIDADES DEL HOME*/

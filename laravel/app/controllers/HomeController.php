@@ -1,6 +1,8 @@
 <?php
 
 use Pizarra\Entities\Dominio;
+use Pizarra\Entities\Clase;
+use Pizarra\Entities\User;
 
 class HomeController extends BaseController {
 
@@ -17,13 +19,36 @@ class HomeController extends BaseController {
 	|
 	*/
 
+	public function __construct()
+	{
+
+	}
+
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
+
 
 	public function index()
 	{
-		$dominios = Dominio::all();
+		$dominios = $this->getDominios();
 
 		return View::make('pizarra', compact('dominios'));
+	}
+
+	public function getDominios($id = "")
+	{
+		if ( ! empty($id))
+		{			
+			return Dominio::find($id);
+		}
+		else
+		{
+			return Dominio::all();
+		}
+	}
+
+	public function sendDominios()
+	{
+		echo json_encode($this->getDominios());
 	}
 
 	//MÉTODO QUE GESTIONA UNA PETICIÓN AJAX DANDO COMO RESULTADO LAS CLASES
@@ -31,13 +56,85 @@ class HomeController extends BaseController {
 	public function getClasses()
 	{
 		$id = $_GET['data'];
-		$dominio = Dominio::find($id);
+		$dominio = $this->getDominios($id);
 		$clases  = $dominio->clase;
 
 		echo json_encode($clases);
 	}
 
 	/*--------------TERMINAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
+
+	/*--------------COMIENZAN MÉTODOS PARA AÑADIR DATOS A LA DB CON ALERTS-----------------*/
+
+	public function addFoo()
+	{
+		$borrarEscenario = Input::only('borrarEscenario')['borrarEscenario'];
+		$dominio = Input::only('dominio')['dominio'];
+		$clase   = Input::only('clase', 'dominioVal');
+		$alumno  = Input::only('alumno')['alumno'];
+
+		if ( ! is_null($dominio) && ! empty($dominio))
+		{
+			$this->addDominio($dominio);			
+		}
+		elseif ( ! is_null($clase['clase']) && ! empty($clase['clase']) 
+			    && ! is_null($clase['dominioVal']) && ! empty($clase['dominioVal']))
+		{
+			$this->addClase($clase);
+		}
+		elseif ( ! is_null($alumno) && ! empty($alumno))
+		{
+			$this->createAlumno($alumno);
+		}
+		elseif ( ! is_null($borrarEscenario) && ! empty($alumno))
+		{
+			$this->borrarEscenario($borrarEscenario);
+		}
+		else
+		{
+			return Redirect::back(); //Añadir a este redirect el error de que no se puede dejar el campo en blanco			
+		}
+
+		return Redirect::back();
+	}
+
+	public function addDominio($d)
+	{
+		$dominio = new Dominio();
+
+		$dominio->Nombre = $d;
+
+		$dominio->save();		
+	}
+
+	public function addClase($c)
+	{
+		//MOSTRAR SELECT EN EL ALERT PARA ELEGIR EL DOMINIO
+		$clase = new Clase();
+
+		$clase->Nombre     = $c['clase'];
+		$clase->id_dominio = $c['dominioVal'];
+
+		$clase->save();
+	}
+
+	public function createAlumno($al)
+	{
+		$user = new User();
+
+		$user->username = $al;
+		$user->enabled  = 1;
+		$user->roles    = 'alumno';
+
+		$user->save();
+	}
+
+	public function borrarEscenario($bE)
+	{
+		dd('BE '.$bE);
+	}
+
+	/*--------------TERMINAN MÉTODOS PARA AÑADIR DATOS A LA DB CON ALERTS-----------------*/
 
 	/*--------------EMPIEZAN MÉTODOS PARA PROCESAR GRABACIÓN DE CANVAS Y AUDIO-----------------*/
 

@@ -2,18 +2,23 @@
 var Action = {
     Hide: 0,
     Show: 1
-};
-
-var ButtonState = {
+}
+ButtonState = {
     NoActive: 0,
     Active: 1
-};
-
-var Elemento = {
+},
+Elemento = {
     TextBox: 0,
     OnlyText: 1,
 	ListBox: 2
-};
+},
+Name = {
+	Dominio: 'dominio',
+	Escenario: 'borrarEscenario',
+	Clase: 'clase',
+	Alumno: 'alumno'
+},
+serverURL = location.protocol+'//'+location.hostname+'/laravel/public';
 
 $('.MenuLeft-ItemLista-Esc').on('click', ListaClick1);
 function ListaClick1(){
@@ -168,25 +173,25 @@ function GetComboClase(){
 function createDominio()
 {
 	ShowHideAlert(Action.Show, false, true, true, Elemento.TextBox, "Añadir Dominio", 
-	"Clic en agregar para añadir dominio.");
+	"Clic en agregar para añadir dominio.", Name.Dominio);
 }
 
 function borrarEscenario()
 {
 	ShowHideAlert(Action.Show, true, false, true, Elemento.TextBox, "Borrar Escenario", 
-	"¿Estás seguro de que quieres borrar el escenario?");
+	"¿Estás seguro de que quieres borrar el escenario?", Name.Escenario);
 }
 
 function createClase()
 {
 	ShowHideAlert(Action.Show, false, true, true, Elemento.TextBox, "Añadir Clase", 
-	"Clic en agregar para añadir clase.");
+	"Clic en agregar para añadir clase.", Name.Clase);
 }
 
 function createAlumno()
 {
 	ShowHideAlert(Action.Show, false, true, true, Elemento.TextBox, "Añadir Alumno", 
-	"Clic en agregar para añadir alumno.");
+	"Clic en agregar para añadir alumno.", Name.Alumno);
 }
 
 function closeAlert()
@@ -196,14 +201,22 @@ function closeAlert()
 
 // $("#botonAlumnos").on("click",ShowHideAlert(Action.Show, true, false, true, Elemento.OnlyText, "Esto es una prueba", "Por favor, indique un nombre válido para el elemento"));
 
-function ShowHideAlert(pAction, pOkButton, pAddButton, pCancelButton, pElemento, pTitulo, pCuerpo){
+//En la variable n se pasará un nombre para el input dado que es necesario para enviar el formulario.
+function ShowHideAlert(pAction, pOkButton, pAddButton, pCancelButton, pElemento, pTitulo, pCuerpo, n){
 
 	if (pAction == Action.Show){
 		$('.AlertContent').empty();
 		$(".AlertTittleContainer h4").empty();
 
 		if(pElemento == Elemento.TextBox){
-			$('.AlertContent').append(pCuerpo + "<form><input type='text'></form>");
+			$('.AlertContent').append(pCuerpo + '<input type="text" name="'+n+'" />');			
+
+			if (n == 'clase')
+			{
+				//Añadimos un select a clase para poder elegir a que dominio pertenecerá
+				$('.AlertContent').append('<select id="selectDominio" name="dominioVal" class="ComboBoxDominio"></select>');
+				getDominios();
+			}
 		}else if(pElemento == Elemento.OnlyText){
 			$('.AlertContent').append(pCuerpo);
 		}else if(pElemento == Elemento.ListBox){
@@ -216,7 +229,10 @@ function ShowHideAlert(pAction, pOkButton, pAddButton, pCancelButton, pElemento,
 		$('.AlertContainer').fadeIn();
 
 
-	}else if(pAction == Action.Hide){
+	}
+	else
+	{ /*Al solo haber dos opciones (Hide y Show) es preferible añadir un else a un else if dado que te ahorras 
+	la comprobación.*/
 		$('.AlertContainer').fadeOut();
 	}
 
@@ -250,6 +266,7 @@ function ShowHideButtons(pOkButton, pAddButton, pCancelButton){
 
 /*---------FUNCIÓN AJAX----------*/
 
+//Esta variable contendrá el valor de la respuesta de AJAX al completarse
 var ajaxData;
 
 function createAjaxRequest(data, url, id, befSendText, responseText)
@@ -279,39 +296,71 @@ function createAjaxRequest(data, url, id, befSendText, responseText)
 
 /*------------COMIENZAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO------------*/
 
-var dominio = $("#dominio"), clase = $('#clase'), dominioOption = $('[id*=dom]'), working = false;
+var dominio = $("#dominio"), clase = $('[id*=clase]'), dominioOption = $('[id*=dom]'), prevDomVal, 
+working = false;
 
 //SI SE HACE CLICK EN LOS OPTIONS DEL SELECT CON ID 'dominio' SE LLAMA A LA FUNCIÓN
 
-dominioOption.click(dominioVal);
+dominioOption.click(getClasses); // on("change")??
 
 //FUNCIÓN ENCARGADA DE TRAER LAS CLASES DEPENDIENDO DEL DOMINIO SELECCIONADO
 
-function dominioVal()
+function getClasses()
 {	
 	if ( ! working)
 	{
-		working = true;
-		var val = dominio.val();		
+		working   = true;
+		var val   = dominio.val();	
 
-		if (val != "")
+		if (val != prevDomVal)
 		{
-			var url = location.protocol+'//'+location.hostname+'/laravel/public/mostrar-clases';
+			prevValue = val;
+			if (val != "")
+			{			
+				var url   = serverURL+'/mostrar-clases';
 
-			createAjaxRequest(val, url, '#claseOption', 'Cargando...', 'Clase');
+				createAjaxRequest(val, url, '#claseOption', 'Cargando...', 'Clase');
 
-			setTimeout(function () {						
-				clase.text("");
+				setTimeout(function () {						
+					clase.text("");				
 
-				$.each(ajaxData, function (i, value){				
-					clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value+'">'+value['Nombre']+'</option>');				
-				});
+					$.each(ajaxData, function (i, value){				
+						clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['Nombre']+'">'+value['Nombre']+'</option>');				
+					});
 
+				}
+				, 500);
 			}
-			, 500);
+			else
+			{
+				$('#clase1').text('Clase');
+			}			
 		}
+
 		working = false;
 	}
+}
+
+//FUNCIÓN ENCARGADA DE TRAER LOS DOMINIOS
+
+function getDominios()
+{
+	var url = serverURL+'/mostrar-dominios';
+
+	createAjaxRequest("", url, '#selectDominio', 'Cargando...', 'Dominio');
+
+	setTimeout(function () {
+
+		var selectDom = $('#selectDominio');
+		selectDom.text("");				
+
+		$.each(ajaxData, function (i, value){				
+			selectDom.append('<option id="clase'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
+			'</option>');				
+		});
+
+	}
+	, 500);
 }
 
 /*------------TERMINAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO-----------*/
