@@ -441,7 +441,17 @@ function getDominios()
 /*-------------------------- TERMINA FUNCIÓN DRAG AND DROP ---------------------------------------*/
 
 function dibujoManoAlzada(){
+	var p = $('#botonDibujo').position();
+	$(".ColorPickerContainer").css('left', p.left);
+	$(".ColorPickerContainer").css('top', p.top);
 	$(".ColorPickerContainer").toggle();
+	if ($(".ColorPickerContainer").is(":visible")){
+		$('#botonDibujo').attr('value','Click aquí para cerrar');
+		$('#botonDibujo').css('background-color','#E74C3C');
+	}else{
+		$('#botonDibujo').attr('value','Dibujo a mano alzada');
+		$('#botonDibujo').css('background-color','#3498DB');
+	}	
 }
 
 $('.ColorPickerContainer').drags();

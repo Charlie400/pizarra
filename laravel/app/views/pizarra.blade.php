@@ -159,7 +159,7 @@
 			<div class="ColorPicker" style="background-color:#95A5A6"></div>
 		</div>
 		<div class="WidthContainer">
-			Grosor:<br><br>
+			<h4>Grosor:</h4>
 			<img class="LineWidthModifier" src="images/more.png" heigth="20" width="20" id="mas">
 			<img class="LineWidthModifier" src="images/less.png" heigth="20" width="20" id="menos">
 		</div>
