@@ -1,11 +1,12 @@
 var pizarra_canvas;
 var pizarra_context;
+var sGrosor = 3;
  
 
 pizarra_canvas = document.getElementById("c");
 pizarra_context = pizarra_canvas.getContext("2d");
 pizarra_context.strokeStyle = "#000";
-pizarra_context.lineWidth = document.grosor.valorgrosor.selectedIndex+1;
+pizarra_context.lineWidth = sGrosor;
 pizarra_canvas.addEventListener("mousedown",empezarPintar,false);
 pizarra_canvas.addEventListener("mouseup",terminarPintar,false);
 
@@ -23,8 +24,26 @@ function cambiarColor(){
 	pizarra_context.strokeStyle = rgb2hex($(this).css('background-color'));
 }
  
+$('.LineWidthModifier').on('click', cambiaTrazado)
+
 function cambiaTrazado(){
-	pizarra_context.lineWidth = document.grosor.valorgrosor.selectedIndex+1;
+
+	var sValor = $(this).attr('id')
+	var sSuma;
+
+	if (sValor == "mas"){
+		sSuma = sGrosor + 1
+		if (sSuma <21){
+			pizarra_context.lineWidth= sSuma
+		}
+	}else if(sValor == "menos"){
+		sSuma = sGrosor - 1
+		if (sSuma > 0){
+			pizarra_context.lineWidth= sSuma
+		}
+	}
+
+	sGrosor = sSuma
 }
 
 /*

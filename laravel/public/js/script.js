@@ -23,6 +23,11 @@ serverURL = location.protocol+'//'+location.hostname+'/laravel/public';
 $('#c').attr('width', $('.Pizarra').width());
 $('#c').attr('height', $('.Pizarra').height());
 
+$(window).resize(function(){
+ $('#c').attr('width', $('.Pizarra').width());
+$('#c').attr('height', $('.Pizarra').height());
+});
+
 $('.MenuLeft-ItemLista-Esc').on('click', ListaClick1);
 function ListaClick1(){
 
