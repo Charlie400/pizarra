@@ -73,7 +73,7 @@
 				<input id="botonAlumnos" onClick="createAlumno()" type="submit" name="Boton2" value="Alumnos"/>
 				<input id="botonCaptura" onClick="getCanvasSnapshot()" type="submit" name="Boton2" value="Captura de pantalla"/>
 				<input id="botonGrabar" onclick="recordStopVideoAudio()" type="submit" name="Boton2" value="Grabar"/>
-				<input id="botonDibujo" type="submit" name="Boton2" value="Dibujo a mano alzada"/>
+				<input id="botonDibujo" onClick="dibujoManoAlzada()" type="submit" name="Boton2" value="Dibujo a mano alzada"/>
 				<div id="draggable" class="ui-widget-content">
 					<p>Drag me around</p>
 				</div
@@ -142,7 +142,7 @@
 
 		</div>
 	</div>
-		<div class="ColorPickerContainer" style="cursor: move; display: block;">
+		<div class="ColorPickerContainer">
 		<h5> Color Picker</h5>
 		<div class="ColorPickerBig">
 			<div class="ColorPicker" style="background-color:#1ABC9C"></div>
@@ -160,12 +160,12 @@
 		</div>
 		<div class="WidthContainer">
 			Grosor:<br><br>
-			<img class="LineWidthModifier" src="./Pizarra_files/more.png" heigth="20" width="20" id="mas">
-			<img class="LineWidthModifier" src="./Pizarra_files/less.png" heigth="20" width="20" id="menos">
+			<img class="LineWidthModifier" src="images/more.png" heigth="20" width="20" id="mas">
+			<img class="LineWidthModifier" src="images/less.png" heigth="20" width="20" id="menos">
 		</div>
 
 	</div>
-	<script type="text/javascript" src="./Pizarra_files/script.js"></script>
-	<script type="text/javascript" src="./Pizarra_files/pintar.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/pintar.js"></script>
 </body>
 </html>
