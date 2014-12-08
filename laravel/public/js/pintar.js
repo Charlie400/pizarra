@@ -2,13 +2,14 @@ var pizarra_canvas;
 var pizarra_context;
 var sGrosor = 3;
  
-
+function Pintar(){
 pizarra_canvas = document.getElementById("c");
 pizarra_context = pizarra_canvas.getContext("2d");
 pizarra_context.strokeStyle = "#000";
 pizarra_context.lineWidth = sGrosor;
 pizarra_canvas.addEventListener("mousedown",empezarPintar,false);
 pizarra_canvas.addEventListener("mouseup",terminarPintar,false);
+}
 
 $('.ColorPicker').on('click', cambiarColor);
 
@@ -86,4 +87,42 @@ function pintar(e) {
  
 function borrar(){
 	pizarra_canvas.width = pizarra_canvas.width;
+}
+
+$('.LineWidthModifier').on('click', menuDrawAction);
+
+function menuDrawAction(){
+	//Obtenemos el ID
+	var sId = $(this).attr('id');
+
+	if (sId == "pencil"){
+		//Al hacer click, quitamos los efectos a cualquier botón que lo tenga
+		$('.LineWidthModifier').css('background-color','');
+		$('.LineWidthModifier').css('box-shadow','');
+
+		//Volvemos a aplicarle el estilo al que le hacemos click
+		$(this).css('background-color','rgba(230,126,34,0.5)');
+		$(this).css('box-shadow','box-shadow: 0px 0px 2px #FFF;');
+		Pintar();
+		pizarra_context.strokeStyle = "#000";
+
+	}else if(sId == "eraser"){
+		//Al hacer click, quitamos los efectos a cualquier botón que lo tenga
+		$('.LineWidthModifier').css('background-color','');
+		$('.LineWidthModifier').css('box-shadow','');
+
+		//Volvemos a aplicarle el estilo al que le hacemos click
+		$(this).css('background-color','rgba(230,126,34,0.5)');
+		$(this).css('box-shadow','box-shadow: 0px 0px 2px #FFF;');
+		//Aplicamos blanco al color de pintado
+		Pintar();
+		pizarra_context.strokeStyle = "#FFF";
+	}
+	else if(sId == "goBack"){
+	
+	}
+	else if(sId == "goRight"){
+	
+	}
+
 }
