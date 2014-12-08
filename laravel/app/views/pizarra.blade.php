@@ -163,6 +163,15 @@
 			<img class="LineWidthModifier" src="images/more.png" heigth="20" width="20" id="mas">
 			<img class="LineWidthModifier" src="images/less.png" heigth="20" width="20" id="menos">
 		</div>
+		<div class="WidthContainer">
+			<h4>Dibujo:</h4>
+			<img class="LineWidthModifier" src="images/pencil.png" heigth="20" width="20" id="mas">
+			<img class="LineWidthModifier" src="images/eraser.png" heigth="20" width="20" id="menos">
+		</div>
+		<div class="WidthContainer">
+			<h4>Edición:</h4>
+			<img class="LineWidthModifier" src="images/goRight.png" heigth="20" width="20" id="menos">
+			<img class="LineWidthModifier" src="images/goBack.png" heigth="20" width="20" id="mas">
 
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>

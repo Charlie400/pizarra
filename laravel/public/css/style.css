@@ -483,11 +483,12 @@ h1{
 .WidthContainer{
 	margin: 0.5em;
 	padding: 0.5em;
-	width: 7em;
+	width: 8em;
 	float: left;
 	border: 1px solid white;
 	box-shadow: 0px 0px 2px #000;
 	color: white;
+	border-radius: 5px;
 }
 
 .WidthContainer:hover{
@@ -497,9 +498,14 @@ h1{
 
 .LineWidthModifier{
 	float: right;
+	margin-right: 0.5em;
 }
 
 .WidthContainer h4{
 	margin: 0;
 	float: left;
+}
+
+.DeleteBlackboard{
+	background: 
 }
