@@ -116,7 +116,7 @@
 		</ul>
 	</nav>
 	<div class="Pizarra">
-		Pizarra
+
 		<canvas id="c">
 		</canvas>
 	</div>
