@@ -402,6 +402,15 @@ h1{
 	padding: 0.5em;
 }
 
+.AlertContent input{
+	margin-top: 0.2em;
+}
+
+.AlertContent select{
+	padding: 0.2em;
+	margin: 0.4em 0 0.2em 0;
+}
+
 .Button{
 	cursor: pointer;
 	display: inline-block;
@@ -415,6 +424,7 @@ h1{
 .OkButton{
 	background-color: #1ABC9C;
 	display: none;
+	border: none;
 }
 
 .CancelButton{
@@ -425,6 +435,7 @@ h1{
 .AddButton{
 	background-color: #3498DB;
 	display: none;
+	border: none;
 }
 
 #closeButton{
