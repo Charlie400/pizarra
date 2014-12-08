@@ -66,6 +66,8 @@ class HomeController extends BaseController {
 
 	/*--------------COMIENZAN MÉTODOS PARA AÑADIR DATOS A LA DB CON ALERTS-----------------*/
 
+	//AQUÍ OBTENEMOS LA INFORMACIÓN DEL FORMULARIO DE LOS ALERTS PARA DECIDIR DE CUAL SE TRATA Y EJECUTAR
+	//EL MÉTODO CORRESPONDIENTE
 	public function addFoo()
 	{
 		$borrarEscenario = Input::only('borrarEscenario')['borrarEscenario'];
@@ -141,46 +143,68 @@ class HomeController extends BaseController {
 	public function saveImageSequence()
 	{
 
-		$multimedia  = $this->getDirMultimedia();
-		$path        = "$multimedia/frames/";
+		$multimedia  = $this->getDirMultimedia();		
 
 		$limit      = $_POST['limit'];
 		$packages   = $_POST['packages'];
 		$perPackage = 200;
 
 		// $fileName    = "$multimedia/frames/text.txt";
-		// file_put_contents($fileName, $data);
+		// file_put_contents($fileName, $limit);
 
-		if (isset ($limit, $packages) && is_numeric ($limit)) 
+		if (isset ($limit, $packages) && is_numeric ($limit) && $limit > 1)
 		{
-			$begin  = $packages*$perPackage;
-			$end    = $begin+$perPackage;					
+			$path        = "$multimedia/frames/";
+			$begin   = $packages*$perPackage;
+			$end     = $begin+$perPackage;
+			$counter;					
 
 			for ($i = $begin; $i < $end && $i <= $limit; $i++)
 			{
 			    
 			    $d = $this->decodeBase64($_POST["data$i"]);
-			 
-			    // create the numbered image file
-			    $filename = sprintf('%s%08d.png', $path, $i);
-			    file_put_contents($filename, $d);
+
+			    $this->createImageFile($path, $i, $d);
 
 			    unset($_POST["data$i"]);
+
+			    $counter = $i;
 			
-			    if ($i == $limit)
-			    {				    		    	
-			    	$pathImg 	 = "frames/%08d.png";
-			    	$pathVid 	 = "video/vid.avi";
-			    	$pathAudio 	 = "audio/audio.wav";
+			}
 
-			    	$instruction = $this->getInstruction($multimedia, $pathImg, $pathAudio, $pathVid, '600x400');
 
-			    	//sleep(1);
-
-			    	shell_exec($instruction);
-			    }
+			if ($counter == $limit)
+    		{
+				$this->createVideo($multimedia);
 			}
 		}
+		elseif ($limit == 1 && isset($_POST['data']))
+		{
+			$path = "$multimedia/snapshots/";
+
+			$d    = $this->decodeBase64($_POST['data']);
+				    
+			$this->createImageFile($path, 0, $d);
+		}
+	}
+
+	public function createImageFile($path, $i, $d)
+	{
+		$filename = sprintf('%s%08d.png', $path, $i);
+		file_put_contents($filename, $d);	
+	}
+
+	public function createVideo($m)
+	{					    		    	
+		$pathImg 	 = "frames/%08d.png";
+		$pathVid 	 = "video/vid.avi";
+		$pathAudio 	 = "audio/audio.wav";
+
+		$instruction = $this->getInstruction($m, $pathImg, $pathAudio, $pathVid, '600x400');
+
+		//sleep(1);
+
+		shell_exec($instruction);
 	}
 
 	public function saveAudio()

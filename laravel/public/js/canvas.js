@@ -1,6 +1,6 @@
 ;
 window.onload = function() {var botonGrabar = document.getElementById("botonGrabar")};
-var recording = true;
+var recording = false, serverURL = location.protocol+'//'+location.hostname+'/laravel/public';
 
 function recordStopVideoAudio()
 {
@@ -8,22 +8,35 @@ function recordStopVideoAudio()
     {
         /*------------------RECORDING VIDEO AND AUDIO--------------------*/
 
-        audioRecording();
-        sequenceRecording();
+        clearInterval(record);  
+        stopAudioRecording(); 
         recording = false;
-        console.log(botonGrabar);
 
-        botonGrabar.value = "Grabando...";
+        botonGrabar.value = "Grabar";
     }
     else
     {
         /*------------------STOP RECORDING VIDEO AND AUDIO--------------------*/
 
-        clearInterval(record);  
-        stopAudioRecording(); 
+        audioRecording();
+        sequenceRecording();
         recording = true;
-        botonGrabar.value = "Grabar";
+
+        botonGrabar.value = "Grabando...";
     }
+}
+
+/*------------------GETTING CANVAS SNAPSHOT--------------------*/
+
+function getCanvasSnapshot()
+{
+    var snapshot = getDataURL(), url = serverURL+'/image-sequence', data, req;
+    
+    req  = createXMLHttpRequest('post', url, 'application/x-www-form-urlencoded');
+
+    data = 'data='+encodeURIComponent(snapshot)+'&limit=1&packages=1';
+
+    req.send(data);
 }
 
 /*------------------RECORDING CANVAS IMAGES AND STORING IN ARRAY--------------------*/
@@ -36,9 +49,14 @@ function sequenceRecording()
     record = setInterval(getFrames, mSecond); 
 }
 
+function getDataURL()
+{
+    return document.getElementById('c').toDataURL();
+}
+
 function getFrames()
 {    
-    var data = document.getElementById('c').toDataURL();        
+    var data = getDataURL();
       
     // data = data.split(',')[1];
     // data = data.trim();
@@ -54,7 +72,7 @@ function stopSequenceRecording()
     if (frames.length > 0)
     {
         /*------------------GETTING URL FROM PHP METHOD FOR CREATE A VIDEO--------------------*/
-        url = location.protocol+'//'+location.hostname+'/laravel/public/image-sequence';
+        url = serverURL+'/image-sequence';
 
         getEncodeURIArray(frames);
 
@@ -103,7 +121,7 @@ function audioMicrophoneGranted(e)
     audioInput = context.createMediaStreamSource(e);
  
     rec = new Recorder(audioInput, {
-        workerPath: location.protocol+'//'+location.hostname+'/laravel/public/js/recorderjs/recorderWorker.js'
+        workerPath: serverURL+'/js/recorderjs/recorderWorker.js'
     });
  
     rec.record();
@@ -121,7 +139,7 @@ function stopAudioRecording() {
 
         rec.clear();
 
-        var url = location.protocol+'//'+location.hostname+'/laravel/public/save-audio';
+        var url = serverURL+'/save-audio';
 
         sendWithAjax('post', url, 'application/x-www-form-urlencoded', 0, e);
 

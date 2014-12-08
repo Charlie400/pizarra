@@ -71,7 +71,7 @@
 			</div>
 			<div id="usuariosHerramientas" class="MenuHerramientas">
 				<input id="botonAlumnos" onClick="createAlumno()" type="submit" name="Boton2" value="Alumnos"/>
-				<input id="botonCaptura" type="submit" name="Boton2" value="Captura de pantalla"/>
+				<input id="botonCaptura" onClick="getCanvasSnapshot()" type="submit" name="Boton2" value="Captura de pantalla"/>
 				<input id="botonGrabar" onclick="recordStopVideoAudio()" type="submit" name="Boton2" value="Grabar"/>
 				<input id="botonDibujo" type="submit" name="Boton2" value="Dibujo a mano alzada"/>
 				<div id="draggable" class="ui-widget-content">
