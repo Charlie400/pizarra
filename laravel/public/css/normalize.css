@@ -252,7 +252,6 @@ samp {
 button,
 input,
 optgroup,
-select,
 textarea {
   color: inherit; /* 1 */
   font: inherit; /* 2 */
