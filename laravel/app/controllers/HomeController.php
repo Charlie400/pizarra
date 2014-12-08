@@ -1,8 +1,8 @@
 <?php
 
-use Pizarra\Entities\Dominio;
-use Pizarra\Entities\Clase;
-use Pizarra\Entities\User;
+use Pizarra\Repositories\DominioRepo;
+use Pizarra\Repositories\ClaseRepo;
+use Pizarra\Repositories\AlumnosRepo;
 
 class HomeController extends BaseController {
 
@@ -19,9 +19,15 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function __construct()
-	{
+	protected $dominioRepo;
+	protected $claseRepo;
+	protected $alumnosRepo;
 
+	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, AlumnosRepo $alumnosRepo)
+	{
+		$this->dominioRepo = $dominioRepo;
+		$this->claseRepo   = $claseRepo;
+		$this->alumnosRepo = $alumnosRepo;
 	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
@@ -29,26 +35,14 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		$dominios = $this->getDominios();
+		$dominios = $this->dominioRepo->findAll();
 
 		return View::make('pizarra', compact('dominios'));
-	}
-
-	public function getDominios($id = "")
-	{
-		if ( ! empty($id))
-		{			
-			return Dominio::find($id);
-		}
-		else
-		{
-			return Dominio::all();
-		}
-	}
+	}	
 
 	public function sendDominios()
 	{
-		echo json_encode($this->getDominios());
+		echo json_encode($this->dominioRepo->findAll());
 	}
 
 	//MÉTODO QUE GESTIONA UNA PETICIÓN AJAX DANDO COMO RESULTADO LAS CLASES
@@ -56,7 +50,7 @@ class HomeController extends BaseController {
 	public function getClasses()
 	{
 		$id = $_GET['data'];
-		$dominio = $this->getDominios($id);
+		$dominio = $this->dominioRepo->find($id);
 		$clases  = $dominio->clase;
 
 		echo json_encode($clases);
@@ -70,7 +64,6 @@ class HomeController extends BaseController {
 	//EL MÉTODO CORRESPONDIENTE
 	public function addFoo()
 	{
-		$borrarEscenario = Input::only('borrarEscenario')['borrarEscenario'];
 		$dominio = Input::only('dominio')['dominio'];
 		$clase   = Input::only('clase', 'dominioVal');
 		$alumno  = Input::only('alumno')['alumno'];
@@ -88,10 +81,6 @@ class HomeController extends BaseController {
 		{
 			$this->createAlumno($alumno);
 		}
-		elseif ( ! is_null($borrarEscenario) && ! empty($alumno))
-		{
-			$this->borrarEscenario($borrarEscenario);
-		}
 		else
 		{
 			return Redirect::back(); //Añadir a este redirect el error de que no se puede dejar el campo en blanco			
@@ -100,40 +89,25 @@ class HomeController extends BaseController {
 		return Redirect::back();
 	}
 
-	public function addDominio($d)
+	public function addDominio($nombre)
 	{
-		$dominio = new Dominio();
-
-		$dominio->Nombre = $d;
-
-		$dominio->save();		
+		$this->dominioRepo->createNewRecord([$nombre], ['Nombre']);
 	}
 
 	public function addClase($c)
 	{
-		//MOSTRAR SELECT EN EL ALERT PARA ELEGIR EL DOMINIO
-		$clase = new Clase();
+		$datos   = [$c['clase'], $c['dominioVal']];
+		$nombres = ['Nombre', 'id_dominio'];
 
-		$clase->Nombre     = $c['clase'];
-		$clase->id_dominio = $c['dominioVal'];
-
-		$clase->save();
+		$this->claseRepo->createNewRecord($datos, $nombres);
 	}
 
-	public function createAlumno($al)
+	public function createAlumno($nombre)
 	{
-		$user = new User();
-
-		$user->username = $al;
-		$user->enabled  = 1;
-		$user->roles    = 'alumno';
-
-		$user->save();
-	}
-
-	public function borrarEscenario($bE)
-	{
-		dd('BE '.$bE);
+		$datos   = [$nombre, 1, 'alumno'];
+		$nombres = ['username', 'enabled', 'roles'];
+		
+		$this->alumnosRepo->createNewRecord($datos, $nombres);
 	}
 
 	/*--------------TERMINAN MÉTODOS PARA AÑADIR DATOS A LA DB CON ALERTS-----------------*/
@@ -154,7 +128,7 @@ class HomeController extends BaseController {
 
 		if (isset ($limit, $packages) && is_numeric ($limit) && $limit > 1)
 		{
-			$path        = "$multimedia/frames/";
+			$path    = "$multimedia/frames/";
 			$begin   = $packages*$perPackage;
 			$end     = $begin+$perPackage;
 			$counter;					

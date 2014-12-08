@@ -11,15 +11,20 @@
 |
 */
 
+//LOGIN
+Route::post('login', ['as' => 'login', 'uses' => '']);
+
+//INDEX HOME
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
-/*BEGIN VIDEO CANVAS AND AUDIO*/
-Route::post('/image-sequence', ['as' => 'imageSequence', 'uses' => 'HomeController@saveImageSequence']);
-Route::post('/save-audio', ['as' => 'saveAudio', 'uses' => 'HomeController@saveAudio']);
-/*END VIDEO CANVAS AND AUDIO*/
 
 /*COMIENZAN FUNCIONALIDADES DEL HOME*/
 Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
 Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
 Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
 /*TERMINAN FUNCIONALIDADES DEL HOME*/
+
+/*BEGIN VIDEO CANVAS AND AUDIO*/
+Route::post('/image-sequence', ['as' => 'imageSequence', 'uses' => 'HomeController@saveImageSequence']);
+Route::post('/save-audio', ['as' => 'saveAudio', 'uses' => 'HomeController@saveAudio']);
+/*END VIDEO CANVAS AND AUDIO*/

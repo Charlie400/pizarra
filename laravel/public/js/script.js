@@ -138,13 +138,24 @@ if ($("#dominio").find('option:selected').text() == "Dominio"){
 
 $("#dominio").on("click", GetComboDominio);
 
+//Esta variable contendrá el valor del dominio seleccionado anteriormente.
+var selectDominio = "";
+
 function GetComboDominio(){
 
 	if ($("#dominio").find('option:selected').text() != "Dominio"){
-		$(".CuadroP1").empty();
-		$(".CuadroP1").append($("#dominio").find('option:selected').text());
-		$("#clase").prop("disabled", false);
-		$("#clase").attr('class', 'ComboBoxClase');
+		//Con está comprobación evitamos que ejecute el código solo con hacer click, primero tiene que
+		//cambiar el valor, dado que se borraba #clase con solo hacer click en el select sin haber seleccionado
+		//un nuevo dominio.
+		if ($("#dominio").val() != selectDominio)
+		{
+			selectDominio = $("#dominio").val();
+			$(".CuadroP1").empty();
+			$(".CuadroP2").empty();
+			$(".CuadroP1").append($("#dominio").find('option:selected').text());
+			$("#clase").prop("disabled", false);
+			$("#clase").attr('class', 'ComboBoxClase');
+		}
 
 	}else{
 		$("#clase").prop("disabled", true)
@@ -208,15 +219,24 @@ function ShowHideAlert(pAction, pOkButton, pAddButton, pCancelButton, pElemento,
 		$('.AlertContent').empty();
 		$(".AlertTittleContainer h4").empty();
 
-		if(pElemento == Elemento.TextBox){
-			$('.AlertContent').append(pCuerpo + '<input type="text" name="'+n+'" />');			
-
-			if (n == 'clase')
+		if(pElemento == Elemento.TextBox)
+		{
+			if (n != Name.Escenario)
 			{
-				//Añadimos un select a clase para poder elegir a que dominio pertenecerá
-				$('.AlertContent').append('<select id="selectDominio" name="dominioVal" class="ComboBoxDominio"></select>');
-				getDominios();
+				$('.AlertContent').append(pCuerpo + '<input type="text" name="'+n+'" />');			
+
+				if (n == 'clase')
+				{
+					//Añadimos un select a clase para poder elegir a que dominio pertenecerá
+					$('.AlertContent').append('<select id="selectDominio" name="dominioVal" class="ComboBoxDominio"></select>');
+					getDominios();
+				}
 			}
+			else
+			{
+				$('.AlertContent').append(pCuerpo);				
+			}			
+
 		}else if(pElemento == Elemento.OnlyText){
 			$('.AlertContent').append(pCuerpo);
 		}else if(pElemento == Elemento.ListBox){
@@ -317,12 +337,13 @@ function getClasses()
 			prevValue = val;
 			if (val != "")
 			{			
-				var url   = serverURL+'/mostrar-clases';
+				var url = serverURL+'/mostrar-clases';
 
 				createAjaxRequest(val, url, '#claseOption', 'Cargando...', 'Clase');
 
 				setTimeout(function () {						
 					clase.text("");				
+					clase.append('<option id="clase" value="">Clase</option>');				
 
 					$.each(ajaxData, function (i, value){				
 						clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['Nombre']+'">'+value['Nombre']+'</option>');				
