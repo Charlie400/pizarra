@@ -142,6 +142,30 @@
 
 		</div>
 	</div>
-	<script type="text/javascript" src="js/script.js"></script>
+		<div class="ColorPickerContainer" style="cursor: move; display: block;">
+		<h5> Color Picker</h5>
+		<div class="ColorPickerBig">
+			<div class="ColorPicker" style="background-color:#1ABC9C"></div>
+			<div class="ColorPicker" style="background-color:#2ECC71"></div>
+			<div class="ColorPicker" style="background-color:#3498DB"></div>
+			<div class="ColorPicker" style="background-color:#9B59B6"></div>
+			<div class="ColorPicker" style="background-color:#F1C40F"></div>
+		</div>
+		<div class="ColorPickerBig">
+			<div class="ColorPicker" style="background-color:#E67E22"></div>
+			<div class="ColorPicker" style="background-color:#E74C3C"></div>
+			<div class="ColorPicker" style="background-color:#000"></div>
+			<div class="ColorPicker" style="background-color:#FFF"></div>
+			<div class="ColorPicker" style="background-color:#95A5A6"></div>
+		</div>
+		<div class="WidthContainer">
+			Grosor:<br><br>
+			<img class="LineWidthModifier" src="./Pizarra_files/more.png" heigth="20" width="20" id="mas">
+			<img class="LineWidthModifier" src="./Pizarra_files/less.png" heigth="20" width="20" id="menos">
+		</div>
+
+	</div>
+	<script type="text/javascript" src="./Pizarra_files/script.js"></script>
+	<script type="text/javascript" src="./Pizarra_files/pintar.js"></script>
 </body>
 </html>
