@@ -9,6 +9,8 @@ abstract class BaseRepo
 
 	abstract public function getModel();
 
+	abstract public function getManager($entity, $datos);
+
 	public function find($id)
 	{
 		return $this->model->find($id);
@@ -19,26 +21,17 @@ abstract class BaseRepo
 		return $this->model->all();
 	}
 
-	//Crea un nuevo registro en base a un array de datos y un array con los nombres de los campos a rellenar
-	public function createNewRecord(array $datos, array $nombres)
+	//Crea un nuevo registro en base a un array de datos de los campos a rellenar
+	public function createNewRecord(array $datos)
 	{
-		$cDatos   = count($datos);
-		$cNombres = count($nombres);
+		$entity  = $this->model;		
+		$manager = $this->getManager($entity, $datos);
 
-		if ($cDatos === $cNombres && $cDatos > 1)
+		if ($manager->save())
 		{
-			for ($i = 0; $i < $cDatos; $i++)
-			{
-				$this->model->$nombres[$i] = $datos[$i];
-			}
-
-			$this->model->save();
+			return true;
 		}
-		elseif ($cDatos === $cNombres && $cDatos === 1)
-		{
-			$this->model->$nombres[0] = $datos[0];
 
-			$this->model->save();
-		}
+		return $manager->errors();
 	}
 }

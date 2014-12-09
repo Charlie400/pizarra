@@ -25,9 +25,9 @@ class HomeController extends BaseController {
 
 	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, AlumnosRepo $alumnosRepo)
 	{
-		$this->dominioRepo = $dominioRepo;
-		$this->claseRepo   = $claseRepo;
-		$this->alumnosRepo = $alumnosRepo;
+		$this->dominioRepo     = $dominioRepo;
+		$this->claseRepo       = $claseRepo;
+		$this->alumnosRepo     = $alumnosRepo;		
 	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
@@ -64,20 +64,21 @@ class HomeController extends BaseController {
 	//EL MÉTODO CORRESPONDIENTE
 	public function addFoo()
 	{
-		$dominio = Input::only('dominio')['dominio'];
-		$clase   = Input::only('clase', 'dominioVal');
-		$alumno  = Input::only('alumno')['alumno'];
+		$data     = Input::only('dominio', 'clase', 'dominioVal', 'alumno');
+		$dominio  = $data['dominio'];
+		$clase    = $data['clase'];
+		$claseDom = $data['dominioVal'];
+		$alumno   = $data['alumno'];
 
-		if ( ! is_null($dominio) && ! empty($dominio))
+		if ( ! is_null($dominio))
 		{
 			$this->addDominio($dominio);			
 		}
-		elseif ( ! is_null($clase['clase']) && ! empty($clase['clase']) 
-			    && ! is_null($clase['dominioVal']) && ! empty($clase['dominioVal']))
+		elseif ( ! is_null($clase) && ! is_null($claseDom))
 		{
-			$this->addClase($clase);
+			$this->addClase($clase, $claseDom);
 		}
-		elseif ( ! is_null($alumno) && ! empty($alumno))
+		elseif ( ! is_null($alumno))
 		{
 			$this->createAlumno($alumno);
 		}
@@ -91,23 +92,29 @@ class HomeController extends BaseController {
 
 	public function addDominio($nombre)
 	{
-		$this->dominioRepo->createNewRecord([$nombre], ['Nombre']);
+		$this->dominioRepo->createNewRecord(['Nombre' => $nombre]);
 	}
 
-	public function addClase($c)
+	public function addClase($c, $cD)
 	{
-		$datos   = [$c['clase'], $c['dominioVal']];
-		$nombres = ['Nombre', 'id_dominio'];
+		$datos   = [
+			'Nombre' => $c, 
+			'id_dominio' => $cD
+		];
 
-		$this->claseRepo->createNewRecord($datos, $nombres);
+		$this->claseRepo->createNewRecord($datos);
 	}
 
 	public function createAlumno($nombre)
 	{
-		$datos   = [$nombre, 1, 'alumno'];
-		$nombres = ['username', 'enabled', 'roles'];
-		
-		$this->alumnosRepo->createNewRecord($datos, $nombres);
+		$password = '123456'; 
+		$datos    = [
+			'username' => $nombre, 
+			'password' => $password, 
+			'password_confirmation' => $password
+		];
+
+		$this->alumnosRepo->createNewRecord($datos);
 	}
 
 	/*--------------TERMINAN MÉTODOS PARA AÑADIR DATOS A LA DB CON ALERTS-----------------*/
@@ -117,7 +124,7 @@ class HomeController extends BaseController {
 	public function saveImageSequence()
 	{
 
-		$multimedia  = $this->getDirMultimedia();		
+		$multimedia = $this->getDirMultimedia();		
 
 		$limit      = $_POST['limit'];
 		$packages   = $_POST['packages'];
@@ -194,9 +201,9 @@ class HomeController extends BaseController {
 
 	public function getDirMultimedia()
 	{
-		$dir = __DIR__;
+		$public = public_path();
 
-		return "$dir/../../public/js/multimedia";
+		return "$public/js/multimedia";
 	}
 
 	public function getInstruction($m, $pathImg, $pathAudio, $pathVid, $size)

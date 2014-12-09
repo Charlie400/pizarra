@@ -1,7 +1,7 @@
 <?php namespace Pizarra\Entities;
 
 class Dominio extends \Eloquent {
-	protected $fillable = [];
+	protected $fillable = ['Nombre'];
 
 	public function clase()
 	{
