@@ -279,6 +279,7 @@ h1{
 .ComboBoxDominio{
 	width: 10em;
 	background-color: #E67E22;
+	padding: 0.2em;
 	color: #2C3E50;
 	border: none;
 	vertical-align: bottom;
@@ -286,6 +287,7 @@ h1{
 	border-radius: 5px;
 	color: white;
 	display: inline-block;
+	cursor: pointer;
 }
 
 .ComboBoxClase{
@@ -297,6 +299,8 @@ h1{
 	border-radius: 5px;
 	color: white;
 	display: inline-block;
+	cursor: pointer;
+	padding: 0.2em;
 }
 
 .ComboBoxDisabled{
@@ -308,6 +312,7 @@ h1{
 	border-radius: 5px;
 	color: #ECF0F1;
 	display: inline-block;
+	padding: 0.2em;
 }
 
 .CuadroInformativo{
