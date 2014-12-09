@@ -16,7 +16,8 @@ Name = {
 	Dominio: 'dominio',
 	Escenario: 'borrarEscenario',
 	Clase: 'clase',
-	Alumno: 'alumno'
+	Alumno: 'alumno',
+	Usuarios: 'usuarios'
 },
 serverURL = location.protocol+'//'+location.hostname+'/laravel/public';
 
@@ -135,7 +136,7 @@ function Administracion(){
 }
 
 
-if ($("#dominio").find('option:selected').text() == "Dominio"){
+if ($("#dominio").val() == 0){
 	$("#clase").prop("disabled", true)
 	$("#clase").attr('class', 'ComboBoxDisabled');
 }else{
@@ -151,19 +152,14 @@ var selectDominio = "";
 
 function GetComboDominio(){
 
-	if ($("#dominio").find('option:selected').text() != "Dominio"){
-		//Con está comprobación evitamos que ejecute el código solo con hacer click, primero tiene que
-		//cambiar el valor, dado que se borraba #clase con solo hacer click en el select sin haber seleccionado
-		//un nuevo dominio.
-		if ($("#dominio").val() != selectDominio)
-		{
-			selectDominio = $("#dominio").val();
+	if ($("#dominio").val() != 0){
+		
 			$(".CuadroP1").empty();
 			$(".CuadroP2").empty();
 			$(".CuadroP1").append($("#dominio").find('option:selected').text());
 			$("#clase").prop("disabled", false);
 			$("#clase").attr('class', 'ComboBoxClase');
-		}
+		
 
 	}else{
 		$("#clase").prop("disabled", true)
@@ -178,7 +174,7 @@ $("#clase").on("click", GetComboClase);
 
 function GetComboClase(){
 
-	if ($("#clase").find('option:selected').text() != "Clase"){
+	if ($("#clase").val() != 0){
 		$(".CuadroP2").empty();
 		$(".CuadroP2").append("/ " + $("#clase").find('option:selected').text());
 
@@ -197,8 +193,8 @@ function createDominio()
 
 function borrarEscenario()
 {
-	ShowHideAlert(Action.Show, true, false, true, Elemento.TextBox, "Borrar Escenario", 
-	"¿Estás seguro de que quieres borrar el escenario?", Name.Escenario);
+	ShowHideAlert(Action.Show, true, false, true, Elemento.ListBox, "Borrar Escenarios", 
+	"Elija los escenarios que desee borrar.", Name.Escenario);
 }
 
 function createClase()
@@ -216,6 +212,12 @@ function createAlumno()
 function closeAlert()
 {
 	ShowHideAlert(Action.Hide);
+}
+
+function editUsuario()
+{
+	ShowHideAlert(Action.Show, true, false, true, Elemento.OnlyText, "Editar Usuario", 
+	"Rellene los campos y pulse aceptar.", Name.Usuarios);
 }
 
 // $("#botonAlumnos").on("click",ShowHideAlert(Action.Show, true, false, true, Elemento.OnlyText, "Esto es una prueba", "Por favor, indique un nombre válido para el elemento"));
@@ -239,16 +241,27 @@ function ShowHideAlert(pAction, pOkButton, pAddButton, pCancelButton, pElemento,
 					$('.AlertContent').append('<select id="selectDominio" name="dominioVal" class="ComboBoxDominio"></select>');
 					getDominios();
 				}
+				
 			}
 			else
 			{
 				$('.AlertContent').append(pCuerpo);				
-			}			
+		}			
 
 		}else if(pElemento == Elemento.OnlyText){
 			$('.AlertContent').append(pCuerpo);
+				if (n == 'usuarios')
+				{
+					$('.AlertContent').append("</br><input type='text' placeholder='Nombre'/></br><input type='text' placeholder='Apellidos'/></br><input type='text' placeholder='Usuario'/></br><input type='tel' placeholder='Telefono'/></br><input type='email' placeholder='Email'/></br><input type='password' placeholder='Contraseña'/></br><input type='password' placeholder='Repite Contraseña'/>");
+				}
 		}else if(pElemento == Elemento.ListBox){
+			if (n == Name.Escenario) {
+				$('.AlertContent').append(pCuerpo + "<form class='EscenariosAlert'><input type='checkbox' name='escenario'/></br></form>");
+			}
+			else
+			{
 			$('.AlertContent').append("");
+			}
 		}
 
 		$(".AlertTittleContainer h4").append(pTitulo);

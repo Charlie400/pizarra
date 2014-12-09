@@ -510,3 +510,14 @@ h1{
 .DeleteBlackboard{
 	background: 
 }
+
+.EscenariosAlert{
+	background-color: white;
+	border-radius: 5px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.EscenariosAlert input{
+	margin:0.2em 0.5em;
+}
