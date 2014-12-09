@@ -12,11 +12,11 @@
 <body>
 	<div id="LoginContainer">
 		<h1 class="TituloLogin">LOGIN</h1>
-		<form class="Login">
-			<input type="text" name="User" placeholder="Usuario"/>
-			<input type="password" name="Pass" placeholder="Contraseña"/>
+		{{ Form::open(['route' => 'login', 'class' => 'Login', 'method' => 'POST', 'role' => 'form']) }}
+			{{ Form::text('User', null, ['placeholder' => 'Usuario']) }}			
+			{{ Form::password('Pass', ['placeholder' => 'Contraseña']) }}						
 			<input type="submit" name="Boton1" value="Entrar"/>
-		</form>
+		{{ Form::close() }}
 	</div>
 </body>
 </html>

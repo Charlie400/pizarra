@@ -12,19 +12,23 @@
 */
 
 //LOGIN
-Route::post('login', ['as' => 'login', 'uses' => '']);
+Route::get('/login', ['as' => 'loginForm', 'uses' => 'UserController@index']);
+Route::post('/login', ['as' => 'login', 'uses' => 'UserController@login']);
 
-//INDEX HOME
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::group(['before' => 'auth'], function()
+{
+	//INDEX HOME
+	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 
-/*COMIENZAN FUNCIONALIDADES DEL HOME*/
-Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
-Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
-Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
-/*TERMINAN FUNCIONALIDADES DEL HOME*/
+	/*COMIENZAN FUNCIONALIDADES DEL HOME*/
+	Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
+	Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
+	Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
+	/*TERMINAN FUNCIONALIDADES DEL HOME*/
 
-/*BEGIN VIDEO CANVAS AND AUDIO*/
-Route::post('/image-sequence', ['as' => 'imageSequence', 'uses' => 'HomeController@saveImageSequence']);
-Route::post('/save-audio', ['as' => 'saveAudio', 'uses' => 'HomeController@saveAudio']);
-/*END VIDEO CANVAS AND AUDIO*/
+	/*BEGIN VIDEO CANVAS AND AUDIO*/
+	Route::post('/image-sequence', ['as' => 'imageSequence', 'uses' => 'HomeController@saveImageSequence']);
+	Route::post('/save-audio', ['as' => 'saveAudio', 'uses' => 'HomeController@saveAudio']);
+	/*END VIDEO CANVAS AND AUDIO*/
+});
