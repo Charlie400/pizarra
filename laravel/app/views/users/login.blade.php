@@ -13,8 +13,10 @@
 	<div id="LoginContainer">
 		<h1 class="TituloLogin">LOGIN</h1>
 		{{ Form::open(['route' => 'login', 'class' => 'Login', 'method' => 'POST', 'role' => 'form']) }}
-			{{ Form::text('User', null, ['placeholder' => 'Usuario']) }}			
-			{{ Form::password('Pass', ['placeholder' => 'Contraseña']) }}						
+			{{ Field::text('username', null, ['input' => ['class' => 'input', 'placeholder' => 'Usuario'], 
+			'label' => ['style' => 'display: none']]) }}
+			{{ Field::password('password', ['input' => ['class' => 'input', 'placeholder' => 'Contraseña'], 
+			'label' => ['style' => 'display: none']]) }}
 			<input type="submit" name="Boton1" value="Entrar"/>
 		{{ Form::close() }}
 	</div>

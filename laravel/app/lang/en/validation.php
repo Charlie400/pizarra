@@ -101,6 +101,11 @@ return array(
 	|
 	*/
 
-	'attributes' => array(),
+	'attributes' => [
+		'username'  => 'Nombre de usuario',
+		'full_name' => 'Nombre completo',
+		'password'  => 'Contraseña',
+		'password_confirmation' => 'Confirmar contraseña'
+	],
 
 );

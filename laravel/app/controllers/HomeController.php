@@ -35,7 +35,7 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		$dominios = $this->dominioRepo->findAll();
+		$dominios = $this->dominioRepo->findAll();		
 
 		return View::make('pizarra', compact('dominios'));
 	}	

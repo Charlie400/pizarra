@@ -9,7 +9,7 @@ abstract class BaseManager
 	public function __construct($entity, $data)
 	{
 		$this->entity 	 = $entity;
-		$this->data   	 = array_only($data, array_keys($this->getRules()));
+		$this->data   	 = array_only($data, array_keys($this->getRules()));		
 	}
 
 	abstract public function getRules();
@@ -18,9 +18,10 @@ abstract class BaseManager
 	{
 		$rules = $this->getRules();
 
+
 		$validation = \Validator::make($this->data, $rules);
 
-		$isValid      = $validation->passes();
+		$isValid      = $validation->passes();		
 		$this->errors = $validation->messages();
 
 		return $isValid;

@@ -1,9 +1,19 @@
 <?php 
 
 use Pizarra\Entities\User;
+use Pizarra\Managers\LoginManager;
 
 class UserController extends BaseController
 {
+
+	protected $loginManager;
+	protected $errors;
+
+	public function __construct()
+	{
+
+	}
+
 	public function index()
 	{
 		return View::make('users/login');
@@ -11,14 +21,24 @@ class UserController extends BaseController
 
 	public function login()
 	{
-		$data['username'] = Input::only('User')['User'];
-		$data['password'] = Input::only('Pass')['Pass'];		
+		$data = Input::only('username', 'password');
 
-		if (Auth::attempt($data))
+		$user 	 = new User();
+		$manager = new LoginManager($user, $data);
+
+		if ($manager->isValid())
 		{
-			return Redirect::route('home');
+			if (Auth::attempt($data))
+			{
+				return Redirect::route('home');
+			}
+
+			$this->errors = $manager->errors();
+			$this->errors->add('password', 'Contraseña incorrecta.');
+
+			return Redirect::back()->withInput()->withErrors($this->errors);
 		}
 
-		return Redirect::back()->withInput();
+		return Redirect::back()->withInput()->withErrors($manager->errors());
 	}
 }

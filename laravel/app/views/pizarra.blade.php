@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html>
 <html lang="es">
 <html>
 <head>
@@ -13,9 +13,7 @@
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorderWorker.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-
-
+<body>	
 	<header>
 		<div class="Titulo">
 			<h1>Pizarra Digital</h1>
@@ -134,12 +132,12 @@
 				</div>
 				<div class="AlertElement">
 				</div>
-				<div class="ButtonsContainer">
+				<div class="ButtonsContainer">					
 					<button class="OkButton Button">Aceptar</button>
 					<button class="AddButton Button">Agregar</button>
 					<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 				</div>
-			{{ Form::close() }}
+			{{ Form::close() }}			
 
 		</div>
 	</div>
@@ -177,5 +175,7 @@
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/pintar.js"></script>
+
+	
 </body>
 </html>

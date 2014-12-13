@@ -44,18 +44,7 @@ body{
 	text-align: center;
 }
 
-input[name="User"]{
-	padding: 1em;
-	width: 70%;
-	margin: 1em auto;
-	display: block;
-	border-radius: 5px;
-	border: none;
-	background-color: white;
-	color: black;
-}
-
-input[name="Pass"]{
+.input{
 	padding: 1em;
 	width: 70%;
 	margin: 1em auto;

@@ -121,7 +121,12 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+
+		//Vendor
 		'Way\Generators\GeneratorsServiceProvider',
+
+		//Custom
+		'Pizarra\Components\FieldBuilder\FieldServiceProvider',
 
 	),
 
@@ -189,6 +194,9 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
+
+		//Custom
+		'Field'				=> 'Pizarra\Components\FieldBuilder\Field',
 
 	),
 
