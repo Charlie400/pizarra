@@ -18,8 +18,7 @@ Name = {
 	Clase: 'clase',
 	Alumno: 'alumno',
 	Usuarios: 'usuarios'
-},
-serverURL = location.protocol+'//'+location.hostname+'/laravel/public';
+};
 
 $('#c').attr('width', $('.Pizarra').width());
 $('#c').attr('height', $('.Pizarra').height());

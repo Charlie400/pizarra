@@ -25,6 +25,7 @@ Route::group(['before' => 'auth'], function()
 	Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
 	Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
 	Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
+	Route::post('/create-undo', ['as' => 'createUndo', 'uses' => 'HomeController@createUndo']);
 
 	////POR AÑADIR AL FORM
 	Route::post('/create/user', ['as' => 'createUser', 'uses' => 'HomeController@createUser']);

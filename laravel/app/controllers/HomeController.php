@@ -249,6 +249,12 @@ class HomeController extends BaseController {
 		return $file;
 	}
 
+	public function createUndo()
+	{
+		$multimedia = $this->getDirMultimedia();
+ 		file_put_contents($multimedia . '/undoImages/pene.txt', 'Hola world');
+	}
+
 	/*--------------TERMINAN MÉTODOS PARA PROCESAR GRABACIÓN DE CANVAS Y AUDIO-----------------*/
 
 }
