@@ -75,9 +75,10 @@
 				<input id="botonDibujo" onClick="dibujoManoAlzada()" type="submit" name="Boton2" value="Dibujo a mano alzada"/>
 				<div id="draggable" class="ui-widget-content">
 					<p>Drag me around</p>
-				</div
+				</div>
 			</div>
 			<div id="administracionHerramientas" class="MenuHerramientas">
+				<input id="botonProfe" onClick="createProfesor()" type="submit" name="Boton2" value="Docentes"/>
 			</div>
 		</div>
 	</header>
@@ -121,25 +122,79 @@
 	</div>
 
 	<div class="AlertContainer">
-		<div class="AlertBody">
-			<div class="AlertTittleContainer">
-				<h4>Título</h4><img onClick="closeAlert()" src="images/CloseButton.png" height="20" id="closeButton">
-			</div>
-
-			{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form']) }}
-				<div class="AlertContent">
-
+		
+			<div class="AlertBody">
+				<div class="AlertTittleContainer">
+					<h4>Título</h4><img onClick="closeAlert()" src="images/CloseButton.png" height="20" id="closeButton">
 				</div>
-				<div class="AlertElement">
-				</div>
+					<div class="AlertContent">
+						
+					</div>
+					<div class="AlertElement">
+						<form class="Foo1">
+							<select id="selectDominio" name="dominioVal" class="ComboBoxDominio">
+							</select>
+							<input id="foo11" name="" type="text" placeholder=""/>
+
+						</form>
+						<form class="Foo2">
+							<table height="100%">
+								<thead>
+									<tr>
+										<td><strong>Imagen</strong></td>
+										<td><strong>Escenario</strong></td>
+										<td><strong>Seleccionar</strong></td>
+									</tr>
+								</thead>
+								<tbody height="100%">
+									<tr>
+										<td><img src=""/></td>
+										<td><input type="text" name="id" value=""/></td>
+										<td><input type="Checkbox" name="checkbox"/></td>
+									</tr>
+								</tbody>
+							</table>							
+						</form>
+						<form class="Foo3">	
+							<input name="firstname" type="text" placeholder="Nombre"/>
+							<input name="lastname" type="text" placeholder="Apellidos"/>
+							<input name="nif" type="text" placeholder="Dni"/>
+							<input name="direction" type="text" placeholder="Direccion"/>
+							<input name="city" type="text" placeholder="Localidad"/>
+							<input name="state" type="text" placeholder="Provincia"/>
+							<input name="Cp" type="number" placeholder="Cp"/>
+							<input name="tel" type="tel" maxlength="9" placeholder="Tlf"/>
+							<input name="email" type="email" placeholder="E-mail"/>
+							<input name="date" type="text" placeholder="Fecha Nacimiento"/>
+							<input name="obs" type="text" placeholder="Observaciones"/>
+							<input name="password" type="password" placeholder="Contraseña"/>
+							<input name="password_confirmation" type="password" placeholder="Repite Cotraseña"/>
+						</form>
+						<form class="Foo4">
+							<select id="selectUser"></select>
+							<input name="firstname" type="text" placeholder="Nombre"/>
+							<input name="lastname" type="text" placeholder="Apellidos"/>
+							<input name="nif" type="text" placeholder="Dni"/>
+							<input name="direction" type="text" placeholder="Direccion"/>
+							<input name="city" type="text" placeholder="Localidad"/>
+							<input name="state" type="text" placeholder="Provincia"/>
+							<input name="Cp" type="number" placeholder="Cp"/>
+							<input name="tel" type="tel" maxlength="9" placeholder="Tlf"/>
+							<input name="email" type="email" placeholder="E-mail"/>
+							<input name="date" type="text" placeholder="Fecha Nacimiento"/>
+							<input name="obs" type="text" placeholder="Observaciones"/>
+							<input name="password" type="password" placeholder="contraseña actual"/>
+							<input name="new_password" type="password" placeholder="Nueva Contraseña"/>
+							<input name="password_confirmation" type="password" placeholder="Repite Contraseña"/>
+						</form>
+					</div>				
 				<div class="ButtonsContainer">					
 					<button class="OkButton Button">Aceptar</button>
 					<button class="AddButton Button">Agregar</button>
 					<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-				</div>
-			{{ Form::close() }}			
-
-		</div>
+				</div>				
+			
+			</div>		
 	</div>
 		<div class="ColorPickerContainer">
 		<h5> Color Picker</h5>

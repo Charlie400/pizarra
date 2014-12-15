@@ -356,15 +356,19 @@ h1{
 
 .AlertBody{
 	position: absolute;
-	top: 30%;
-	right: 35%;
-	left: 35%;
+	top: 15%;
+	right: 30%;
+	left: 30%;
 	background-color: #ECF0F1;
 	display: inline-block;
 	margin: 2em auto;
 	text-align: center;
 	padding-bottom: 0.5em;
 	border-radius: 5px;
+}
+
+.AlertBody form{
+	display: none;
 }
 
 .AlertTittleContainer{
@@ -515,3 +519,20 @@ h1{
 .EscenariosAlert input{
 	margin:0.2em 0.5em;
 }
+
+#selectDominio{
+	display: inline-block;
+	margin: 5% 25%;
+}
+
+.AlertElement{
+	margin: 5%;
+	height: 10em;
+	overflow: auto;
+}
+.Foo4 select{
+	width: 50%;
+	margin: 5%;
+}
+
+
