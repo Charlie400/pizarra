@@ -25,6 +25,13 @@ Route::group(['before' => 'auth'], function()
 	Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
 	Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
 	Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
+
+	////POR AÑADIR AL FORM
+	Route::post('/create/user', ['as' => 'createUser', 'uses' => 'HomeController@createUser']);
+	Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'HomeController@editUser']);
+	Route::post('/borrar/escenario', ['as' => 'editUser', 'uses' => 'HomeController@borrarEscenario']);
+	////POR AÑADIR AL FORM
+
 	/*TERMINAN FUNCIONALIDADES DEL HOME*/
 
 	/*BEGIN VIDEO CANVAS AND AUDIO*/

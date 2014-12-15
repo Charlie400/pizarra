@@ -25,7 +25,7 @@
 					<li id="usuarios" Class="Menu-Item">Usuarios</li>
 					<li id="administracion" Class="Menu-Item">Administración</li>
 					<div class="CuadroUsuario">
-					<p class="CuadroUsuarioP"></p>
+					<p class="CuadroUsuarioP">{{ Auth::user()->username }}</p>
 					</div>
 				</ul>
 			</nav>

@@ -21,10 +21,20 @@ abstract class BaseRepo
 		return $this->model->all();
 	}
 
-	//Crea un nuevo registro en base a un array de datos de los campos a rellenar
-	public function createNewRecord(array $datos)
+	public function deleteRecord($id)
 	{
-		$entity  = $this->model;		
+		$model = $this->find($id);
+		$model->delete();
+	}
+
+	//Crea un nuevo registro en base a un array de datos de los campos a rellenar
+	public function createNewRecord(array $datos, $entity = "")
+	{		
+		if (empty($entity))
+		{
+			$entity = $this->model;
+		}
+
 		$manager = $this->getManager($entity, $datos);
 
 		if ($manager->save())
@@ -33,5 +43,10 @@ abstract class BaseRepo
 		}
 
 		return $manager->errors();
+	}
+
+	public function numberFromString($string)
+	{
+		return filter_var($string, FILTER_SANITIZE_NUMBER_INT);
 	}
 }

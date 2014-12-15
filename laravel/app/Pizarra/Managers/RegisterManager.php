@@ -5,9 +5,14 @@ class RegisterManager extends BaseManager
 	public function getRules()
 	{
 		$rules = [
-			'username' => 'required',
-			'password' => 'required|confirmed',
-			'password_confirmation' => 'required'
+			'firstname' => 'required|max:120',
+			'lastname'  => 'required|max:120',
+			'roles'		=> 'required|in:"alumno","admin"',
+			'phone' 	=> 'digits:9',
+			'email'     => 'required|email|max:120|unique:users,email',
+			'username'  => 'required|max:120',
+			'password'  => 'required|confirmed|max:150',
+			'password_confirmation' => 'required|max:150'
 		];
 
 		return $rules;

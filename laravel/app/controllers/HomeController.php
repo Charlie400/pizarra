@@ -1,8 +1,9 @@
 <?php
 
+use Pizarra\Repositories\EscenarioRepo;
 use Pizarra\Repositories\DominioRepo;
-use Pizarra\Repositories\ClaseRepo;
 use Pizarra\Repositories\AlumnosRepo;
+use Pizarra\Repositories\ClaseRepo;
 
 class HomeController extends BaseController {
 
@@ -22,12 +23,15 @@ class HomeController extends BaseController {
 	protected $dominioRepo;
 	protected $claseRepo;
 	protected $alumnosRepo;
+	protected $escenarioRepo;
 
-	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, AlumnosRepo $alumnosRepo)
+	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, AlumnosRepo $alumnosRepo,
+								EscenarioRepo $escenarioRepo)
 	{
-		$this->dominioRepo     = $dominioRepo;
-		$this->claseRepo       = $claseRepo;
-		$this->alumnosRepo     = $alumnosRepo;		
+		$this->escenarioRepo = $escenarioRepo;		
+		$this->dominioRepo   = $dominioRepo;
+		$this->alumnosRepo   = $alumnosRepo;
+		$this->claseRepo     = $claseRepo;
 	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
@@ -64,11 +68,10 @@ class HomeController extends BaseController {
 	//EL MÉTODO CORRESPONDIENTE
 	public function addFoo()
 	{
-		$data     = Input::only('dominio', 'clase', 'dominioVal', 'alumno');
+		$data     = Input::only('dominio', 'clase', 'dominioVal');
 		$dominio  = $data['dominio'];
 		$clase    = $data['clase'];
-		$claseDom = $data['dominioVal'];
-		$alumno   = $data['alumno'];
+		$claseDom = $data['dominioVal'];	
 
 		if ( ! is_null($dominio))
 		{
@@ -77,10 +80,6 @@ class HomeController extends BaseController {
 		elseif ( ! is_null($clase) && ! is_null($claseDom))
 		{
 			$this->addClase($clase, $claseDom);
-		}
-		elseif ( ! is_null($alumno))
-		{
-			$this->createAlumno($alumno);
 		}
 		else
 		{
@@ -98,26 +97,49 @@ class HomeController extends BaseController {
 	public function addClase($c, $cD)
 	{
 		$datos   = [
-			'Nombre' => $c, 
+			'Nombre' 	 => $c, 
 			'id_dominio' => $cD
 		];
 
 		$this->claseRepo->createNewRecord($datos);
 	}
 
-	public function createAlumno($nombre)
+	public function createUser()
 	{
-		$password = '123456'; 
-		$datos    = [
-			'username' => $nombre, 
-			'password' => $password, 
-			'password_confirmation' => $password
-		];
-
+		$datos = Input::only('firstname', 'lastname', 'username', 'password', 'password_confirmation', 
+							 'phone', 'roles');
+		
 		$this->alumnosRepo->createNewRecord($datos);
 	}
 
+
 	/*--------------TERMINAN MÉTODOS PARA AÑADIR DATOS A LA DB CON ALERTS-----------------*/
+
+	/*--------------COMIENZAN MÉTODOS PARA EDITAR DATOS DE LA DB CON ALERTS-----------------*/
+
+	public function editUser()
+	{
+		$user  = Auth::user();
+		$data  = Input::only('firstname', 'lastname', 'username', 'oldpassword', 'password', 
+							 'password_confirmation', 'phone');
+
+		if (Auth::validate(['username' => $data['username'], 'password' => $data['oldpassword']]))
+		{
+			unset($data['oldpassword']);
+			$this->alumnosRepo->createNewRecord($data, $user);
+		}
+	}
+
+	/*--------------TERMINAN MÉTODOS PARA EDITAR DATOS DE LA DB CON ALERTS-----------------*/
+
+	/*--------------COMIENZAN MÉTODOS PARA ELIMINAR DATOS DE LA DB CON ALERTS-----------------*/
+
+	public function borrarEscenario()
+	{
+		$data = Input::all();						
+
+		$this->escenarioRepo->borrarEscenarios($data);
+	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA PROCESAR GRABACIÓN DE CANVAS Y AUDIO-----------------*/
 

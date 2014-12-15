@@ -246,13 +246,13 @@ function ShowHideAlert(pAction, pOkButton, pAddButton, pCancelButton, pElemento,
 			else
 			{
 				$('.AlertContent').append(pCuerpo);				
-		}			
+			}			
 
 		}else if(pElemento == Elemento.OnlyText){
 			$('.AlertContent').append(pCuerpo);
 				if (n == 'usuarios')
 				{
-					$('.AlertContent').append("</br><input type='text' placeholder='Nombre'/></br><input type='text' placeholder='Apellidos'/></br><input type='text' placeholder='Usuario'/></br><input type='tel' placeholder='Telefono'/></br><input type='email' placeholder='Email'/></br><input type='password' placeholder='Contraseña'/></br><input type='password' placeholder='Repite Contraseña'/>");
+					$('.AlertContent').append("</br><input name='firstname' type='text' placeholder='Nombre'/></br><input name='lastname' type='text' placeholder='Apellidos'/></br><input name='username' type='text' placeholder='Usuario'/></br><input name='phone' type='tel' placeholder='Telefono'/></br><input name='email' type='email' placeholder='Email'/></br><input name='password' type='password' placeholder='Contraseña'/></br><input name='password_confirmation' type='password' placeholder='Repite Contraseña'/>");
 				}
 		}else if(pElemento == Elemento.ListBox){
 			if (n == Name.Escenario) {
