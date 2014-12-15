@@ -169,8 +169,8 @@
 		</div>
 		<div class="WidthContainer">
 			<h4>Edición:</h4>
-			<img class="LineWidthModifier" src="images/goRight.png" heigth="20" width="20" id="goRight">
-			<img class="LineWidthModifier" src="images/goBack.png" heigth="20" width="20" id="goBack">
+			<img class="LineWidthModifier" src="images/goRight.png" onClick="goCanvas()" heigth="20" width="20" id="goRight">
+			<img class="LineWidthModifier" src="images/goBack.png" onClick="backCanvas()"	heigth="20" width="20" id="goBack">
 
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>

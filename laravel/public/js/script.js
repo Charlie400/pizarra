@@ -469,3 +469,4 @@ function dibujoManoAlzada(){
 
 $('.ColorPickerContainer').drags();
 
+

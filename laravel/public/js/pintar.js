@@ -1,6 +1,7 @@
 var pizarra_canvas;
 var pizarra_context;
 var sGrosor = 3;
+var imageArray = new Array();
  
 
 pizarra_canvas = document.getElementById("c");
@@ -55,6 +56,7 @@ function cambiaTrazado(){
  
  
 function empezarPintar(e){
+	imageArray.push(getDataURL());
 	pizarra_context.beginPath();
 	pizarra_context.moveTo(e.clientX-pizarra_canvas.offsetLeft,e.clientY-pizarra_canvas.offsetTop);
 	pizarra_canvas.addEventListener("mousemove",pintar,false)
@@ -86,4 +88,17 @@ function pintar(e) {
  
 function borrar(){
 	pizarra_canvas.width = pizarra_canvas.width;
+}
+
+function goCanvas(){
+	var imagen;
+	createAjaxRequest();
+	pizarra_canvas.drawImage(imagen, 0, 0)
+}
+
+function backCanvas(){
+	var imagen;
+	var lastImage = imageArray.length()-1;
+	createAjaxRequest(imageArray(lastImage), );
+	pizarra_canvas.drawImage(imagen, 0, 0)
 }
