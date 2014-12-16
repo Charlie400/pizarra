@@ -9,7 +9,7 @@ class RegisterManager extends BaseManager
 			'lastname'  => 'required|max:120',
 			'roles'		=> 'required|in:"alumno","admin"',
 			'phone' 	=> 'digits:9',
-			'email'     => 'required|email|max:120|unique:users,email',
+			'email'     => 'required|email|max:120|unique:users,email,' . \Auth::user()->id,
 			'username'  => 'required|max:120',
 			'password'  => 'required|confirmed|max:150',
 			'password_confirmation' => 'required|max:150'
