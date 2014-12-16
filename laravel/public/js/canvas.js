@@ -1,6 +1,6 @@
 ;
 window.onload = function() {var botonGrabar = document.getElementById("botonGrabar")};
-var recording = false, serverURL = location.protocol+'//'+location.hostname+'/pizarra/laravel/public';
+var recording = false, serverURL = location.protocol+'//'+location.hostname+'/laravel/public';
 
 function recordStopVideoAudio()
 {
