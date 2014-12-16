@@ -1,8 +1,9 @@
 <?php
 
+use Pizarra\Repositories\EscenarioRepo;
 use Pizarra\Repositories\DominioRepo;
-use Pizarra\Repositories\ClaseRepo;
 use Pizarra\Repositories\AlumnosRepo;
+use Pizarra\Repositories\ClaseRepo;
 
 class HomeController extends BaseController {
 
@@ -22,12 +23,15 @@ class HomeController extends BaseController {
 	protected $dominioRepo;
 	protected $claseRepo;
 	protected $alumnosRepo;
+	protected $escenarioRepo;
 
-	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, AlumnosRepo $alumnosRepo)
+	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, AlumnosRepo $alumnosRepo,
+								EscenarioRepo $escenarioRepo)
 	{
-		$this->dominioRepo     = $dominioRepo;
-		$this->claseRepo       = $claseRepo;
-		$this->alumnosRepo     = $alumnosRepo;		
+		$this->escenarioRepo = $escenarioRepo;		
+		$this->dominioRepo   = $dominioRepo;
+		$this->alumnosRepo   = $alumnosRepo;
+		$this->claseRepo     = $claseRepo;
 	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
@@ -35,9 +39,10 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		$dominios = $this->dominioRepo->findAll();		
+		$dominios   = $this->dominioRepo->findAll();
+		$escenarios = $this->escenarioRepo->findAll();
 
-		return View::make('pizarra', compact('dominios'));
+		return View::make('pizarra', compact('dominios', 'escenarios'));
 	}	
 
 	public function sendDominios()
@@ -64,23 +69,18 @@ class HomeController extends BaseController {
 	//EL MÉTODO CORRESPONDIENTE
 	public function addFoo()
 	{
-		$data     = Input::only('dominio', 'clase', 'dominioVal', 'alumno');
+		$data     = Input::only('dominio', 'clase', 'dominioVal');
 		$dominio  = $data['dominio'];
 		$clase    = $data['clase'];
 		$claseDom = $data['dominioVal'];
-		$alumno   = $data['alumno'];
 
-		if ( ! is_null($dominio))
+		if ( ! is_null($dominio) && empty($claseDom))
 		{
 			$this->addDominio($dominio);			
 		}
-		elseif ( ! is_null($clase) && ! is_null($claseDom))
+		elseif ( ! is_null($clase) && ! empty($claseDom))
 		{
 			$this->addClase($clase, $claseDom);
-		}
-		elseif ( ! is_null($alumno))
-		{
-			$this->createAlumno($alumno);
 		}
 		else
 		{
@@ -98,26 +98,56 @@ class HomeController extends BaseController {
 	public function addClase($c, $cD)
 	{
 		$datos   = [
-			'Nombre' => $c, 
+			'Nombre' 	 => $c, 
 			'id_dominio' => $cD
 		];
 
 		$this->claseRepo->createNewRecord($datos);
 	}
 
-	public function createAlumno($nombre)
+	public function createUser()
 	{
-		$password = '123456'; 
-		$datos    = [
-			'username' => $nombre, 
-			'password' => $password, 
-			'password_confirmation' => $password
-		];
-
+		$datos = Input::only('firstname', 'lastname', 'username', 'password', 'password_confirmation', 'email', 
+							 'phone', 'roles');
+		
 		$this->alumnosRepo->createNewRecord($datos);
+
+		return Redirect::back();
 	}
 
+
 	/*--------------TERMINAN MÉTODOS PARA AÑADIR DATOS A LA DB CON ALERTS-----------------*/
+
+	/*--------------COMIENZAN MÉTODOS PARA EDITAR DATOS DE LA DB CON ALERTS-----------------*/
+
+	public function editUser()
+	{
+		$user  = Auth::user();
+		$data  = Input::only('firstname', 'lastname', 'username', 'oldpassword', 'password', 'email',
+							 'password_confirmation', 'phone', 'roles');
+
+		if (Auth::validate(['username' => $data['username'], 'password' => $data['oldpassword']]))
+		{			
+			unset($data['oldpassword']);
+			dd($data);
+			$this->alumnosRepo->createNewRecord($data, $user);
+		}
+
+		return Redirect::back();
+	}
+
+	/*--------------TERMINAN MÉTODOS PARA EDITAR DATOS DE LA DB CON ALERTS-----------------*/
+
+	/*--------------COMIENZAN MÉTODOS PARA ELIMINAR DATOS DE LA DB CON ALERTS-----------------*/
+
+	public function borrarEscenario()
+	{
+		$data = Input::only('checkbox')['checkbox'];
+
+		$this->escenarioRepo->borrarEscenarios($data);
+
+		return Redirect::back();
+	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA PROCESAR GRABACIÓN DE CANVAS Y AUDIO-----------------*/
 
@@ -225,6 +255,12 @@ class HomeController extends BaseController {
 		$file = base64_decode(trim($file[1]));
 
 		return $file;
+	}
+
+	public function createUndo()
+	{
+		$multimedia = $this->getDirMultimedia();
+ 		file_put_contents($multimedia . '/undoImages/prueba.txt', 'Hola world');
 	}
 
 	/*--------------TERMINAN MÉTODOS PARA PROCESAR GRABACIÓN DE CANVAS Y AUDIO-----------------*/

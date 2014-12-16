@@ -18,7 +18,6 @@ abstract class BaseManager
 	{
 		$rules = $this->getRules();
 
-
 		$validation = \Validator::make($this->data, $rules);
 
 		$isValid      = $validation->passes();		
@@ -34,7 +33,7 @@ abstract class BaseManager
 			return false;
 		}
 
-		$this->entity->fill($this->data);
+		$this->entity->fill($this->data);		
 
 		$this->entity->save();
 

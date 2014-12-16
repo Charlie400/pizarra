@@ -25,7 +25,8 @@
 					<li id="usuarios" Class="Menu-Item">Usuarios</li>
 					<li id="administracion" Class="Menu-Item">Administración</li>
 					<div class="CuadroUsuario">
-					<p class="CuadroUsuarioP"></p>
+						<?php $user = Auth::user(); ?>
+						<p class="CuadroUsuarioP">{{ $user->username }}</p>
 					</div>
 				</ul>
 			</nav>
@@ -131,13 +132,20 @@
 						
 					</div>
 					<div class="AlertElement">
-						<form class="Foo1">
-							<select id="selectDominio" name="dominioVal" class="ComboBoxDominio">
+						{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 
+									   'class' => 'Foo1']) }}
+							<select id="selectDominio" name="dominioVal" class="ComboBoxDominio">					
 							</select>
-							<input id="foo11" name="" type="text" placeholder=""/>
+							<input id="foo11" type="text" placeholder=""/>
 
-						</form>
-						<form class="Foo2">
+							<div class="ButtonsContainer">					
+								<button class="OkButton Button">Aceptar</button>
+								<button class="AddButton Button">Agregar</button>
+								<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+							</div>	
+						{{ Form::close() }}	
+						{{ Form::open(['route' => 'borrarEscenario', 'method' => 'POST', 'role' => 'form', 
+									   'class' => 'Foo2']) }}						
 							<table height="100%">
 								<thead>
 									<tr>
@@ -147,53 +155,88 @@
 									</tr>
 								</thead>
 								<tbody height="100%">
-									<tr>
-										<td><img src=""/></td>
-										<td><input type="text" name="id" value=""/></td>
-										<td><input type="Checkbox" name="checkbox"/></td>
-									</tr>
+									@foreach($escenarios as $e)
+										<tr>
+											<td><img src=""/></td>
+											<td>
+												{{ $e->Nombre }}
+											</td>
+											<td>
+												<input type="Checkbox" name="checkbox[]" value="{{ $e->id }}" />
+											</td>
+										</tr>									
+									@endforeach
 								</tbody>
-							</table>							
-						</form>
-						<form class="Foo3">	
+							</table>
+
+							<div class="ButtonsContainer">					
+								<button class="OkButton Button">Aceptar</button>
+								<button class="AddButton Button">Agregar</button>
+								<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+							</div>						
+						{{ Form::close() }}
+						{{ Form::open(['route' => 'createUser', 'method' => 'POST', 'role' => 'form', 
+									   'class' => 'Foo3']) }}								
+							<select id="selectUser" name="roles">
+								<option value="alumno">Alumno</option>
+								<option value="admin">Docente</option>
+							</select>
 							<input name="firstname" type="text" placeholder="Nombre"/>
 							<input name="lastname" type="text" placeholder="Apellidos"/>
+							<input name="username" type="text" placeholder="Username"/>
 							<input name="nif" type="text" placeholder="Dni"/>
 							<input name="direction" type="text" placeholder="Direccion"/>
 							<input name="city" type="text" placeholder="Localidad"/>
 							<input name="state" type="text" placeholder="Provincia"/>
 							<input name="Cp" type="number" placeholder="Cp"/>
-							<input name="tel" type="tel" maxlength="9" placeholder="Tlf"/>
+							<input name="phone" type="tel" maxlength="9" placeholder="Tlf"/>
 							<input name="email" type="email" placeholder="E-mail"/>
 							<input name="date" type="text" placeholder="Fecha Nacimiento"/>
 							<input name="obs" type="text" placeholder="Observaciones"/>
 							<input name="password" type="password" placeholder="Contraseña"/>
 							<input name="password_confirmation" type="password" placeholder="Repite Cotraseña"/>
-						</form>
-						<form class="Foo4">
-							<select id="selectUser"></select>
-							<input name="firstname" type="text" placeholder="Nombre"/>
-							<input name="lastname" type="text" placeholder="Apellidos"/>
+
+							<div class="ButtonsContainer">					
+								<button class="OkButton Button">Aceptar</button>
+								<button class="AddButton Button">Agregar</button>
+								<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+							</div>	
+						{{ Form::close() }}
+
+						{{ Form::model($user, ['route' => 'editUser', 'method' => 'POST', 'role' => 'form', 
+									   'class' => 'Foo4']) }}						
+							<select id="selectUser" name="roles">
+								@if($user->roles === "alumno")
+									<option value="alumno">Alumno</option>
+									<option value="admin">Docente</option>
+								@else
+									<option value="admin">Docente</option>
+									<option value="alumno">Alumno</option>
+								@endif
+							</select>
+							<input name="firstname" type="text" placeholder="Nombre" value="{{ $user->firstname }}"/>
+							<input name="lastname" type="text" placeholder="Apellidos" value="{{ $user->lastname }}"/>
+							<input name="username" type="text" placeholder="Username" value="{{ $user->username }}"/>
 							<input name="nif" type="text" placeholder="Dni"/>
 							<input name="direction" type="text" placeholder="Direccion"/>
 							<input name="city" type="text" placeholder="Localidad"/>
 							<input name="state" type="text" placeholder="Provincia"/>
 							<input name="Cp" type="number" placeholder="Cp"/>
-							<input name="tel" type="tel" maxlength="9" placeholder="Tlf"/>
-							<input name="email" type="email" placeholder="E-mail"/>
+							<input name="phone" type="tel" maxlength="9" placeholder="Tlf" value="{{ $user->phone }}"/>
+							<input name="email" type="email" placeholder="E-mail" value="{{ $user->email }}"/>
 							<input name="date" type="text" placeholder="Fecha Nacimiento"/>
 							<input name="obs" type="text" placeholder="Observaciones"/>
-							<input name="password" type="password" placeholder="contraseña actual"/>
-							<input name="new_password" type="password" placeholder="Nueva Contraseña"/>
+							<input name="oldpassword" type="password" placeholder="contraseña actual"/>
+							<input name="password" type="password" placeholder="Nueva Contraseña"/>
 							<input name="password_confirmation" type="password" placeholder="Repite Contraseña"/>
-						</form>
-					</div>				
-				<div class="ButtonsContainer">					
-					<button class="OkButton Button">Aceptar</button>
-					<button class="AddButton Button">Agregar</button>
-					<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-				</div>				
-			
+
+							<div class="ButtonsContainer">					
+								<button class="OkButton Button">Aceptar</button>
+								<button class="AddButton Button">Agregar</button>
+								<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+							</div>	
+						{{ Form::close() }}
+					</div>													
 			</div>		
 	</div>
 		<div class="ColorPickerContainer">

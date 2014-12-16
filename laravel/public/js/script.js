@@ -191,7 +191,7 @@ function createDominio()
 	$(".Foo1").css('display', 'inline-block');
 	$(".Foo2,.Foo3,.Foo4").hide();
 	formParametros(false, true, true, "Añadir Dominio", "Clic en agregar para añadir dominio.", Name.Dominio);
-	$("#foo11").attr('name',"Dominio");
+	$("#foo11").attr('name',"dominio");
 	$("#foo11").attr('placeholder',"Dominio");
 	$("#selectDominio").hide();
 }
@@ -210,7 +210,7 @@ function createClase()
 	$(".Foo1").css('display', 'inline-block');
 	$(".Foo2,.Foo3,.Foo4").css('display', 'none');
 	formParametros(false, true, true,  "Añadir Clase", "Clic en agregar para añadir clase.", Name.Clase);
-	$("#foo11").attr('name',"Clase");
+	$("#foo11").attr('name',"clase");
 	$("#foo11").attr('placeholder',"Clase");
 	$("#selectDominio").show();
 	getDominios();
@@ -377,7 +377,7 @@ function getDominios()
 		var selectDom = $('#selectDominio');
 		selectDom.text("");				
 
-	console.log(ajaxData);
+		selectDom.append('<option value="">Dominio</option>');
 		$.each(ajaxData, function (i, value){				
 			selectDom.append('<option id="clase'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
 			'</option>');				
