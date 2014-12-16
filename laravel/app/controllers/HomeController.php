@@ -182,9 +182,8 @@ class HomeController extends BaseController {
 			
 			}
 
-
 			if ($counter == $limit)
-    		{
+    		{    			
 				$this->createVideo($multimedia);
 			}
 		}
@@ -205,16 +204,25 @@ class HomeController extends BaseController {
 	}
 
 	public function createVideo($m)
-	{					    		    	
+	{	
 		$pathImg 	 = "frames/%08d.png";
 		$pathVid 	 = "video/vid.avi";
 		$pathAudio 	 = "audio/audio.wav";
 
 		$instruction = $this->getInstruction($m, $pathImg, $pathAudio, $pathVid, '600x400');
 
-		//sleep(1);
-
 		shell_exec($instruction);
+	}
+
+	public function getInstruction($m, $pathImg, $pathAudio, $pathVid, $size)
+	{
+		$ffmpeg  	 = "ffmpeg";
+		$pathImg 	 = "$m/$pathImg";
+		$pathVid 	 = "$m/$pathVid";
+		$pathAudio 	 = "$m/$pathAudio";
+		$fPerSecond  = 30;
+
+		return "$ffmpeg -f image2 -i $pathImg -i $pathAudio -r $fPerSecond -s $size $pathVid";
 	}
 
 	public function saveAudio()
@@ -235,16 +243,6 @@ class HomeController extends BaseController {
 		return "$public/js/multimedia";
 	}
 
-	public function getInstruction($m, $pathImg, $pathAudio, $pathVid, $size)
-	{
-		$ffmpeg  	 = "$m/../../../../../../ffmpeg/bin/ffmpeg.exe";
-		$pathImg 	 = "$m/$pathImg";
-		$pathVid 	 = "$m/$pathVid";
-		$pathAudio 	 = "$m/$pathAudio";
-		$fPerSecond  = 30;
-
-		return "$ffmpeg -f image2 -i $pathImg -i $pathAudio -r $fPerSecond -s $size $pathVid";
-	}
 
 	public function decodeBase64($file)
 	{
