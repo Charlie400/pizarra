@@ -27,6 +27,7 @@
 					<div class="CuadroUsuario">
 						<?php $user = Auth::user(); ?>
 						<p class="CuadroUsuarioP">{{ $user->username }}</p>
+						<p class="CuadroUsuarioLogOut">LogOut</p>
 					</div>
 				</ul>
 			</nav>
@@ -79,7 +80,7 @@
 				</div>
 			</div>
 			<div id="administracionHerramientas" class="MenuHerramientas">
-				<input id="botonProfe" onClick="createProfesor()" type="submit" name="Boton2" value="Docentes"/>
+				<input id="botonProfe" onClick="createProfesor()" type="submit" name="Boton2" value="Usuarios"/>
 			</div>
 		</div>
 	</header>
@@ -128,25 +129,26 @@
 				<div class="AlertTittleContainer">
 					<h4>Título</h4><img onClick="closeAlert()" src="images/CloseButton.png" height="20" id="closeButton">
 				</div>
-					<div class="AlertContent">
-						
-					</div>
-					<div class="AlertElement">
-						{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 
-									   'class' => 'Foo1']) }}
-							<select id="selectDominio" name="dominioVal" class="ComboBoxDominio">					
-							</select>
-							<input id="foo11" type="text" placeholder=""/>
+				<div class="AlertContent">
+					
+				</div>
+				<div class="AlertElement">
+					{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 
+								   'class' => 'Foo1']) }}
+						<select id="selectDominio" name="dominioVal" class="ComboBoxDominio">					
+						</select>
+						<input id="foo11" type="text" placeholder=""/>
 
-							<div class="ButtonsContainer">					
-								<button class="OkButton Button">Aceptar</button>
-								<button class="AddButton Button">Agregar</button>
-								<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-							</div>	
-						{{ Form::close() }}	
-						{{ Form::open(['route' => 'borrarEscenario', 'method' => 'POST', 'role' => 'form', 
-									   'class' => 'Foo2']) }}						
-							<table height="100%">
+						<div class="ButtonsContainer">					
+							<button class="OkButton Button">Aceptar</button>
+							<button class="AddButton Button">Agregar</button>
+							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+						</div>	
+					{{ Form::close() }}	
+					{{ Form::open(['route' => 'borrarEscenario', 'method' => 'POST', 'role' => 'form', 
+								   'class' => 'Foo2']) }}						
+						<div class="ContentOverflow">
+							<table>
 								<thead>
 									<tr>
 										<td><strong>Imagen</strong></td>
@@ -154,7 +156,7 @@
 										<td><strong>Seleccionar</strong></td>
 									</tr>
 								</thead>
-								<tbody height="100%">
+								<tbody>
 									@foreach($escenarios as $e)
 										<tr>
 											<td><img src=""/></td>
@@ -164,23 +166,25 @@
 											<td>
 												<input type="Checkbox" name="checkbox[]" value="{{ $e->id }}" />
 											</td>
-										</tr>									
+										</tr>
+																			
 									@endforeach
 								</tbody>
 							</table>
-
-							<div class="ButtonsContainer">					
-								<button class="OkButton Button">Aceptar</button>
-								<button class="AddButton Button">Agregar</button>
-								<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-							</div>						
-						{{ Form::close() }}
-						{{ Form::open(['route' => 'createUser', 'method' => 'POST', 'role' => 'form', 
-									   'class' => 'Foo3']) }}								
-							<select id="selectUser" name="roles">
-								<option value="alumno">Alumno</option>
-								<option value="admin">Docente</option>
-							</select>
+						</div>	
+						<div class="ButtonsContainer">					
+							<button class="OkButton Button">Aceptar</button>
+							<button class="AddButton Button">Agregar</button>
+							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+						</div>						
+					{{ Form::close() }}
+					{{ Form::open(['route' => 'createUser', 'method' => 'POST', 'role' => 'form', 
+								   'class' => 'Foo3']) }}								
+						<select id="selectUser" class="ComboBoxClase" name="roles">
+							<option value="alumno">Alumno</option>
+							<option value="admin">Docente</option>
+						</select>
+						<div class="ContentOverflow">
 							<input name="firstname" type="text" placeholder="Nombre"/>
 							<input name="lastname" type="text" placeholder="Apellidos"/>
 							<input name="username" type="text" placeholder="Username"/>
@@ -195,25 +199,26 @@
 							<input name="obs" type="text" placeholder="Observaciones"/>
 							<input name="password" type="password" placeholder="Contraseña"/>
 							<input name="password_confirmation" type="password" placeholder="Repite Cotraseña"/>
+						</div>
+						<div class="ButtonsContainer">					
+							<button class="OkButton Button">Aceptar</button>
+							<button class="AddButton Button">Agregar</button>
+							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+						</div>	
+					{{ Form::close() }}
 
-							<div class="ButtonsContainer">					
-								<button class="OkButton Button">Aceptar</button>
-								<button class="AddButton Button">Agregar</button>
-								<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-							</div>	
-						{{ Form::close() }}
-
-						{{ Form::model($user, ['route' => 'editUser', 'method' => 'POST', 'role' => 'form', 
-									   'class' => 'Foo4']) }}						
-							<select id="selectUser" name="roles">
-								@if($user->roles === "alumno")
-									<option value="alumno">Alumno</option>
-									<option value="admin">Docente</option>
-								@else
-									<option value="admin">Docente</option>
-									<option value="alumno">Alumno</option>
-								@endif
+					{{ Form::model($user, ['route' => 'editUser', 'method' => 'POST', 'role' => 'form', 
+								   'class' => 'Foo4']) }}						
+						<select id="selectUser" class="ComboBoxClase" name="roles">
+							@if($user->roles === "alumno")
+								<option value="alumno">Alumno</option>
+								<option value="admin">Docente</option>
+							@else
+								<option value="admin">Docente</option>
+								<option value="alumno">Alumno</option>
+							@endif
 							</select>
+						<div class="ContentOverflow">
 							<input name="firstname" type="text" placeholder="Nombre" value="{{ $user->firstname }}"/>
 							<input name="lastname" type="text" placeholder="Apellidos" value="{{ $user->lastname }}"/>
 							<input name="username" type="text" placeholder="Username" value="{{ $user->username }}"/>
@@ -229,14 +234,14 @@
 							<input name="oldpassword" type="password" placeholder="contraseña actual"/>
 							<input name="password" type="password" placeholder="Nueva Contraseña"/>
 							<input name="password_confirmation" type="password" placeholder="Repite Contraseña"/>
-
-							<div class="ButtonsContainer">					
-								<button class="OkButton Button">Aceptar</button>
-								<button class="AddButton Button">Agregar</button>
-								<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-							</div>	
-						{{ Form::close() }}
-					</div>													
+						</div>
+						<div class="ButtonsContainer">					
+							<button class="OkButton Button">Aceptar</button>
+							<button class="AddButton Button">Agregar</button>
+							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+						</div>	
+					{{ Form::close() }}
+				</div>													
 			</div>		
 	</div>
 		<div class="ColorPickerContainer">

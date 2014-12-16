@@ -147,6 +147,16 @@ if ($("#dominio").val() == 0){
 
 $("#dominio").on("click", GetComboDominio);
 
+//Esta función controla el logout.
+$(".CuadroUsuarioP").on("click", OpenlogOut);
+function OpenlogOut(){
+	if ($(".CuadroUsuarioLogOut").is(":visible")) {
+		$(".CuadroUsuarioLogOut").slideUp();
+	}else
+	{
+		$(".CuadroUsuarioLogOut").slideDown();
+	}
+}
 //Esta variable contendrá el valor del dominio seleccionado anteriormente.
 var selectDominio = "";
 
@@ -245,7 +255,6 @@ function createProfesor()
 	formParametros(true, false, true,  "Añadir Docente", "Rellene los campos y pulse aceptar.", Name.Docente);
 }
 
-// $("#botonAlumnos").on("click",ShowHideAlert(Action.Show, true, false, true, Elemento.OnlyText, "Esto es una prueba", "Por favor, indique un nombre válido para el elemento"));
 
 //En la variable n se pasará un nombre para el input dado que es necesario para enviar el formulario.
 function formParametros(pOkButton, pAddButton, pCancelButton, pTitulo, pCuerpo, n){
@@ -255,12 +264,10 @@ function formParametros(pOkButton, pAddButton, pCancelButton, pTitulo, pCuerpo, 
 		$('.AlertContent').empty();
 		$('.AlertContent').append(pCuerpo);
 		ShowHideButtons(pOkButton, pAddButton, pCancelButton);
-
-
-		
+	
 }
 
-// $('#closeButton').on('click', ShowHideAlert(Action.Hide));
+
 
 /* Termina funciones para alerts en botones */
 

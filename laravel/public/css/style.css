@@ -319,13 +319,15 @@ h1{
 }
 
 .CuadroInformativo p{
-	margin: 0;
+	margin: 5% 0 0 0;
 	display: inline-block;
+
 }
 
 .CuadroUsuario{
 	min-width: 5%;
-	height: 1.2em;
+	max-height: 84%;
+	top: 0;
 	color: white;
 	padding: 0.1em 0.4em;
 	border: none;
@@ -338,6 +340,19 @@ h1{
 }
 
 .CuadroUsuario p{
+	margin: 0;
+	font-size: 11.5px;
+	font-weight:bold;
+	cursor: pointer;
+}
+
+.CuadroUsuarioLogOut{
+	font-size: 8px;
+	background-color: white;
+	color: black;
+	border-radius: 0 0 5px 5px;
+	display: none;
+	top: 5%;
 	margin: 0;
 }
 
@@ -355,13 +370,11 @@ h1{
 }
 
 .AlertBody{
+	min-width: 233px;
 	position: absolute;
-	top: 15%;
-	right: 30%;
-	left: 30%;
+	margin: 15% 40% 0 40%;
 	background-color: #ECF0F1;
 	display: inline-block;
-	margin: 2em auto;
 	text-align: center;
 	padding-bottom: 0.5em;
 	border-radius: 5px;
@@ -395,24 +408,34 @@ h1{
 	padding: 0.5em;
 }
 
-.AlertContent input{
-	margin-top: 0.2em;
-}
 
 .AlertContent select{
 	padding: 0.2em;
 	margin: 0.4em 0 0.2em 0;
 }
 
+.ButtonsContainer{
+	width: 100%;
+	position: absolute;
+	bottom: 2%;
+	left: 0;
+}
+
+
 .Button{
+	min-width: 65px;
+	text-align: center;
+	width: 40%;
+	left: 5%;
+	right: 5%;
 	cursor: pointer;
 	display: inline-block;
 	padding: 0.5em;
 	background: white;
-	margin-left: 0.2em;
 	color: white;
 	border-radius: 5px;
 }
+
 
 .OkButton{
 	background-color: #1ABC9C;
@@ -423,6 +446,11 @@ h1{
 .CancelButton{
 	background-color: #E74C3C;
 	display: none;
+	width: 40%;
+	left: 5%;
+	right: 5%;
+	min-width: 65px;
+	text-align: center;
 }
 
 .AddButton{
@@ -526,13 +554,38 @@ h1{
 }
 
 .AlertElement{
-	margin: 5%;
-	height: 10em;
-	overflow: auto;
+	margin: 5% 5% 15% 5%;
 }
+
+.AlertElement input{
+	margin: 0.5em auto;
+	width: 45%;
+}
+
+#foo11{
+	width: 100%;
+}
+
+.Foo1{
+	width: 100%;
+}
+
+.ContentOverflow{
+	overflow-y: auto; 
+	height: 10em;
+	width: 100%;
+	border:solid #595959 1px;
+	background-color: #C9CEDB;
+}
+
 .Foo4 select{
 	width: 50%;
 	margin: 5%;
 }
 
+
+#selectUser{
+	margin: 0.5em auto;
+	width: 70%;
+}
 
