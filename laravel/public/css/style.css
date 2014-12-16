@@ -166,7 +166,7 @@ input:-ms-input-placeholder {
 	margin: 0.2em;
 	display: inline-block;
 	float: left;
-	background-color: black;
+	cursor: pointer;
 }
 
 .AddArticle{
@@ -175,7 +175,12 @@ input:-ms-input-placeholder {
 	margin: 0.2em;
 	display: inline-block;
 	float: left;
-	background-color: black;
+		cursor: pointer;
+}
+
+.AddArticle-Image{
+	margin: 0;
+	padding: 0;
 }
 
 .Pizarra{

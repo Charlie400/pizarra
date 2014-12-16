@@ -91,13 +91,10 @@
 			<div class="EscenariosContainer">
 				<div class="MenuLeft-ArticlesContainer">
 					<article class="Article">
-						asd
-					</article>
-					<article class="Article">
-						asd
+						<img src="images/fondo1.jpg" height="80" width="80">
 					</article>
 					<article class="AddArticle">
-						asd
+						<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">
 					</article>
 				</div>
 			</div>
@@ -105,13 +102,13 @@
 			<div class="ElementosContainer">
 				<div class="MenuLeft-ArticlesContainer">
 					<article class="Article">
-						asd
+						<img src="images/fondo1.jpg" height="80" width="80">
 					</article>
 					<article class="Article">
-						asd
+						<img src="images/fondo1.jpg" height="80" width="80">
 					</article>
 					<article class="AddArticle">
-						asd
+						<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">
 					</article>
 				</div>
 			</div>	

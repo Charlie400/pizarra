@@ -87,3 +87,11 @@ function pintar(e) {
 function borrar(){
 	pizarra_canvas.width = pizarra_canvas.width;
 }
+
+$('.Article img').on('click', insertImageToCanvas);
+
+function insertImageToCanvas(){
+	var img = new Image()
+	img.src = "images/fondo1.jpg"
+	pizarra_context.drawImage(img,0,0);
+}
