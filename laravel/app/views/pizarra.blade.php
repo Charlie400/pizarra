@@ -32,8 +32,12 @@
 					<li id="administracion" Class="Menu-Item">Administración</li>
 					<div class="CuadroUsuario">
 						<?php $user = Auth::user(); ?>
-						<p class="CuadroUsuarioP">{{ $user->username }}</p>
-						<p class="CuadroUsuarioLogOut">LogOut</p>
+						<p class="CuadroUsuarioP">{{ ucfirst($user->username) }}</p>
+						<p class="CuadroUsuarioLogOut">
+							<a style="text-decoration:none; color:black" href="{{ route('logout') }}">
+								LogOut
+							</a>
+						</p>
 					</div>
 				</ul>
 			</nav>

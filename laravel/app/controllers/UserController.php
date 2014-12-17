@@ -41,4 +41,11 @@ class UserController extends BaseController
 
 		return Redirect::back()->withInput()->withErrors($manager->errors());
 	}
+
+	public function logout()
+	{
+		Auth::logout();
+
+		return Redirect::to('/login');
+	}
 }

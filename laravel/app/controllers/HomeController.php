@@ -123,7 +123,7 @@ class HomeController extends BaseController {
 			return Redirect::back()->with('password', $pass);
 		}
 
-		dd($this->alumnosRepo->createNewRecord($datos));
+		$this->alumnosRepo->createNewRecord($datos);
 
 		return Redirect::back();
 	}
@@ -142,6 +142,11 @@ class HomeController extends BaseController {
 
 		if (Auth::validate(['username' => $user->username, 'password' => $data['oldpassword']]))
 		{			
+			if (empty($data['password']))
+			{
+				$data['password']				= $data['oldpassword'];
+				$data['password_confirmation']  = $data['oldpassword'];
+			}
 			unset($data['oldpassword']);
 			$this->alumnosRepo->createNewRecord($data, $user);
 		}

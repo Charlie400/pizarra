@@ -38,10 +38,14 @@ Route::group(['before' => 'auth'], function()
 
 		/*TERMINAN FUNCIONALIDADES DEL HOME*/
 
+
 	});
-	
+
 	/*BEGIN VIDEO CANVAS AND AUDIO*/
 	Route::post('/image-sequence', ['as' => 'imageSequence', 'uses' => 'HomeController@saveImageSequence']);
 	Route::post('/save-audio', ['as' => 'saveAudio', 'uses' => 'HomeController@saveAudio']);
 	/*END VIDEO CANVAS AND AUDIO*/
+
+	//LOGOUT
+	Route::get('/logout', ['as' => 'logout', 'uses' => 'UserController@logout']);
 });
