@@ -13,7 +13,13 @@
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorderWorker.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>	
+<body>
+	@if(\Session::has('password'))
+		<!-- <input value="{{ \Session::get('password') }}" -->
+		<script type="text/javascript">
+			alert("{{ \Session::get('password') }}");
+		</script>
+	@endif
 	<header>
 		<div class="Titulo">
 			<h1>Pizarra Digital</h1>
@@ -182,20 +188,20 @@
 							<option value="admin">Docente</option>
 						</select>
 						<div class="ContentOverflow">
-							<input name="firstname" type="text" placeholder="Nombre"/>
-							<input name="lastname" type="text" placeholder="Apellidos"/>
-							<input name="username" type="text" placeholder="Username"/>
+							<input name="firstname" type="text" placeholder="Nombre" />
+							<input name="lastname" type="text" placeholder="Apellidos" />
+							<input name="username" type="text" placeholder="Username" />
 							<input name="nif" type="text" placeholder="Dni"/>
-							<input name="direction" type="text" placeholder="Direccion"/>
-							<input name="city" type="text" placeholder="Localidad"/>
-							<input name="state" type="text" placeholder="Provincia"/>
-							<input name="Cp" type="number" placeholder="Cp"/>
-							<input name="phone" type="tel" maxlength="9" placeholder="Tlf"/>
-							<input name="email" type="email" placeholder="E-mail"/>
-							<input name="date" type="text" placeholder="Fecha Nacimiento"/>
+							<input name="adress" type="text" placeholder="Direccion"/>
+							<input name="locality" type="text" placeholder="Localidad"/>
+							<input name="province" type="text" placeholder="Provincia"/>
+							<input name="cp" type="number" placeholder="Cp"/>
+							<input name="phone" type="tel" maxlength="9" placeholder="Tlf" />
+							<input name="email" type="email" placeholder="E-mail" />
+							<input name="borndate" type="text" placeholder="Fecha Nacimiento"/>
 							<input name="obs" type="text" placeholder="Observaciones"/>
-							<input name="password" type="password" placeholder="Contraseña"/>
-							<input name="password_confirmation" type="password" placeholder="Repite Cotraseña"/>
+							<input name="password" type="password" placeholder="Nueva Contraseña"/>
+							<input name="password_confirmation" type="password" placeholder="Repite Contraseña"/>
 						</div>
 						<div class="ButtonsContainer">					
 							<button class="OkButton Button">Aceptar</button>
@@ -219,15 +225,16 @@
 							<input name="firstname" type="text" placeholder="Nombre" value="{{ $user->firstname }}"/>
 							<input name="lastname" type="text" placeholder="Apellidos" value="{{ $user->lastname }}"/>
 							<input name="username" type="text" placeholder="Username" value="{{ $user->username }}"/>
-							<input name="nif" type="text" placeholder="Dni"/>
-							<input name="direction" type="text" placeholder="Direccion"/>
-							<input name="city" type="text" placeholder="Localidad"/>
-							<input name="state" type="text" placeholder="Provincia"/>
-							<input name="Cp" type="number" placeholder="Cp"/>
+							<input name="nif" type="text" placeholder="Dni" value="{{ $user->nif }}" />
+							<input name="adress" type="text" placeholder="Direccion" value="{{ $user->adress }}" />
+							<input name="locality" type="text" placeholder="Localidad" value="{{ $user->locality }}" />
+							<input name="province" type="text" placeholder="Provincia" value="{{ $user->province }}" />
+							<input name="cp" type="number" placeholder="Cp" value="{{ $user->cp }}" />
 							<input name="phone" type="tel" maxlength="9" placeholder="Tlf" value="{{ $user->phone }}"/>
 							<input name="email" type="email" placeholder="E-mail" value="{{ $user->email }}"/>
-							<input name="date" type="text" placeholder="Fecha Nacimiento"/>
-							<input name="obs" type="text" placeholder="Observaciones"/>
+							<input name="borndate" type="text" placeholder="Fecha Nacimiento" 
+							value="{{ $user->borndate }}" />
+							<input name="obs" type="text" placeholder="Observaciones" value="{{ $user->obs }}" />
 							<input name="oldpassword" type="password" placeholder="Contraseña actual"/>
 							<input name="password" type="password" placeholder="Nueva Contraseña"/>
 							<input name="password_confirmation" type="password" placeholder="Repite Contraseña"/>

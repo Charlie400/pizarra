@@ -108,9 +108,22 @@ class HomeController extends BaseController {
 	public function createUser()
 	{
 		$datos = Input::only('firstname', 'lastname', 'username', 'password', 'password_confirmation', 'email', 
-							 'phone', 'roles');
+							 'phone', 'roles', 'nif', 'adress', 'locality', 'province', 'cp', 'borndate', 'obs');
+
+		if (empty($datos['password']) && ! empty($datos['username']) && ! empty($datos['email']))
+		{
+			$pass = $this->alumnosRepo->generatePassword();
+
+			$datos['password'] 				= $pass;
+			$datos['password_confirmation'] = $pass;
+		}
 		
-		$this->alumnosRepo->createNewRecord($datos);
+		if ($this->alumnosRepo->createNewRecord($datos) === true)		
+		{
+			return Redirect::back()->with('password', $pass);
+		}
+
+		dd($this->alumnosRepo->createNewRecord($datos));
 
 		return Redirect::back();
 	}
@@ -124,7 +137,8 @@ class HomeController extends BaseController {
 	{
 		$user  = Auth::user();
 		$data  = Input::only('firstname', 'lastname', 'username', 'oldpassword', 'password', 'email',
-							 'password_confirmation', 'phone', 'roles');
+							 'password_confirmation', 'phone', 'roles', 'nif', 'adress', 'locality',
+							 'province', 'cp', 'borndate', 'obs');		
 
 		if (Auth::validate(['username' => $user->username, 'password' => $data['oldpassword']]))
 		{			

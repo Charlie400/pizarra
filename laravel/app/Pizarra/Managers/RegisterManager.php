@@ -11,8 +11,15 @@ class RegisterManager extends BaseManager
 			'phone' 	=> 'digits:9',
 			'email'     => 'required|email|max:120|unique:users,email,' . \Auth::user()->id,
 			'username'  => 'required|max:120',
-			'password'  => 'required|confirmed|max:150',
-			'password_confirmation' => 'required|max:150'
+			'password'  => 'confirmed|max:150',
+			'password_confirmation' => 'max:150',
+			'nif'       => 'max:9',
+			'adress'    => 'max:255',
+			'locality'  => 'max:120',
+			'province'  => 'max:120:',
+			'cp'        => 'digits:5',
+			//'borndate'  => '',
+			'obs'       => 'max:255'
 		];
 
 		return $rules;
