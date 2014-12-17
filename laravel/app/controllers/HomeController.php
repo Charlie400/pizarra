@@ -126,7 +126,7 @@ class HomeController extends BaseController {
 		$data  = Input::only('firstname', 'lastname', 'username', 'oldpassword', 'password', 'email',
 							 'password_confirmation', 'phone', 'roles');
 
-		if (Auth::validate(['username' => $data['username'], 'password' => $data['oldpassword']]))
+		if (Auth::validate(['username' => $user->username, 'password' => $data['oldpassword']]))
 		{			
 			unset($data['oldpassword']);
 			$this->alumnosRepo->createNewRecord($data, $user);

@@ -70,7 +70,7 @@
 				value="Borrar Escenarios"/>
 			</div>
 			<div id="usuariosHerramientas" class="MenuHerramientas">
-				<input id="botonAlumnos" onClick="createAlumno()" type="submit" name="Boton2" value="Alumnos"/>
+				<input id="botonAlumnos" onClick="createAlumno()" type="submit" name="Boton2" value="Crear Usuario"/>
 				<input id="botonEditarUsuario" onClick="editUsuario()" type="submit" name="Boton2" value="Editar Usuario"/>
 				<input id="botonCaptura" onClick="getCanvasSnapshot()" type="submit" name="Boton2" value="Captura de pantalla"/>
 				<input id="botonGrabar" onclick="recordStopVideoAudio()" type="submit" name="Boton2" value="Grabar"/>
@@ -79,9 +79,9 @@
 					<p>Drag me around</p>
 				</div>
 			</div>
-			<div id="administracionHerramientas" class="MenuHerramientas">
+			<!-- <div id="administracionHerramientas" class="MenuHerramientas">
 				<input id="botonProfe" onClick="createProfesor()" type="submit" name="Boton2" value="Usuarios"/>
-			</div>
+			</div> -->
 		</div>
 	</header>
 
@@ -132,7 +132,7 @@
 				<div class="AlertElement">
 					{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 
 								   'class' => 'Foo1']) }}
-						<select id="selectDominio" name="dominioVal" class="ComboBoxDominio">					
+						<select id="selectDominio" name="dominioVal" class="ComboBoxDominio">
 						</select>
 						<input id="foo11" type="text" placeholder=""/>
 
@@ -228,7 +228,7 @@
 							<input name="email" type="email" placeholder="E-mail" value="{{ $user->email }}"/>
 							<input name="date" type="text" placeholder="Fecha Nacimiento"/>
 							<input name="obs" type="text" placeholder="Observaciones"/>
-							<input name="oldpassword" type="password" placeholder="contraseña actual"/>
+							<input name="oldpassword" type="password" placeholder="Contraseña actual"/>
 							<input name="password" type="password" placeholder="Nueva Contraseña"/>
 							<input name="password_confirmation" type="password" placeholder="Repite Contraseña"/>
 						</div>
