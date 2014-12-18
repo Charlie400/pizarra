@@ -161,26 +161,51 @@ input:-ms-input-placeholder {
 }
 
 .Article{
-	height: 5em;
-	width: 5em;
+	height: 4.9em;
+	width: 4.9em;
 	margin: 0.2em;
 	display: inline-block;
 	float: left;
+	border-radius: 5px;
+	border: solid #595959 1px;
 	cursor: pointer;
 }
 
+.Article img{
+	width: 95%;
+	height: 70%;
+	margin: 2.5% 2.5% 0 2.5%;
+}
+
 .AddArticle{
-	height: 5em;
-	width: 5em;
+	height: 4.9em;
+	width: 4.9em;
 	margin: 0.2em;
 	display: inline-block;
 	float: left;
-		cursor: pointer;
+	border-radius: 5px;
+	border: solid #595959 1px;
+	cursor: pointer;
 }
 
 .AddArticle-Image{
-	margin: 0;
+	width: 50%;
+	height: 50%;
+	margin: 25%;
 	padding: 0;
+}
+
+#menuleftP {
+	max-height: 1.47em;
+	margin: 0 2%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 50%;
+	overflow: hidden;
+}
+
+#menuleftP:hover{
+	overflow: visible;
 }
 
 .Pizarra{
@@ -377,7 +402,22 @@ h1{
 .AlertBody{
 	min-width: 233px;
 	position: absolute;
-	margin: 15% 40% 0 40%;
+	width: 10%;
+	margin: 15% 45% 0 45%;
+	background-color: #ECF0F1;
+	display: inline-block;
+	text-align: center;
+	padding-bottom: 0.5em;
+	border-radius: 5px;
+}
+
+.AlertBodyBig{
+	min-width: 420px;
+	position: absolute;
+	width: 25%;
+	left: 37.5%;
+	right: 37.5%;
+	top: 20%;
 	background-color: #ECF0F1;
 	display: inline-block;
 	text-align: center;
@@ -395,6 +435,10 @@ h1{
 	padding: 0.5em;
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
+}
+
+.Foo2{
+	width: 90%;
 }
 
 .AlertTittleContainer h4{
@@ -581,6 +625,10 @@ h1{
 	width: 100%;
 	border:solid #595959 1px;
 	background-color: #C9CEDB;
+}
+
+.ContentOverflow table{
+	width: 100%;
 }
 
 .Foo4 select{

@@ -102,6 +102,7 @@
 				<div class="MenuLeft-ArticlesContainer">
 					<article class="Article">
 						<img src="images/fondo1.jpg" height="80" width="80">
+						<p id="menuleftTitulo"></p>
 					</article>
 					<article class="AddArticle">
 						<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">
@@ -113,9 +114,7 @@
 				<div class="MenuLeft-ArticlesContainer">
 					<article class="Article">
 						<img src="images/fondo1.jpg" height="80" width="80">
-					</article>
-					<article class="Article">
-						<img src="images/fondo1.jpg" height="80" width="80">
+						<p id="menuleftTitulo"></p>
 					</article>
 					<article class="AddArticle">
 						<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">
@@ -132,7 +131,7 @@
 
 	<div class="AlertContainer">
 		
-			<div class="AlertBody">
+			<div id="alertBody" class="AlertBodyBig, AlertBody">
 				<div class="AlertTittleContainer">
 					<h4>Título</h4><img onClick="closeAlert()" src="images/CloseButton.png" height="20" id="closeButton">
 				</div>

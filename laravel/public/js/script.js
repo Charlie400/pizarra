@@ -157,6 +157,7 @@ function OpenlogOut(){
 		$(".CuadroUsuarioLogOut").slideDown();
 	}
 }
+
 //Esta variable contendrá el valor del dominio seleccionado anteriormente.
 var selectDominio = "";
 
@@ -197,6 +198,7 @@ function GetComboClase(){
 
 function createDominio()
 {
+	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
 	$(".Foo1").css('display', 'inline-block');
 	$(".Foo2,.Foo3,.Foo4").hide();
@@ -208,6 +210,7 @@ function createDominio()
 
 function borrarEscenario()
 {
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
 	$(".Foo2").css('display', 'inline-block');
 	$(".Foo1,.Foo3,.Foo4").css('display', 'none');
@@ -216,6 +219,7 @@ function borrarEscenario()
 
 function createClase()
 {
+	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
 	$(".Foo1").css('display', 'inline-block');
 	$(".Foo2,.Foo3,.Foo4").css('display', 'none');
@@ -228,6 +232,7 @@ function createClase()
 
 function createAlumno()
 {
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").css('display', 'inline-block');
 	$(".Foo3").css('display', 'inline-block');
 	$(".Foo1,.Foo2,.Foo4").css('display', 'none');
@@ -241,6 +246,7 @@ function closeAlert()
 
 function editUsuario()
 {
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
 	$(".Foo4").css('display', 'inline-block');
 	$(".Foo1,.Foo2,.Foo3").css('display', 'none');
@@ -249,6 +255,7 @@ function editUsuario()
 
 function createProfesor()
 {
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
 	$(".Foo3").css('display', 'inline-block');
 	$(".Foo1,.Foo2,.Foo4").css('display', 'none');
