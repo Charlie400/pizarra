@@ -77,6 +77,7 @@ return array(
 
 "unique" => "El campo :attribute ya ha sido tomado.",
 "url"    => "El formato de :attribute es inválido.",
+'hashmatch' => 'Tu contraseña no coincide.',
 
 /*
 |--------------------------------------------------------------------------

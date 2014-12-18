@@ -139,11 +139,10 @@
 					
 				</div>
 				<div class="AlertElement">
-					{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 
-								   'class' => 'Foo1']) }}
-						<select id="selectDominio" name="dominioVal" class="ComboBoxDominio">
-						</select>
-						<input id="foo11" type="text" placeholder=""/>
+					{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 'class' => 'Foo1']) }}
+
+						{{ Field::select('selectDominio', null, ['input' => ['class' => 'ComboBoxDominio']]) }}
+						{{ Field::text('foo11') }}
 
 						<div class="ButtonsContainer">					
 							<button class="OkButton Button">Aceptar</button>
@@ -191,20 +190,21 @@
 							<option value="admin">Docente</option>
 						</select>
 						<div class="ContentOverflow">
-							<input name="firstname" type="text" placeholder="Nombre" />
-							<input name="lastname" type="text" placeholder="Apellidos" />
-							<input name="username" type="text" placeholder="Username" />
-							<input name="nif" type="text" placeholder="Dni"/>
-							<input name="adress" type="text" placeholder="Direccion"/>
-							<input name="locality" type="text" placeholder="Localidad"/>
-							<input name="province" type="text" placeholder="Provincia"/>
-							<input name="cp" type="number" placeholder="Cp"/>
-							<input name="phone" type="tel" maxlength="9" placeholder="Tlf" />
-							<input name="email" type="email" placeholder="E-mail" />
-							<input name="borndate" type="text" placeholder="Fecha Nacimiento"/>
-							<input name="obs" type="text" placeholder="Observaciones"/>
-							<input name="password" type="password" placeholder="Nueva Contraseña"/>
-							<input name="password_confirmation" type="password" placeholder="Repite Contraseña"/>
+							{{ Field::text('firstname', null, ['input' => ['placeholder' => 'Nombre']]) }}
+							{{ Field::text('lastname', null, ['input' => ['placeholder' => 'Apellidos']]) }}
+							{{ Field::text('username', null, ['input' => ['placeholder' => 'Username']]) }}
+							{{ Field::text('nif', null, ['input' => ['placeholder' => 'Dni']]) }}
+							{{ Field::text('adress', null, ['input' => ['placeholder' => 'Dirección']]) }}
+							{{ Field::text('locality', null, ['input' => ['placeholder' => 'Localidad']]) }}
+							{{ Field::text('province', null, ['input' => ['placeholder' => 'Provincia']]) }}
+							{{ Field::text('cp', null, ['input' => ['placeholder' => 'Código postal']]) }}
+							{{ Field::text('phone', null, ['input' => ['placeholder' => 'Tlf']]) }}
+							{{ Field::email('email', null, ['input' => ['placeholder' => 'E-mail']]) }}
+							{{ Field::text('borndate', null, ['input' => ['placeholder' => 'Fecha Nacimiento']]) }}
+							{{ Field::text('obs', null, ['input' => ['placeholder' => 'Observaciones']]) }}
+							{{ Field::password('password', ['input' => ['placeholder' => 'Nueva Contraseña']]) }}
+							{{ Field::password('password_confirmation', 
+							['input' => ['placeholder' => 'Repite Contraseña']]) }}
 						</div>
 						<div class="ButtonsContainer">					
 							<button class="OkButton Button">Aceptar</button>
@@ -225,22 +225,35 @@
 							@endif
 							</select>
 						<div class="ContentOverflow">
-							<input name="firstname" type="text" placeholder="Nombre" value="{{ $user->firstname }}"/>
-							<input name="lastname" type="text" placeholder="Apellidos" value="{{ $user->lastname }}"/>
-							<input name="username" type="text" placeholder="Username" value="{{ $user->username }}"/>
-							<input name="nif" type="text" placeholder="Dni" value="{{ $user->nif }}" />
-							<input name="adress" type="text" placeholder="Direccion" value="{{ $user->adress }}" />
-							<input name="locality" type="text" placeholder="Localidad" value="{{ $user->locality }}" />
-							<input name="province" type="text" placeholder="Provincia" value="{{ $user->province }}" />
-							<input name="cp" type="number" placeholder="Cp" value="{{ $user->cp }}" />
-							<input name="phone" type="tel" maxlength="9" placeholder="Tlf" value="{{ $user->phone }}"/>
-							<input name="email" type="email" placeholder="E-mail" value="{{ $user->email }}"/>
-							<input name="borndate" type="text" placeholder="Fecha Nacimiento" 
-							value="{{ $user->borndate }}" />
-							<input name="obs" type="text" placeholder="Observaciones" value="{{ $user->obs }}" />
-							<input name="oldpassword" type="password" placeholder="Contraseña actual"/>
-							<input name="password" type="password" placeholder="Nueva Contraseña"/>
-							<input name="password_confirmation" type="password" placeholder="Repite Contraseña"/>
+							{{ Field::text('firstname', null, ['input' => ['placeholder' => 'Nombre', 
+										   'value' => $user->firstname ]]) }}
+							{{ Field::text('lastname', null, ['input' => ['placeholder' => 'Apellidos', 
+										   'value' => $user->lastname ]]) }}
+							{{ Field::text('username', null, ['input' => ['placeholder' => 'Username', 
+										   'value' => $user->username ]]) }}
+							{{ Field::text('nif', null, ['input' => ['placeholder' => 'Dni', 
+										   'value' => $user->nif ]]) }}
+							{{ Field::text('adress', null, ['input' => ['placeholder' => 'Dirección', 
+										   'value' => $user->adress ]]) }}
+							{{ Field::text('locality', null, ['input' => ['placeholder' => 'Localidad', 
+										   'value' => $user->locality ]]) }}
+							{{ Field::text('province', null, ['input' => ['placeholder' => 'Provincia', 
+										   'value' => $user->province ]]) }}
+							{{ Field::text('cp', null, ['input' => ['placeholder' => 'Código postal', 
+										   'value' => $user->cp ]]) }}
+							{{ Field::text('phone', null, ['input' => ['placeholder' => 'Tlf', 
+										   'value' => $user->phone ]]) }}
+							{{ Field::email('email', null, ['input' => ['placeholder' => 'E-mail', 
+										   'value' => $user->email ]]) }}
+							{{ Field::text('borndate', null, ['input' => ['placeholder' => 'Fecha Nacimiento', 
+										   'value' => $user->borndate ]]) }}
+							{{ Field::text('obs', null, ['input' => ['placeholder' => 'Observaciones', 
+										   'value' => $user->obs ]]) }}
+							{{ Field::password('oldpassword', ['input' => ['placeholder' => 'Contraseña actual']]) }}
+							{{ Field::password('password', ['input' => ['placeholder' => 'Nueva Contraseña']]) }}
+							{{ Field::password('password_confirmation', 
+							['input' => ['placeholder' => 'Repite Contraseña']]) }}
+						
 						</div>
 						<div class="ButtonsContainer">					
 							<button class="OkButton Button">Aceptar</button>

@@ -46,12 +46,12 @@ class FieldBuilder {
 
 		$label = ucfirst($label);
 
-		if (isset ($attributes['label']))
-		{			
-			return \Form::label($name, $label, $attributes['label']);
+		if ( ! isset ($attributes['label']) or empty($attributes['label']))
+		{	
+			$attributes['label'] = ['style' => 'display:none;'];
 		}
 
-		return \Form::label($name, $label);
+		return \Form::label($name, $label, $attributes['label']);
 	}
 
 

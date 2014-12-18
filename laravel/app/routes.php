@@ -26,14 +26,13 @@ Route::group(['before' => 'auth'], function()
 	/*COMIENZAN FUNCIONALIDADES DEL HOME*/
 	Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
 	Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
+	Route::post('/create-undo', ['as' => 'createUndo', 'uses' => 'HomeController@createUndo']);
 
 	Route::group(['before' => 'csrf'], function()
 	{
 		Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
-		Route::post('/create-undo', ['as' => 'createUndo', 'uses' => 'HomeController@createUndo']);
-
-		Route::post('/create/user', ['as' => 'createUser', 'uses' => 'HomeController@createUser']);
-		Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'HomeController@editUser']);
+		Route::post('/create/user', ['as' => 'createUser', 'uses' => 'UserController@createUser']);
+		Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'UserController@editUser']);
 		Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);
 
 		/*TERMINAN FUNCIONALIDADES DEL HOME*/

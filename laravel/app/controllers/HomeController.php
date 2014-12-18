@@ -2,7 +2,6 @@
 
 use Pizarra\Repositories\EscenarioRepo;
 use Pizarra\Repositories\DominioRepo;
-use Pizarra\Repositories\AlumnosRepo;
 use Pizarra\Repositories\ClaseRepo;
 
 class HomeController extends BaseController {
@@ -22,15 +21,12 @@ class HomeController extends BaseController {
 
 	protected $dominioRepo;
 	protected $claseRepo;
-	protected $alumnosRepo;
 	protected $escenarioRepo;
 
-	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, AlumnosRepo $alumnosRepo,
-								EscenarioRepo $escenarioRepo)
+	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, EscenarioRepo $escenarioRepo)
 	{
 		$this->escenarioRepo = $escenarioRepo;		
 		$this->dominioRepo   = $dominioRepo;
-		$this->alumnosRepo   = $alumnosRepo;
 		$this->claseRepo     = $claseRepo;
 	}
 
@@ -69,10 +65,10 @@ class HomeController extends BaseController {
 	//EL MÉTODO CORRESPONDIENTE
 	public function addFoo()
 	{
-		$data     = Input::only('dominio', 'clase', 'dominioVal');
+		$data     = Input::only('dominio', 'clase', 'selectDominio');
 		$dominio  = $data['dominio'];
 		$clase    = $data['clase'];
-		$claseDom = $data['dominioVal'];
+		$claseDom = $data['selectDominio'];
 
 		if ( ! is_null($dominio) && empty($claseDom))
 		{
@@ -103,58 +99,10 @@ class HomeController extends BaseController {
 		];
 
 		$this->claseRepo->createNewRecord($datos);
-	}
-
-	public function createUser()
-	{
-		$datos = Input::only('firstname', 'lastname', 'username', 'password', 'password_confirmation', 'email', 
-							 'phone', 'roles', 'nif', 'adress', 'locality', 'province', 'cp', 'borndate', 'obs');
-
-		if (empty($datos['password']) && ! empty($datos['username']) && ! empty($datos['email']))
-		{
-			$pass = $this->alumnosRepo->generatePassword();
-
-			$datos['password'] 				= $pass;
-			$datos['password_confirmation'] = $pass;
-		}
-		
-		if ($this->alumnosRepo->createNewRecord($datos) === true)		
-		{
-			return Redirect::back()->with('password', $pass);
-		}
-
-		$this->alumnosRepo->createNewRecord($datos);
-
-		return Redirect::back();
-	}
+	}	
 
 
 	/*--------------TERMINAN MÉTODOS PARA AÑADIR DATOS A LA DB CON ALERTS-----------------*/
-
-	/*--------------COMIENZAN MÉTODOS PARA EDITAR DATOS DE LA DB CON ALERTS-----------------*/
-
-	public function editUser()
-	{
-		$user  = Auth::user();
-		$data  = Input::only('firstname', 'lastname', 'username', 'oldpassword', 'password', 'email',
-							 'password_confirmation', 'phone', 'roles', 'nif', 'adress', 'locality',
-							 'province', 'cp', 'borndate', 'obs');		
-
-		if (Auth::validate(['username' => $user->username, 'password' => $data['oldpassword']]))
-		{			
-			if (empty($data['password']))
-			{
-				$data['password']				= $data['oldpassword'];
-				$data['password_confirmation']  = $data['oldpassword'];
-			}
-			unset($data['oldpassword']);
-			$this->alumnosRepo->createNewRecord($data, $user);
-		}
-
-		return Redirect::back();
-	}
-
-	/*--------------TERMINAN MÉTODOS PARA EDITAR DATOS DE LA DB CON ALERTS-----------------*/
 
 	/*--------------COMIENZAN MÉTODOS PARA ELIMINAR DATOS DE LA DB CON ALERTS-----------------*/
 

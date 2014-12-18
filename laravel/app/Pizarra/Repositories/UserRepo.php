@@ -3,7 +3,7 @@
 use Pizarra\Entities\User;
 use Pizarra\Managers\RegisterManager;
 
-class AlumnosRepo extends BaseRepo
+class UserRepo extends BaseRepo
 {
 	public function getModel()
 	{
@@ -25,28 +25,23 @@ class AlumnosRepo extends BaseRepo
 
 		for ($i = 0; $i < $length; $i++)
 		{				
-			$pass .= $this->getCaracter($lWords, $ucWords, $numbers);
+			$pass .= $this->getCaracter([$lWords, $ucWords, $numbers]);
 		}
 
 		return $pass;
 	}
 
-	public function getCaracter($lWords, $ucWords, $numbers)
-	{
-		$rand = mt_rand(0, 2);
+	public function getCaracter($array)
+	{	
+		$count = count($array)-1;
 
-		if ($rand === 0)
-		{
-			$carac = $lWords[mt_rand(0,25)];
-		}
-		elseif ($rand === 1)
-		{
-			$carac = $ucWords[mt_rand(0,25)];
-		}
-		elseif ($rand === 2)
-		{
-			$carac = $numbers[mt_rand(0,9)];
-		}
+		$rand  = mt_rand(0, $count);
+
+		$a     = $array[$rand];
+
+		$count = count($a)-1;
+
+		$carac = $a[mt_rand(0, $count)];
 
 		return $carac;
 	}
