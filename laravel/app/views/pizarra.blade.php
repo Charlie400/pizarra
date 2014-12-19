@@ -64,10 +64,19 @@
 				<select id="clase" class="ComboBoxClase">
 					<option id="claseOption" value="#">Clase</option>									
 				</select>
-				<div id="botonCapturaDiv" onClick="getCanvasSnapshot()"><input id="botonCaptura"  type="image" src="images/snapShot.png"/></div>
-				<div id="botonGrabarDiv" class="BotonGrabarOn, BotonGrabarOff" onclick="recordStopVideoAudio()"><input id="botonGrabar"  type="image" src="images/rec.png"/></div>
-				<div id="botonStopDiv" class="BotonStopDivVisible, BotonStopDivHidden" onclick="stopVideoAudioRecording()"><input id="botonStop"  type="image" src="images/stop.png"/></div>
-				<div id="botonDibujoDiv" onClick="dibujoManoAlzada()"><input id="botonDibujo" type="image" src="images/draw.png"/></div>
+
+				<div id="botonCapturaDiv" onClick="getCanvasSnapshot()">
+					<input id="botonCaptura" type="image" src="images/snapShot.png"/>
+				</div>
+				<div id="botonGrabarDiv" onClick="recordButtom()" class="BotonGrabarOn BotonGrabarOff" >
+					<input id="botonGrabar" type="image" src="images/rec.png"/>
+				</div>
+				<div id="botonStopDiv" onClick="stopButtom()" class="BotonStopDivVisible BotonStopDivHidden">
+					<input id="botonStop" type="image" src="images/stop.png"/>
+				</div>
+				<div id="botonDibujoDiv" onClick="dibujoManoAlzada()">
+					<input id="botonDibujo" type="image" src="images/draw.png"/>
+				</div>
 				<div id="draggable" class="ui-widget-content">
 					<p>Drag me around</p>
 				</div>

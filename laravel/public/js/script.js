@@ -165,17 +165,21 @@ function changeClass(cElemento, cClaseNueva){
 }
 
 changeClass('#botonGrabarDiv','BotonGrabarOff')
-function recordStopVideoAudio(){
+function recordButtom(){
 	changeClass('#botonStopDiv','BotonStopDivVisible');
 	changeClass('#botonGrabarDiv','BotonGrabarOn');
 		if ($("#botonStopDiv").is(":visible")) {
 			$("#botonGrabarDiv").prop('disabled', true);
 		};
+
+	recordVideoAudio();
 }
 
-function stopVideoAudioRecording(){
+function stopButtom(){
 	changeClass('#botonGrabarDiv','BotonGrabarOff');
-	changeClass('#botonStopDiv','BotonStopDivHidden')
+	changeClass('#botonStopDiv','BotonStopDivHidden');
+
+	stopVideoAudio();
 }
 
 //Esta variable contendrá el valor del dominio seleccionado anteriormente.

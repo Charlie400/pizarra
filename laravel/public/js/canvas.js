@@ -1,29 +1,34 @@
 ;
-window.onload = function() {var botonGrabar = document.getElementById("botonGrabar")};
 var recording = false, serverURL = location.protocol+'//'+location.hostname+'/pizarra/laravel/public';
 
-function recordStopVideoAudio()
+function getElementById(id)
+{
+    return document.getElementById(id);
+}
+
+function recordVideoAudio()
+{
+
+    /*------------------RECORDING VIDEO AND AUDIO--------------------*/
+
+    if ( ! recording)
+    {
+        audioRecording();
+        sequenceRecording(); 
+        recording = true;
+    }
+        
+};
+
+function stopVideoAudio()
 {
     if (recording)
     {
-        /*------------------RECORDING VIDEO AND AUDIO--------------------*/
-
         clearInterval(record);  
-        stopAudioRecording(); 
+        stopAudioRecording();
         recording = false;
-
-        botonGrabar.value = "Grabar";
     }
-    else
-    {
-        /*------------------STOP RECORDING VIDEO AND AUDIO--------------------*/
-
-        audioRecording();
-        sequenceRecording();
-        recording = true;
-
-        botonGrabar.value = "Grabando...";
-    }
+       
 }
 
 /*------------------GETTING CANVAS SNAPSHOT--------------------*/
@@ -89,7 +94,6 @@ var stream = false, rec;
 function audioRecording() {
     if (stream) {
         // Parar
-        document.getElementById('proof').value = 'Grabar';
         recorder.getRecordedData(EnviarPorAjax);
     } 
     else 
@@ -144,10 +148,12 @@ function stopAudioRecording() {
         sendWithAjax('post', url, 'application/x-www-form-urlencoded', 0, e);
 
     //Recorder.forceDownload(e, "filename.wav");
-    });    
+        stream = false;  
+    });
+
 }
 
-var a = 0, play = true;
+var a = 0;
 
 function sendWithAjax(method, url, header, b, archivo)
 {
@@ -191,21 +197,30 @@ function sendWithAjax(method, url, header, b, archivo)
             };
         }
         else
-        {
-
-            frames.length = 0;
+        {            
+            req.onreadystatechange = function ()
+            {
+                if (req.readyState === 4 && req.status === 200)
+                {
+                    frames.length = 0;
+                    a = 0;
+                    //Aquí se reactiva el botón de grabar
+                    console.log('TERMINADO');
+                }
+            };
         }
     }
     else
     {
         //Aquí entramos para guardar el audio
-        reader  = new FileReader();              
+        reader  = new FileReader(); 
+
 
         reader.onload = function (e) 
         {
         // Enviamos el contenido del archivo de audio y lo codificamos para evitar errores al enviar vía HTTP
             data = encodeURIComponent(reader.result);
-            req.send( 'sound=' + data );
+            req.send( 'sound=' + data );            
         };
 
 
@@ -215,7 +230,7 @@ function sendWithAjax(method, url, header, b, archivo)
         req.onreadystatechange = function ()
         {
             if (req.readyState === 4 && req.status === 200)
-            {
+            {                
                 stopSequenceRecording();
             }
         }; 
