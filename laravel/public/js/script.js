@@ -18,7 +18,8 @@ Name = {
 	Clase: 'clase',
 	Alumno: 'alumno',
 	Usuario: 'usuario',
-	Docente: 'docente'
+	Docente: 'docente',
+	BorrarUsuario: 'borrarUsuario'
 };
 
 $('#c').attr('width', $('.Pizarra').width());
@@ -158,6 +159,25 @@ function OpenlogOut(){
 	}
 }
 
+function changeClass(cElemento, cClaseNueva){
+	$(cElemento).removeClass();
+	$(cElemento).addClass(cClaseNueva);
+}
+
+changeClass('#botonGrabarDiv','BotonGrabarOff')
+function recordStopVideoAudio(){
+	changeClass('#botonStopDiv','BotonStopDivVisible');
+	changeClass('#botonGrabarDiv','BotonGrabarOn');
+		if ($("#botonStopDiv").is(":visible")) {
+			$("#botonGrabarDiv").prop('disabled', true);
+		};
+}
+
+function stopVideoAudioRecording(){
+	changeClass('#botonGrabarDiv','BotonGrabarOff');
+	changeClass('#botonStopDiv','BotonStopDivHidden')
+}
+
 //Esta variable contendrá el valor del dominio seleccionado anteriormente.
 var selectDominio = "";
 
@@ -251,6 +271,18 @@ function editUsuario()
 	$(".Foo4").css('display', 'inline-block');
 	$(".Foo1,.Foo2,.Foo3").css('display', 'none');
 	formParametros(true, false, true,  "Editar Usuario", "Rellene los campos y pulse aceptar.", Name.Usuario);
+}
+
+function deleteUsuario()
+{
+	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
+	$(".AlertContainer").fadeIn();
+	$(".Foo1").css('display', 'inline-block');
+	$(".Foo2,.Foo3,.Foo4").css('display', 'none');
+	formParametros(true, false, true,  "Eliminar Usuario", "Introduzca el usuario a eliminar y pulse aceptar.", Name.BorrarUsuario);
+	$("#foo11").attr('name',"borrarUsuario");
+	$("#foo11").attr('placeholder',"Usuario");
+	$("#selectDominio").hide();
 }
 
 function createProfesor()

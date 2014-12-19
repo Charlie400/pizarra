@@ -64,6 +64,13 @@
 				<select id="clase" class="ComboBoxClase">
 					<option id="claseOption" value="#">Clase</option>									
 				</select>
+				<div id="botonCapturaDiv" onClick="getCanvasSnapshot()"><input id="botonCaptura"  type="image" src="images/snapShot.png"/></div>
+				<div id="botonGrabarDiv" class="BotonGrabarOn, BotonGrabarOff" onclick="recordStopVideoAudio()"><input id="botonGrabar"  type="image" src="images/rec.png"/></div>
+				<div id="botonStopDiv" class="BotonStopDivVisible, BotonStopDivHidden" onclick="stopVideoAudioRecording()"><input id="botonStop"  type="image" src="images/stop.png"/></div>
+				<input id="botonDibujo" onClick="dibujoManoAlzada()" type="submit" name="Boton2" value="Dibujo a mano alzada"/>
+				<div id="draggable" class="ui-widget-content">
+					<p>Drag me around</p>
+				</div>
 
 			<!-- CONECTANDO EL FORMULARIO CON LOS SELECTS A LA BASE DE DATOS -->
 
@@ -82,12 +89,6 @@
 			<div id="usuariosHerramientas" class="MenuHerramientas">
 				<input id="botonAlumnos" onClick="createAlumno()" type="submit" name="Boton2" value="Crear Usuario"/>
 				<input id="botonEditarUsuario" onClick="editUsuario()" type="submit" name="Boton2" value="Editar Usuario"/>
-				<input id="botonCaptura" onClick="getCanvasSnapshot()" type="submit" name="Boton2" value="Captura de pantalla"/>
-				<input id="botonGrabar" onclick="recordStopVideoAudio()" type="submit" name="Boton2" value="Grabar"/>
-				<input id="botonDibujo" onClick="dibujoManoAlzada()" type="submit" name="Boton2" value="Dibujo a mano alzada"/>
-				<div id="draggable" class="ui-widget-content">
-					<p>Drag me around</p>
-				</div>
 			</div>
 			<!-- <div id="administracionHerramientas" class="MenuHerramientas">
 				<input id="botonProfe" onClick="createProfesor()" type="submit" name="Boton2" value="Usuarios"/>

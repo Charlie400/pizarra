@@ -67,14 +67,66 @@ input[name="Boton1"]{
 }
 
 input[name="Boton2"]{
-	padding: 0.2em;
-	min-width: 10%;
 	margin-left: 0.5em;
-	display: inline-block;
 	border-radius: 5px;
 	border: none;
 	background-color: #3498DB;
 	color: white;
+}
+
+#botonCaptura{
+	width: 19px;
+}
+
+#botonCapturaDiv{
+	width: 25px;
+	padding: 1px 1px 1px 7px;
+	display: inline-block;
+	background-color: #3498DB;
+	border-radius: 5px;
+	margin-left: 0.5em;
+}
+
+#botonGrabar{
+	width: 11px;
+}
+
+#botonGrabarDiv{
+	width: 20px;
+	padding: 1px 1px 1px 10px;
+	display: inline-block;
+	border-radius: 5px;
+	margin-left: 0.5em;
+	cursor: pointer;
+}
+
+.BotonGrabarOff{
+	background-color: #7C6262;
+}
+
+.BotonGrabarOn{
+	background-color: #F45B6D;
+}
+
+#botonStop{
+	width: 11px;
+}
+
+#botonStopDiv{
+	width: 20px;
+	padding: 1px 1px 1px 10px;
+	background-color: #3498DB;
+	border-radius: 5px;
+	margin-left: 0.5em;
+	cursor: pointer;
+}
+
+.BotonStopDivVisible{
+	display: inline-block;
+}
+
+.BotonStopDivHidden{
+	display: none;
 }
 
 input::-webkit-input-placeholder {
@@ -335,6 +387,10 @@ h1{
 }
 
 .CuadroInformativo{
+	position: absolute;
+	max-width: 249px;
+	top: 62%;
+	right: 0;
 	min-width: 5%;
 	height: 1.2em;
 	color: white;
@@ -344,7 +400,7 @@ h1{
 	background-color: #3498DB;
 	display: inline-block;
 	margin: 0 1% 0 0.5em;
-	float: right;
+	
 
 }
 
@@ -472,15 +528,10 @@ h1{
 
 
 .Button{
-	min-width: 65px;
-	text-align: center;
-	width: 40%;
-	left: 5%;
-	right: 5%;
+	margin-right: 2%;
+	margin-left: 2%;
 	cursor: pointer;
-	display: inline-block;
 	padding: 0.5em;
-	background: white;
 	color: white;
 	border-radius: 5px;
 }
@@ -495,11 +546,6 @@ h1{
 .CancelButton{
 	background-color: #E74C3C;
 	display: none;
-	width: 40%;
-	left: 5%;
-	right: 5%;
-	min-width: 65px;
-	text-align: center;
 }
 
 .AddButton{
