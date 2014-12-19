@@ -106,7 +106,11 @@
 						<p id="menuleftTitulo"></p>
 					</article>
 					<article class="AddArticle">
-						<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">
+						{{ Form::open(['enctype' => 'multipart/form-data', 'class' => 'fileForm']) }}
+						<!-- <img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80"> -->
+							{{ Field::file('escenario', null, ['input' => ['class' => 'AddArticle-Image']]) }}
+							<button id="fileButtom">Click</button>
+						{{ Form::close() }}
 					</article>
 				</div>
 			</div>
@@ -201,7 +205,7 @@
 							{{ Field::text('cp', null, ['input' => ['placeholder' => 'Código postal']]) }}
 							{{ Field::text('phone', null, ['input' => ['placeholder' => 'Tlf']]) }}
 							{{ Field::email('email', null, ['input' => ['placeholder' => 'E-mail']]) }}
-							{{ Field::text('borndate', null, ['input' => ['placeholder' => 'Fecha Nacimiento']]) }}
+							{{ Field::date('borndate') }}
 							{{ Field::text('obs', null, ['input' => ['placeholder' => 'Observaciones']]) }}
 							{{ Field::password('password', ['input' => ['placeholder' => 'Nueva Contraseña']]) }}
 							{{ Field::password('password_confirmation', 
@@ -246,8 +250,7 @@
 										   'value' => $user->phone ]]) }}
 							{{ Field::email('email', null, ['input' => ['placeholder' => 'E-mail', 
 										   'value' => $user->email ]]) }}
-							{{ Field::text('borndate', null, ['input' => ['placeholder' => 'Fecha Nacimiento', 
-										   'value' => $user->borndate ]]) }}
+							{{ Field::date('borndate', null, ['input' => [ 'value' => $user->borndate ]]) }}
 							{{ Field::text('obs', null, ['input' => ['placeholder' => 'Observaciones', 
 										   'value' => $user->obs ]]) }}
 							{{ Field::password('oldpassword', ['input' => ['placeholder' => 'Contraseña actual']]) }}

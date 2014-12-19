@@ -67,7 +67,12 @@ class UserController extends BaseController
 		
 		if ($created === true)		
 		{
-			return Redirect::back()->with('password', $pass);
+			if ( isset($pass) )
+			{
+				return Redirect::back()->with('password', $pass);
+			}
+
+			return Redirect::back();
 		}
 
 		return Redirect::back()->withInput()->withErrors($created);

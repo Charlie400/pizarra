@@ -27,6 +27,7 @@ Route::group(['before' => 'auth'], function()
 	Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
 	Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
 	Route::post('/create-undo', ['as' => 'createUndo', 'uses' => 'HomeController@createUndo']);
+	Route::post('/subir/archivo', ['as' => 'uploadFile', 'uses' => 'FileController@uploadFile']);
 
 	Route::group(['before' => 'csrf'], function()
 	{
@@ -36,7 +37,6 @@ Route::group(['before' => 'auth'], function()
 		Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);
 
 		/*TERMINAN FUNCIONALIDADES DEL HOME*/
-
 
 	});
 
