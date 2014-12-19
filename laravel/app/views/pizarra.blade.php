@@ -67,7 +67,7 @@
 				<div id="botonCapturaDiv" onClick="getCanvasSnapshot()"><input id="botonCaptura"  type="image" src="images/snapShot.png"/></div>
 				<div id="botonGrabarDiv" class="BotonGrabarOn, BotonGrabarOff" onclick="recordStopVideoAudio()"><input id="botonGrabar"  type="image" src="images/rec.png"/></div>
 				<div id="botonStopDiv" class="BotonStopDivVisible, BotonStopDivHidden" onclick="stopVideoAudioRecording()"><input id="botonStop"  type="image" src="images/stop.png"/></div>
-				<input id="botonDibujo" onClick="dibujoManoAlzada()" type="submit" name="Boton2" value="Dibujo a mano alzada"/>
+				<div id="botonDibujoDiv" onClick="dibujoManoAlzada()"><input id="botonDibujo" type="image" src="images/draw.png"/></div>
 				<div id="draggable" class="ui-widget-content">
 					<p>Drag me around</p>
 				</div>
@@ -265,8 +265,9 @@
 				</div>													
 			</div>		
 	</div>
-		<div class="ColorPickerContainer">
+	<div class="ColorPickerContainer">
 		<h5> Color Picker</h5>
+		<img onClick="closeAlert()" src="images/CloseButton2.png" height="20" id="closeButton2">
 		<div class="ColorPickerBig">
 			<div class="ColorPicker" style="background-color:#1ABC9C"></div>
 			<div class="ColorPicker" style="background-color:#2ECC71"></div>

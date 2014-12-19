@@ -486,12 +486,19 @@ function dibujoManoAlzada(){
 	$(".ColorPickerContainer").css('left', p.left);
 	$(".ColorPickerContainer").css('top', p.top);
 	$(".ColorPickerContainer").toggle();
+	$("#closeButton2").on("click",ocultarColorPicker);
+	function ocultarColorPicker(){
+		$(".ColorPickerContainer").hide();	
+		if ($(".ColorPickerContainer").is(":visible")){
+			$('#botonDibujoDiv').css('background-color','#E74C3C');
+		}else{
+			$('#botonDibujoDiv').css('background-color','#3498DB');
+		}	
+	}
 	if ($(".ColorPickerContainer").is(":visible")){
-		$('#botonDibujo').attr('value','Click aquí para cerrar');
-		$('#botonDibujo').css('background-color','#E74C3C');
+		$('#botonDibujoDiv').css('background-color','#E74C3C');
 	}else{
-		$('#botonDibujo').attr('value','Dibujo a mano alzada');
-		$('#botonDibujo').css('background-color','#3498DB');
+		$('#botonDibujoDiv').css('background-color','#3498DB');
 	}	
 }
 

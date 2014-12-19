@@ -75,12 +75,12 @@ input[name="Boton2"]{
 }
 
 #botonCaptura{
-	width: 19px;
+	width: 28px;
 }
 
 #botonCapturaDiv{
-	width: 25px;
-	padding: 1px 1px 1px 7px;
+	width: 35px;
+	padding: 4px 2px 0px 9px;
 	display: inline-block;
 	background-color: #3498DB;
 	border-radius: 5px;
@@ -88,12 +88,12 @@ input[name="Boton2"]{
 }
 
 #botonGrabar{
-	width: 11px;
+	width: 20px;
 }
 
 #botonGrabarDiv{
-	width: 20px;
-	padding: 1px 1px 1px 10px;
+	width: 29px;
+	padding: 3px 1px 0px 10px;
 	display: inline-block;
 	border-radius: 5px;
 	margin-left: 0.5em;
@@ -101,7 +101,7 @@ input[name="Boton2"]{
 }
 
 .BotonGrabarOff{
-	background-color: #7C6262;
+	background-color: #6D5252;
 }
 
 .BotonGrabarOn{
@@ -109,12 +109,12 @@ input[name="Boton2"]{
 }
 
 #botonStop{
-	width: 11px;
+	width: 20px;
 }
 
 #botonStopDiv{
-	width: 20px;
-	padding: 1px 1px 1px 10px;
+	width: 29px;
+	padding: 3px 1px 0px 10px;
 	background-color: #3498DB;
 	border-radius: 5px;
 	margin-left: 0.5em;
@@ -127,6 +127,20 @@ input[name="Boton2"]{
 
 .BotonStopDivHidden{
 	display: none;
+}
+
+#botonDibujo{
+	width: 20px;
+}
+
+#botonDibujoDiv{
+	width: 29px;
+	padding: 3px 1px 0px 10px;
+	background-color: #3498DB;
+	border-radius: 5px;
+	margin-left: 0.5em;
+	cursor: pointer;
+	display: inline-block;
 }
 
 input::-webkit-input-placeholder {
@@ -575,6 +589,14 @@ h1{
 	text-align: center;
 	color: white;
 	background-color: black;
+}
+
+#closeButton2{
+	color: white;
+	position: absolute;
+	right:2%; 
+	top:2%;
+	cursor: pointer;
 }
 
 .ColorPickerBig{
