@@ -16,6 +16,11 @@ body{
 	font-family: Roboto, Arial;
 }
 
+label{
+	display: none;
+}
+
+
 
 #LoginContainer{
 	top: 30%;
@@ -91,10 +96,19 @@ input[name="Boton2"]{
 	width: 20px;
 }
 
-#botonGrabarDiv{
+#botonGrabarDivOff{
 	width: 29px;
 	padding: 3px 1px 0px 10px;
 	display: inline-block;
+	border-radius: 5px;
+	margin-left: 0.5em;
+	cursor: pointer;
+}
+
+#botonGrabarDivOn{
+	width: 29px;
+	padding: 3px 1px 0px 10px;
+	display: none;
 	border-radius: 5px;
 	margin-left: 0.5em;
 	cursor: pointer;
@@ -554,6 +568,12 @@ h1{
 .OkButton{
 	background-color: #1ABC9C;
 	display: none;
+	border: none;
+}
+
+.RecordButton{
+	background-color: #1ABC9C;
+	display: inline-block;
 	border: none;
 }
 

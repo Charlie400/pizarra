@@ -64,15 +64,17 @@
 				<select id="clase" class="ComboBoxClase">
 					<option id="claseOption" value="#">Clase</option>									
 				</select>
-
 				<div id="botonCapturaDiv" onClick="getCanvasSnapshot()">
-					<input id="botonCaptura" type="image" src="images/snapShot.png"/>
+					<input id="botonCaptura"  type="image" src="images/snapShot.png"/>
 				</div>
-				<div id="botonGrabarDiv" onClick="recordButtom()" class="BotonGrabarOn BotonGrabarOff" >
-					<input id="botonGrabar" type="image" src="images/rec.png"/>
+				<div id="botonGrabarDivOff" class="BotonGrabarOff" onclick="Grabaralert()">
+					<input id="botonGrabar"  type="image" src="images/rec.png"/>
 				</div>
-				<div id="botonStopDiv" onClick="stopButtom()" class="BotonStopDivVisible BotonStopDivHidden">
-					<input id="botonStop" type="image" src="images/stop.png"/>
+				<div id="botonGrabarDivOn" class="BotonGrabarOn" >
+					<input id="botonGrabar"  type="image" src="images/rec.png"/>
+				</div>
+				<div id="botonStopDiv" class="BotonStopDivVisible BotonStopDivHidden" onclick="stopButtom()">
+					<input id="botonStop"  type="image" src="images/stop.png"/>
 				</div>
 				<div id="botonDibujoDiv" onClick="dibujoManoAlzada()">
 					<input id="botonDibujo" type="image" src="images/draw.png"/>
@@ -98,6 +100,7 @@
 			<div id="usuariosHerramientas" class="MenuHerramientas">
 				<input id="botonAlumnos" onClick="createAlumno()" type="submit" name="Boton2" value="Crear Usuario"/>
 				<input id="botonEditarUsuario" onClick="editUsuario()" type="submit" name="Boton2" value="Editar Usuario"/>
+				<input id="botonEliminarUsuario" onClick="deleteUsuario()" type="submit" name="Boton2" value="Eliminar Usuario"> 
 			</div>
 			<!-- <div id="administracionHerramientas" class="MenuHerramientas">
 				<input id="botonProfe" onClick="createProfesor()" type="submit" name="Boton2" value="Usuarios"/>
@@ -164,8 +167,7 @@
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}	
-					{{ Form::open(['route' => 'borrarEscenario', 'method' => 'POST', 'role' => 'form', 
-								   'class' => 'Foo2']) }}						
+					{{ Form::open(['route' => 'borrarEscenario', 'method' => 'POST', 'role' => 'form','class' => 'Foo2']) }}						
 						<div class="ContentOverflow">
 							<table>
 								<thead>
@@ -274,6 +276,14 @@
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}
+
+					<form class="Foo5">
+						<div class="ButtonsContainer">					
+							<div class="RecordButton Button" onclick="recordButton()">Grabar</div>
+							<button class="AddButton Button">Agregar</button>
+							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+						</div>	
+					</form>
 				</div>													
 			</div>		
 	</div>

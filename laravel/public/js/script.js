@@ -19,8 +19,14 @@ Name = {
 	Alumno: 'alumno',
 	Usuario: 'usuario',
 	Docente: 'docente',
-	BorrarUsuario: 'borrarUsuario'
+	BorrarUsuario: 'borrarUsuario',
+	Video: 'video'
 };
+//funcion para cambiar clase por parámetros.
+function changeClass(cElemento, cClaseNueva){
+	$(cElemento).removeClass();
+	$(cElemento).addClass(cClaseNueva);
+}
 
 $('#c').attr('width', $('.Pizarra').width());
 $('#c').attr('height', $('.Pizarra').height());
@@ -58,7 +64,7 @@ function ListaClick2(){
 	 	$( ".ElementosContainer" ).slideUp();
 	}
 }
-
+/*Comienzan las funciones que cambian las pestañas del menú principal*/
 $("#presentacionHerramientas").hide();
 $("#edicionHerramientas").hide();
 $("#usuariosHerramientas").hide();
@@ -67,14 +73,10 @@ $("#administracionHerramientas").hide();
 $("#presentacion").on('click',Presentacion);
 
 function Presentacion(){
-	$("#presentacion").removeClass();
-	$("#edicion").removeClass();
-	$("#usuarios").removeClass();
-	$("#administracion").removeClass();
-	$("#presentacion").addClass('Menu-ItemSelected');
-	$("#edicion").addClass('Menu-Item');
-	$("#usuarios").addClass('Menu-Item');
-	$("#administracion").addClass('Menu-Item');
+	changeClass('#presentacion', 'Menu-ItemSelected');
+	changeClass('#edicion', 'Menu-Item');
+	changeClass('#usuarios', 'Menu-Item');
+	changeClass('#administracion', 'Menu-Item');
 
 	$("#presentacionHerramientas").show();
 	$("#edicionHerramientas").hide();
@@ -85,14 +87,10 @@ function Presentacion(){
 $("#edicion").on('click',Edicion);
 
 function Edicion(){
-	$("#presentacion").removeClass();
-	$("#edicion").removeClass();
-	$("#usuarios").removeClass();
-	$("#administracion").removeClass();
-	$("#presentacion").addClass('Menu-Item');
-	$("#edicion").addClass('Menu-ItemSelected');
-	$("#usuarios").addClass('Menu-Item');
-	$("#administracion").addClass('Menu-Item');
+	changeClass('#presentacion', 'Menu-Item');
+	changeClass('#edicion', 'Menu-ItemSelected');
+	changeClass('#usuarios', 'Menu-Item');
+	changeClass('#administracion', 'Menu-Item');
 
 	$("#presentacionHerramientas").hide();
 	$("#edicionHerramientas").show();
@@ -103,14 +101,10 @@ function Edicion(){
 $("#usuarios").on('click',Usuarios);
 
 function Usuarios(){
-	$("#presentacion").removeClass();
-	$("#edicion").removeClass();
-	$("#usuarios").removeClass();
-	$("#administracion").removeClass();
-	$("#presentacion").addClass('Menu-Item');
-	$("#edicion").addClass('Menu-Item');
-	$("#usuarios").addClass('Menu-ItemSelected');
-	$("#administracion").addClass('Menu-Item');
+	changeClass('#presentacion', 'Menu-Item');
+	changeClass('#edicion', 'Menu-Item');
+	changeClass('#usuarios', 'Menu-ItemSelected');
+	changeClass('#administracion', 'Menu-Item');
 
 	$("#presentacionHerramientas").hide();
 	$("#edicionHerramientas").hide();
@@ -121,22 +115,18 @@ function Usuarios(){
 $("#administracion").on('click',Administracion);
 
 function Administracion(){
-	$("#presentacion").removeClass();
-	$("#edicion").removeClass();
-	$("#usuarios").removeClass();
-	$("#administracion").removeClass();
-	$("#presentacion").addClass('Menu-Item');
-	$("#edicion").addClass('Menu-Item');
-	$("#usuarios").addClass('Menu-Item');
-	$("#administracion").addClass('Menu-ItemSelected');
+	changeClass('#presentacion', 'Menu-Item');
+	changeClass('#edicion', 'Menu-Item');
+	changeClass('#usuarios', 'Menu-Item');
+	changeClass('#administracion', 'Menu-ItemSelected');
 	
 	$("#presentacionHerramientas").hide();
 	$("#edicionHerramientas").hide();
 	$("#usuariosHerramientas").hide();
 	$("#administracionHerramientas").show();
 }
-
-
+/*Terminan las funciones del menú principal*/
+//esta función controla el bloqueo del combobox clase.
 if ($("#dominio").val() == 0){
 	$("#clase").prop("disabled", true)
 	$("#clase").attr('class', 'ComboBoxDisabled');
@@ -158,27 +148,21 @@ function OpenlogOut(){
 		$(".CuadroUsuarioLogOut").slideDown();
 	}
 }
-
-function changeClass(cElemento, cClaseNueva){
-	$(cElemento).removeClass();
-	$(cElemento).addClass(cClaseNueva);
-}
+//Esta función controla la sincronización del boton rec y stop.
 
 changeClass('#botonGrabarDiv','BotonGrabarOff')
-function recordButtom(){
+function recordButton(){
 	changeClass('#botonStopDiv','BotonStopDivVisible');
-	changeClass('#botonGrabarDiv','BotonGrabarOn');
-		if ($("#botonStopDiv").is(":visible")) {
-			$("#botonGrabarDiv").prop('disabled', true);
-		};
-
+	$('#botonGrabarDivOff').css('display','none');
+	$('#botonGrabarDivOn').css('display','inline-block');
+	$(".AlertContainer").fadeOut();
 	recordVideoAudio();
 }
 
-function stopButtom(){
-	changeClass('#botonGrabarDiv','BotonGrabarOff');
+function stopButton(){
+	$('#botonGrabarDivOff').css('display','inline-block');
+	$('#botonGrabarDivOn').css('display','none');
 	changeClass('#botonStopDiv','BotonStopDivHidden');
-
 	stopVideoAudio();
 }
 
@@ -259,7 +243,7 @@ function createAlumno()
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").css('display', 'inline-block');
 	$(".Foo3").css('display', 'inline-block');
-	$(".Foo1,.Foo2,.Foo4").css('display', 'none');
+	$(".Foo1,.Foo2,.Foo4,.Foo5").css('display', 'none');
 	formParametros(true, false, true,  "Añadir Alumno", "Rellene los campos y pulse aceptar.", Name.Alumno);
 }
 
@@ -273,7 +257,7 @@ function editUsuario()
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
 	$(".Foo4").css('display', 'inline-block');
-	$(".Foo1,.Foo2,.Foo3").css('display', 'none');
+	$(".Foo1,.Foo2,.Foo3,.Foo5").css('display', 'none');
 	formParametros(true, false, true,  "Editar Usuario", "Rellene los campos y pulse aceptar.", Name.Usuario);
 }
 
@@ -282,7 +266,7 @@ function deleteUsuario()
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
 	$(".Foo1").css('display', 'inline-block');
-	$(".Foo2,.Foo3,.Foo4").css('display', 'none');
+	$(".Foo2,.Foo3,.Foo4,.Foo5").css('display', 'none');
 	formParametros(true, false, true,  "Eliminar Usuario", "Introduzca el usuario a eliminar y pulse aceptar.", Name.BorrarUsuario);
 	$("#foo11").attr('name',"borrarUsuario");
 	$("#foo11").attr('placeholder',"Usuario");
@@ -294,8 +278,17 @@ function createProfesor()
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
 	$(".Foo3").css('display', 'inline-block');
-	$(".Foo1,.Foo2,.Foo4").css('display', 'none');
+	$(".Foo1,.Foo2,.Foo4,.Foo5").css('display', 'none');
 	formParametros(true, false, true,  "Añadir Docente", "Rellene los campos y pulse aceptar.", Name.Docente);
+}
+
+function Grabaralert()
+{
+	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
+	$(".Foo5").css('display', 'inline-block');
+	$(".Foo1,.Foo2,.Foo3,.Foo4").css('display', 'none');
+	$(".AlertContainer").fadeIn();
+	formParametros(true, false, true, "Grabar Video", "Se va a comenzar a grabar un video cuya duración no podrá superar 5 minutos", Name.Video);
 }
 
 
