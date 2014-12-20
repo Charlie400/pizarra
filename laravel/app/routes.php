@@ -26,6 +26,7 @@ Route::group(['before' => 'auth'], function()
 	/*COMIENZAN FUNCIONALIDADES DEL HOME*/
 	Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
 	Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
+	Route::get('/mostrar-escenarios', ['as' => 'getEscenarios', 'uses' => 'HomeController@getEscenarios']);
 	Route::post('/create-undo', ['as' => 'createUndo', 'uses' => 'HomeController@createUndo']);
 	Route::post('/subir/archivo', ['as' => 'uploadFile', 'uses' => 'FileController@uploadFile']);
 

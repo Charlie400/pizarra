@@ -39,7 +39,12 @@ class HomeController extends BaseController {
 		$escenarios = $this->escenarioRepo->findAll();
 
 		return View::make('pizarra', compact('dominios', 'escenarios'));
-	}	
+	}
+
+	public function getEscenarios()
+	{
+		echo json_encode($this->escenarioRepo->findAll());
+	}
 
 	public function sendDominios()
 	{

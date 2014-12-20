@@ -67,7 +67,7 @@
 				<div id="botonCapturaDiv" onClick="getCanvasSnapshot()">
 					<input id="botonCaptura"  type="image" src="images/snapShot.png"/>
 				</div>
-				<div id="botonGrabarDivOff" class="BotonGrabarOff" onclick="Grabaralert()">
+				<div id="botonGrabarDivOff" class="BotonGrabarOff" onclick="grabarAlert()">
 					<input id="botonGrabar"  type="image" src="images/rec.png"/>
 				</div>
 				<div id="botonGrabarDivOn" class="BotonGrabarOn" >
@@ -113,17 +113,7 @@
 			<li class="MenuLeft-ItemLista-Esc">Escenarios<img src="images/RightArrow.png" id="EscenariosArrow" class="Arrow" width="9" height="9"></li>
 			<div class="EscenariosContainer">
 				<div class="MenuLeft-ArticlesContainer">
-					<article class="Article">
-						<img src="images/fondo1.jpg" height="80" width="80">
-						<p id="menuleftTitulo"></p>
-					</article>
-					<article class="AddArticle">
-						{{ Form::open(['enctype' => 'multipart/form-data', 'class' => 'fileForm']) }}
-						<!-- <img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80"> -->
-							{{ Field::file('escenario', null, ['input' => ['class' => 'AddArticle-Image']]) }}
-							<button id="fileButtom">Click</button>
-						{{ Form::close() }}
-					</article>
+
 				</div>
 			</div>
 			<li class="MenuLeft-ItemLista-Ele">Elementos<img src="images/RightArrow.png" id="ElementosArrow" class="Arrow" width="9" height="9"></li>
@@ -177,19 +167,8 @@
 										<td><strong>Seleccionar</strong></td>
 									</tr>
 								</thead>
-								<tbody>
-									@foreach($escenarios as $e)
-										<tr>
-											<td><img src=""/></td>
-											<td>
-												{{ $e->Nombre }}
-											</td>
-											<td>
-												<input type="Checkbox" name="checkbox[]" value="{{ $e->id }}" />
-											</td>
-										</tr>
-																			
-									@endforeach
+								<tbody id="contentEscenarios">
+										
 								</tbody>
 							</table>
 						</div>	
@@ -277,12 +256,13 @@
 						</div>	
 					{{ Form::close() }}
 
-					<form class="Foo5">
+					{{ Form::open(['class' => 'Foo5']) }}
 						<div class="ButtonsContainer">					
-							<div class="RecordButton Button" onclick="recordButton()">Grabar</div>
+							<div class="RecordButton Button" onclick="recordButtom()">Grabar</div>
 							<button class="AddButton Button">Agregar</button>
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
+					{{ Form::close() }}
 					</form>
 				</div>													
 			</div>		

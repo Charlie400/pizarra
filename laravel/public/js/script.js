@@ -151,18 +151,22 @@ function OpenlogOut(){
 //Esta función controla la sincronización del boton rec y stop.
 
 changeClass('#botonGrabarDiv','BotonGrabarOff')
-function recordButton(){
+function recordButtom()
+{
 	changeClass('#botonStopDiv','BotonStopDivVisible');
 	$('#botonGrabarDivOff').css('display','none');
 	$('#botonGrabarDivOn').css('display','inline-block');
 	$(".AlertContainer").fadeOut();
+
 	recordVideoAudio();
 }
 
-function stopButton(){
+function stopButtom()
+{
 	$('#botonGrabarDivOff').css('display','inline-block');
 	$('#botonGrabarDivOn').css('display','none');
 	changeClass('#botonStopDiv','BotonStopDivHidden');
+
 	stopVideoAudio();
 }
 
@@ -204,12 +208,44 @@ function GetComboClase(){
 
 /* Funciones para alerts en botones */
 
+function hideFormsLess(clase)
+{
+	clase || (clase = "");
+
+	switch(clase)
+	{
+		case ".Foo1":
+			$(".Foo2,.Foo3,.Foo4,.Foo5").hide();
+		break;
+		case ".Foo2":
+			$(".Foo1,.Foo3,.Foo4,.Foo5").hide();
+		break;
+		case ".Foo3":
+			$(".Foo1,.Foo2,.Foo4,.Foo5").hide();
+		break;
+		case ".Foo4":
+			$(".Foo1,.Foo2,.Foo3,.Foo5").hide();
+		break;
+		case ".Foo5":
+			$(".Foo1,.Foo2,.Foo3,.Foo4").hide();
+		break;
+		case "":
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5").hide();
+		break;
+	}
+}
+
+function showClass(clase)
+{
+	$(clase).css('display', 'inline-block');
+}
+
 function createDominio()
 {
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
-	$(".Foo1").css('display', 'inline-block');
-	$(".Foo2,.Foo3,.Foo4").hide();
+	showClass(".Foo1");
+	hideFormsLess(".Foo1");
 	formParametros(false, true, true, "Añadir Dominio", "Clic en agregar para añadir dominio.", Name.Dominio);
 	$("#foo11").attr('name',"dominio");
 	$("#foo11").attr('placeholder',"Dominio");
@@ -220,8 +256,8 @@ function borrarEscenario()
 {
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
-	$(".Foo2").css('display', 'inline-block');
-	$(".Foo1,.Foo3,.Foo4").css('display', 'none');
+	showClass(".Foo2");
+	hideFormsLess(".Foo2");
 	formParametros(true, false, true, "Borrar Escenarios", "Elija los escenarios que desee borrar.", Name.Escenario);
 }
 
@@ -229,8 +265,8 @@ function createClase()
 {
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
-	$(".Foo1").css('display', 'inline-block');
-	$(".Foo2,.Foo3,.Foo4").css('display', 'none');
+	showClass(".Foo1");
+	hideFormsLess(".Foo1");
 	formParametros(false, true, true,  "Añadir Clase", "Clic en agregar para añadir clase.", Name.Clase);
 	$("#foo11").attr('name',"clase");
 	$("#foo11").attr('placeholder',"Clase");
@@ -242,8 +278,8 @@ function createAlumno()
 {
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").css('display', 'inline-block');
-	$(".Foo3").css('display', 'inline-block');
-	$(".Foo1,.Foo2,.Foo4,.Foo5").css('display', 'none');
+	showClass(".Foo3");
+	hideFormsLess(".Foo3");
 	formParametros(true, false, true,  "Añadir Alumno", "Rellene los campos y pulse aceptar.", Name.Alumno);
 }
 
@@ -256,8 +292,8 @@ function editUsuario()
 {
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
-	$(".Foo4").css('display', 'inline-block');
-	$(".Foo1,.Foo2,.Foo3,.Foo5").css('display', 'none');
+	showClass(".Foo4");
+	hideFormsLess(".Foo4");
 	formParametros(true, false, true,  "Editar Usuario", "Rellene los campos y pulse aceptar.", Name.Usuario);
 }
 
@@ -265,8 +301,8 @@ function deleteUsuario()
 {
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
-	$(".Foo1").css('display', 'inline-block');
-	$(".Foo2,.Foo3,.Foo4,.Foo5").css('display', 'none');
+	showClass(".Foo1");
+	hideFormsLess(".Foo1");
 	formParametros(true, false, true,  "Eliminar Usuario", "Introduzca el usuario a eliminar y pulse aceptar.", Name.BorrarUsuario);
 	$("#foo11").attr('name',"borrarUsuario");
 	$("#foo11").attr('placeholder',"Usuario");
@@ -277,16 +313,16 @@ function createProfesor()
 {
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
-	$(".Foo3").css('display', 'inline-block');
-	$(".Foo1,.Foo2,.Foo4,.Foo5").css('display', 'none');
+	showClass(".Foo3");
+	hideFormsLess(".Foo3");
 	formParametros(true, false, true,  "Añadir Docente", "Rellene los campos y pulse aceptar.", Name.Docente);
 }
 
-function Grabaralert()
+function grabarAlert()
 {
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
-	$(".Foo5").css('display', 'inline-block');
-	$(".Foo1,.Foo2,.Foo3,.Foo4").css('display', 'none');
+	showClass(".Foo5");
+	hideFormsLess(".Foo5");
 	$(".AlertContainer").fadeIn();
 	formParametros(true, false, true, "Grabar Video", "Se va a comenzar a grabar un video cuya duración no podrá superar 5 minutos", Name.Video);
 }
@@ -334,12 +370,16 @@ function ShowHideButtons(pOkButton, pAddButton, pCancelButton){
 //Esta variable contendrá el valor de la respuesta de AJAX al completarse
 var ajaxData;
 
-function createAjaxRequest(data, url, id, befSendText, responseText)
+function createAjaxRequest(data, url, id, befSendText, responseText, method)
 {
+
+	if (typeof(method) === undefined) method = 'GET';
+
 	$.ajax({
 		data: {data: data},
 		url: url, 
 		dataType: 'json',
+		type: method,
 		beforeSend: function(){
 			$(id).text(befSendText);				
 		},
@@ -430,6 +470,46 @@ function getDominios()
 	, 500);
 }
 
+function getEscenarios()
+{
+	var url = serverURL + '/mostrar-escenarios';
+
+	createAjaxRequest("", url, '', '', '');
+
+	setTimeout( function ()
+	{
+		var menu = $('.MenuLeft-ArticlesContainer'),
+		alert    = $('#contentEscenarios');
+
+		menu.text("");				
+		alert.text("");
+
+		$.each(ajaxData, function (i, value){
+			menu.append('<article class="Article">'+
+							'<img onClick="insertImageToCanvas()" src="images/Escenarios/'+value['fullname']+'" height="80" width="80">'+
+							'<p id="menuleftTitulo"></p>'+
+						'</article>');				
+			alert.append('<tr>'+
+							'<td><img src="images/Escenarios/'+value['fullname']+'" height="40" width="40"></td>'+
+							'<td>'+value['Nombre']+'</td>'+
+							'<td><input type="Checkbox" name="checkbox[]" value="'+value['id']+'" /></td>'+
+						'</tr>');
+		});
+
+		menu.append('<article class="AddArticle">'+
+							'<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">'+
+							'<form method="POST" id="fileForm" enctype="multipart/form-data">'+
+								'<input type="file" id="escenario" name="escenario" onChange="uploadEscenario()"'+
+								'style="width: 160px;"'+
+							'</form>'+
+						'</article>');
+		
+		ajaxData.length = 0;
+	}, 500);
+}
+
+getEscenarios();
+
 /*------------TERMINAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO-----------*/
 
 
@@ -501,3 +581,39 @@ function dibujoManoAlzada(){
 
 $('.ColorPickerContainer').drags();
 
+/*-------------------------- COMIENZAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/
+
+function uploadEscenario()
+{
+	var file = $('#escenario')[0],
+	url = serverURL + '/subir/archivo';
+
+	file = file.files[0];
+
+	var data = new FormData();
+
+	data.append('escenario', file);
+
+	$.ajax({
+		url:url,
+
+		type:'POST',
+
+		contentType:false,
+
+		data: data,
+
+		processData:false,
+
+		cache:false,
+
+		success: function (r)
+		{
+			console.log(r);
+			getEscenarios();
+		}
+	});
+
+}
+
+/*-------------------------- TERMINAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/

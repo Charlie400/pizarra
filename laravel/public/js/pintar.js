@@ -88,7 +88,7 @@ function borrar(){
 	pizarra_canvas.width = pizarra_canvas.width;
 }
 
-$('.Article img').on('click', insertImageToCanvas);
+//$('.Article img').on('click', insertImageToCanvas);
 
 function insertImageToCanvas(){
 	var img = new Image()
