@@ -73,7 +73,7 @@
 				<div id="botonGrabarDivOn" class="BotonGrabarOn" >
 					<input id="botonGrabar"  type="image" src="images/rec.png"/>
 				</div>
-				<div id="botonStopDiv" class="BotonStopDivVisible BotonStopDivHidden" onclick="stopButton()">
+				<div id="botonStopDiv" class="BotonStopDivVisible BotonStopDivHidden" onclick="stopButtom()">
 					<input id="botonStop"  type="image" src="images/stop.png"/>
 				</div>
 				<div id="botonDibujoDiv" onClick="dibujoManoAlzada()">
