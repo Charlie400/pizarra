@@ -25,7 +25,7 @@ class FileController extends BaseController
 			//Obtenemos la extensión del archivo
 			$data['Nombre']  = explode('.', $fileName['Nombre']);
 				
-			if ($validFile = ($this->validFile($fileName['Nombre'], $allow)))
+			if ($this->validFile($fileName['Nombre'], $allow))
 			{							
 				//Obtenemos el nombre del archivo sin la extensión
 				$data['Nombre'] = implode('.', $data['Nombre']);
@@ -35,7 +35,7 @@ class FileController extends BaseController
 				$data['clase_id'] = 1; //Añadir clase seleccionada
 				$data['user_id']  = Auth::user()->id;
 
-				if ($created = ($this->escenarioRepo->createNewRecord($data) === true))
+				if ($this->escenarioRepo->createNewRecord($data) === true)
 				{
 
 			 		$esc = public_path() . '/images/Escenarios/' . $data['fullname'];		
@@ -52,11 +52,16 @@ class FileController extends BaseController
 						$result = 'No se pudo subir el archivo.';
 					}
 
-				}				
+				}
+				else
+				{
+					$result = 'No se pudo crear el registro.';
+				}			
 			}
-
-			if ( ! $validFile) $result = 'Archivo invalido o formato no permitido.';
-			elseif ( ! $created) $result = 'No se pudo crear el registro.';
+			else
+			{
+				$result = 'Archivo invalido o formato no permitido.';
+			}	
 
 			echo json_encode($result);
 	}
