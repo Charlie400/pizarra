@@ -13,44 +13,75 @@ class FileController extends BaseController
 	}
 
 	public function uploadFile()
-	{		
+	{
+			//Definimos una variable que contendrá los datos a devolver a js
+			$result = '';			
+			//Definimos los formatos permitidos.
+			$allow = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];	
 			//Obtenemos nombre del archivo y nombre temporal(donde se guarda temporalmente el archivo)
 			$fileName['Nombre']  = $_FILES['escenario']['name'];		
-			$fileName['tmpName'] = $_FILES['escenario']['tmp_name'];
+			$fileName['tmpName'] = $_FILES['escenario']['tmp_name'];			
 
 			//Obtenemos la extensión del archivo
 			$data['Nombre']  = explode('.', $fileName['Nombre']);
-			$ext = array_pop($data['Nombre']);
+				
+			if ($validFile = ($this->validFile($fileName['Nombre'], $allow)))
+			{							
+				//Obtenemos el nombre del archivo sin la extensión
+				$data['Nombre'] = implode('.', $data['Nombre']);
 
-			//Seleccionamos las extensiones de archivo permitidas
-			$allow = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+				//Guardamos los datos que enviaremos a la base de datos
+				$data['fullname'] = $fileName['Nombre'];
+				$data['clase_id'] = 1; //Añadir clase seleccionada
+				$data['user_id']  = Auth::user()->id;
 
-			//Obtenemos el nombre del archivo sin la extensión
-			$data['Nombre']  = implode('.', $data['Nombre']);
-			
-			//Guardamos los datos que enviaremos a la base de datos
-			$data['fullname'] = $fileName['Nombre'];
-			$data['clase_id'] = 1; //Añadir clase seleccionada
-			$data['user_id']  = Auth::user()->id;
-
-			if (in_array($ext, $allow) && $this->escenarioRepo->createNewRecord($data) === true)
-			{
-
-		 		$esc = public_path() . '/images/Escenarios/' . $data['fullname'];		
-
-				if (move_uploaded_file($fileName['tmpName'], $esc))
+				if ($created = ($this->escenarioRepo->createNewRecord($data) === true))
 				{
-					echo json_encode('');
-				}
-				else
-				{
-					dd('Fallido');
-				}
 
+			 		$esc = public_path() . '/images/Escenarios/' . $data['fullname'];		
+
+					if (move_uploaded_file($fileName['tmpName'], $esc))
+					{
+						$result = 'Completado con exito.';
+					}
+					else
+					{
+						$lastUser = $this->escenarioRepo->last();
+						$lastUser->delete();
+
+						$result = 'No se pudo subir el archivo.';
+					}
+
+				}				
 			}
-			else
+
+			if ( ! $validFile) $result = 'Archivo invalido o formato no permitido.';
+			elseif ( ! $created) $result = 'No se pudo crear el registro.';
+
+			echo json_encode($result);
+	}
+
+	public function validFile($fileName, $allow)
+	{
+		$fileName = explode('.', $fileName);
+		//Obtenemos la extensión del archivo
+
+		$count = count($fileName) > 1;		
+
+		if ($count)
+		{			
+			//Conseguimos la extensión del archivo	
+			$ext   = array_pop($fileName);
+
+			//Comprobamos si es un archivo permitido
+			$inArray = in_array($ext, $allow);
+
+			if ($inArray)
 			{
-				echo json_encode('No se pudo crear registro o el formato no es permitido.');
+		 		return true;
 			}
+		}
+
+		return false;
 	}
 }

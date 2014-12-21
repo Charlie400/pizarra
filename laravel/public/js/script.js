@@ -1,18 +1,5 @@
 ;
-var Action = {
-    Hide: 0,
-    Show: 1
-}
-ButtonState = {
-    NoActive: 0,
-    Active: 1
-},
-Elemento = {
-    TextBox: 0,
-    OnlyText: 1,
-	ListBox: 2
-},
-Name = {
+var Name = {
 	Dominio: 'dominio',
 	Escenario: 'borrarEscenario',
 	Clase: 'clase',
@@ -508,7 +495,7 @@ function getEscenarios()
 	}, 500);
 }
 
-getEscenarios();
+window.onload = getEscenarios();
 
 /*------------TERMINAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO-----------*/
 
