@@ -96,6 +96,8 @@
 				<input id="botonNuevaClase" onClick="createClase()" type="submit" name="Boton2" value="Nueva Clase"/>
 				<input id="botonBorrarEscenarios" onClick="borrarEscenario()" type="submit" name="Boton2" 
 				value="Borrar Escenarios"/>
+				<input id="botonBorrarElementos" onClick="borrarElementos()" type="submit" name="Boton2" 
+				value="Borrar Elementos"/>
 			</div>
 			<div id="usuariosHerramientas" class="MenuHerramientas">
 				<input id="botonAlumnos" onClick="createAlumno()" type="submit" name="Boton2" value="Crear Usuario"/>
@@ -120,11 +122,11 @@
 			<div class="ElementosContainer">
 				<div id="MAC2" class="MenuLeft-ArticlesContainer">
 					<article class="Article">
-						<img src="images/fondo1.jpg" height="80" width="80">
+						<img src="" height="80" width="80">
 						<p id="menuleftTitulo"></p>
 					</article>
 					<article class="AddArticle">
-						<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">
+						<img class="AddArticle-Image" onclick="subirEscenarios()" src="images/addEscenario.png" height="80" width="80">
 					</article>
 				</div>
 			</div>	
@@ -264,6 +266,21 @@
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}
+					<form class="Foo6">
+						Nombre <input id="foo61" name="" type="text" placeholder=""><br>
+						Seleccionar imagen <input id="foo62" name="" src="images/upload.png" type="image">
+						<div class="ButtonsContainer">					
+							<button class="OkButton Button">Aceptar</button>
+							<button class="AddButton Button">Agregar</button>
+							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+						</div>	
+					</form>
+					</form>
+						<form class="Foo7">
+						<img width="100%" src="images/escenarios/fondo1.jpg">
+						<input id="foo71" name="" type="button" value="Publicar">
+						<input id="foo72" name="" type="button" value="descargar">
+						<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
 					</form>
 				</div>													
 			</div>		

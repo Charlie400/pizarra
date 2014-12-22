@@ -707,6 +707,58 @@ h1{
 	width: 100%;
 }
 
+.Foo6{
+	width: 90%;
+}
+
+#foo61{
+	width: 40%;
+}
+
+#foo62{
+	width: 15%;
+	margin-bottom: -5%;
+}
+
+.Foo7{
+	width: 90%;
+	display: inline;
+}
+
+#foo71{
+	width: 30%;
+	background-color:#1ABC9C;
+	text-align: center;
+	color: white;
+	padding: 5% 0;
+	margin: 4% 1% 1% 1%;
+	border-radius: 5px;
+	border: none; 
+}
+
+#foo72{
+	width: 30%;
+	background-color:#3498DB;
+	text-align: center;
+	color: white;
+	padding: 5% 0;
+	margin: 4% 1% 1% 1%;
+	border-radius: 5px;
+	border: none; 
+}
+
+#foo73{
+	width: 30%;
+	background-color:#E74C3C;
+	text-align: center;
+	color: white;
+	padding: 5% 0;
+	margin: 4% 1% 1% 1%;
+	border-radius: 5px;
+	border: none; 
+}
+
+
 .ContentOverflow{
 	overflow-y: auto; 
 	height: 10em;

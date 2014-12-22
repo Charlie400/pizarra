@@ -2,12 +2,17 @@
 var Name = {
 	Dominio: 'dominio',
 	Escenario: 'borrarEscenario',
+	Elemento: 'borarElemento',
 	Clase: 'clase',
 	Alumno: 'alumno',
 	Usuario: 'usuario',
 	Docente: 'docente',
 	BorrarUsuario: 'borrarUsuario',
-	Video: 'video'
+	Video: 'video',
+	SubirEscenarios: 'alertEscenarios',
+	SubirElementos: 'alertElementos',
+	GuardarSnapshot: 'guardarSnapshot',
+	GuardarGrabacion: 'guardarGrabacion'
 };
 //funcion para cambiar clase por parámetros.
 function changeClass(cElemento, cClaseNueva){
@@ -66,9 +71,7 @@ function Presentacion(){
 	changeClass('#administracion', 'Menu-Item');
 
 	$("#presentacionHerramientas").show();
-	$("#edicionHerramientas").hide();
-	$("#usuariosHerramientas").hide();
-	$("#administracionHerramientas").hide();
+	$("#edicionHerramientas, #usuariosHerramientas, #administracionHerramientas").hide();
 }
 
 $("#edicion").on('click',Edicion);
@@ -79,10 +82,8 @@ function Edicion(){
 	changeClass('#usuarios', 'Menu-Item');
 	changeClass('#administracion', 'Menu-Item');
 
-	$("#presentacionHerramientas").hide();
+	$("#presentacionHerramientas, #usuariosHerramientas, #administracionHerramientas").hide();
 	$("#edicionHerramientas").show();
-	$("#usuariosHerramientas").hide();
-	$("#administracionHerramientas").hide();
 }
 
 $("#usuarios").on('click',Usuarios);
@@ -93,10 +94,8 @@ function Usuarios(){
 	changeClass('#usuarios', 'Menu-ItemSelected');
 	changeClass('#administracion', 'Menu-Item');
 
-	$("#presentacionHerramientas").hide();
-	$("#edicionHerramientas").hide();
+	$("#presentacionHerramientas, #edicionHerramientas, #administracionHerramientas").hide();
 	$("#usuariosHerramientas").show();
-	$("#administracionHerramientas").hide();
 }
 
 $("#administracion").on('click',Administracion);
@@ -107,9 +106,7 @@ function Administracion(){
 	changeClass('#usuarios', 'Menu-Item');
 	changeClass('#administracion', 'Menu-ItemSelected');
 	
-	$("#presentacionHerramientas").hide();
-	$("#edicionHerramientas").hide();
-	$("#usuariosHerramientas").hide();
+	$("#presentacionHerramientas, #edicionHerramientas, #usuariosHerramientas").hide();
 	$("#administracionHerramientas").show();
 }
 /*Terminan las funciones del menú principal*/
@@ -202,22 +199,28 @@ function hideFormsLess(clase)
 	switch(clase)
 	{
 		case ".Foo1":
-			$(".Foo2,.Foo3,.Foo4,.Foo5").hide();
+			$(".Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7").hide();
 		break;
 		case ".Foo2":
-			$(".Foo1,.Foo3,.Foo4,.Foo5").hide();
+			$(".Foo1,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7").hide();
 		break;
 		case ".Foo3":
-			$(".Foo1,.Foo2,.Foo4,.Foo5").hide();
+			$(".Foo1,.Foo2,.Foo4,.Foo5,.Foo6,.Foo7").hide();
 		break;
 		case ".Foo4":
-			$(".Foo1,.Foo2,.Foo3,.Foo5").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo5,.Foo6,.Foo7").hide();
 		break;
 		case ".Foo5":
-			$(".Foo1,.Foo2,.Foo3,.Foo4").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo6,.Foo7").hide();
+		break;
+		case ".Foo6":
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo7").hide();
+		break;
+		case ".Foo7":
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6").hide();
 		break;
 		case "":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7").hide();
 		break;
 	}
 }
@@ -246,6 +249,15 @@ function borrarEscenario()
 	showClass(".Foo2");
 	hideFormsLess(".Foo2");
 	formParametros(true, false, true, "Borrar Escenarios", "Elija los escenarios que desee borrar.", Name.Escenario);
+}
+
+function borrarElementos()
+{
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	$(".AlertContainer").fadeIn();
+	showClass(".Foo2");
+	hideFormsLess(".Foo2");
+	formParametros(true, false, true, "Borrar Elementos", "Elija los elementos que desee borrar.", Name.Elemento);
 }
 
 function createClase()
@@ -311,8 +323,57 @@ function grabarAlert()
 	showClass(".Foo5");
 	hideFormsLess(".Foo5");
 	$(".AlertContainer").fadeIn();
-	formParametros(true, false, true, "Grabar Video", "Se va a comenzar a grabar un video cuya duración no podrá superar 5 minutos", Name.Video);
+	formParametros(true, false, true, "Grabar Video", "Se va a comenzar a grabar un video cuya duración no podrá superar 5 minutos.", Name.Video);
 }
+
+function escenariosAlert()
+{	
+	
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(".Foo6");
+	hideFormsLess(".Foo6");
+	$(".AlertContainer").fadeIn();
+	formParametros(true,false,true,"Añadir Escenario","Selecciona una imagen, asignele un nombre y pulse Aceptar.", Name.AñadirEscenario);
+	$("#foo61").attr('name',"nombreEscenario");
+	$("#foo61").attr('placeholder',"Nuevo Escenario");
+	$("#foo62").attr('name',"imgEscenario");
+}
+
+function elementosAlert()
+{	
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(".Foo6");
+	hideFormsLess(".Foo6");
+	$(".AlertContainer").fadeIn();
+	formParametros(true,false,true,"Añadir Elemento","Selecciona una imagen, asignele un nombre y pulse Aceptar.", Name.AñadirElemento);
+	$("#foo61").attr('name',"nombreElemento");
+	$("#foo61").attr('placeholder',"Nuevo Elemento");
+	$("#foo62").attr('name',"imgElemento");
+}
+
+function saveSnapshot()
+{
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(".Foo7");
+	hideFormsLess(".Foo7");
+	$(".AlertContainer").fadeIn();
+	formParametros(false,false,true,"Guardar Snapshot","Selecciona donde guardar.", Name.GuardarSnapshot);
+	$("#foo71").attr('name',"PublicarSnapshot");
+	$("#foo72").attr('name',"DescargarSnapshot");
+}
+
+function saveRecord()
+{
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(".Foo7");
+	hideFormsLess(".Foo7");
+	$(".AlertContainer").fadeIn();
+	formParametros(false,false,true,"Guardar Grabación","", Name.GuardarGrabacion);
+	$("#foo71").attr('name',"PublicarGrabacion");
+	$("#foo72").attr('name',"DescargarGrabacion");
+}
+
+
 
 
 //En la variable n se pasará un nombre para el input dado que es necesario para enviar el formulario.
@@ -325,7 +386,6 @@ function formParametros(pOkButton, pAddButton, pCancelButton, pTitulo, pCuerpo, 
 		ShowHideButtons(pOkButton, pAddButton, pCancelButton);
 	
 }
-
 
 
 /* Termina funciones para alerts en botones */
@@ -478,7 +538,7 @@ function showMenuImages(idMenu, idAlert, idForm, idInput, iFunction, uFunction, 
 					'</tr>');
 	});
 	
-	ajaxData.length = 0;		
+	ajaxData.length = 0;	
 
 	menu.append('<article class="AddArticle">'+
 						'<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">'+
