@@ -556,7 +556,7 @@ var getEndDir =
 }
 
 function getMenuImages(endDir)
-{
+{	
 	var url = serverURL + endDir;	
 
 	createAjaxRequest("", url, '', '', '');	
@@ -573,6 +573,8 @@ function getMenuImages(endDir)
 			showMenuImages('#MAC2', '#contentElementos', 'fileForm2', 'elemento', 'insertImageToCanvas', 
 						   'uploadElemento', 'Elementos');
 		}
+
+		working = false;			
 	}, 500);
 }
 
@@ -598,36 +600,63 @@ function uploadElemento()
 }
 
 function uploadFile(id, name, endDir)
-{
-	var file = $(id)[0],
-	url = serverURL + '/subir/archivo';
+{	
+	if ( ! working)
+	{
+		working   = true;		
 
-	file = file.files[0];
-
-	var data = new FormData();
-
-	data.append(name, file);
-	data.append('clase', $('#clase').val());
-
-	$.ajax({
-		url:url,
-
-		type:'POST',
-
-		contentType:false,
-
-		data: data,
-
-		processData:false,
-
-		cache:false,
-
-		success: function (r)
+		var classValue = $('#clase').val();
+		
+		if (isNumber(classValue))
 		{
-			console.log(r);
-			getMenuImages(endDir);
+			var file = $(id)[0],
+			url = serverURL + '/subir/archivo';
+
+			file = file.files[0];
+
+			var data = new FormData();
+
+			data.append(name, file);
+			data.append('clase', classValue);
+
+			$.ajax({
+				url:url,
+
+				type:'POST',
+
+				contentType:false,
+
+				data: data,
+
+				processData:false,
+
+				cache:false,
+
+				success: function (r)
+				{
+					console.log(r);
+					getMenuImages(endDir);
+					working = false;
+				},
+				error: function (jqXHR,estado,error) {
+					console.log(estado);
+					console.log(error);
+					working = false;
+				}
+			});
 		}
-	});
+		else
+		{
+			working = false;
+			getMenuImages(endDir);
+			console.log('No has seleccionado una clase.');
+		}
+	}
+}
+
+function isNumber(bar)
+{
+	return ! isNaN(parseInt(bar));
 }
 
 /*-------------------------- TERMINAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/
