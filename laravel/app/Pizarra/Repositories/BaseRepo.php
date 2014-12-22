@@ -23,8 +23,8 @@ abstract class BaseRepo
 
 	public function last()
 	{
-		$last = $this->findAll();
-		return $last->last();
+		$all = $this->findAll();
+		return $all->last();
 	}
 
 	public function deleteRecord($id)

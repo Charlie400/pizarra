@@ -1,5 +1,5 @@
 <?php namespace Pizarra\Entities;
 
 class Elemento extends \Eloquent {
-	protected $fillable = [];
+	protected $fillable = ['Nombre', 'clase_id', 'fullname'];
 }

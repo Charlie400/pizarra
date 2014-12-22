@@ -1,6 +1,7 @@
 <?php
 
 use Pizarra\Repositories\EscenarioRepo;
+use Pizarra\Repositories\ElementoRepo;
 use Pizarra\Repositories\DominioRepo;
 use Pizarra\Repositories\ClaseRepo;
 
@@ -19,13 +20,16 @@ class HomeController extends BaseController {
 	|
 	*/
 
+	protected $escenarioRepo;
+	protected $elementoRepo;
 	protected $dominioRepo;
 	protected $claseRepo;
-	protected $escenarioRepo;
 
-	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, EscenarioRepo $escenarioRepo)
+	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, EscenarioRepo $escenarioRepo,
+								ElementoRepo $elementoRepo)
 	{
-		$this->escenarioRepo = $escenarioRepo;		
+		$this->escenarioRepo = $escenarioRepo;	
+		$this->elementoRepo  = $elementoRepo;	
 		$this->dominioRepo   = $dominioRepo;
 		$this->claseRepo     = $claseRepo;
 	}
@@ -44,6 +48,11 @@ class HomeController extends BaseController {
 	public function getEscenarios()
 	{
 		echo json_encode($this->escenarioRepo->findAll());
+	}
+
+	public function getElementos()
+	{
+		echo json_encode($this->elementoRepo->findAll());
 	}
 
 	public function sendDominios()

@@ -32,7 +32,7 @@
 					<li id="administracion" Class="Menu-Item">Administración</li>
 					<div class="CuadroUsuario">
 						<?php $user = Auth::user(); ?>
-						<p class="CuadroUsuarioP">{{ ucfirst($user->username) }}</p>
+						<p class="CuadroUsuarioP">{{ ucfirst(strtolower($user->username)) }}</p>
 						<p class="CuadroUsuarioLogOut">
 							<a style="text-decoration:none; color:black" href="{{ route('logout') }}">
 								LogOut
@@ -112,13 +112,13 @@
 		<ul class="MenuLeft-Lista">
 			<li class="MenuLeft-ItemLista-Esc">Escenarios<img src="images/RightArrow.png" id="EscenariosArrow" class="Arrow" width="9" height="9"></li>
 			<div class="EscenariosContainer">
-				<div class="MenuLeft-ArticlesContainer">
+				<div id="MAC1" class="MenuLeft-ArticlesContainer">
 
 				</div>
 			</div>
 			<li class="MenuLeft-ItemLista-Ele">Elementos<img src="images/RightArrow.png" id="ElementosArrow" class="Arrow" width="9" height="9"></li>
 			<div class="ElementosContainer">
-				<div class="MenuLeft-ArticlesContainer">
+				<div id="MAC2" class="MenuLeft-ArticlesContainer">
 					<article class="Article">
 						<img src="images/fondo1.jpg" height="80" width="80">
 						<p id="menuleftTitulo"></p>
@@ -157,7 +157,8 @@
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}	
-					{{ Form::open(['route' => 'borrarEscenario', 'method' => 'POST', 'role' => 'form','class' => 'Foo2']) }}						
+					{{ Form::open(['route' => 'borrarEscenario', 'method' => 'POST', 'role' => 'form',
+								   'class' => 'Foo2']) }}						
 						<div class="ContentOverflow">
 							<table>
 								<thead>

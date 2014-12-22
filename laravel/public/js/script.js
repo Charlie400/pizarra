@@ -355,7 +355,7 @@ function ShowHideButtons(pOkButton, pAddButton, pCancelButton){
 /*---------FUNCIÓN AJAX----------*/
 
 //Esta variable contendrá el valor de la respuesta de AJAX al completarse
-var ajaxData;
+var ajaxData = [];
 
 function createAjaxRequest(data, url, id, befSendText, responseText, method)
 {
@@ -418,7 +418,7 @@ function getClasses()
 					clase.append('<option id="clase" value="">Clase</option>');				
 
 					$.each(ajaxData, function (i, value){				
-						clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['Nombre']+'">'+value['Nombre']+'</option>');				
+						clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['id']+'">'+value['Nombre']+'</option>');				
 					});
 
 				}
@@ -457,45 +457,120 @@ function getDominios()
 	, 500);
 }
 
-function getEscenarios()
+function showMenuImages(idMenu, idAlert, idForm, idInput, iFunction, uFunction, carpet)
 {
-	var url = serverURL + '/mostrar-escenarios';
+	var menu = $(idMenu),
+	alert    = $(idAlert);
 
-	createAjaxRequest("", url, '', '', '');
+	menu.text("");				
+	alert.text("");
 
-	setTimeout( function ()
+	$.each(ajaxData, function (i, value)
+	{			
+		menu.append('<article class="Article">'+
+						'<img onClick="'+iFunction+'()" src="images/'+carpet+'/'+value['fullname']+'" height="80" width="80">'+
+						'<p id="menuleftTitulo"></p>'+
+					'</article>');				
+		alert.append('<tr>'+
+						'<td><img src="images/'+carpet+'/'+value['fullname']+'" height="40" width="40"></td>'+
+						'<td>'+value['Nombre']+'</td>'+
+						'<td><input type="Checkbox" name="checkbox[]" value="'+value['id']+'" /></td>'+
+					'</tr>');
+	});
+	
+	ajaxData.length = 0;		
+
+	menu.append('<article class="AddArticle">'+
+						'<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">'+
+						'<form method="POST" id="'+idForm+'" enctype="multipart/form-data">'+
+							'<input type="file" id="'+idInput+'" name="'+idInput+'" onChange="'+uFunction+'()"'+
+							'style="width: 160px;"'+
+						'</form>'+
+				'</article>');
+}
+
+var getEndDir = 
+{
+	Escenarios: '/mostrar-escenarios',
+ 	Elementos:  '/mostrar-elementos'
+}
+
+function getMenuImages(endDir)
+{
+	var url = serverURL + endDir;	
+
+	createAjaxRequest("", url, '', '', '');	
+
+	setTimeout(function () 
 	{
-		var menu = $('.MenuLeft-ArticlesContainer'),
-		alert    = $('#contentEscenarios');
-
-		menu.text("");				
-		alert.text("");
-
-		$.each(ajaxData, function (i, value){
-			menu.append('<article class="Article">'+
-							'<img onClick="insertImageToCanvas()" src="images/Escenarios/'+value['fullname']+'" height="80" width="80">'+
-							'<p id="menuleftTitulo"></p>'+
-						'</article>');				
-			alert.append('<tr>'+
-							'<td><img src="images/Escenarios/'+value['fullname']+'" height="40" width="40"></td>'+
-							'<td>'+value['Nombre']+'</td>'+
-							'<td><input type="Checkbox" name="checkbox[]" value="'+value['id']+'" /></td>'+
-						'</tr>');
-		});
-
-		menu.append('<article class="AddArticle">'+
-							'<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">'+
-							'<form method="POST" id="fileForm" enctype="multipart/form-data">'+
-								'<input type="file" id="escenario" name="escenario" onChange="uploadEscenario()"'+
-								'style="width: 160px;"'+
-							'</form>'+
-						'</article>');
-		
-		ajaxData.length = 0;
+		if (endDir === getEndDir.Escenarios)
+		{
+			showMenuImages('#MAC1', '#contentEscenarios', 'fileForm1', 'escenario', 'insertImageToCanvas', 
+					       'uploadEscenario', 'Escenarios');
+		}
+		else if (endDir === getEndDir.Elementos)
+		{
+			showMenuImages('#MAC2', '#contentElementos', 'fileForm2', 'elemento', 'insertImageToCanvas', 
+						   'uploadElemento', 'Elementos');
+		}
 	}, 500);
 }
 
-window.onload = getEscenarios();
+window.onload = function () 
+				{
+					getMenuImages(getEndDir.Escenarios); 
+					setTimeout(function () 
+					{
+						getMenuImages(getEndDir.Elementos)
+					}, 500);
+				}
+
+/*-------------------------- COMIENZAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/
+
+function uploadEscenario()
+{
+	uploadFile('#escenario', 'escenario', getEndDir.Escenarios);
+}
+
+function uploadElemento()
+{
+	uploadFile('#elemento', 'elemento', getEndDir.Elementos);
+}
+
+function uploadFile(id, name, endDir)
+{
+	var file = $(id)[0],
+	url = serverURL + '/subir/archivo';
+
+	file = file.files[0];
+
+	var data = new FormData();
+
+	data.append(name, file);
+	data.append('clase', $('#clase').val());
+
+	$.ajax({
+		url:url,
+
+		type:'POST',
+
+		contentType:false,
+
+		data: data,
+
+		processData:false,
+
+		cache:false,
+
+		success: function (r)
+		{
+			console.log(r);
+			getMenuImages(endDir);
+		}
+	});
+}
+
+/*-------------------------- TERMINAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/
 
 /*------------TERMINAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO-----------*/
 
@@ -567,40 +642,3 @@ function dibujoManoAlzada(){
 }
 
 $('.ColorPickerContainer').drags();
-
-/*-------------------------- COMIENZAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/
-
-function uploadEscenario()
-{
-	var file = $('#escenario')[0],
-	url = serverURL + '/subir/archivo';
-
-	file = file.files[0];
-
-	var data = new FormData();
-
-	data.append('escenario', file);
-
-	$.ajax({
-		url:url,
-
-		type:'POST',
-
-		contentType:false,
-
-		data: data,
-
-		processData:false,
-
-		cache:false,
-
-		success: function (r)
-		{
-			console.log(r);
-			getEscenarios();
-		}
-	});
-
-}
-
-/*-------------------------- TERMINAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/
