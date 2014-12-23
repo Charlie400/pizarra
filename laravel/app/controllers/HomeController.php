@@ -122,18 +122,19 @@ class HomeController extends BaseController {
 
 	public function borrarEscenario()
 	{
-		$data = Input::only('checkbox')['checkbox'];
-
-		$this->escenarioRepo->borrarEscenarios($data);
-
-		return Redirect::back();
+		return $this->borrar('escenarioRepo', 'borrarEscenarios');
 	}
 
 	public function borrarElemento()
 	{
+		return $this->borrar('elementoRepo', 'borrarElementos');
+	}
+
+	public function borrar($repo, $method)
+	{
 		$data = Input::only('checkbox')['checkbox'];
 
-		$this->elementoRepo->borrarElementos($data);
+		$this->$repo->$method($data);
 
 		return Redirect::back();
 	}
