@@ -116,6 +116,7 @@ return array(
 */
 
 'attributes' => array(
+	'name'  => 'Nombre',
     'username'  => 'Nombre de usuario',
 	'full_name' => 'Nombre completo',
 	'password'  => 'Contraseña',

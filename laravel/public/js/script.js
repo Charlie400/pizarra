@@ -332,6 +332,8 @@ function escenariosAlert()
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(".Foo6");
 	hideFormsLess(".Foo6");
+	showClass("#fileContainer1");
+	$("#fileContainer2").hide();
 	$(".AlertContainer").fadeIn();
 	formParametros(true,false,true,"Añadir Escenario","Selecciona una imagen, asignele un nombre y pulse Aceptar.", Name.AñadirEscenario);
 	$("#foo61").attr('name',"nombreEscenario");
@@ -344,6 +346,8 @@ function elementosAlert()
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(".Foo6");
 	hideFormsLess(".Foo6");
+	showClass("#fileContainer2");
+	$("#fileContainer1").hide();
 	$(".AlertContainer").fadeIn();
 	formParametros(true,false,true,"Añadir Elemento","Selecciona una imagen, asignele un nombre y pulse Aceptar.", Name.AñadirElemento);
 	$("#foo61").attr('name',"nombreElemento");
@@ -517,13 +521,17 @@ function getDominios()
 	, 500);
 }
 
-function showMenuImages(idMenu, idAlert, idForm, idInput, iFunction, uFunction, carpet)
+function showMenuImages(idMenu, idAlert, idFile, idInput, iFunction, uFunction, addFunction, carpet)
 {
 	var menu = $(idMenu),
-	alert    = $(idAlert);
+	alert    = $(idAlert),
+	fileContainer = $(idFile);
 
 	menu.text("");				
 	alert.text("");
+	fileContainer.text("");
+
+	fileContainer.append('<input type="file" id="'+idInput+'" name="'+idInput+'" onChange="'+uFunction+'()" style="width: 160px;" />');
 
 	$.each(ajaxData, function (i, value)
 	{			
@@ -538,15 +546,12 @@ function showMenuImages(idMenu, idAlert, idForm, idInput, iFunction, uFunction, 
 					'</tr>');
 	});
 	
-	ajaxData.length = 0;	
+	ajaxData.length = 0;
 
-	menu.append('<article class="AddArticle">'+
+	menu.append('<article class="AddArticle" onClick="'+addFunction+'()">'+
 						'<img class="AddArticle-Image" src="images/addEscenario.png" height="80" width="80">'+
-						'<form method="POST" id="'+idForm+'" enctype="multipart/form-data">'+
-							'<input type="file" id="'+idInput+'" name="'+idInput+'" onChange="'+uFunction+'()"'+
-							'style="width: 160px;"'+
-						'</form>'+
 				'</article>');
+	
 }
 
 var getEndDir = 
@@ -565,13 +570,13 @@ function getMenuImages(endDir)
 	{
 		if (endDir === getEndDir.Escenarios)
 		{
-			showMenuImages('#MAC1', '#contentEscenarios', 'fileForm1', 'escenario', 'insertImageToCanvas', 
-					       'uploadEscenario', 'Escenarios');
+			showMenuImages('#MAC1', '#contentEscenarios', "#fileContainer1", 'escenario', 'insertImageToCanvas', 
+					       'uploadEscenario', 'escenariosAlert', 'Escenarios');
 		}
 		else if (endDir === getEndDir.Elementos)
 		{
-			showMenuImages('#MAC2', '#contentElementos', 'fileForm2', 'elemento', 'insertImageToCanvas', 
-						   'uploadElemento', 'Elementos');
+			showMenuImages('#MAC2', '#contentElementos', "#fileContainer2", 'elemento', 'insertImageToCanvas', 
+						   'uploadElemento', 'elementosAlert', 'Elementos');
 		}
 
 		working = false;			

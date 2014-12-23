@@ -266,18 +266,21 @@
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}
-					<form class="Foo6">
-						Nombre <input id="foo61" name="" type="text" placeholder=""><br>
-						Seleccionar imagen <input id="foo62" name="" src="images/upload.png" type="image">
+					{{ Form::open(['method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo6', 
+								   'id' => 'fileForm1']) }}
+						{{ Field::text('name', null, ['input' => ['id' => 'foo61'], 
+									   'label' => ['style' => 'display:inline-block;']]) }}<br>
+						Seleccionar imagen <p id="fileContainer1"></p> <p id="fileContainer2"></p>
+						<!-- <input id="foo62" name="" src="images/upload.png" type="image"> -->
 						<div class="ButtonsContainer">					
 							<button class="OkButton Button">Aceptar</button>
 							<button class="AddButton Button">Agregar</button>
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
-					</form>
+					{{ Form::close() }}
 					</form>
 						<form class="Foo7">
-						<img width="100%" src="images/escenarios/fondo1.jpg">
+						<!-- <img width="100%" src="images/escenarios/fondo1.jpg"> -->
 						<input id="foo71" name="" type="button" value="Publicar">
 						<input id="foo72" name="" type="button" value="descargar">
 						<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
