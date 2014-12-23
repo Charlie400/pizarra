@@ -129,6 +129,15 @@ class HomeController extends BaseController {
 		return Redirect::back();
 	}
 
+	public function borrarElemento()
+	{
+		$data = Input::only('checkbox')['checkbox'];
+
+		$this->elementoRepo->borrarElementos($data);
+
+		return Redirect::back();
+	}
+
 	/*--------------EMPIEZAN MÉTODOS PARA PROCESAR GRABACIÓN DE CANVAS Y AUDIO-----------------*/
 
 	public function saveImageSequence()

@@ -159,7 +159,7 @@
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}	
-					{{ Form::open(['route' => 'borrarEscenario', 'method' => 'POST', 'role' => 'form',
+					{{ Form::open(['method' => 'POST', 'role' => 'form',
 								   'class' => 'Foo2']) }}						
 						<div class="ContentOverflow">
 							<table>
@@ -170,7 +170,7 @@
 										<td><strong>Seleccionar</strong></td>
 									</tr>
 								</thead>
-								<tbody id="contentEscenarios">
+								<tbody id="" class="content">
 										
 								</tbody>
 							</table>

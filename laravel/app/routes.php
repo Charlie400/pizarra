@@ -37,6 +37,7 @@ Route::group(['before' => 'auth'], function()
 		Route::post('/create/user', ['as' => 'createUser', 'uses' => 'UserController@createUser']);
 		Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'UserController@editUser']);
 		Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);
+		Route::post('/borrar/elemento', ['as' => 'borrarElemento', 'uses' => 'HomeController@borrarElemento']);
 
 		/*TERMINAN FUNCIONALIDADES DEL HOME*/
 

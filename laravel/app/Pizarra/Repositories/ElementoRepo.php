@@ -14,4 +14,19 @@ class ElementoRepo extends BaseRepo
 	{
 		return new ElementoManager($entity, $datos);
 	}
+
+	public function borrarElementos($data)
+	{
+		$dir = public_path() . '/images/Elementos';
+		foreach ($data as $id)
+		{
+			//Borramos el archivo del servidor
+			$esc = $this->find($id);
+			unlink($dir . '/' . $esc->fullname);
+			
+			//Borramos el registro de la base de datos
+			$this->deleteRecord($id);
+
+		}
+	}
 }

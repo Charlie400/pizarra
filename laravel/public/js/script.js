@@ -232,10 +232,11 @@ function showClass(clase)
 
 function createDominio()
 {
+	var clase = ".Foo1";
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
-	showClass(".Foo1");
-	hideFormsLess(".Foo1");
+	showClass(clase);
+	hideFormsLess(clase);
 	formParametros(false, true, true, "Añadir Dominio", "Clic en agregar para añadir dominio.", Name.Dominio);
 	$("#foo11").attr('name',"dominio");
 	$("#foo11").attr('placeholder',"Dominio");
@@ -244,28 +245,47 @@ function createDominio()
 
 function borrarEscenario()
 {
+	var clase = 
+	{
+		Foo: ".Foo2",
+		Cont: ".content"
+	};
+	$(clase.Cont).empty();
+	$(clase.Cont).attr('id', 'contentEscenarios');
+	getMenuImages(getEndDir.Escenarios);
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
-	showClass(".Foo2");
-	hideFormsLess(".Foo2");
+	showClass(clase.Foo);
+	hideFormsLess(clase.Foo);
+	$(clase.Foo).get(0).setAttribute('action', serverURL + '/borrar/escenario');
 	formParametros(true, false, true, "Borrar Escenarios", "Elija los escenarios que desee borrar.", Name.Escenario);
 }
 
 function borrarElementos()
 {
+	var clase = 
+	{
+		Foo: ".Foo2",
+		Cont: ".content"
+	};
+	$(clase.Cont).empty();
+	$(clase.Cont).attr('id', 'contentElementos');
+	getMenuImages(getEndDir.Elementos);	
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
-	showClass(".Foo2");
-	hideFormsLess(".Foo2");
+	showClass(clase.Foo);
+	hideFormsLess(clase.Foo);
+	$(clase.Foo).get(0).setAttribute('action', serverURL + '/borrar/elemento');
 	formParametros(true, false, true, "Borrar Elementos", "Elija los elementos que desee borrar.", Name.Elemento);
 }
 
 function createClase()
 {
+	var clase = ".Foo1";
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
-	showClass(".Foo1");
-	hideFormsLess(".Foo1");
+	showClass(clase);
+	hideFormsLess(clase);
 	formParametros(false, true, true,  "Añadir Clase", "Clic en agregar para añadir clase.", Name.Clase);
 	$("#foo11").attr('name',"clase");
 	$("#foo11").attr('placeholder',"Clase");
@@ -275,10 +295,11 @@ function createClase()
 
 function createAlumno()
 {
+	var clase = ".Foo3";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").css('display', 'inline-block');
-	showClass(".Foo3");
-	hideFormsLess(".Foo3");
+	showClass(clase);
+	hideFormsLess(clase);
 	formParametros(true, false, true,  "Añadir Alumno", "Rellene los campos y pulse aceptar.", Name.Alumno);
 }
 
@@ -289,19 +310,21 @@ function closeAlert()
 
 function editUsuario()
 {
+	var clase = ".Foo4";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
-	showClass(".Foo4");
-	hideFormsLess(".Foo4");
+	showClass(clase);
+	hideFormsLess(clase);
 	formParametros(true, false, true,  "Editar Usuario", "Rellene los campos y pulse aceptar.", Name.Usuario);
 }
 
 function deleteUsuario()
 {
+	var clase = ".Foo1";
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
-	showClass(".Foo1");
-	hideFormsLess(".Foo1");
+	showClass(clase);
+	hideFormsLess(clase);
 	formParametros(true, false, true,  "Eliminar Usuario", "Introduzca el usuario a eliminar y pulse aceptar.", Name.BorrarUsuario);
 	$("#foo11").attr('name',"borrarUsuario");
 	$("#foo11").attr('placeholder',"Usuario");
@@ -310,28 +333,30 @@ function deleteUsuario()
 
 function createProfesor()
 {
+	var clase = ".Foo3";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
-	showClass(".Foo3");
-	hideFormsLess(".Foo3");
+	showClass(clase);
+	hideFormsLess(clase);
 	formParametros(true, false, true,  "Añadir Docente", "Rellene los campos y pulse aceptar.", Name.Docente);
 }
 
 function grabarAlert()
 {
+	var clase = ".Foo5";
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
-	showClass(".Foo5");
-	hideFormsLess(".Foo5");
+	showClass(clase);
+	hideFormsLess(clase);
 	$(".AlertContainer").fadeIn();
 	formParametros(true, false, true, "Grabar Video", "Se va a comenzar a grabar un video cuya duración no podrá superar 5 minutos.", Name.Video);
 }
 
 function escenariosAlert()
 {	
-	
+	var clase = ".Foo6";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
-	showClass(".Foo6");
-	hideFormsLess(".Foo6");
+	showClass(clase);
+	hideFormsLess(clase);
 	showClass("#fileContainer1");
 	$("#fileContainer2").hide();
 	$(".AlertContainer").fadeIn();
@@ -343,9 +368,10 @@ function escenariosAlert()
 
 function elementosAlert()
 {	
+	var clase = ".Foo6";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
-	showClass(".Foo6");
-	hideFormsLess(".Foo6");
+	showClass(clase);
+	hideFormsLess(clase);
 	showClass("#fileContainer2");
 	$("#fileContainer1").hide();
 	$(".AlertContainer").fadeIn();
@@ -357,9 +383,10 @@ function elementosAlert()
 
 function saveSnapshot()
 {
+	var clase = ".Foo7";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
-	showClass(".Foo7");
-	hideFormsLess(".Foo7");
+	showClass(clase);
+	hideFormsLess(clase);
 	$(".AlertContainer").fadeIn();
 	formParametros(false,false,true,"Guardar Snapshot","Selecciona donde guardar.", Name.GuardarSnapshot);
 	$("#foo71").attr('name',"PublicarSnapshot");
@@ -368,9 +395,10 @@ function saveSnapshot()
 
 function saveRecord()
 {
+	var clase = ".Foo7";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
-	showClass(".Foo7");
-	hideFormsLess(".Foo7");
+	showClass(clase);
+	hideFormsLess(clase);
 	$(".AlertContainer").fadeIn();
 	formParametros(false,false,true,"Guardar Grabación","", Name.GuardarGrabacion);
 	$("#foo71").attr('name',"PublicarGrabacion");

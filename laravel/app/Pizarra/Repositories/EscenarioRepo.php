@@ -21,8 +21,8 @@ class EscenarioRepo extends BaseRepo
 		foreach ($data as $id)
 		{
 			//Borramos el archivo del servidor
-			$esc = $this->find($id);
-			unlink($dir . '/' . $esc->fullname);
+			$element = $this->find($id);
+			unlink($dir . '/' . $element->fullname);
 			
 			//Borramos el registro de la base de datos
 			$this->deleteRecord($id);
