@@ -15,6 +15,11 @@ class EscenarioRepo extends BaseRepo
 		return new EscenarioManager($entity, $datos);
 	}
 
+	public function getTable()
+	{
+		return 'escenarios';
+	}
+	
 	public function borrarEscenarios($data)
 	{
 		$dir = public_path() . '/images/Escenarios';
@@ -29,4 +34,5 @@ class EscenarioRepo extends BaseRepo
 
 		}
 	}
+
 }

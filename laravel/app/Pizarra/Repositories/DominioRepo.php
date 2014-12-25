@@ -14,4 +14,9 @@ class DominioRepo extends BaseRepo
 	{
 		return new DominioManager($entity, $datos);
 	}
+
+	public function getTable()
+	{
+		return 'dominios';
+	}
 }

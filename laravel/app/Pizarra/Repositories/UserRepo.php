@@ -15,6 +15,11 @@ class UserRepo extends BaseRepo
 		return new RegisterManager($entity, $datos);
 	}
 
+	public function getTable()
+	{
+		return 'users';
+	}
+
 	public function generatePassword()
 	{
 		$pass    = "";

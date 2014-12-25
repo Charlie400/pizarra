@@ -45,14 +45,24 @@ class HomeController extends BaseController {
 		return View::make('pizarra', compact('dominios', 'escenarios'));
 	}
 
-	public function getEscenarios()
+	public function getMenuImages($repo)
 	{
-		echo json_encode($this->escenarioRepo->findAll());
+		if (isset($_GET['data']) && is_numeric($_GET['data']))
+		{
+			$claseId = $_GET['data'];
+
+			return $this->$repo->findCustomMenuImages($claseId);
+		}
+	}
+
+	public function getEscenarios()
+	{		
+		echo json_encode($this->getMenuImages('escenarioRepo'));
 	}
 
 	public function getElementos()
 	{
-		echo json_encode($this->elementoRepo->findAll());
+		echo json_encode($this->getMenuImages('elementoRepo'));
 	}
 
 	public function sendDominios()

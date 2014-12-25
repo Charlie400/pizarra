@@ -14,4 +14,9 @@ class ClaseRepo extends BaseRepo
 	{
 		return new ClaseManager($entity, $datos);
 	}
+
+	public function getTable()
+	{
+		return 'clases';
+	}
 }

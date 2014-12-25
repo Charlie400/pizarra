@@ -81,3 +81,8 @@ App::down(function()
 require app_path().'/filters.php';
 
 //FUNCIONES GLOBABLES PERSONALIZADAS
+
+function images_path()
+{
+	return public_path() . '/images';
+}

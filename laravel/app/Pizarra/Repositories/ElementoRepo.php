@@ -15,6 +15,11 @@ class ElementoRepo extends BaseRepo
 		return new ElementoManager($entity, $datos);
 	}
 
+	public function getTable()
+	{
+		return 'elementos';
+	}
+	
 	public function borrarElementos($data)
 	{
 		$dir = public_path() . '/images/Elementos';
@@ -29,4 +34,5 @@ class ElementoRepo extends BaseRepo
 
 		}
 	}
+
 }

@@ -9,6 +9,8 @@ abstract class BaseRepo
 
 	abstract public function getModel();
 
+	abstract public function getTable();
+
 	abstract public function getManager($entity, $datos);
 
 	public function find($id)
@@ -19,6 +21,20 @@ abstract class BaseRepo
 	public function findAll()
 	{
 		return $this->model->all();
+	}
+
+	public function findCustomMenuImages($claseId)
+	{
+		$userId  = \Auth::user()->id;
+		$table   = $this->getTable();
+		$query   = "SELECT * FROM `$table` WHERE `clase_id` = '$claseId' AND `user_id` = '$userId'";
+		
+		return $this->DBSelect($query);
+	}	
+
+	public function DBSelect($query)
+	{
+		return \DB::select($query);
 	}
 
 	public function last()

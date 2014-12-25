@@ -20,17 +20,21 @@ class FileController extends BaseController
 		if ( isset($_FILES['escenario']) ) 
 		{
 			$name   	= 'escenario';
-			$carpet 	= 'Escenarios';
+			$dir 		= '/Escenarios';
+			$repo 		= 'escenarioRepo';
 			$escenario	= true;
 		}
 		elseif ( isset($_FILES['elemento']) )
 		{
 			$name   	= 'elemento';
-			$carpet 	= 'Elementos';
+			$dir	 	= '/Elementos';
+			$repo 		= 'elementoRepo';
 			$escenario	= false;
 		}
 
-		if ( isset($name) )
+		$clase = $_POST['clase'];
+
+		if ( isset($name) && is_numeric($clase) )
 		{
 			//Definimos una variable que contendrá los datos a devolver a js
 			$result = '';			
@@ -38,49 +42,32 @@ class FileController extends BaseController
 			$allow  = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];	
 			//Obtenemos nombre del archivo y nombre temporal(donde se guarda temporalmente el archivo)
 			$fileName['Nombre']  = $_FILES[$name]['name'];		
-			$fileName['tmpName'] = $_FILES[$name]['tmp_name'];			
-
-			//Obtenemos la extensión del archivo
-			$data['Nombre']  = explode('.', $fileName['Nombre']);
+			$fileName['tmpName'] = $_FILES[$name]['tmp_name'];						
 				
 			if ($this->validFile($fileName['Nombre'], $allow))
-			{							
-				//Obtenemos el nombre del archivo sin la extensión
-				$data['Nombre'] = implode('.', $data['Nombre']);
+			{	
 
-				//Guardamos los datos que enviaremos a la base de datos
-				$data['fullname'] = $fileName['Nombre'];
-				$data['clase_id'] = $_POST['clase']; //Añadir clase seleccionada
+				$data    = $this->buildFileData($fileName['Nombre'], $clase);				
 
-				if ($escenario) 
-				{
-					$data['user_id']  = Auth::user()->id;				
-					$created = $this->escenarioRepo->createNewRecord($data);
-				}
-				else
-				{ 
-					$created = $this->elementoRepo->createNewRecord($data);		
-				}
+				$created = $this->fileRecord($data, $repo);
 
 				if ($created === true)
 				{
 
-			 		$esc = public_path() . '/images/' . $carpet . '/' . $data['fullname'];		
+			 		$esc = images_path() . $dir . '/' . $data['fullname'];
 
 					if (move_uploaded_file($fileName['tmpName'], $esc))
 					{
 						$result = 'Completado con exito.';
 					}
 					else
-					{
-						if ($escenario) $lastUser = $this->escenarioRepo->last();
-						else $lastUser = $this->elementoRepo->last();
+					{						
+						$lastUser = $this->$repo->last();
 
 						$lastUser->delete();
 
 						$result = 'No se pudo subir el archivo.';
-					}
-
+					}					
 				}
 				else
 				{
@@ -96,10 +83,36 @@ class FileController extends BaseController
 		}
 	}
 
+	public function buildFileData($name, $clase)
+	{
+		//Obtenemos el nombre del archivo sin la extensión				
+		$data['Nombre'] = $this->getName($name);
+
+		//Guardamos los datos que enviaremos a la base de datos
+		$data['fullname'] = $name;
+		$data['clase_id'] = $clase; //Añadir clase seleccionada
+		$data['user_id']  = Auth::user()->id;
+
+		return $data;
+	}
+
+	public function fileRecord($data, $repo)
+	{		
+		return $this->$repo->createNewRecord($data);
+	}
+
+	public function getName($fullName)
+	{
+		$fullName = explode('.', $fullName);
+		array_pop($fullName);
+
+		return implode('.', $fullName);
+	}
+
 	public function validFile($fileName, $allow)
 	{
-		$fileName = explode('.', $fileName);
 		//Obtenemos la extensión del archivo
+		$fileName = explode('.', $fileName);
 
 		$count = count($fileName) > 1;		
 
@@ -111,10 +124,8 @@ class FileController extends BaseController
 			//Comprobamos si es un archivo permitido
 			$inArray = in_array($ext, $allow);
 
-			if ($inArray)
-			{
-		 		return true;
-			}
+		 	return $inArray;
+			
 		}
 
 		return false;

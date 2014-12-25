@@ -451,7 +451,6 @@ var ajaxData = [];
 
 function createAjaxRequest(data, url, id, befSendText, responseText, method)
 {
-
 	if (typeof(method) === undefined) method = 'GET';
 
 	$.ajax({
@@ -464,7 +463,8 @@ function createAjaxRequest(data, url, id, befSendText, responseText, method)
 		},
 		timeout: 3000,
 		success: function(response){
-			ajaxData = response;					
+			ajaxData = response;
+			ajaxData;
 
 			$(id).text(responseText);
 
@@ -474,8 +474,6 @@ function createAjaxRequest(data, url, id, befSendText, responseText, method)
 			console.log(error);
 		}
 	});
-
-
 }
 
 /*------------COMIENZAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO------------*/
@@ -530,23 +528,28 @@ function getClasses()
 
 function getDominios()
 {
-	var url = serverURL+'/mostrar-dominios';
+	if ( ! working)
+	{
+		working = true;
+		var url = serverURL+'/mostrar-dominios';
 
-	createAjaxRequest("", url, '#selectDominio', 'Cargando...', 'Dominio');
+		createAjaxRequest("", url, '#selectDominio', 'Cargando...', 'Dominio');
 
-	setTimeout(function () {
+		setTimeout(function () {
 
-		var selectDom = $('#selectDominio');
-		selectDom.text("");				
+			var selectDom = $('#selectDominio');
+			selectDom.text("");				
 
-		selectDom.append('<option value="">Dominio</option>');
-		$.each(ajaxData, function (i, value){				
-			selectDom.append('<option id="clase'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
-			'</option>');				
-		});
+			selectDom.append('<option value="">Dominio</option>');
+			$.each(ajaxData, function (i, value){				
+				selectDom.append('<option id="clase'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
+				'</option>');				
+			});
 
+			working = false;
+		}
+		, 500);
 	}
-	, 500);
 }
 
 function showMenuImages(idMenu, idAlert, idFile, idInput, iFunction, uFunction, addFunction, carpet)
@@ -554,7 +557,7 @@ function showMenuImages(idMenu, idAlert, idFile, idInput, iFunction, uFunction, 
 	var menu = $(idMenu),
 	alert    = $(idAlert),
 	fileContainer = $(idFile);
-
+	
 	menu.text("");				
 	alert.text("");
 	fileContainer.text("");
@@ -588,37 +591,55 @@ var getEndDir =
  	Elementos:  '/mostrar-elementos'
 }
 
-function getMenuImages(endDir)
-{	
-	var url = serverURL + endDir;	
-
-	createAjaxRequest("", url, '', '', '');	
-
-	setTimeout(function () 
-	{
-		if (endDir === getEndDir.Escenarios)
-		{
-			showMenuImages('#MAC1', '#contentEscenarios', "#fileContainer1", 'escenario', 'insertImageToCanvas', 
-					       'uploadEscenario', 'escenariosAlert', 'Escenarios');
-		}
-		else if (endDir === getEndDir.Elementos)
-		{
-			showMenuImages('#MAC2', '#contentElementos', "#fileContainer2", 'elemento', 'insertImageToCanvas', 
-						   'uploadElemento', 'elementosAlert', 'Elementos');
-		}
-
-		working = false;			
-	}, 500);
+function cleanAllMenuImages()
+{
+	$('#MAC1').text("");
+	$('#contentEscenarios').text("");
+	$('#fileContainer1').text("");
+	$('#MAC2').text("");
+	$('#contentElementos').text("");
+	$('#fileContainer2').text("");
 }
 
-window.onload = function () 
-				{
-					getMenuImages(getEndDir.Escenarios); 
-					setTimeout(function () 
-					{
-						getMenuImages(getEndDir.Elementos)
-					}, 500);
-				}
+function getMenuImages(endDir)
+{	
+	var url = serverURL + endDir,
+	classValue = $('#clase').val();	
+
+	if (isNumber(classValue))
+	{
+		createAjaxRequest(classValue, url, '', '', '');	
+
+		setTimeout(function () 
+		{
+			if (endDir === getEndDir.Escenarios)
+			{
+				showMenuImages('#MAC1', '#contentEscenarios', "#fileContainer1", 'escenario', 'insertImageToCanvas', 
+						       'uploadEscenario', 'escenariosAlert', 'Escenarios');
+			}
+			else if (endDir === getEndDir.Elementos)
+			{
+				showMenuImages('#MAC2', '#contentElementos', "#fileContainer2", 'elemento', 'insertImageToCanvas', 
+							   'uploadElemento', 'elementosAlert', 'Elementos');
+			}
+
+			working = false;			
+		}, 500);
+	}
+	else
+	{
+		cleanAllMenuImages();		
+	}
+}
+
+$('#clase').on('change', function () 
+					 {
+						getMenuImages(getEndDir.Escenarios); 
+						setTimeout(function () 
+						{
+							getMenuImages(getEndDir.Elementos);
+						}, 500);
+					 });
 
 /*-------------------------- COMIENZAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/
 
@@ -638,7 +659,7 @@ function uploadFile(id, name, endDir)
 	{
 		working   = true;		
 
-		var classValue = $('#clase').val();
+		var classValue = $('#clase').val();		
 		
 		if (isNumber(classValue))
 		{

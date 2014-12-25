@@ -121,13 +121,7 @@
 			<li class="MenuLeft-ItemLista-Ele">Elementos<img src="images/RightArrow.png" id="ElementosArrow" class="Arrow" width="9" height="9"></li>
 			<div class="ElementosContainer">
 				<div id="MAC2" class="MenuLeft-ArticlesContainer">
-					<article class="Article">
-						<img src="" height="80" width="80">
-						<p id="menuleftTitulo"></p>
-					</article>
-					<article class="AddArticle">
-						<img class="AddArticle-Image" onclick="subirEscenarios()" src="images/addEscenario.png" height="80" width="80">
-					</article>
+					
 				</div>
 			</div>	
 		</ul>
@@ -159,8 +153,7 @@
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}	
-					{{ Form::open(['method' => 'POST', 'role' => 'form',
-								   'class' => 'Foo2']) }}						
+					{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo2']) }}						
 						<div class="ContentOverflow">
 							<table>
 								<thead>
