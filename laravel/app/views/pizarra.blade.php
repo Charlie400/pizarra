@@ -142,14 +142,15 @@
 					
 				</div>
 				<div class="AlertElement">
-					{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 'class' => 'Foo1']) }}
+					{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 'class' => 'Foo1', 
+								   'id' => 'createDomClass']) }}
 
 						{{ Field::select('selectDominio', null, ['input' => ['class' => 'ComboBoxDominio']]) }}
 						{{ Field::text('foo11') }}
 
 						<div class="ButtonsContainer">					
 							<button class="OkButton Button">Aceptar</button>
-							<button class="AddButton Button">Agregar</button>
+							<div class="AddButton Button" id="addButtomFoo1" onClick="">Agregar</div>
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}	

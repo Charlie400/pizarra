@@ -96,23 +96,26 @@ class HomeController extends BaseController {
 
 		if ( ! is_null($dominio) && empty($claseDom))
 		{
-			$this->addDominio($dominio);			
+			echo json_encode($this->addDominio($dominio));			
 		}
 		elseif ( ! is_null($clase) && ! empty($claseDom))
 		{
-			$this->addClase($clase, $claseDom);
+			echo json_encode($this->addClase($clase, $claseDom));
 		}
-		else
-		{
-			return Redirect::back(); //Añadir a este redirect el error de que no se puede dejar el campo en blanco			
-		}
+		// else
+		// {
+		// 	return Redirect::back(); //Añadir a este redirect el error de que no se puede dejar el campo en blanco			
+		// }
 
-		return Redirect::back();
+		// return Redirect::back();
 	}
 
 	public function addDominio($nombre)
 	{
-		$this->dominioRepo->createNewRecord(['Nombre' => $nombre]);
+		if ($this->dominioRepo->createNewRecord(['Nombre' => $nombre]) === true)
+		{
+			return "Terminado";
+		}
 	}
 
 	public function addClase($c, $cD)
@@ -122,7 +125,10 @@ class HomeController extends BaseController {
 			'id_dominio' => $cD
 		];
 
-		$this->claseRepo->createNewRecord($datos);
+		if ($this->claseRepo->createNewRecord($datos) === true)
+		{
+			return "Terminado";
+		}
 	}	
 
 

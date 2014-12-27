@@ -230,16 +230,40 @@ function showClass(clase)
 	$(clase).css('display', 'inline-block');
 }
 
-function createDominio()
+function createClase()
 {
-	var clase = ".Foo1";
+	var clase = {
+					Form: ".Foo1",
+					Input: "#foo11"
+				};
+	getDominios('#selectDominio');
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
-	showClass(clase);
-	hideFormsLess(clase);
+	showClass(clase.Form);
+	hideFormsLess(clase.Form);
+	formParametros(false, true, true,  "Añadir Clase", "Clic en agregar para añadir clase.", Name.Clase);	
+	$("#addButtomFoo1").attr('onClick',"addClase()");
+	$(clase.Input).val('');
+	$(clase.Input).attr('name',"clase");
+	$(clase.Input).attr('placeholder',"Clase");
+	$("#selectDominio").show();
+}
+
+function createDominio()
+{
+	var clase = {
+					Form: ".Foo1",
+					Input: "#foo11"
+				};
+	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
+	$(".AlertContainer").fadeIn();
+	showClass(clase.Form);
+	hideFormsLess(clase.Form);
 	formParametros(false, true, true, "Añadir Dominio", "Clic en agregar para añadir dominio.", Name.Dominio);
-	$("#foo11").attr('name',"dominio");
-	$("#foo11").attr('placeholder',"Dominio");
+	$("#addButtomFoo1").attr('onClick',"addDominio()");
+	$(clase.Input).val('');
+	$(clase.Input).attr('name',"dominio");
+	$(clase.Input).attr('placeholder',"Dominio");
 	$("#selectDominio").hide();
 }
 
@@ -279,19 +303,6 @@ function borrarElementos()
 	formParametros(true, false, true, "Borrar Elementos", "Elija los elementos que desee borrar.", Name.Elemento);
 }
 
-function createClase()
-{
-	var clase = ".Foo1";
-	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
-	$(".AlertContainer").fadeIn();
-	showClass(clase);
-	hideFormsLess(clase);
-	formParametros(false, true, true,  "Añadir Clase", "Clic en agregar para añadir clase.", Name.Clase);
-	$("#foo11").attr('name',"clase");
-	$("#foo11").attr('placeholder',"Clase");
-	$("#selectDominio").show();
-	getDominios();
-}
 
 function createAlumno()
 {
@@ -452,9 +463,10 @@ var ajaxData = [];
 function createAjaxRequest(data, url, id, befSendText, responseText, method)
 {
 	if (typeof(method) === undefined) method = 'GET';
+	if (typeof(data) != typeof({})) data = {data: data};
 
 	$.ajax({
-		data: {data: data},
+		data: data,
 		url: url, 
 		dataType: 'json',
 		type: method,
@@ -464,7 +476,7 @@ function createAjaxRequest(data, url, id, befSendText, responseText, method)
 		timeout: 3000,
 		success: function(response){
 			ajaxData = response;
-			ajaxData;
+			console.log(ajaxData);
 
 			$(id).text(responseText);
 
@@ -526,23 +538,25 @@ function getClasses()
 
 //FUNCIÓN ENCARGADA DE TRAER LOS DOMINIOS
 
-function getDominios()
+function getDominios(id)
 {
+	if (typeof(id) === undefined) id = '#selectDominio, #dominio';
+
 	if ( ! working)
 	{
 		working = true;
 		var url = serverURL+'/mostrar-dominios';
 
-		createAjaxRequest("", url, '#selectDominio', 'Cargando...', 'Dominio');
+		createAjaxRequest("", url, id, 'Cargando...', 'Dominio');
 
 		setTimeout(function () {
 
-			var selectDom = $('#selectDominio');
-			selectDom.text("");				
+			var selectDom = $(id);
+			selectDom.empty();
 
 			selectDom.append('<option value="">Dominio</option>');
 			$.each(ajaxData, function (i, value){				
-				selectDom.append('<option id="clase'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
+				selectDom.append('<option id="dominio'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
 				'</option>');				
 			});
 
@@ -593,12 +607,8 @@ var getEndDir =
 
 function cleanAllMenuImages()
 {
-	$('#MAC1').text("");
-	$('#contentEscenarios').text("");
-	$('#fileContainer1').text("");
-	$('#MAC2').text("");
-	$('#contentElementos').text("");
-	$('#fileContainer2').text("");
+	$('#MAC1, #contentEscenarios, #fileContainer1').empty(); //Limpiar Escenarios
+	$('#MAC2, #contentElementos, #fileContainer2').empty();  //Limpiar Elementos
 }
 
 function getMenuImages(endDir)
@@ -714,6 +724,71 @@ function isNumber(bar)
 }
 
 /*-------------------------- TERMINAN FUNCIONES PARA SUBIR ARCHIVOS ---------------------------------------*/
+
+/*-------------------- COMIENZAN MÉTODOS PARA ENVIAR FORMS POR AJAX -----------------------*/
+
+function addDominio()
+{
+	if ( ! working)
+	{
+		working  = true;
+		var data = getData('dominio'),
+		url 	 = serverURL + '/agregar';
+
+		createAjaxRequest(data, url, '', '', '', 'POST');
+
+		setTimeout(function () 
+				    {
+				    	working  = false;
+						if (ajaxData.length > 0)
+						{
+							getDominios('#dominio');
+						}
+					}, 500);
+	}
+}
+
+function addClase()
+{
+	if ( ! working)
+	{
+		working  = true;	
+		var data = getData('clase'),
+		url 	 = serverURL + '/agregar';
+
+		createAjaxRequest(data, url, '', '', '', 'POST');
+
+		setTimeout(function () 
+				    {
+						working = false;
+
+						if (ajaxData.length > 0)
+						{
+							getClasses();
+						}
+
+					}, 500);
+	}
+}
+
+function getData(key)
+{
+	var input = $('#foo11'),
+	data 	  = {};
+
+	if (key === 'dominio')
+	{
+		data[key] = input.val();
+		return data;
+	}
+
+	data[key] = input.val();
+	data['selectDominio'] = $('#selectDominio').val();
+
+	return data;	
+}
+
+/*-------------------- TERMINAN MÉTODOS PARA ENVIAR FORMS POR AJAX -----------------------*/
 
 /*------------TERMINAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO-----------*/
 

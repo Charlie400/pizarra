@@ -30,10 +30,10 @@ Route::group(['before' => 'auth'], function()
 	Route::get('/mostrar-elementos', ['as' => 'getElementos', 'uses' => 'HomeController@getElementos']);
 	Route::post('/create-undo', ['as' => 'createUndo', 'uses' => 'HomeController@createUndo']);
 	Route::post('/subir/archivo', ['as' => 'uploadFile', 'uses' => 'FileController@uploadFile']);
+	Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
 
 	Route::group(['before' => 'csrf'], function()
 	{
-		Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
 		Route::post('/create/user', ['as' => 'createUser', 'uses' => 'UserController@createUser']);
 		Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'UserController@editUser']);
 		Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);
