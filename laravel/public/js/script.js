@@ -516,12 +516,17 @@ function getClasses()
 				createAjaxRequest(val, url, '#claseOption', 'Cargando...', 'Clase');
 
 				setTimeout(function () {						
-					clase.text("");				
+					clase.empty();				
 					clase.append('<option id="clase" value="">Clase</option>');				
 
 					$.each(ajaxData, function (i, value){				
 						clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['id']+'">'+value['Nombre']+'</option>');				
 					});
+
+					$('#clase > option[value="'+selectVal+'"]').attr('selected', 'selected');
+					selectVal = "";
+
+					working = false;
 
 				}
 				, 500);
@@ -529,10 +534,9 @@ function getClasses()
 			else
 			{
 				$('#clase1').text('Clase');
+				working = false;
 			}			
-		}
-
-		working = false;
+		}		
 	}
 }
 
@@ -559,6 +563,9 @@ function getDominios(id)
 				selectDom.append('<option id="dominio'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
 				'</option>');				
 			});
+
+			$(id + ' > option[value="'+selectVal+'"]').attr('selected', 'selected');
+			selectVal = "";
 
 			working = false;
 		}
@@ -727,23 +734,30 @@ function isNumber(bar)
 
 /*-------------------- COMIENZAN MÉTODOS PARA ENVIAR FORMS POR AJAX -----------------------*/
 
+var selectVal = "";
+
 function addDominio()
 {
 	if ( ! working)
 	{
-		working  = true;
-		var data = getData('dominio'),
-		url 	 = serverURL + '/agregar';
+		working   = true;
+		var data  = getData('dominio'),
+		url 	  = serverURL + '/agregar';
+		selectVal = $('#dominio').val();
+
+		console.log(selectVal);
 
 		createAjaxRequest(data, url, '', '', '', 'POST');
 
 		setTimeout(function () 
 				    {
 				    	working  = false;
+
 						if (ajaxData.length > 0)
 						{
 							getDominios('#dominio');
-						}
+						}							
+
 					}, 500);
 	}
 }
@@ -755,6 +769,7 @@ function addClase()
 		working  = true;	
 		var data = getData('clase'),
 		url 	 = serverURL + '/agregar';
+		selectVal = $('#clase').val();
 
 		createAjaxRequest(data, url, '', '', '', 'POST');
 
