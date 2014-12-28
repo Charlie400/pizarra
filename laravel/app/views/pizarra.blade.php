@@ -39,6 +39,10 @@
 							</a>
 						</p>
 					</div>
+					<div class="CuadroInformativo">
+					<p class="CuadroP1"></p>
+					<p class="CuadroP2"></p>
+				</div>
 				</ul>
 			</nav>
 
@@ -84,11 +88,6 @@
 				</div>
 
 			<!-- CONECTANDO EL FORMULARIO CON LOS SELECTS A LA BASE DE DATOS -->
-
-				<div class="CuadroInformativo">
-					<p class="CuadroP1"></p>
-					<p class="CuadroP2"></p>
-				</div>
 			</div>
 			<div id="edicionHerramientas" class="MenuHerramientas">
 				<input id="botonNuevoDominio" onClick="createDominio()" type="submit" name="Boton2" 
@@ -181,7 +180,7 @@
 							<option value="alumno">Alumno</option>
 							<option value="admin">Docente</option>
 						</select>
-						<div class="ContentOverflow">
+						<div id="contentOverflow-Usuario" class="ContentOverflow">
 							{{ Field::text('firstname', null, ['input' => ['placeholder' => 'Nombre']]) }}
 							{{ Field::text('lastname', null, ['input' => ['placeholder' => 'Apellidos']]) }}
 							{{ Field::text('username', null, ['input' => ['placeholder' => 'Username']]) }}
@@ -216,7 +215,7 @@
 								<option value="alumno">Alumno</option>
 							@endif
 							</select>
-						<div class="ContentOverflow">
+						<div id="contentOverflow-Usuario" class="ContentOverflow">
 							{{ Field::text('firstname', null, ['input' => ['placeholder' => 'Nombre', 
 										   'value' => $user->firstname ]]) }}
 							{{ Field::text('lastname', null, ['input' => ['placeholder' => 'Apellidos', 

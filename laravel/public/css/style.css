@@ -498,9 +498,9 @@ h1{
 .AlertBodyBig{
 	min-width: 420px;
 	position: absolute;
-	width: 25%;
-	left: 37.5%;
-	right: 37.5%;
+	width: 40%;
+	left: 30%;
+	right: 30%;
 	top: 20%;
 	background-color: #ECF0F1;
 	display: inline-block;
@@ -552,6 +552,7 @@ h1{
 	position: absolute;
 	bottom: 2%;
 	left: 0;
+	bottom: 4%;
 }
 
 
@@ -569,6 +570,7 @@ h1{
 	background-color: #1ABC9C;
 	display: none;
 	border: none;
+	width: 37%;
 }
 
 .RecordButton{
@@ -578,11 +580,13 @@ h1{
 }
 
 .CancelButton{
+	width: 37%;
 	background-color: #E74C3C;
 	display: none;
 }
 
 .AddButton{
+	width: 37%;
 	background-color: #3498DB;
 	display: none;
 	border: none;
@@ -699,6 +703,11 @@ h1{
 	width: 45%;
 }
 
+#contentOverflow-Usuario input{
+	width: 45%;
+	margin: 0.2em 1%;
+}
+
 #foo11{
 	width: 100%;
 }
@@ -767,6 +776,15 @@ h1{
 	background-color: #C9CEDB;
 }
 
+#contentOverflow-Usuario{
+	overflow-y: auto; 
+	height: 10em;
+	width: 100%;
+	border:solid #595959 1px;
+	background-color: #C9CEDB;
+	text-align: left;
+}
+
 .ContentOverflow table{
 	width: 100%;
 }
@@ -779,6 +797,6 @@ h1{
 
 #selectUser{
 	margin: 0.5em auto;
-	width: 70%;
+	width: 40%;
 }
 
