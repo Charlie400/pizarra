@@ -168,8 +168,9 @@
 								</tbody>
 							</table>
 						</div>	
-						<div class="ButtonsContainer">					
-							<button class="OkButton Button">Aceptar</button>
+						<div class="ButtonsContainer">	
+							<div  class="UncheckButton">Aceptar</div>
+							<button class="CheckButton">Aceptar</button>
 							<button class="AddButton Button">Agregar</button>
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>						

@@ -573,6 +573,33 @@ h1{
 	width: 37%;
 }
 
+.UncheckButton{
+	margin-right: 2%;
+	margin-left: 2%;
+	cursor: pointer;
+	padding: 0.5em;
+	color: white;
+	border-radius: 5px;
+	background-color: #1ABC9C;
+	display: inline-block;
+	border: none;
+	width: 34.6%;
+}
+
+.CheckButton{
+
+	margin-right: 2%;
+	margin-left: 2%;
+	cursor: pointer;
+	padding: 0.5em;
+	color: white;
+	border-radius: 5px;
+	background-color: #1ABC9C;
+	display: inline-block;
+	border: none;
+	width: 37%;
+}
+
 .RecordButton{
 	background-color: #1ABC9C;
 	display: inline-block;

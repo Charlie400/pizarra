@@ -127,11 +127,22 @@ $(".CuadroUsuarioP").on("click", OpenlogOut);
 function OpenlogOut(){
 	if ($(".CuadroUsuarioLogOut").is(":visible")) {
 		$(".CuadroUsuarioLogOut").slideUp();
-	}else
-	{
+	}else{
 		$(".CuadroUsuarioLogOut").slideDown();
 	}
 }
+
+function comprobarCheck(){
+	if ($(".ContentCheck").is(':checked')){
+		$(".UncheckButton").css("display","none");
+		$(".CheckButton").css("display","inline-block");
+	}else{
+		$(".UncheckButton").css("display","inline-block");
+		$(".CheckButton").css("display","none");
+	}
+
+	};
+
 //Esta función controla la sincronización del boton rec y stop.
 
 changeClass('#botonGrabarDiv','BotonGrabarOff')
@@ -283,6 +294,16 @@ function borrarEscenario()
 	hideFormsLess(clase.Foo);
 	$(clase.Foo).get(0).setAttribute('action', serverURL + '/borrar/escenario');
 	formParametros(true, false, true, "Borrar Escenarios", "Elija los escenarios que desee borrar.", Name.Escenario);
+	//Esta función deshabilita el boton aceptar en borrar elementos y escenarios  hasta que algun check haya sido activado.
+	$(".CheckButton").css("display","none");
+	$(".UncheckButton").css("display","inline-block");
+	$(".UncheckButton").on("click", escenarioNoSeleccionado)
+	function escenarioNoSeleccionado(){
+		$(".AlertContent").empty();
+		$(".AlertContent").append("Elija los escenarios que desee borrar.<br><font color='red'>Debe tener seleccionado al menos un escenario.</font>");
+	}
+
+
 }
 
 function borrarElementos()
@@ -301,6 +322,15 @@ function borrarElementos()
 	hideFormsLess(clase.Foo);
 	$(clase.Foo).get(0).setAttribute('action', serverURL + '/borrar/elemento');
 	formParametros(true, false, true, "Borrar Elementos", "Elija los elementos que desee borrar.", Name.Elemento);
+	$(".CheckButton").css("display","none");
+	$(".UncheckButton").css("display","inline-block");
+	$(".UncheckButton").on("click", elementoNoSeleccionado)
+	function elementoNoSeleccionado(){
+		$(".AlertContent").empty();
+		$(".AlertContent").append("Elija los elementos que desee borrar.<br><font color='red'>Debe tener seleccionado al menos un elemento.</font>");
+	}
+
+
 }
 
 
@@ -594,7 +624,7 @@ function showMenuImages(idMenu, idAlert, idFile, idInput, iFunction, uFunction, 
 		alert.append('<tr>'+
 						'<td><img src="images/'+carpet+'/'+value['fullname']+'" height="40" width="40"></td>'+
 						'<td>'+value['Nombre']+'</td>'+
-						'<td><input type="Checkbox" name="checkbox[]" value="'+value['id']+'" /></td>'+
+						'<td><input type="Checkbox" name="checkbox[]" onchange="comprobarCheck()" class="ContentCheck" value="'+value['id']+'" /></td>'+
 					'</tr>');
 	});
 	
