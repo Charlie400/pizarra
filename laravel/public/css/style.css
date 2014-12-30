@@ -345,7 +345,7 @@ h1{
 }
 
 .Menu-Item{
-	width: 20%;
+	width: 17%;
 	height: 1.3em;
 	top: 0.1em;
 	padding: 0.2em;
@@ -358,7 +358,7 @@ h1{
 }
 
 .Menu-ItemSelected{
-	width: 20%;
+	width: 17%;
 	height: 1.3em;
 	top: 0.1em;
 	padding: 0.2em;
@@ -416,7 +416,7 @@ h1{
 
 .CuadroInformativo{
 	position: absolute;
-	max-width: 249px;
+	max-width: 15vw;
 	top: 62%;
 	right: 0;
 	min-width: 5%;
@@ -435,10 +435,13 @@ h1{
 .CuadroInformativo p{
 	margin: 0;
 	display: inline-block;
+	font-size: 0.8vw;
 
 }
 
 .CuadroUsuario{
+	font-size: 1.3vw;
+	max-width: 160px; 
 	min-width: 5%;
 	max-height: 84%;
 	top: 0;
@@ -825,5 +828,92 @@ h1{
 #selectUser{
 	margin: 0.5em auto;
 	width: 40%;
+}
+
+@media screen and (max-width:1024px){
+
+	#LoginContainer{
+		top: 15%;
+		min-width: 219px;
+	}
+
+	.AlertBody{
+		margin: 10% 40% 0 40%;
+	}
+
+	.CuadroUsuario{
+		max-width: 12vw;
+		min-width: 40px;
+	}
+
+	.CuadroUsuario p{
+		font-size: 0.9vw;
+	}
+
+	.CuadroInformativo{
+		max-width: 13vw;
+	}
+
+	.CuadroInformativo p{
+		font-size: 0.8vw;
+		
+	}
+
+	.TituloLogin{
+		margin-left: 5%;
+	}
+
+	.MenuTop{
+		left: 16em;
+		min-width: 540px;
+	}
+
+	.Menu-Item{
+		min-width: 96px;
+		width: 12%;
+		height: 1.2em;
+		font-size: 12px;
+	}
+
+	.Menu-ItemSelected{
+		min-width: 96px;
+		width: 12%;
+		height: 1.2em;
+		font-size: 12px;
+	}
+
+	.ComboBoxDominio{
+		width: 6em;
+	}
+
+	.ComboBoxClase{
+		width: 6em;
+	}
+
+	.ComboBoxDisabled{
+		width: 6em;
+	}
+
+	input[name="Boton2"]{
+		height: 1.5em;
+		font-size: 12px;
+	}
+
+	.Titulo{
+		width: 15em;
+	}
+
+	.MenuLeft{
+		width: 15em;
+	}
+
+	.Pizarra{
+		left: 16em;
+		min-width: 540px;
+	}
+
+	.MenuLeft-ArticlesContainer{
+		width: 12.4em;
+	}
 }
 
