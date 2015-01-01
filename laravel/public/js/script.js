@@ -904,4 +904,13 @@ function dibujoManoAlzada(){
 	}	
 }
 
-$('.ColorPickerContainer').drags();
+$('.ColorPickerContainer h4').on('mouseover', moverMenu);
+$('.ColorPickerContainer h4').on('mouseleft', noMoverMenu);
+
+function moverMenu(){
+	$('.ColorPickerContainer').drags();
+}
+
+function noMoverMenu(){
+	$('.ColorPickerContainer').nodrags();
+}

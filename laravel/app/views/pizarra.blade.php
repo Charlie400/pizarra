@@ -126,7 +126,6 @@
 		</ul>
 	</nav>
 	<div class="Pizarra">
-
 		<canvas id="c">
 		</canvas>
 	</div>
@@ -310,14 +309,20 @@
 			<img class="LineWidthModifier" src="images/eraser.png" heigth="20" width="20" id="eraser">
 		</div>
 		<div class="WidthContainer">
+			<h4>Dibujo:</h4>
+			 <select id="dtool">
+		        <option value="line">Line</option>
+		        <option value="rect">Rectangle</option>
+	        	<option value="pencil">Pencil</option>
+			</select>
+		</div>
+		<div class="WidthContainer">
 			<h4>Edición:</h4>
 			<img class="LineWidthModifier" src="images/goRight.png" heigth="20" width="20" id="goRight">
 			<img class="LineWidthModifier" src="images/goBack.png" heigth="20" width="20" id="goBack">
-
+		<div>
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>
-	<script type="text/javascript" src="js/pintar.js"></script>
-
-	
+	<script type="text/javascript" src="js/dibujo.js"></script>
 </body>
 </html>
