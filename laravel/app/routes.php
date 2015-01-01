@@ -44,10 +44,13 @@ Route::group(['before' => 'auth'], function()
 	});
 
 	/*BEGIN VIDEO CANVAS AND AUDIO*/
-	Route::post('/image-sequence', ['as' => 'imageSequence', 'uses' => 'HomeController@saveImageSequence']);
+	Route::post('/save-video', ['as' => 'saveVideo', 'uses' => 'HomeController@saveVideo']);
 	Route::post('/save-audio', ['as' => 'saveAudio', 'uses' => 'HomeController@saveAudio']);
 	/*END VIDEO CANVAS AND AUDIO*/
 
 	//LOGOUT
 	Route::get('/logout', ['as' => 'logout', 'uses' => 'UserController@logout']);
+
+	//PROOFS
+	Route::get('/proofs', ['as' => 'proof', 'uses' => 'HomeController@proof']);
 });

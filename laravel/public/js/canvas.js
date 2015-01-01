@@ -35,7 +35,7 @@ function stopVideoAudio()
 
 function getCanvasSnapshot()
 {
-    var snapshot = getDataURL(), url = serverURL+'/image-sequence', data, req;
+    var snapshot = getDataURL(), url = serverURL+'/save-video', data, req;
     
     req  = createXMLHttpRequest('post', url, 'application/x-www-form-urlencoded');
 
@@ -65,7 +65,7 @@ function getFrames()
       
     // data = data.split(',')[1];
     // data = data.trim();
-    frames[a++] = data; 
+    frames.push(data);
 }
 
 
@@ -77,15 +77,9 @@ function stopSequenceRecording()
     if (frames.length > 0)
     {
         /*------------------GETTING URL FROM PHP METHOD FOR CREATE A VIDEO--------------------*/
-        url = serverURL+'/image-sequence';
-
-        getEncodeURIArray(frames);
+        url = serverURL+'/save-video';        
 
         sendWithAjax('post', url, 'application/x-www-form-urlencoded', 0, "");        
-    }
-    else
-    {
-        alert("Debes grabar primero");
     }
 }
 
@@ -145,7 +139,7 @@ function stopAudioRecording() {
 
         var url = serverURL+'/save-audio';
 
-        sendWithAjax('post', url, 'application/x-www-form-urlencoded', 0, e);
+        sendWithAjax('POST', url, 'application/x-www-form-urlencoded', 0, e);
 
     //Recorder.forceDownload(e, "filename.wav");
         stream = false;  
@@ -162,23 +156,28 @@ function sendWithAjax(method, url, header, b, archivo)
 
     if (archivo == "")
     {
-        // Aquí entramos cuando tenemos que guardar la secuencia de imágenes   
-        var limit = parseInt(frames.length-1), name = '&data0=', perPackage = 200, 
-        packages  = Math.ceil(limit/perPackage);
+        //Aquí entramos cuando tenemos que guardar la secuencia de imágenes   
+        var limit = parseInt(frames.length-1), perPackage = 200, 
+        packages  = Math.ceil(limit/perPackage), data = '';
 
         console.log(limit);        
 
-        for (var i = 0; i < perPackage && i <= limit; i++)
+        for (var i = 0; i < perPackage && a <= limit; i++)
         {
-            name = '&data'+a+'=';
-            data = data+name+frames[a];            
+            data += encodeURIComponent(frames[a]);            
             frames[a] = null; 
             ++a;
         }
 
-        data = data+'&limit='+limit+'&packages='+b;
+        data = 'data='+data+'&limit='+limit+'&packages='+b;
 
-        ++b;        
+        ++b;  
+
+        /*------------------HEADERS--------------------*/      
+
+        req.setRequestHeader('processData', false);
+        req.setRequestHeader('cache', false);
+        //req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         /*------------------SENDING DATA--------------------*/
 
@@ -213,30 +212,80 @@ function sendWithAjax(method, url, header, b, archivo)
     else
     {
         //Aquí entramos para guardar el audio
-        reader  = new FileReader(); 
-
+        reader  = new FileReader();         
 
         reader.onload = function (e) 
         {
         // Enviamos el contenido del archivo de audio y lo codificamos para evitar errores al enviar vía HTTP
-            data = encodeURIComponent(reader.result);
-            req.send( 'sound=' + data );            
+            data = reader.result;
+
+            sendAudio(data, method, url, header);                    
+            
         };
 
-
         // Leemos el archivo
-        reader.readAsDataURL(archivo);
+        // reader.readAsDataURL(archivo); 
+        reader.readAsBinaryString(archivo);
 
-        req.onreadystatechange = function ()
-        {
-            if (req.readyState === 4 && req.status === 200)
-            {                
-                stopSequenceRecording();
-            }
-        }; 
+        // var web = (window.URL || window.webkitURL).createObjectURL(archivo);       
+        // console.log(web);
     }
 
 }
+
+function sendAudio(data, method, url, header, length, perPackage, packages, b)
+{
+    if ( ! working)
+    {
+        working = true;
+        if (isNaN(b)) 
+        {     
+            var length = data.length,
+            perPackage = 2000000,
+            packages   = Math.ceil(parseInt(length)/perPackage),
+            b = 0;
+        }
+
+        var req = createXMLHttpRequest(method, url, header),
+        part = data.slice(perPackage * b, perPackage * (b + 1));
+
+        ++b;
+
+        req.setRequestHeader('processData', false);
+        req.setRequestHeader('cache', false);
+        //req.setRequestHeader('Content-Type', false);
+
+        part = btoa(part);
+        part = 'data:audio/wav;base64,' + part;
+
+        req.send('sound=' + encodeURIComponent(part) + '&current=' + b /*+ '&packages=' + packages*/);
+
+        if (b < packages)
+        {
+
+            req.onreadystatechange = function ()
+            {
+                if (req.readyState === 4 && req.status === 200)
+                { 
+                    working = false;              
+                    sendAudio(data, method, url, header, length, perPackage, packages, b);
+                }
+            }; 
+        }
+        else
+        {            
+            req.onreadystatechange = function ()
+            {
+                if (req.readyState === 4 && req.status === 200)
+                {    
+                    working = false;             
+                    stopSequenceRecording();
+                }
+            }; 
+        }           
+    }    
+}
+
 function createXMLHttpRequest(method, url, header)
 {
     //Creamos el objeto AJAX

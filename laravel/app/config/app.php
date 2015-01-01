@@ -127,6 +127,7 @@ return array(
 
 		//Custom
 		'Pizarra\Components\FieldBuilder\FieldServiceProvider',
+		'Pizarra\Components\Recorder\RecorderServiceProvider',
 
 	),
 
@@ -197,6 +198,7 @@ return array(
 
 		//Custom
 		'Field'				=> 'Pizarra\Components\FieldBuilder\Field',
+		'Recorder'			=> 'Pizarra\Components\Recorder\Recorder',
 
 	),
 

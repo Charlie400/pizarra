@@ -4,6 +4,7 @@ use Pizarra\Repositories\EscenarioRepo;
 use Pizarra\Repositories\ElementoRepo;
 use Pizarra\Repositories\DominioRepo;
 use Pizarra\Repositories\ClaseRepo;
+use Pizarra\Components\Recorder\RecorderUtils as Recorder;
 
 class HomeController extends BaseController {
 
@@ -26,12 +27,13 @@ class HomeController extends BaseController {
 	protected $claseRepo;
 
 	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, EscenarioRepo $escenarioRepo,
-								ElementoRepo $elementoRepo)
+								ElementoRepo $elementoRepo, Recorder $recorder)
 	{
 		$this->escenarioRepo = $escenarioRepo;	
 		$this->elementoRepo  = $elementoRepo;	
 		$this->dominioRepo   = $dominioRepo;
 		$this->claseRepo     = $claseRepo;
+		$this->recorder      = $recorder;
 	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
@@ -102,12 +104,6 @@ class HomeController extends BaseController {
 		{
 			echo json_encode($this->addClase($clase, $claseDom));
 		}
-		// else
-		// {
-		// 	return Redirect::back(); //Añadir a este redirect el error de que no se puede dejar el campo en blanco			
-		// }
-
-		// return Redirect::back();
 	}
 
 	public function addDominio($nombre)
@@ -157,108 +153,74 @@ class HomeController extends BaseController {
 
 	/*--------------EMPIEZAN MÉTODOS PARA PROCESAR GRABACIÓN DE CANVAS Y AUDIO-----------------*/
 
-	public function saveImageSequence()
-	{
-
-		$multimedia = $this->getDirMultimedia();		
-
-		$limit      = $_POST['limit'];
-		$packages   = $_POST['packages'];
-		$perPackage = 200;
-
-		// $fileName    = "$multimedia/frames/text.txt";
-		// file_put_contents($fileName, $limit);
-
-		if (isset ($limit, $packages) && is_numeric ($limit) && $limit > 1)
-		{
-			$path    = "$multimedia/frames/";
-			$begin   = $packages*$perPackage;
-			$end     = $begin+$perPackage;
-			$counter;					
-
-			for ($i = $begin; $i < $end && $i <= $limit; $i++)
-			{
-			    
-			    $d = $this->decodeBase64($_POST["data$i"]);
-
-			    $this->createImageFile($path, $i, $d);
-
-			    unset($_POST["data$i"]);
-
-			    $counter = $i;
-			
-			}
-
-			if ($counter == $limit)
-    		{    			
-				$this->createVideo($multimedia);
-			}
-		}
-		elseif ($limit == 1 && isset($_POST['data']))
-		{
-			$path = "$multimedia/snapshots/";
-
-			$d    = $this->decodeBase64($_POST['data']);
-				    
-			$this->createImageFile($path, 0, $d);
-		}
-	}
-
-	public function createImageFile($path, $i, $d)
-	{
-		$filename = sprintf('%s%08d.png', $path, $i);
-		file_put_contents($filename, $d);	
-	}
-
-	public function createVideo($m)
+	public function saveVideo()
 	{	
-		$pathImg 	 = "frames/%08d.png";
-		$pathVid 	 = "video/vid.avi";
-		$pathAudio 	 = "audio/audio.wav";
-
-		$instruction = $this->getInstruction($m, $pathImg, $pathAudio, $pathVid, '600x400');
-
-		shell_exec($instruction);
-	}
-
-	public function getInstruction($m, $pathImg, $pathAudio, $pathVid, $size)
-	{
-		$ffmpeg  	 = "ffmpeg";
-		$pathImg 	 = "$m/$pathImg";
-		$pathVid 	 = "$m/$pathVid";
-		$pathAudio 	 = "$m/$pathAudio";
-		$fPerSecond  = 30;
-
-		return "$ffmpeg -f image2 -i $pathImg -i $pathAudio -r $fPerSecond -s $size $pathVid";
+		$this->recorder->saveVideo();
 	}
 
 	public function saveAudio()
 	{
-		$audio = $_POST['sound'];		
+		// $audio 	  = $_POST['sound'];
+		// $current  = $_POST['current'];
+		// $packages = $_POST['packages'];
 
-		$audio = $this->decodeBase64($audio);
+		// $path  = public_path() . '/js/multimedia/audio/tmp' . $current . '.txt';
 
-		$multimedia = $this->getDirMultimedia();
+		// file_put_contents($path, $audio);
 
-		file_put_contents("$multimedia/audio/audio.wav", $audio);
+		if (isset ($_POST['sound']))
+		{
+			$audio 	  = $_POST['sound'];
+			$current  = $_POST['current'];
+
+			$this->createTmpTxt($audio, $current);
+
+			//ECHAR UN OJO A http://apuntes.alexmoleiro.com/2013/07/subir-archivos-grandes-de-100-mb-hasta.html
+		}
 	}
 
-	public function getDirMultimedia()
+	public function createTmpTxt($audio, $current)
 	{
-		$public = public_path();
+		// $audio = explode(',', $audio);
+		// $audio = str_replace(' ', '+', $audio[count($audio) - 1]);
+		$audio = $this->recorder->decodeBase64($audio);
 
-		return "$public/js/multimedia";
+		$path  = public_path() . "/js/multimedia/audio/audio.wav";
+
+		$dir   = $this->recorder->cleanFileName($path);
+
+		if ($this->recorder->fileExist($dir))
+		{
+			if (\File::exists($path) && $current == 1) $this->recorder->deleteFile($path);
+			$this->recorder->fillFile($audio, $path);
+		}
 	}
 
-
-	public function decodeBase64($file)
+	public function proof()
 	{
-		// split the data URL at the comma
-		$file = explode(',', $file);
-		// decode the base64 into binary file
-		$file = base64_decode(trim($file[1]));
+		$path  = public_path() . "/js/multimedia/audio/audio.wav";
+		// $path1  = public_path() . "/js/multimedia/audio/audio1.wav";
 
-		return $file;
+		// $base64 = fopen($path, 'rb');
+
+		// $binary = fopen($path1, 'ab');
+
+		// while ($buff = fread($base64, 1000000))
+		// {
+		// 	$tmp = $buff;			
+		// 	$buff = $this->recorder->decodeBase64($buff);
+
+		// 	fwrite($binary, $buff);
+		// }
+
+		// fclose($base64);
+		// fclose($binary);
+		$proof = fopen('blob:http%3A//localhost/ea2f7d13-0952-4bb8-aa3a-dc5604271926', 'rb');
+		if (true)
+		{
+			return 'success';
+		}
+		return 'fail';
 	}
 
 	public function createUndo()
