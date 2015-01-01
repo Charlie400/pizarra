@@ -628,7 +628,6 @@ h1{
 
 .ColorPickerContainer{
 	position: fixed;
-	height: 13em;
 	width: 20em;
 	background-color: #2C3E50;
 	display: none;
@@ -828,6 +827,18 @@ h1{
 #selectUser{
 	margin: 0.5em auto;
 	width: 40%;
+}
+
+#imageTemp{
+	width: 100%;
+	height: 100%;
+	border: none;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	display: inline-block;
+	border-radius: 5px;
+	position: absolute;	
 }
 
 @media screen and (max-width:1024px){
