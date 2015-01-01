@@ -300,13 +300,16 @@
 		</div>
 		<div class="WidthContainer">
 			<h4>Grosor:</h4>
-			<img class="LineWidthModifier" src="images/more.png" heigth="20" width="20" id="mas">
-			<img class="LineWidthModifier" src="images/less.png" heigth="20" width="20" id="menos">
-		</div>
+			<div>
+				<img class="LineWidthModifier" src="images/more.png" heigth="20" width="20" id="mas">
+				<img class="LineWidthModifier" src="images/less.png" heigth="20" width="20" id="menos">
+			</div>
 		<div class="WidthContainer">
 			<h4>Dibujo:</h4>
-			<img class="LineWidthModifier" src="images/pencil.png" heigth="20" width="20" id="pencil">
-			<img class="LineWidthModifier" src="images/eraser.png" heigth="20" width="20" id="eraser">
+			<div>
+				<img class="LineWidthModifier" src="images/pencil.png" heigth="20" width="20" id="pencil">
+				<img class="LineWidthModifier" src="images/eraser.png" heigth="20" width="20" id="eraser">
+			</div>
 		</div>
 		<div class="WidthContainer">
 			<h4>Dibujo:</h4>
@@ -319,8 +322,10 @@
 		</div>
 		<div class="WidthContainer">
 			<h4>Edición:</h4>
-			<img class="LineWidthModifier" src="images/goRight.png" heigth="20" width="20" id="goRight">
-			<img class="LineWidthModifier" src="images/goBack.png" heigth="20" width="20" id="goBack">
+			<div>
+				<img class="LineWidthModifier" src="images/goRight.png" heigth="20" width="20" id="goRight">
+				<img class="LineWidthModifier" src="images/goBack.png" heigth="20" width="20" id="goBack">
+			</div>
 		<div>
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>
