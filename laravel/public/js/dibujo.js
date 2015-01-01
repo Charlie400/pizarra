@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 
 var canvas, context, canvaso, contexto;
 if(window.addEventListener) {
 window.addEventListener('load', function () {
   
+=======
+if(window.addEventListener) {
+window.addEventListener('load', function () {
+  var canvas, context, canvaso, contexto;
+>>>>>>> origin/master
 
   // Herramienta activa al comenzar
   var tool;
@@ -130,6 +136,7 @@ window.addEventListener('load', function () {
     };
   };
 
+<<<<<<< HEAD
 // Herramienta de círculo
   tools.circ = function () {
     var tool = this;
@@ -169,6 +176,8 @@ window.addEventListener('load', function () {
     };
   };
 
+=======
+>>>>>>> origin/master
   // Herramienta de rectángulo
   tools.rect = function () {
     var tool = this;
@@ -247,6 +256,7 @@ window.addEventListener('load', function () {
 }, false); }
 
 
+<<<<<<< HEAD
 $('.ColorPicker').on('click', cambiarColor);
 
 function rgb2hex(rgb) {
@@ -288,3 +298,5 @@ function insertImageToCanvas(){
   img.src = "images/fondo1.jpg";
   contexto.drawImage(img,0,0);
 }
+=======
+>>>>>>> origin/master

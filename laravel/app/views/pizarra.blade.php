@@ -311,10 +311,16 @@
 		<div class="WidthContainer">
 			<h4>Dibujo:</h4>
 			 <select id="dtool">
+<<<<<<< HEAD
 		        <option value="line">Linea</option>
 		        <option value="rect">Rectangulo</option>
 	        	<option value="pencil">Lápiz</option>
 	        	<option value="circ">Circulo</option>
+=======
+		        <option value="line">Line</option>
+		        <option value="rect">Rectangle</option>
+	        	<option value="pencil">Pencil</option>
+>>>>>>> origin/master
 			</select>
 		</div>
 		<div class="WidthContainer">

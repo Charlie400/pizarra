@@ -904,6 +904,7 @@ function dibujoManoAlzada(){
 	}	
 }
 
+<<<<<<< HEAD
 //$('.ColorPickerContainer h4').on('mouseover', moverMenu);
 //$('.ColorPickerContainer h4').on('mouseleft', noMoverMenu);
 
@@ -914,3 +915,15 @@ function dibujoManoAlzada(){
 //function noMoverMenu(){
 //	$('.ColorPickerContainer').nodrags();
 //}
+=======
+$('.ColorPickerContainer h4').on('mouseover', moverMenu);
+$('.ColorPickerContainer h4').on('mouseleft', noMoverMenu);
+
+function moverMenu(){
+	$('.ColorPickerContainer').drags();
+}
+
+function noMoverMenu(){
+	$('.ColorPickerContainer').nodrags();
+}
+>>>>>>> origin/master
