@@ -304,6 +304,7 @@
 				<img class="LineWidthModifier" src="images/more.png" heigth="20" width="20" id="mas">
 				<img class="LineWidthModifier" src="images/less.png" heigth="20" width="20" id="menos">
 			</div>
+		</div>
 		<div class="WidthContainer">
 			<h4>Dibujo:</h4>
 			<div>
