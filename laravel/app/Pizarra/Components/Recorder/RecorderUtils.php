@@ -113,12 +113,13 @@ class RecorderUtils {
 		// $fileName    = "$multimedia/text.txt";
 		// file_put_contents($fileName, $_POST['data']);
 
-		if (isset ($_POST['limit'], $_POST['packages'], $_POST['data']) && is_numeric ($_POST['limit']) 
-			&& $_POST['limit'] > 1)
+		$limit      = $_POST['limit'];
+		$packages   = $_POST['packages'];
+		$path    	= "$multimedia/frames/";
+
+		if ($this->fileExist($path))
 		{
-			$limit      = $_POST['limit'];
-			$packages   = $_POST['packages'];
-			$path    	= "$multimedia/frames/";
+			sleep(0.5);
 
 			$data = str_replace('data:image/png;base64,', ',', $_POST['data']);
 			$data = explode(',', $data);
@@ -126,20 +127,26 @@ class RecorderUtils {
 			$begin   = $packages*$perPackage;
 			$end     = $begin+$perPackage;
 
-			$counter = $this->createImageSequence($begin, $end, $limit, $path, $data);
+			$counter = $this->createImageSequence($begin, $end, $limit, $path, $data);				
 
 			if ($counter == $limit)
     		{    			
 				$this->createVideo($multimedia . '/video/vid.avi');
 			}
-		}
-		elseif ($limit == 1 && isset($_POST['data']))
-		{
-			$path = "$multimedia/snapshots/";
+		}					
+	}
 
+	public function saveSnapShot()
+	{
+		$multimedia = public_path() . '/js/multimedia';
+
+		$path = "$multimedia/snapshots/";
+
+		if ($this->fileExist($path))
+		{			
 			$d    = $this->decodeBase64($_POST['data']);
 				    
-			$this->createImageFile($path, 0, $d);
+			$this->createImageFile($path, 0, $d);		
 		}
 	}
 
@@ -152,14 +159,17 @@ class RecorderUtils {
 	}
 
 	public function createVideo($pathVid)
-	{	
-		$m           = public_path() . '/js/multimedia';
-		$pathImg 	 = $m . "/frames/%08d.png";
-		$pathAudio 	 = $m . "/audio/audio.wav";
+	{
+		if ($this->fileExist($this->cleanFileName($pathVid)))
+		{
+			$m           = public_path() . '/js/multimedia';
+			$pathImg 	 = $m . "/frames/%08d.png";
+			$pathAudio 	 = $m . "/audio/audio.wav";
 
-		$instruction = $this->getInstruction($pathImg, $pathAudio, $pathVid, '600x400');
+			$instruction = $this->getInstruction($pathImg, $pathAudio, $pathVid, '600x400');
 
-		shell_exec($instruction);
+			shell_exec($instruction);
+		}
 	}
 
 	public function getInstruction($pathImg, $pathAudio, $pathVid, $size)

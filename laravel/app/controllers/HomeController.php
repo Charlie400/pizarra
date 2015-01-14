@@ -154,35 +154,36 @@ class HomeController extends BaseController {
 	/*--------------EMPIEZAN MÉTODOS PARA PROCESAR GRABACIÓN DE CANVAS Y AUDIO-----------------*/
 
 	public function saveVideo()
-	{	
-		$this->recorder->saveVideo();
+	{
+		if (isset ($_POST['limit'], $_POST['packages'], $_POST['data']) && is_numeric ($_POST['limit']))
+		{	
+			$this->recorder->saveVideo();
+		}
+	}
+
+	public function saveSnapShot()
+	{		
+		if ($_POST['limit'] && $_POST['limit'] == 1 && isset($_POST['data']))
+		{
+			$this->recorder->saveSnapShot();
+		}
 	}
 
 	public function saveAudio()
 	{
-		// $audio 	  = $_POST['sound'];
-		// $current  = $_POST['current'];
-		// $packages = $_POST['packages'];
-
-		// $path  = public_path() . '/js/multimedia/audio/tmp' . $current . '.txt';
-
-		// file_put_contents($path, $audio);
-
 		if (isset ($_POST['sound']))
 		{
 			$audio 	  = $_POST['sound'];
 			$current  = $_POST['current'];
 
-			$this->createTmpTxt($audio, $current);
+			$this->createAudio($audio, $current);
 
 			//ECHAR UN OJO A http://apuntes.alexmoleiro.com/2013/07/subir-archivos-grandes-de-100-mb-hasta.html
 		}
 	}
 
-	public function createTmpTxt($audio, $current)
+	public function createAudio($audio, $current)
 	{
-		// $audio = explode(',', $audio);
-		// $audio = str_replace(' ', '+', $audio[count($audio) - 1]);
 		$audio = $this->recorder->decodeBase64($audio);
 
 		$path  = public_path() . "/js/multimedia/audio/audio.wav";
@@ -192,6 +193,7 @@ class HomeController extends BaseController {
 		if ($this->recorder->fileExist($dir))
 		{
 			if (\File::exists($path) && $current == 1) $this->recorder->deleteFile($path);
+			sleep(0.15);
 			$this->recorder->fillFile($audio, $path);
 		}
 	}

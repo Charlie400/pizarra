@@ -8,13 +8,11 @@ function getElementById(id)
 
 function recordVideoAudio()
 {
-
     /*------------------RECORDING VIDEO AND AUDIO--------------------*/
 
     if ( ! recording)
     {
-        audioRecording();
-        sequenceRecording(); 
+        audioRecording(); 
         recording = true;
     }
         
@@ -35,7 +33,7 @@ function stopVideoAudio()
 
 function getCanvasSnapshot()
 {
-    var snapshot = getDataURL(), url = serverURL+'/save-video', data, req;
+    var snapshot = getDataURL(), url = serverURL+'/save-snapshot', data, req;
     
     req  = createXMLHttpRequest('post', url, 'application/x-www-form-urlencoded');
 
@@ -56,15 +54,15 @@ function sequenceRecording()
 
 function getDataURL()
 {
-    return document.getElementById('c').toDataURL();
+    var canvas = getElementById('c');
+
+    return canvas.toDataURL();
 }
 
 function getFrames()
 {    
     var data = getDataURL();
       
-    // data = data.split(',')[1];
-    // data = data.trim();
     frames.push(data);
 }
 
@@ -86,26 +84,19 @@ function stopSequenceRecording()
 var stream = false, rec;
 
 function audioRecording() {
-    if (stream) {
-        // Parar
-        recorder.getRecordedData(EnviarPorAjax);
-    } 
-    else 
-    {
-        navigator.getUserMedia = (
-            navigator.getUserMedia || 
-            navigator.webkitGetUserMedia || 
-            navigator.mozGetUserMedia || 
-            navigator.msGetUserMedia
-        );
+    navigator.getUserMedia = (
+        navigator.getUserMedia || 
+        navigator.webkitGetUserMedia || 
+        navigator.mozGetUserMedia || 
+        navigator.msGetUserMedia
+    );
 
-        if (navigator.getUserMedia) 
-        {
-            navigator.getUserMedia({audio: true}, audioMicrophoneGranted,
-            function (){console.warn('Error getting audio stream from getUserMedia, have you connected the'+
-            ' camera and microphone?')});
-        };
-    }
+    if (navigator.getUserMedia) 
+    {
+        navigator.getUserMedia({audio: true}, audioMicrophoneGranted,
+        function (){console.warn('Error getting audio stream from getUserMedia, have you connected the'+
+        ' camera and microphone?')});
+    };
 }
 
 function audioMicrophoneGranted(e)
@@ -123,6 +114,9 @@ function audioMicrophoneGranted(e)
     });
  
     rec.record();
+
+    //Tras iniciar el recorder de audio iniciamos la captura de frames del canvas
+    sequenceRecording();
 }
 
 function stopAudioRecording() {
