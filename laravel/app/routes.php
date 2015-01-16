@@ -22,20 +22,22 @@ Route::group(['before' => 'auth'], function()
 {
 	//INDEX HOME
 	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+	Route::get('/config/test', ['as' => 'test', 'uses' => 'TestController@index']);
 
 	/*COMIENZAN FUNCIONALIDADES DEL HOME*/
 	Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
 	Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
 	Route::get('/mostrar-escenarios', ['as' => 'getEscenarios', 'uses' => 'HomeController@getEscenarios']);
 	Route::get('/mostrar-elementos', ['as' => 'getElementos', 'uses' => 'HomeController@getElementos']);
+	Route::get('/descargar/archivo', ['as' => 'downloadFile', 'uses' => 'FileController@downloadFile']);
 	Route::post('/create-undo', ['as' => 'createUndo', 'uses' => 'HomeController@createUndo']);
 	Route::post('/subir/archivo', ['as' => 'uploadFile', 'uses' => 'FileController@uploadFile']);
 	Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
+	Route::post('/create/user', ['as' => 'createUser', 'uses' => 'UserController@createUser']);
+	Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'UserController@editUser']);
 
 	Route::group(['before' => 'csrf'], function()
 	{
-		Route::post('/create/user', ['as' => 'createUser', 'uses' => 'UserController@createUser']);
-		Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'UserController@editUser']);
 		Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);
 		Route::post('/borrar/elemento', ['as' => 'borrarElemento', 'uses' => 'HomeController@borrarElemento']);
 

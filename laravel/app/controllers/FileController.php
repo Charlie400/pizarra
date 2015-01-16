@@ -83,6 +83,27 @@ class FileController extends BaseController
 		}
 	}
 
+	public function downloadFile()
+	{		
+		if (Session::has('file'))
+		{
+			$dir  = __DIR__ . '/../../public';
+			$file = $dir . Session::get('file');
+			Session::forget('file');
+			header('Content-Description: File Transfer');
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename=' . basename($file));
+			header('Content-Transfer-Encoding: binary');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($file));
+			ob_clean();
+			flush();
+			readfile($file);
+		}
+	}
+
 	public function buildFileData($name, $clase)
 	{
 		//Obtenemos el nombre del archivo sin la extensión				

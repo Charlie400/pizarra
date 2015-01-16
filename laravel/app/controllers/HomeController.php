@@ -78,9 +78,13 @@ class HomeController extends BaseController {
 	{
 		$id = $_GET['data'];
 		$dominio = $this->dominioRepo->find($id);
-		$clases  = $dominio->clase;
 
-		echo json_encode($clases);
+		if ( ! is_null($dominio))
+		{
+			$clases  = $dominio->clase;
+			echo json_encode($clases);
+		}
+
 	}
 
 	/*--------------TERMINAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
@@ -199,30 +203,8 @@ class HomeController extends BaseController {
 	}
 
 	public function proof()
-	{
-		$path  = public_path() . "/js/multimedia/audio/audio.wav";
-		// $path1  = public_path() . "/js/multimedia/audio/audio1.wav";
-
-		// $base64 = fopen($path, 'rb');
-
-		// $binary = fopen($path1, 'ab');
-
-		// while ($buff = fread($base64, 1000000))
-		// {
-		// 	$tmp = $buff;			
-		// 	$buff = $this->recorder->decodeBase64($buff);
-
-		// 	fwrite($binary, $buff);
-		// }
-
-		// fclose($base64);
-		// fclose($binary);
-		$proof = fopen('blob:http%3A//localhost/ea2f7d13-0952-4bb8-aa3a-dc5604271926', 'rb');
-		if (true)
-		{
-			return 'success';
-		}
-		return 'fail';
+	{		
+		//return Redirect::to('/descargar/archivo')->with('file', '/images/RightArrow.png');
 	}
 
 	public function createUndo()

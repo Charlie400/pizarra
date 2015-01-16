@@ -241,35 +241,38 @@ function showClass(clase)
 	$(clase).css('display', 'inline-block');
 }
 
-function createClase()
+function initializeCreate()
 {
 	var clase = {
 					Form: ".Foo1",
 					Input: "#foo11"
 				};
-	getDominios('#selectDominio');
+	$('#foo1Fail').empty();
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
 	showClass(clase.Form);
 	hideFormsLess(clase.Form);
+
+	return clase;
+}
+
+function createClase()
+{
+	var clase = initializeCreate();
+
 	formParametros(false, true, true,  "Añadir Clase", "Clic en agregar para añadir clase.", Name.Clase);	
 	$("#addButtomFoo1").attr('onClick',"addClase()");
 	$(clase.Input).val('');
 	$(clase.Input).attr('name',"clase");
 	$(clase.Input).attr('placeholder',"Clase");
 	$("#selectDominio").show();
+	getDominios('#selectDominio');
 }
 
 function createDominio()
 {
-	var clase = {
-					Form: ".Foo1",
-					Input: "#foo11"
-				};
-	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
-	$(".AlertContainer").fadeIn();
-	showClass(clase.Form);
-	hideFormsLess(clase.Form);
+	var clase = initializeCreate();
+
 	formParametros(false, true, true, "Añadir Dominio", "Clic en agregar para añadir dominio.", Name.Dominio);
 	$("#addButtomFoo1").attr('onClick',"addDominio()");
 	$(clase.Input).val('');
@@ -362,6 +365,7 @@ function editUsuario()
 function deleteUsuario()
 {
 	var clase = ".Foo1";
+	$('#foo1Fail').empty();
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
 	$(".AlertContainer").fadeIn();
 	showClass(clase);
@@ -495,27 +499,40 @@ function createAjaxRequest(data, url, id, befSendText, responseText, method)
 	if (typeof(method) === undefined) method = 'GET';
 	if (typeof(data) != typeof({})) data = {data: data};
 
-	$.ajax({
-		data: data,
-		url: url, 
-		dataType: 'json',
-		type: method,
-		beforeSend: function(){
-			$(id).text(befSendText);				
-		},
-		timeout: 3000,
-		success: function(response){
-			ajaxData = response;
-			console.log(ajaxData);
+	if ( ! working)
+	{
+		working = true;
 
-			$(id).text(responseText);
+		$.ajax({
+			data: data,
+			url: url, 
+			dataType: 'json',
+			type: method,
+			beforeSend: function(){
+				$(id).text(befSendText);				
+			},
+			timeout: 3000,
+			success: function(response){
+				working  = false;
+				ajaxData = response;
+				console.log(ajaxData);
 
-		},
-		error: function (jqXHR,estado,error) {
-			console.log(estado);
-			console.log(error);
-		}
-	});
+				$(id).text(responseText);
+			},
+			error: function (jqXHR,estado,error) {
+				working = false;
+				console.log(estado);
+				console.log(error);
+			}
+		});
+	}
+	else
+	{
+		setTimeout(function () 
+		{
+			createAjaxRequest(data, url, id, befSendText, responseText, method);
+		}, 200);
+	}
 }
 
 /*------------COMIENZAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO------------*/
@@ -531,43 +548,38 @@ dominioOption.click(getClasses); // on("change")??
 
 function getClasses()
 {	
-	if ( ! working)
+	var val   = dominio.val();	
+
+	if (val != prevDomVal)
 	{
-		working   = true;
-		var val   = dominio.val();	
+		prevValue = val;
+		if (val != "")
+		{			
+			var url = serverURL+'/mostrar-clases';
 
-		if (val != prevDomVal)
-		{
-			prevValue = val;
-			if (val != "")
-			{			
-				var url = serverURL+'/mostrar-clases';
+			createAjaxRequest(val, url, '#claseOption', 'Cargando...', 'Clase');
 
-				createAjaxRequest(val, url, '#claseOption', 'Cargando...', 'Clase');
+			setTimeout(function () {
+				if (ajaxData.length < 1) return;
 
-				setTimeout(function () {						
-					clase.empty();				
-					clase.append('<option id="clase" value="">Clase</option>');				
+				clase.empty();				
+				clase.append('<option id="clase" value="">Clase</option>');				
 
-					$.each(ajaxData, function (i, value){				
-						clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['id']+'">'+value['Nombre']+'</option>');				
-					});
+				$.each(ajaxData, function (i, value){				
+					clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['id']+'">'+value['Nombre']+'</option>');				
+				});
 
-					$('#clase > option[value="'+selectVal+'"]').attr('selected', 'selected');
-					selectVal = "";
+				$('#clase > option[value="'+selectVal+'"]').attr('selected', 'selected');
+				selectVal = "";					
 
-					working = false;
-
-				}
-				, 500);
 			}
-			else
-			{
-				$('#clase1').text('Clase');
-				working = false;
-			}			
-		}		
-	}
+			, 500);
+		}
+		else
+		{
+			$('#clase1').text('Clase');
+		}			
+	}		
 }
 
 //FUNCIÓN ENCARGADA DE TRAER LOS DOMINIOS
@@ -576,31 +588,25 @@ function getDominios(id)
 {
 	if (typeof(id) === undefined) id = '#selectDominio, #dominio';
 
-	if ( ! working)
-	{
-		working = true;
-		var url = serverURL+'/mostrar-dominios';
+	var url = serverURL+'/mostrar-dominios';
 
-		createAjaxRequest("", url, id, 'Cargando...', 'Dominio');
+	createAjaxRequest("", url, id, 'Cargando...', 'Dominio');
 
-		setTimeout(function () {
+	setTimeout(function () {
 
-			var selectDom = $(id);
-			selectDom.empty();
+		var selectDom = $(id);
+		selectDom.empty();
 
-			selectDom.append('<option value="">Dominio</option>');
-			$.each(ajaxData, function (i, value){				
-				selectDom.append('<option id="dominio'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
-				'</option>');				
-			});
+		selectDom.append('<option value="">Dominio</option>');
+		$.each(ajaxData, function (i, value){				
+			selectDom.append('<option id="dominio'+value['id']+'" value="'+value['id']+'">'+value['Nombre']+
+			'</option>');				
+		});
 
-			$(id + ' > option[value="'+selectVal+'"]').attr('selected', 'selected');
-			selectVal = "";
-
-			working = false;
-		}
-		, 500);
+		$(id + ' > option[value="'+selectVal+'"]').attr('selected', 'selected');
+		selectVal = "";
 	}
+	, 500);
 }
 
 function showMenuImages(idMenu, idAlert, idFile, idInput, iFunction, uFunction, addFunction, carpet)
@@ -669,8 +675,7 @@ function getMenuImages(endDir)
 				showMenuImages('#MAC2', '#contentElementos', "#fileContainer2", 'elemento', 'insertImageToCanvas', 
 							   'uploadElemento', 'elementosAlert', 'Elementos');
 			}
-
-			working = false;			
+			
 		}, 500);
 	}
 	else
@@ -768,58 +773,55 @@ var selectVal = "";
 
 function addDominio()
 {
-	if ( ! working)
-	{
-		working   = true;
-		var data  = getData('dominio'),
-		url 	  = serverURL + '/agregar';
-		selectVal = $('#dominio').val();
+	var data  = getData('dominio'),
+	url 	  = serverURL + '/agregar';
+	selectVal = $('#dominio').val();
 
-		console.log(selectVal);
+	console.log(selectVal);
 
-		createAjaxRequest(data, url, '', '', '', 'POST');
+	createAjaxRequest(data, url, '', '', '', 'POST');
 
-		setTimeout(function () 
-				    {
-				    	working  = false;
+	setTimeout(function () 
+			    {
 
-						if (ajaxData.length > 0)
-						{
-							getDominios('#dominio');
-						}							
+					if (ajaxData.length > 0)
+					{
+						getDominios('#dominio');
+					}							
 
-					}, 500);
-	}
+				}, 500);
 }
 
 function addClase()
-{
-	if ( ! working)
-	{
-		working  = true;	
-		var data = getData('clase'),
-		url 	 = serverURL + '/agregar';
-		selectVal = $('#clase').val();
+{	
+	var data = getData('clase'),
+	url 	 = serverURL + '/agregar';
 
-		createAjaxRequest(data, url, '', '', '', 'POST');
+	selectVal = $('#clase').val();	
 
-		setTimeout(function () 
-				    {
-						working = false;
+	createAjaxRequest(data, url, '', '', '', 'POST');
 
-						if (ajaxData.length > 0)
-						{
-							getClasses();
-						}
+	setTimeout(function () 
+			    {
 
-					}, 500);
-	}
+					if (ajaxData.length > 0)
+					{
+						getClasses();
+					}
+
+				}, 500);
 }
 
 function getData(key)
 {
 	var input = $('#foo11'),
 	data 	  = {};
+
+	if (isEmpty(input.val()))
+	{
+		$('#foo1Fail').text("El campo está vacío");
+		return null;
+	}
 
 	if (key === 'dominio')
 	{
@@ -831,6 +833,57 @@ function getData(key)
 	data['selectDominio'] = $('#selectDominio').val();
 
 	return data;	
+}
+
+function modifyUser(id, names, action, clClass, endOfId)
+{
+	var isEdit = (action === 'edit');
+	if (action === 'create' || isEdit)
+	{
+		var url  = serverURL + '/' + action + '/user';
+
+		ajaxManager.shotQuery(url, id, names);
+
+		setTimeout(function () {
+						if (isEdit) document.getElementById('oldpassword').value = "";
+						$(clClass).empty();
+						if (ajaxData instanceof Object)
+						{
+							var p;												
+							$.each(ajaxData, function (i, value) {
+								p = $('#' + i + endOfId);							
+								p.text(value);
+							});							
+						}
+						else if (typeof(ajaxData) === "string")
+						{
+							alert(ajaxData);
+						}
+					}, 500);
+	}
+	else
+	{
+		return null;
+	}
+}
+
+function createUser()
+{
+	var names = ['firstname', 'lastname', 'username', 'nif', 'adress', 'locality', 'province', 'cp', 'phone', 
+				 'email', 'borndate', 'obs', 'password', 'password_confirmation', 'roles'], 
+	id   = ['firstname1', 'lastname1', 'username1', 'nif1', 'adress1', 'locality1', 'province1', 'cp1', 'phone1', 
+		    'email1', 'borndate1', 'obs1', 'password1', 'password_confirmation1', 'roles1'];
+
+	modifyUser(id, names, 'create', '.CU_errors', '1Error');
+}
+
+function editUser()
+{
+	var id = ['firstname', 'lastname', 'username', 'nif', 'adress', 'locality', 'province', 'cp', 'phone', 
+		  'email', 'borndate', 'obs', 'oldpassword', 'password', 'password_confirmation', 'roles'],
+	names = id;
+
+	modifyUser(id, names, 'edit', '.EU_errors', 'Error');
 }
 
 /*-------------------- TERMINAN MÉTODOS PARA ENVIAR FORMS POR AJAX -----------------------*/

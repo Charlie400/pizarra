@@ -8,12 +8,15 @@
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="{{ asset ('js/jquery-1.11.1.js') }}"></script>
+	<script type="text/javascript" src="{{ asset ('js/utils.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/canvas.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorder.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorderWorker.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+
+	<!-- PENSAR QUE HACER CON EL GENERADOR DE CONTRASEÑAS -->
 	@if(\Session::has('password'))
 		<!-- <input value="{{ \Session::get('password') }}" -->
 		<script type="text/javascript">
@@ -140,11 +143,12 @@
 					
 				</div>
 				<div class="AlertElement">
-					{{ Form::open(['route' => 'addFoo', 'method' => 'POST', 'role' => 'form', 'class' => 'Foo1', 
+					{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo1', 
 								   'id' => 'createDomClass']) }}
 
 						{{ Field::select('selectDominio', null, ['input' => ['class' => 'ComboBoxDominio']]) }}
 						{{ Field::text('foo11') }}
+						<p id="foo1Fail"><p>
 
 						<div class="ButtonsContainer">					
 							<button class="OkButton Button">Aceptar</button>
@@ -174,39 +178,62 @@
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>						
 					{{ Form::close() }}
-					{{ Form::open(['route' => 'createUser', 'method' => 'POST', 'role' => 'form', 
-								   'class' => 'Foo3']) }}								
-						<select id="selectUser" class="ComboBoxClase" name="roles">
+					{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo3']) }}								
+						<select id="roles1" class="ComboBoxClase" name="roles">
 							<option value="alumno">Alumno</option>
 							<option value="admin">Docente</option>
 						</select>
 						<div id="contentOverflow-Usuario" class="ContentOverflow">
-							{{ Field::text('firstname', null, ['input' => ['placeholder' => 'Nombre']]) }}
-							{{ Field::text('lastname', null, ['input' => ['placeholder' => 'Apellidos']]) }}
-							{{ Field::text('username', null, ['input' => ['placeholder' => 'Username']]) }}
-							{{ Field::text('nif', null, ['input' => ['placeholder' => 'Dni']]) }}
-							{{ Field::text('adress', null, ['input' => ['placeholder' => 'Dirección']]) }}
-							{{ Field::text('locality', null, ['input' => ['placeholder' => 'Localidad']]) }}
-							{{ Field::text('province', null, ['input' => ['placeholder' => 'Provincia']]) }}
-							{{ Field::text('cp', null, ['input' => ['placeholder' => 'Código postal']]) }}
-							{{ Field::text('phone', null, ['input' => ['placeholder' => 'Tlf']]) }}
-							{{ Field::email('email', null, ['input' => ['placeholder' => 'E-mail']]) }}
-							{{ Field::date('borndate') }}
-							{{ Field::text('obs', null, ['input' => ['placeholder' => 'Observaciones']]) }}
-							{{ Field::password('password', ['input' => ['placeholder' => 'Nueva Contraseña']]) }}
+							{{ Field::text('firstname', null, ['input' => ['id' => 'firstname1', 
+							'placeholder' => 'Nombre']]) }}
+							<p id="firstname1Error" class="CU_errors"></p>
+							{{ Field::text('lastname', null, ['input' => ['id' => 'lastname1', 
+							'placeholder' => 'Apellidos']]) }}
+							<p id="lastname1Error" class="CU_errors"></p>
+							{{ Field::text('username', null, ['input' => ['id' => 'username1', 
+							'placeholder' => 'Username']]) }}
+							<p id="username1Error" class="CU_errors"></p>
+							{{ Field::text('nif', null, ['input' => ['id' => 'nif1', 'placeholder' => 'Dni']]) }}
+							<p id="nif1Error" class="CU_errors"></p>
+							{{ Field::text('adress', null, ['input' => ['id' => 'adress1', 
+							'placeholder' => 'Dirección']]) }}
+							<p id="adress1Error" class="CU_errors"></p>
+							{{ Field::text('locality', null, ['input' => ['id' => 'locality1', 
+							'placeholder' => 'Localidad']]) }}
+							<p id="locality1Error" class="CU_errors"></p>
+							{{ Field::text('province', null, ['input' => ['id' => 'province1', 
+							'placeholder' => 'Provincia']]) }}
+							<p id="province1Error" class="CU_errors"></p>
+							{{ Field::text('cp', null, ['input' => ['id' => 'cp1', 
+							'placeholder' => 'Código postal']]) }}
+							<p id="cp1Error" class="CU_errors"></p>
+							{{ Field::text('phone', null, ['input' => ['id' => 'phone1', 'placeholder' => 'Tlf']]) }}
+							<p id="phone1Error" class="CU_errors"></p>
+							{{ Field::email('email', null, ['input' => ['id' => 'email1', 
+							'placeholder' => 'E-mail']]) }}
+							<p id="email1Error" class="CU_errors"></p>
+							{{ Field::date('borndate', null, ['input' => ['id' => 'borndate1']]) }}
+							<p id="borndate1Error" class="CU_errors"></p>
+							{{ Field::text('obs', null, ['input' => ['id' => 'obs1', 
+							'placeholder' => 'Observaciones']]) }}
+							<p id="obs1Error" class="CU_errors"></p>
+							{{ Field::password('password', ['input' => ['id' => 'password1', 
+							'placeholder' => 'Nueva Contraseña']]) }}
+							<p id="password1Error" class="CU_errors"></p>
 							{{ Field::password('password_confirmation', 
-							['input' => ['placeholder' => 'Repite Contraseña']]) }}
+							['input' => ['id' => 'password_confirmation1', 'placeholder' => 'Repite Contraseña']]) }}
+							<p id="password_confirmation1Error" class="CU_errors"></p>
 						</div>
 						<div class="ButtonsContainer">					
-							<button class="OkButton Button">Aceptar</button>
+							<div class="OkButton Button" onClick="createUser()">Aceptar</div>
 							<button class="AddButton Button">Agregar</button>
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	
 					{{ Form::close() }}
 
-					{{ Form::model($user, ['route' => 'editUser', 'method' => 'POST', 'role' => 'form', 
+					{{ Form::model($user, ['method' => 'POST', 'role' => 'form', 
 								   'class' => 'Foo4']) }}						
-						<select id="selectUser" class="ComboBoxClase" name="roles">
+						<select id="roles" class="ComboBoxClase" name="roles">
 							@if($user->roles === "alumno")
 								<option value="alumno">Alumno</option>
 								<option value="admin">Docente</option>
@@ -218,35 +245,50 @@
 						<div id="contentOverflow-Usuario" class="ContentOverflow">
 							{{ Field::text('firstname', null, ['input' => ['placeholder' => 'Nombre', 
 										   'value' => $user->firstname ]]) }}
+							<p id="firstnameError" class="EU_errors"></p>
 							{{ Field::text('lastname', null, ['input' => ['placeholder' => 'Apellidos', 
 										   'value' => $user->lastname ]]) }}
+							<p id="lastnameError" class="EU_errors"></p>
 							{{ Field::text('username', null, ['input' => ['placeholder' => 'Username', 
 										   'value' => $user->username ]]) }}
+							<p id="usernameError" class="EU_errors"></p>
 							{{ Field::text('nif', null, ['input' => ['placeholder' => 'Dni', 
 										   'value' => $user->nif ]]) }}
+							<p id="nifError" class="EU_errors"></p>
 							{{ Field::text('adress', null, ['input' => ['placeholder' => 'Dirección', 
 										   'value' => $user->adress ]]) }}
+							<p id="adressError" class="EU_errors"></p>
 							{{ Field::text('locality', null, ['input' => ['placeholder' => 'Localidad', 
 										   'value' => $user->locality ]]) }}
+							<p id="localityError" class="EU_errors"></p>
 							{{ Field::text('province', null, ['input' => ['placeholder' => 'Provincia', 
 										   'value' => $user->province ]]) }}
+							<p id="provinceError" class="EU_errors"></p>
 							{{ Field::text('cp', null, ['input' => ['placeholder' => 'Código postal', 
 										   'value' => $user->cp ]]) }}
+							<p id="cpError" class="EU_errors"></p>
 							{{ Field::text('phone', null, ['input' => ['placeholder' => 'Tlf', 
 										   'value' => $user->phone ]]) }}
+							<p id="phoneError" class="EU_errors"></p>
 							{{ Field::email('email', null, ['input' => ['placeholder' => 'E-mail', 
 										   'value' => $user->email ]]) }}
+							<p id="emailError" class="EU_errors"></p>
 							{{ Field::date('borndate', null, ['input' => [ 'value' => $user->borndate ]]) }}
+							<p id="borndateError" class="EU_errors"></p>
 							{{ Field::text('obs', null, ['input' => ['placeholder' => 'Observaciones', 
 										   'value' => $user->obs ]]) }}
+							<p id="obsError" class="EU_errors"></p>										   
 							{{ Field::password('oldpassword', ['input' => ['placeholder' => 'Contraseña actual']]) }}
+							<p id="oldpasswordError" class="EU_errors"></p>
 							{{ Field::password('password', ['input' => ['placeholder' => 'Nueva Contraseña']]) }}
+							<p id="passwordError" class="EU_errors"></p>
 							{{ Field::password('password_confirmation', 
 							['input' => ['placeholder' => 'Repite Contraseña']]) }}
+							<p id="password_confirmationError" class="EU_errors"></p>
 						
 						</div>
 						<div class="ButtonsContainer">					
-							<button class="OkButton Button">Aceptar</button>
+							<div class="OkButton Button" onClick="editUser()">Aceptar</div>
 							<button class="AddButton Button">Agregar</button>
 							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 						</div>	

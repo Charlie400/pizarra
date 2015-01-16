@@ -51,16 +51,16 @@ class UserController extends BaseController
 	}
 
 	public function createUser()
-	{
+	{		
 		$datos = Input::only('firstname', 'lastname', 'username', 'password', 'password_confirmation', 'email', 
 							 'phone', 'roles', 'nif', 'adress', 'locality', 'province', 'cp', 'borndate', 'obs');
 
-		if (empty($datos['password']) && ! empty($datos['username']) && ! empty($datos['email']))
+		if (empty($datos['password']))
 		{
-			$pass = $this->userRepo->generatePassword();
-
-			$datos['password'] 				= $pass;
-			$datos['password_confirmation'] = $pass;
+			$error = new stdClass();
+			$error->password = "Debes introducir una contraseña";			
+			echo json_encode($error);
+			exit();
 		}
 
 		$created = $this->userRepo->createNewRecord($datos);
@@ -69,13 +69,20 @@ class UserController extends BaseController
 		{
 			if ( isset($pass) )
 			{
-				return Redirect::back()->with('password', $pass);
+				echo json_encode("Pass: $pass");
+				//return Redirect::back()->with('password', $pass);
 			}
-
-			return Redirect::back();
+			else
+			{		
+				echo json_encode('Terminado');
+			}
+		}
+		else
+		{
+			echo json_encode($created);
+			//return Redirect::back()->withInput()->withErrors($created);			
 		}
 
-		return Redirect::back()->withInput()->withErrors($created);
 	}
 
 	public function editUser()
@@ -83,7 +90,7 @@ class UserController extends BaseController
 		$user  = Auth::user();
 		$data  = Input::only('firstname', 'lastname', 'username', 'oldpassword', 'password', 'email',
 							 'password_confirmation', 'phone', 'roles', 'nif', 'adress', 'locality',
-							 'province', 'cp', 'borndate', 'obs');		
+							 'province', 'cp', 'borndate', 'obs');	
 
 		if (empty($data['password']))
 		{
@@ -94,13 +101,22 @@ class UserController extends BaseController
 		if ( ! empty($data['oldpassword']))
 		{
 			$created = $this->userRepo->createNewRecord($data, $user);		
-		}
 
-		if ( ! isset($created) or $created === true )
+			if ($created === true )
+			{
+				echo json_encode('Terminado');
+			}
+			else
+			{
+				echo json_encode($created);
+				//return Redirect::back()->withInput()->withErrors($created);
+			}
+		}
+		else
 		{
-			return Redirect::back();
+			$error = new stdClass();
+			$error->oldpassword = "Debes introducir una contraseña";			
+			echo json_encode($error);
 		}
-
-		return Redirect::back()->withInput()->withErrors($created);
 	}
 }
