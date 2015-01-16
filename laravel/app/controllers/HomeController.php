@@ -41,10 +41,9 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
-		$dominios   = $this->dominioRepo->findAll();
-		$escenarios = $this->escenarioRepo->findAll();
+		$dominios = $this->dominioRepo->findAll();
 
-		return View::make('pizarra', compact('dominios', 'escenarios'));
+		return View::make('pizarra', compact('dominios'));
 	}
 
 	public function getMenuImages($repo)
@@ -83,6 +82,10 @@ class HomeController extends BaseController {
 		{
 			$clases  = $dominio->clase;
 			echo json_encode($clases);
+		}
+		else
+		{
+			echo json_encode(null);
 		}
 
 	}
@@ -204,7 +207,7 @@ class HomeController extends BaseController {
 
 	public function proof()
 	{		
-		//return Redirect::to('/descargar/archivo')->with('file', '/images/RightArrow.png');
+		//dd(URL::to('/agregar'));
 	}
 
 	public function createUndo()

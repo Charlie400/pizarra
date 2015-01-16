@@ -1,5 +1,5 @@
 ;
-var recording = false, serverURL = location.protocol+'//'+location.hostname+'/pizarra/laravel/public';
+var recording = false, serverURL = window.location.protocol+'//'+window.location.hostname+'/pizarra/laravel/public';
 
 function getElementById(id)
 {
@@ -40,6 +40,19 @@ function getCanvasSnapshot()
     data = 'data='+encodeURIComponent(snapshot)+'&limit=1&packages=1';
 
     req.send(data);
+
+    req.onreadystatechange = function () {
+                                downloadFile('/snapshots/00000000.png', req);
+                            }
+}
+
+//DOWNLOADS FUNCTION
+function downloadFile(dir, request)
+{    
+    if (request.readyState === 4 && request.status === 200 && request.responseText === 'true')
+    {
+        window.location.href = serverURL + '/descargar' + dir;
+    }
 }
 
 /*------------------RECORDING CANVAS IMAGES AND STORING IN ARRAY--------------------*/
@@ -192,7 +205,9 @@ function sendWithAjax(method, url, header, b, archivo)
         else
         {            
             req.onreadystatechange = function ()
-            {
+            {                
+                downloadFile('/video/vid.avi', req);
+
                 if (req.readyState === 4 && req.status === 200)
                 {
                     frames.length = 0;

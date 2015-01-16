@@ -42,10 +42,9 @@ class RecorderUtils {
 		$last = $this->outLast($dir);
 		$last = $this->divide('.', $last);		
 
-		if (count($last) > 1) $dir = $this->join('/', $dir);
-		else $dir = $tmp;
-
-		return $dir;
+		if (count($last) > 1) return $this->join('/', $dir);
+		
+		return $tmp;
 	}
 
 	public function fileExist($dir)
@@ -146,7 +145,9 @@ class RecorderUtils {
 		{			
 			$d    = $this->decodeBase64($_POST['data']);
 				    
-			$this->createImageFile($path, 0, $d);		
+			$this->createImageFile($path, 0, $d);
+
+			echo json_encode(true);
 		}
 	}
 
@@ -169,6 +170,8 @@ class RecorderUtils {
 			$instruction = $this->getInstruction($pathImg, $pathAudio, $pathVid, '600x400');
 
 			shell_exec($instruction);
+
+			echo json_encode(true); //Para activar el sistema de descarga
 		}
 	}
 
@@ -177,7 +180,50 @@ class RecorderUtils {
 		$fPerSecond  = 30;
 
 		return "ffmpeg -f image2 -i $pathImg -i $pathAudio -r $fPerSecond -s $size $pathVid";
-	}	
+	}
+
+	public function downloadFile($file, $delete = false)
+	{		
+		$fileName = $this->outLast(($this->divide('/', $file)));
+		$dir  = public_path();
+		$file = $dir . $file;
+
+		if ($this->isAllowDownload($fileName) && \File::exists($file))
+		{
+			header('Content-Description: File Transfer');
+			header('Content-Type: application/octet-stream');
+			header('Content-Disposition: attachment; filename=' . basename($file));
+			header('Content-Transfer-Encoding: binary');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($file));
+			ob_clean();
+			flush();
+			readfile($file);
+
+			if ($delete)
+			{
+				sleep(5);
+
+				$this->deleteFile($file);
+			}
+		}
+		else
+		{
+			echo 'Access Denied';
+		}
+	}
+
+	public function allowFiles()
+	{
+		return array('00000000.png', 'vid.avi');
+	}
+
+	public function isAllowDownload($fileName)
+	{
+		return in_array($fileName, $this->allowFiles());		
+	}
 
 	///TEMP
 }

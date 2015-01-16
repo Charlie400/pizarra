@@ -560,17 +560,24 @@ function getClasses()
 			createAjaxRequest(val, url, '#claseOption', 'Cargando...', 'Clase');
 
 			setTimeout(function () {
-				if (ajaxData.length < 1) return;
+				if (ajaxData !== null)
+				{
+					if (ajaxData.length < 1) return;
 
-				clase.empty();				
-				clase.append('<option id="clase" value="">Clase</option>');				
+					clase.empty();				
+					clase.append('<option id="clase" value="">Clase</option>');				
 
-				$.each(ajaxData, function (i, value){				
-					clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['id']+'">'+value['Nombre']+'</option>');				
-				});
+					$.each(ajaxData, function (i, value){				
+						clase.append('<option id="clase'+(parseInt(i)+1)+'" value="'+value['id']+'">'+value['Nombre']+'</option>');				
+					});
 
-				$('#clase > option[value="'+selectVal+'"]').attr('selected', 'selected');
-				selectVal = "";					
+					$('#clase > option[value="'+selectVal+'"]').attr('selected', 'selected');
+					selectVal = "";	
+
+					return;				
+				}
+
+				getDominios('#dominio');
 
 			}
 			, 500);
@@ -847,6 +854,7 @@ function modifyUser(id, names, action, clClass, endOfId)
 		setTimeout(function () {
 						if (isEdit) document.getElementById('oldpassword').value = "";
 						$(clClass).empty();
+
 						if (ajaxData instanceof Object)
 						{
 							var p;												
@@ -854,11 +862,7 @@ function modifyUser(id, names, action, clClass, endOfId)
 								p = $('#' + i + endOfId);							
 								p.text(value);
 							});							
-						}
-						else if (typeof(ajaxData) === "string")
-						{
-							alert(ajaxData);
-						}
+						}						
 					}, 500);
 	}
 	else

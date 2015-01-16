@@ -29,7 +29,7 @@ Route::group(['before' => 'auth'], function()
 	Route::get('/mostrar-dominios', ['as' => 'getDominios', 'uses' => 'HomeController@sendDominios']);
 	Route::get('/mostrar-escenarios', ['as' => 'getEscenarios', 'uses' => 'HomeController@getEscenarios']);
 	Route::get('/mostrar-elementos', ['as' => 'getElementos', 'uses' => 'HomeController@getElementos']);
-	Route::get('/descargar/archivo', ['as' => 'downloadFile', 'uses' => 'FileController@downloadFile']);
+	Route::get('/descargar/{carpet}/{fileName}', ['as' => 'downloadFile', 'uses' => 'FileController@downloadFile']);
 	Route::post('/create-undo', ['as' => 'createUndo', 'uses' => 'HomeController@createUndo']);
 	Route::post('/subir/archivo', ['as' => 'uploadFile', 'uses' => 'FileController@uploadFile']);
 	Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
