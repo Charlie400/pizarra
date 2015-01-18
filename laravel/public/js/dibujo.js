@@ -1,5 +1,6 @@
 
-var canvas, context, canvaso, contexto;
+var canvasn, contextt, canvaso, contexto;
+var sGrosor = 3;
 if(window.addEventListener) {
 window.addEventListener('load', function () {
   
@@ -30,18 +31,18 @@ window.addEventListener('load', function () {
 
     // Añade Canvas Temporal
     var container = canvaso.parentNode;
-    canvas = document.createElement('canvas');
-    if (!canvas) {
+    canvasn = document.createElement('canvas');
+    if (!canvasn) {
       alert('Error: I cannot create a new canvas element!');
       return;
     }
 
-    canvas.id     = 'imageTemp';
-    canvas.width  = canvaso.width;
-    canvas.height = canvaso.height;
-    container.appendChild(canvas);
+    canvasn.id     = 'imageTemp';
+    canvasn.width  = canvaso.width;
+    canvasn.height = canvaso.height;
+    container.appendChild(canvasn);
 
-    context = canvas.getContext('2d');
+    contextt = canvasn.getContext('2d');
 
     // Obtiene la herramienta seleccionada
     var tool_select = document.getElementById('dtool');
@@ -58,9 +59,9 @@ window.addEventListener('load', function () {
     }
 
     // Eventos
-    canvas.addEventListener('mousedown', ev_canvas, false);
-    canvas.addEventListener('mousemove', ev_canvas, false);
-    canvas.addEventListener('mouseup',   ev_canvas, false);
+    canvasn.addEventListener('mousedown', ev_canvas, false);
+    canvasn.addEventListener('mousemove', ev_canvas, false);
+    canvasn.addEventListener('mouseup',   ev_canvas, false);
   }
 
   // Determina la posición relativa del canvas. Propósito genera: event handler.
@@ -91,8 +92,8 @@ window.addEventListener('load', function () {
   // #imageTemp es borrado. Esta función se  llama cada vez que el usuario  
   // complete una función de pintado.
   function img_update () {
-		contexto.drawImage(canvas, 0, 0);
-		context.clearRect(0, 0, canvas.width, canvas.height);
+		contexto.drawImage(canvasn, 0, 0);
+		contextt.clearRect(0, 0, canvasn.width, canvasn.height);
   }
 
   // Este objeto guarda la implementación para cada herramienta de pintado
@@ -106,8 +107,8 @@ window.addEventListener('load', function () {
     // Comienza cuando pulsas el botón del ratón
     // Comienza el pintar del lápiz
     this.mousedown = function (ev) {
-        context.beginPath();
-        context.moveTo(ev._x, ev._y);
+        contextt.beginPath();
+        contextt.moveTo(ev._x, ev._y);
         tool.started = true;
     };
 
@@ -116,8 +117,8 @@ window.addEventListener('load', function () {
     // the mouse button).
     this.mousemove = function (ev) {
       if (tool.started) {
-        context.lineTo(ev._x, ev._y);
-        context.stroke();
+        contextt.lineTo(ev._x, ev._y);
+        contextt.stroke();
       }
     };
 
@@ -137,6 +138,7 @@ window.addEventListener('load', function () {
 
     this.mousedown = function (ev) {
       tool.started = true;
+      contextt.beginPath();
       tool.x0 = ev._x;
       tool.y0 = ev._y;
     };
@@ -150,14 +152,16 @@ window.addEventListener('load', function () {
           y = Math.min(ev._y,  tool.y0),
           w = Math.abs(ev._x - tool.x0),
           h = Math.abs(ev._y - tool.y0);
+      console.log(x +" "+ y +" "+ w +" "+h);
+    
 
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      contextt.clearRect(0, 0, canvasn.width, canvasn.height);
 
       if (!w || !h) {
         return;
       }
 
-      context.strokeRect(x, y, w, h);
+      contextt.arc(x + (w/2), y + (h/2),w/2,0,(Math.PI/180)*360,true);
     };
 
     this.mouseup = function (ev) {
@@ -190,13 +194,13 @@ window.addEventListener('load', function () {
           w = Math.abs(ev._x - tool.x0),
           h = Math.abs(ev._y - tool.y0);
 
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      contextt.clearRect(0, 0, canvasn.width, canvasn.height);
 
       if (!w || !h) {
         return;
       }
 
-      context.strokeRect(x, y, w, h);
+      contextt.strokeRect(x, y, w, h);
     };
 
     this.mouseup = function (ev) {
@@ -224,13 +228,13 @@ window.addEventListener('load', function () {
         return;
       }
 
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      contextt.clearRect(0, 0, canvasn.width, canvasn.height);
 
-      context.beginPath();
-      context.moveTo(tool.x0, tool.y0);
-      context.lineTo(ev._x,   ev._y);
-      context.stroke();
-      context.closePath();
+      contextt.beginPath();
+      contextt.moveTo(tool.x0, tool.y0);
+      contextt.lineTo(ev._x,   ev._y);
+      contextt.stroke();
+      contextt.closePath();
     };
 
     this.mouseup = function (ev) {
@@ -258,7 +262,7 @@ function rgb2hex(rgb) {
 }
 
 function cambiarColor(){
-  pizarra_context.strokeStyle = rgb2hex($(this).css('background-color'));
+  contextt.strokeStyle = rgb2hex($(this).css('background-color'));
 }
  
 $('.LineWidthModifier').on('click', cambiaTrazado)
@@ -271,12 +275,12 @@ function cambiaTrazado(){
   if (sValor == "mas"){
     sSuma = sGrosor + 1
     if (sSuma <21){
-      pizarra_context.lineWidth= sSuma;
+      contextt.lineWidth= sSuma;
     }
   }else if(sValor == "menos"){
     sSuma = sGrosor - 1
     if (sSuma > 0){
-      pizarra_context.lineWidth= sSuma;
+      contextt.lineWidth= sSuma;
     }
   }
 
