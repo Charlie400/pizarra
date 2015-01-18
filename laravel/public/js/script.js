@@ -24,11 +24,8 @@ $('#c').attr('width', $('.Pizarra').width());
 $('#c').attr('height', $('.Pizarra').height());
 
 $(window).resize(function(){
-$('#c').attr('width', $('.Pizarra').width());
+ $('#c').attr('width', $('.Pizarra').width());
 $('#c').attr('height', $('.Pizarra').height());
-
-$('#imageTemp').attr('width', $('.Pizarra').width());
-$('#imageTemp').attr('height', $('.Pizarra').height());
 });
 
 $('.MenuLeft-ItemLista-Esc').on('click', ListaClick1);
@@ -965,12 +962,12 @@ function dibujoManoAlzada(){
 }
 
 //$('.ColorPickerContainer h4').on('mouseover', moverMenu);
-//$('.ColorPickerContainer').on('mouseleft', noMoverMenu);
+//$('.ColorPickerContainer h4').on('mouseleft', noMoverMenu);
 
 //function moverMenu(){
 //	$('.ColorPickerContainer').drags();
 //}
 
 //function noMoverMenu(){
-//	$('.ColorPickerContainer').removeClass('draggable');
+//	$('.ColorPickerContainer').nodrags();
 //}
