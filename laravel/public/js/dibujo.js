@@ -1,6 +1,7 @@
 
 var canvasn, contextt, canvaso, contexto;
 var sGrosor = 3;
+var sLastColorPicked = '#000000'
 if(window.addEventListener) {
 window.addEventListener('load', function () {
   
@@ -138,9 +139,9 @@ window.addEventListener('load', function () {
 
     this.mousedown = function (ev) {
       tool.started = true;
-      contextt.beginPath();
       tool.x0 = ev._x;
       tool.y0 = ev._y;
+      contextt.beginPath();
     };
 
     this.mousemove = function (ev) {
@@ -152,20 +153,23 @@ window.addEventListener('load', function () {
           y = Math.min(ev._y,  tool.y0),
           w = Math.abs(ev._x - tool.x0),
           h = Math.abs(ev._y - tool.y0);
-      console.log(x +" "+ y +" "+ w +" "+h);
-    
 
-      contextt.clearRect(0, 0, canvasn.width, canvasn.height);
-
+      canvasn.width = canvasn.width;
+      
       if (!w || !h) {
         return;
       }
 
-      contextt.arc(x + (w/2), y + (h/2),w/2,0,(Math.PI/180)*360,true);
+      contextt.strokeStyle = sLastColorPicked;
+      contextt.arc(x + (w/2), y + (h/2), w/2, 0, Math.PI*2, false);
+      contextt.lineWidth = sGrosor;
+      contextt.stroke();
+
     };
 
     this.mouseup = function (ev) {
       if (tool.started) {
+        contextt.stroke();
         tool.mousemove(ev);
         tool.started = false;
         img_update();
@@ -263,6 +267,7 @@ function rgb2hex(rgb) {
 
 function cambiarColor(){
   contextt.strokeStyle = rgb2hex($(this).css('background-color'));
+  sLastColorPicked = rgb2hex($(this).css('background-color'));
 }
  
 $('.LineWidthModifier').on('click', cambiaTrazado)
@@ -286,6 +291,8 @@ function cambiaTrazado(){
 
   sGrosor = sSuma
 }
+
+$('.clickImage').on('click', insertImageToCanvas);
 
 function insertImageToCanvas(){
   var img = new Image();

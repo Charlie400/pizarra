@@ -634,7 +634,7 @@ function showMenuImages(idMenu, idAlert, idFile, idInput, iFunction, uFunction, 
 	$.each(ajaxData, function (i, value)
 	{			
 		menu.append('<article class="Article">'+
-						'<img onClick="'+iFunction+'()" src="images/'+carpet+'/'+value['fullname']+'" height="80" width="80">'+
+						'<img class = "clickImage" src="images/'+carpet+'/'+value['fullname']+'" height="80" width="80">'+
 						'<p id="menuleftTitulo"></p>'+
 					'</article>');				
 		alert.append('<tr>'+
@@ -965,7 +965,7 @@ function dibujoManoAlzada(){
 }
 
 //$('.ColorPickerContainer h4').on('mouseover', moverMenu);
-//$('.ColorPickerContainer').on('mouseleft', noMoverMenu);
+//$('.ColorPickerContainer h4').on('mouseleave', noMoverMenu);
 
 //function moverMenu(){
 //	$('.ColorPickerContainer').drags();
@@ -974,3 +974,4 @@ function dibujoManoAlzada(){
 //function noMoverMenu(){
 //	$('.ColorPickerContainer').removeClass('draggable');
 //}
+
