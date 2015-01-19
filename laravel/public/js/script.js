@@ -634,7 +634,7 @@ function showMenuImages(idMenu, idAlert, idFile, idInput, iFunction, uFunction, 
 	$.each(ajaxData, function (i, value)
 	{			
 		menu.append('<article class="Article">'+
-						'<img class = "clickImage" src="images/'+carpet+'/'+value['fullname']+'" height="80" width="80">'+
+						'<img class="clickImage" src="images/'+carpet+'/'+value['fullname']+'" height="80" width="80">'+
 						'<p id="menuleftTitulo"></p>'+
 					'</article>');				
 		alert.append('<tr>'+
@@ -644,6 +644,9 @@ function showMenuImages(idMenu, idAlert, idFile, idInput, iFunction, uFunction, 
 					'</tr>');
 	});
 	
+	clickImage = $(".clickImage").click(insertImageToCanvas); //Definimos la función con la que traeremos las imagenes 
+	//de fondo al hacer click
+
 	ajaxData.length = 0;
 
 	menu.append('<article class="AddArticle" onClick="'+addFunction+'()">'+

@@ -93,8 +93,8 @@ window.addEventListener('load', function () {
   // #imageTemp es borrado. Esta función se  llama cada vez que el usuario  
   // complete una función de pintado.
   function img_update () {
-		contexto.drawImage(canvasn, 0, 0);
-		contextt.clearRect(0, 0, canvasn.width, canvasn.height);
+    contexto.drawImage(canvasn, 0, 0);
+    contextt.clearRect(0, 0, canvasn.width, canvasn.height);
   }
 
   // Este objeto guarda la implementación para cada herramienta de pintado
@@ -270,7 +270,7 @@ function cambiarColor(){
   sLastColorPicked = rgb2hex($(this).css('background-color'));
 }
  
-$('.LineWidthModifier').on('click', cambiaTrazado)
+$('.LineWidthModifier').on('click', cambiaTrazado);
 
 function cambiaTrazado(){
 
@@ -289,13 +289,15 @@ function cambiaTrazado(){
     }
   }
 
-  sGrosor = sSuma
+  sGrosor = sSuma;
 }
 
-$('.clickImage').on('click', insertImageToCanvas);
+var clickImage = $(".clickImage").click(insertImageToCanvas);
+//Dado que al cargar por primera vez esta función aún no existen los escenarios porque no se ha seleccionado clase ni
+//dominio lo definiremos en una variable para luego redefinirlo con los datos reales cargados en escenarios y elementos
+//esto se hará en la función showMenuImages de script.js
 
 function insertImageToCanvas(){
-  var img = new Image();
-  img.src = "images/fondo1.jpg";
-  contexto.drawImage(img,0,0);
+  var img = $(this);
+  contexto.drawImage(img[0],0,0);
 }
