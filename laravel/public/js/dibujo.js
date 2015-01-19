@@ -1,5 +1,5 @@
 
-var canvasn, contextt, canvaso, contexto;
+var canvasn, contextt, canvaso, contexto, img;
 var sGrosor = 3;
 var sLastColorPicked = '#000000'
 if(window.addEventListener) {
@@ -298,6 +298,31 @@ var clickImage = $(".clickImage").click(insertImageToCanvas);
 //esto se hará en la función showMenuImages de script.js
 
 function insertImageToCanvas(){
-  var img = $(this);
+  img = $(this);
   contexto.drawImage(img[0],0,0);
+}
+
+
+/*------------------------ FUNCIONAL MOVER OBJETOS PIZARRA ----------------------------*/
+function canvasElement(capa, tipo, camino, coordenadas, puntos, circulo, elemento) { 
+  this.capa = capa;
+  this.tipo = tipo;
+  this.camino = camino;
+  this.coordenadas = coordenadas;
+  this.puntos = puntos;
+  this.circulo = circulo;
+  this.elemento = elemento;
+};
+
+
+/*-------------------------------------------------------------------------------------*/
+function eraseCanvas(){
+  if(confirm('¿Seguro que desea borrar la pizarra?')){
+
+   contexto.clearRect(0, 0, canvaso.width, canvaso.height);
+   
+  }else{
+    return false;
+  }
+  
 }

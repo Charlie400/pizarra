@@ -350,7 +350,7 @@
 			<h4>Dibujo:</h4>
 			<div>
 				<img class="LineWidthModifier" src="images/pencil.png" heigth="20" width="20" id="pencil">
-				<img class="LineWidthModifier" src="images/eraser.png" heigth="20" width="20" id="eraser">
+				<img class="LineWidthModifier" onClick = "eraseCanvas()" src="images/eraser.png" heigth="20" width="20" id="eraser">
 			</div>
 		</div>
 		<div class="WidthContainer">
@@ -372,5 +372,6 @@
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/dibujo.js"></script>
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 </body>
 </html>
