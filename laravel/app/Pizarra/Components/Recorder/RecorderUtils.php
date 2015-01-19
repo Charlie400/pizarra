@@ -191,7 +191,8 @@ class RecorderUtils {
 		if ($this->isAllowDownload($fileName) && \File::exists($file))
 		{
 			header('Content-Description: File Transfer');
-			header('Content-Type: application/octet-stream');
+			//header('Content-Type: application/octet-stream');
+			header('Content-Type: application/force-download');
 			header('Content-Disposition: attachment; filename=' . basename($file));
 			header('Content-Transfer-Encoding: binary');
 			header('Expires: 0');
@@ -204,7 +205,7 @@ class RecorderUtils {
 
 			if ($delete)
 			{
-				sleep(5);
+				sleep(10);
 
 				$this->deleteFile($file);
 			}
