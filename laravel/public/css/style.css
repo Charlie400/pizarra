@@ -1,82 +1,82 @@
 @font-face {
 	font-family: 'icomoon';
+	font-style: normal;
+	font-weight: normal;
 	src:url('../fonts/icomoon.eot?-6puy2o');
 	src:url('../fonts/icomoon.eot?#iefix-6puy2o') format('embedded-opentype'),
 		url('../fonts/icomoon.woff?-6puy2o') format('woff'),
 		url('../fonts/icomoon.ttf?-6puy2o') format('truetype'),
 		url('../fonts/icomoon.svg?-6puy2o#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
 }
 
 body{
 	background-color: #34495E;
+	font-family: Roboto, Arial;
 	font-size: 16px;
 	font-weight: lighter;
-	font-family: Roboto, Arial;
+	margin: 0;
 }
 
-label{
-	display: none;
-}
+
 
 
 
 #LoginContainer{
-	top: 30%;
-	left: 35%;
-	width: 30%;
-	min-width: 163px;
-	margin: auto;
-	box-shadow: 1px 2px 2px 0.5 #000;
-	border-radius: 5px; 
-	padding: 0;
 	background-color: #2C3E50;
+	border-radius: 5px; 
+	box-shadow: 1px 2px 2px 0.5 #000;
+	left: 35%;
+	margin: auto;
+	min-width: 163px;
+	padding: 0;
 	position: absolute;
+	top: 30%;
+	width: 30%;
 
 }
 
 .TituloLogin{
-	width: 50%;
+	color: white;
 	margin: 2% auto;
 	text-align: center;
-	color: white;
+	width: 50%;
 }
 
 .Login h3{
-	width: 50%;
 	margin: 2% 25% 1% 25%;
 	text-align: center;
+	width: 50%;
 }
 
 .input{
+	background-color: white;
+	border: none;
+	border-radius: 5px;
+	color: black;
+	display: block;
+	margin: 1em auto;
 	padding: 1em;
 	width: 70%;
-	margin: 1em auto;
-	display: block;
-	border-radius: 5px;
-	border: none;
-	background-color: white;
-	color: black;
 }
 
 input[name="Boton1"]{
+	background-color: #16A085;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	display: block;
+	margin: 2em auto;
 	padding: 1em;
 	width: 76%;
-	margin: 2em auto;
-	display: block;
-	border-radius: 5px;
-	border: none;
-	background-color: #16A085;
-	color: white;
 }
 
 input[name="Boton2"]{
-	margin-left: 0.5em;
-	border-radius: 5px;
-	border: none;
 	background-color: #3498DB;
+	border: none;
+	border-radius: 5px;
 	color: white;
+	font-size: 1vw;
+	margin-left: 0.5em;
 }
 
 #botonCaptura{
@@ -84,12 +84,12 @@ input[name="Boton2"]{
 }
 
 #botonCapturaDiv{
-	width: 35px;
-	padding: 4px 2px 0px 9px;
-	display: inline-block;
 	background-color: #3498DB;
 	border-radius: 5px;
+	display: inline-block;
 	margin-left: 0.5em;
+	padding: 4px 2px 0px 9px;
+	width: 35px;
 }
 
 #botonGrabar{
@@ -97,21 +97,21 @@ input[name="Boton2"]{
 }
 
 #botonGrabarDivOff{
-	width: 29px;
-	padding: 3px 1px 0px 10px;
-	display: inline-block;
 	border-radius: 5px;
-	margin-left: 0.5em;
 	cursor: pointer;
+	display: inline-block;
+	margin-left: 0.5em;
+	padding: 3px 1px 0px 10px;
+	width: 29px;
 }
 
 #botonGrabarDivOn{
-	width: 29px;
-	padding: 3px 1px 0px 10px;
-	display: none;
 	border-radius: 5px;
-	margin-left: 0.5em;
 	cursor: pointer;
+	display: none;
+	margin-left: 0.5em;
+	padding: 3px 1px 0px 10px;
+	width: 29px;
 }
 
 .BotonGrabarOff{
@@ -127,12 +127,12 @@ input[name="Boton2"]{
 }
 
 #botonStopDiv{
-	width: 29px;
-	padding: 3px 1px 0px 10px;
 	background-color: #3498DB;
 	border-radius: 5px;
-	margin-left: 0.5em;
 	cursor: pointer;
+	margin-left: 0.5em;
+	padding: 3px 1px 0px 10px;
+	width: 29px;
 }
 
 .BotonStopDivVisible{
@@ -148,13 +148,13 @@ input[name="Boton2"]{
 }
 
 #botonDibujoDiv{
-	width: 29px;
-	padding: 3px 1px 0px 10px;
 	background-color: #3498DB;
 	border-radius: 5px;
-	margin-left: 0.5em;
 	cursor: pointer;
 	display: inline-block;
+	margin-left: 0.5em;
+	padding: 3px 1px 0px 10px;
+	width: 29px;
 }
 
 input::-webkit-input-placeholder {
@@ -171,18 +171,18 @@ input:-ms-input-placeholder {
 }
 
 .MenuLeft{
-	margin: 0.5em;
-	border: none;
-	position: absolute;
-	left: 0;
-	width: 19.8em;
-	top: 5em;
-	bottom: 0;
 	background-color: #2C3E50  ;
-	display: inline-block;
+	border: none;
 	border-radius: 5px;
+	bottom: 0;
+	display: inline-block;
+	left: 0;
+	margin: 0.5em;
 	overflow-y: auto;
 	overflow-x: hidden;
+	position: absolute;
+	top: 5em;
+	width: 19.8em;
 }
 
 .MenuLeft-Lista{
@@ -192,96 +192,96 @@ input:-ms-input-placeholder {
 }
 
 .MenuLeft-ItemLista-Esc{
-	margin: 0;
-	border: 1px solid #BDC3C7  ;
-	padding: 0.5em 1em;
 	background-color: #ECF0F1  ;
-	color: black;
+	border: 1px solid #BDC3C7  ;
 	border-radius: 5px;
+	color: black;
 	cursor: pointer;
+	margin: 0;
+	padding: 0.5em 1em;
 }
 
 .EscenariosContainer{
-	margin: 0;
-	border: 1px solid #BDC3C7  ;
-	padding: 0.5em 1em;
 	background-color: #ECF0F1  ;
-	color: black;
+	border: 1px solid #BDC3C7  ;
 	border-radius: 5px;
+	color: black;
 	display: none;
+	margin: 0;
+	padding: 0.5em 1em;
 }
 
 .MenuLeft-ItemLista-Ele{
-	margin: 0;
-	border: 1px solid #BDC3C7  ;
-	padding: 0.5em 1em;
 	background-color: #ECF0F1  ;
-	color: black;
+	border: 1px solid #BDC3C7  ;
 	border-radius: 5px;
+	color: black;
 	cursor: pointer;
+	margin: 0;
+	padding: 0.5em 1em;
 }
 
 
 .ElementosContainer{
-	margin: 0;
-	border: 1px solid #BDC3C7  ;
-	padding: 0.5em 1em;
 	background-color: #ECF0F1  ;
-	color: black;
+	border: 1px solid #BDC3C7  ;
 	border-radius: 5px;
+	color: black;
 	display: none;
+	margin: 0;
+	padding: 0.5em 1em;
 }
 
 .MenuLeft-ArticlesContainer{
 	border: 1px solid #000;
-	overflow-y: scroll;
-	width: 17.4em;
 	height: 15em;
+	overflow-y: scroll;
 	padding: 0.1em;
+	width: 17.4em;
 }
 
 .Article{
-	height: 4.9em;
-	width: 4.9em;
-	margin: 0.2em;
+	border: solid #595959 1px;
+	border-radius: 5px;
+	cursor: pointer;
 	display: inline-block;
 	float: left;
-	border-radius: 5px;
-	border: solid #595959 1px;
-	cursor: pointer;
+	height: 4.9em;
+	margin: 0.2em;
+	width: 4.9em;
 }
 
 .Article img{
-	width: 95%;
 	height: 70%;
 	margin: 2.5% 2.5% 0 2.5%;
+	width: 95%;
 }
 
 .AddArticle{
-	height: 4.9em;
-	width: 4.9em;
-	margin: 0.2em;
+	border: solid #595959 1px;
+	border-radius: 5px;
+	cursor: pointer;
 	display: inline-block;
 	float: left;
-	border-radius: 5px;
-	border: solid #595959 1px;
-	cursor: pointer;
+	height: 4.9em;
+	margin: 0.2em;
+	width: 4.9em;
 }
 
 .AddArticle-Image{
-	width: 50%;
 	height: 50%;
 	margin: 25%;
 	padding: 0;
+	width: 50%;
 }
 
 #menuleftP {
-	max-height: 1.47em;
-	margin: 0 2%;
-	text-align: center;
-	font-weight: bold;
 	font-size: 50%;
+	font-weight: bold;
+	margin: 0 2%;
+	max-height: 1.47em;
 	overflow: hidden;
+	text-align: center;
 }
 
 #menuleftP:hover{
@@ -289,59 +289,60 @@ input:-ms-input-placeholder {
 }
 
 .Pizarra{
-	border: none;
-	left: 20.8em;
-	top: 5em;
-	margin: 0.5em 0.5em 0.5em 0;
-	right: 0;
-	bottom: 0;
 	background: white;
-	display: inline-block;
+	border: none;
 	border-radius: 5px;
+	bottom: 0;
+	display: inline-block;
+	left: 20.8em;
+	margin: 0.5em 0.5em 0.5em 0;
 	position: absolute;	
+	right: 0;
+	top: 5em;
 }
 
 #imageTemp{
-	width: 100%;
-	height: 100%;
 	border: none;
-	top: 0;
-	right: 0;
+	border-radius: 5px;
 	bottom: 0;
 	display: inline-block;
-	border-radius: 5px;
+	height: 100%;
 	position: absolute;	
+	right: 0;
+	top: 0;
+	width: 100%;
 }
 
 h1{
 	display: inline-block;
-	margin: 0 auto;
 	line-height: 200%;
+	margin: 0 auto;
 }
 
 .Titulo{
-	width:19.8em;
-	position: absolute;
-	height: 4.5em;
-	display: inline-block;
-	text-align: center;
-	color: white;
-	margin: 0.5em 0.5em 0 0.5em;
 	background-color: #16A085;
 	border-radius: 5px;
+	color: white;
+	display: inline-block;
+	height: 4.5em;
 	left: 0;
+	margin: 0.5em 0.5em 0 0.5em;
+	position: absolute;
+	text-align: center;
 	top: 0;
+	width:19.8em;
 }
 
 .MenuTop{
+	background-color: #ECF0F1;
+	border-radius: 5px;
+	display: inline-block;
+	height: 4.5em;
+	left: 20.8em;
+	margin: 0.5em 0.5em 0 0;
 	position: absolute;
 	right: 0;
-	left: 20.8em;
-	height: 4.5em;
-	display: inline-block;
-	margin: 0.5em 0.5em 0 0;
-	border-radius: 5px;
-	background-color: #ECF0F1;
+	top:0;
 }
 
 .MenuPrincipal{
@@ -349,38 +350,43 @@ h1{
 }
 
 .MenuLista{
-	list-style: none;
-	padding: 0;
-	margin: 0;
+	display: inline-block;
 	height: 2.25em;
+	list-style: none;
 	margin: 0.5em 0 0 0.5em;
+	padding: 0;
+	width: 75%;
 }
 
 .Menu-Item{
-	width: 17%;
-	height: 1.3em;
-	top: 0.1em;
-	padding: 0.2em;
-	display: inline-block;
 	background-color: #BDC3C7;
-	text-align: center;
-	font-weight: bold;
 	border-radius: 5px;
 	cursor: pointer;
+	display: inline-block;
+	font-size: 0.8vw;
+	font-weight: bold;
+	height: 1.3em;
+	padding: 0.2em;
+	text-align: center;
+	top: 0.1em;
+	white-space: nowrap;
+	width: 15%;
 }
 
 .Menu-ItemSelected{
-	width: 17%;
-	height: 1.3em;
-	top: 0.1em;
-	padding: 0.2em;
-	display: inline-block;
 	background-color: #16A085;
-	text-align: center;
-	font-weight: bold;
 	border-radius: 5px;
-	cursor: pointer;
 	color: white;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 0.8vw;
+	font-weight: bold;
+	height: 1.3em;
+	padding: 0.2em;
+	text-align: center;
+	top: 0.1em;
+	white-space: nowrap;
+	width: 15%;
 }
 
 .MenuHerramientas{
@@ -388,101 +394,99 @@ h1{
 }
 
 .ComboBoxDominio{
-	width: 10em;
 	background-color: #E67E22;
-	padding: 0.2em;
-	color: #2C3E50;
 	border: none;
-	vertical-align: bottom;
-	margin: 0 0 0 0.5em;
 	border-radius: 5px;
 	color: white;
-	display: inline-block;
 	cursor: pointer;
+	display: inline-block;
+	margin: 0 0 0 0.5em;
+	padding: 0.2em;
+	vertical-align: bottom;
+	width: 10em;
 }
 
 .ComboBoxClase{
-	width: 10em;
 	background-color: #9B59B6;
 	border: none;
-	vertical-align: bottom;
-	margin: 0 0 0 0.5em;
 	border-radius: 5px;
 	color: white;
-	display: inline-block;
 	cursor: pointer;
+	display: inline-block;
+	margin: 0 0 0 0.5em;
 	padding: 0.2em;
+	vertical-align: bottom;
+	width: 10em;
 }
 
 .ComboBoxDisabled{
-	width: 10em;
 	background-color: #BDC3C7;
 	border: none;
-	vertical-align: bottom;
-	margin: 0 0 0 0.5em;
 	border-radius: 5px;
 	color: #ECF0F1;
 	display: inline-block;
+	margin: 0 0 0 0.5em;
 	padding: 0.2em;
+	vertical-align: bottom;
+	width: 10em;
 }
 
 .CuadroInformativo{
-	position: absolute;
-	max-width: 15vw;
-	top: 62%;
-	right: 0;
-	min-width: 5%;
-	height: 1.2em;
-	color: white;
-	padding: 0.1em 0.4em;
+	background-color: #3498DB;
 	border: none;
 	border-radius: 5px;
-	background-color: #3498DB;
+	color: white;
 	display: inline-block;
+	height: 1.2em;
 	margin: 0 1% 0 0.5em;
+	max-width: 15vw;
+	min-width: 5%;
+	padding: 0.1em 0.4em;
+	position: absolute;
+	right: 0;
+	top: 62%;
 	
 
 }
 
 .CuadroInformativo p{
-	margin: 0;
 	display: inline-block;
 	font-size: 0.8vw;
+	margin: 0;
 
 }
 
 .CuadroUsuario{
-	font-size: 1.3vw;
-	max-width: 160px; 
-	min-width: 5%;
-	max-height: 84%;
-	top: 0;
-	color: white;
-	padding: 0.1em 0.4em;
+	background-color: #16A085;
 	border: none;
 	border-radius: 5px;
-	background-color: #16A085;
+	color: white;
 	display: inline-block;
 	float: right;
-	margin-right: 1%;
+	font-size: 1.3vw;
+	margin: 0.4em 1% 0 0;
+	max-height: 84%;
+	max-width: 160px; 
+	min-width: 5%;
+	padding: 0.1em 0.4em;
 	text-align: center;
 }
 
 .CuadroUsuario p{
-	margin: 0;
+	cursor: pointer;
 	font-size: 11.5px;
 	font-weight:bold;
-	cursor: pointer;
+	margin: 0;
 }
 
 .CuadroUsuarioLogOut{
-	font-size: 8px;
 	background-color: white;
-	color: black;
 	border-radius: 0 0 5px 5px;
+	color: black;
 	display: none;
-	top: 5%;
+	font-size: 8px;
 	margin: 0;
+	top: 5%;
 }
 
 .Arrow{
@@ -491,37 +495,37 @@ h1{
 }
 
 .AlertContainer{
-	position: fixed;
 	background: rgba(0,0,0,0.5);
-	width: 100%;
-	height: 100%;
 	display: none;
+	height: 100%;
+	position: fixed;
+	width: 100%;
 }
 
 .AlertBody{
-	min-width: 233px;
-	position: absolute;
-	width: 10%;
-	margin: 15% 45% 0 45%;
 	background-color: #ECF0F1;
-	display: inline-block;
-	text-align: center;
-	padding-bottom: 0.5em;
 	border-radius: 5px;
+	display: inline-block;
+	margin: 15% 45% 0 45%;
+	min-width: 233px;
+	padding-bottom: 0.5em;
+	position: absolute;
+	text-align: center;
+	width: 10%;
 }
 
 .AlertBodyBig{
-	min-width: 420px;
-	position: absolute;
-	width: 40%;
-	left: 30%;
-	right: 30%;
-	top: 20%;
 	background-color: #ECF0F1;
-	display: inline-block;
-	text-align: center;
-	padding-bottom: 0.5em;
 	border-radius: 5px;
+	display: inline-block;
+	left: 30%;
+	min-width: 420px;
+	padding-bottom: 0.5em;
+	position: absolute;
+	right: 30%;
+	text-align: center;
+	top: 12%;
+	width: 40%;
 }
 
 .AlertBody form{
@@ -530,10 +534,10 @@ h1{
 
 .AlertTittleContainer{
 	background-color: #34495E;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
 	color: white;
 	padding: 0.5em;
-	border-top-right-radius: 5px;
-	border-top-left-radius: 5px;
 }
 
 .Foo2{
@@ -541,8 +545,8 @@ h1{
 }
 
 .AlertTittleContainer h4{
-	margin: 0;
 	display: inline-block;
+	margin: 0;
 }
 
 .AlertTittleContainer img{
@@ -558,80 +562,79 @@ h1{
 
 
 .AlertContent select{
-	padding: 0.2em;
 	margin: 0.4em 0 0.2em 0;
+	padding: 0.2em;
 }
 
 .ButtonsContainer{
-	width: 100%;
-	position: absolute;
-	bottom: 2%;
-	left: 0;
 	bottom: 4%;
+	left: 0;
+	position: absolute;
+	width: 100%;
 }
 
 
 .Button{
-	margin-right: 2%;
-	margin-left: 2%;
-	cursor: pointer;
-	padding: 0.5em;
-	color: white;
 	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	margin-left: 2%;
+	margin-right: 2%;
+	padding: 0.5em;
 }
 
 
 .OkButton{
 	background-color: #1ABC9C;
-	display: none;
 	border: none;
+	display: none;
 	width: 37%;
 }
 
 .UncheckButton{
-	margin-right: 2%;
-	margin-left: 2%;
-	cursor: pointer;
-	padding: 0.5em;
-	color: white;
-	border-radius: 5px;
 	background-color: #1ABC9C;
-	display: inline-block;
 	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	margin-left: 2%;
+	margin-right: 2%;
+	padding: 0.5em;
 	width: 34.6%;
 }
 
 .CheckButton{
 
-	margin-right: 2%;
-	margin-left: 2%;
-	cursor: pointer;
-	padding: 0.5em;
-	color: white;
-	border-radius: 5px;
 	background-color: #1ABC9C;
-	display: inline-block;
 	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	margin-left: 2%;
+	margin-right: 2%;
+	padding: 0.5em;
 	width: 37%;
 }
 
 .RecordButton{
 	background-color: #1ABC9C;
-	display: inline-block;
 	border: none;
+	display: inline-block;
 }
 
 .CancelButton{
-	width: 37%;
 	background-color: #E74C3C;
 	display: none;
+	width: 37%;
 }
 
 .AddButton{
-	width: 37%;
 	background-color: #3498DB;
-	display: none;
 	border: none;
+	display: none;
+	width: 37%;
 }
 
 #closeButton{
@@ -639,30 +642,29 @@ h1{
 }
 
 .ColorPickerContainer{
-	position: fixed;
-	height: 13em;
-	width: 25em;
 	background-color: #2C3E50;
-	display: none;
 	border: 2px solid #000;
 	border-radius: 5px;
 	display: none;
+	height: 13em;
+	position: fixed;
+	width: 25em;
 }
 
 .ColorPickerContainer h5{
+	background-color: black;
+	color: white;
 	margin: 0;
 	padding: 0.5em;
 	text-align: center;
-	color: white;
-	background-color: black;
 }
 
 #closeButton2{
 	color: white;
+	cursor: pointer;
 	position: absolute;
 	right:2%; 
 	top:2%;
-	cursor: pointer;
 }
 
 .ColorPickerBig{
@@ -671,14 +673,14 @@ h1{
 }
 
 .ColorPicker{
-	width: 1.5em;
-	height: 1.5em;
-	border-top: 0.5em;
 	border-left: 0.5em;
-	margin-top: 0.5em;
-	margin-left: 0.5em;
+	border-top: 0.5em;
 	box-shadow: 0px 0px 2px #000;
 	cursor: pointer;
+	height: 1.5em;
+	margin-left: 0.5em;
+	margin-top: 0.5em;
+	width: 1.5em;
 }
 
 .ColorPicker:hover{
@@ -690,15 +692,15 @@ h1{
 }
 
 .WidthContainer{
+	border: 1px solid white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 2px #000;
+	color: white;
+	float: left;
+	height: 3.2em;
 	margin: 0.5em;
 	padding: 0.5em;
 	width: 8em;
-	height: 3.2em;
-	float: left;
-	border: 1px solid white;
-	box-shadow: 0px 0px 2px #000;
-	color: white;
-	border-radius: 5px;
 }
 
 .WidthContainer h4{
@@ -708,8 +710,8 @@ h1{
 
 .WidthContainer div{
 	margin: auto;
-	width: 60%;
 	padding-left: 0.5em;
+	width: 60%;
 }
 
 .WidthContainer:hover{
@@ -717,14 +719,14 @@ h1{
 }
 
 .LineWidthModifier{
+	border-radius: 5px;
 	margin-right: 0.5em;
 	padding: 0.2em;
-	border-radius: 5px;
 }
 
 .WidthContainer h4{
-	margin: 0;
 	float: left;
+	margin: 0;
 }
 
 #dtool{
@@ -739,8 +741,8 @@ h1{
 .EscenariosAlert{
 	background-color: white;
 	border-radius: 5px;
-	text-align: left;
 	overflow: hidden;
+	text-align: left;
 }
 
 .EscenariosAlert input{
@@ -753,6 +755,7 @@ h1{
 }
 
 .AlertElement{
+	height: 100%;
 	margin: 5% 5% 15% 5%;
 }
 
@@ -762,8 +765,8 @@ h1{
 }
 
 #contentOverflow-Usuario input{
-	width: 45%;
 	margin: 0.2em 1%;
+	width: 45%;
 }
 
 #foo11{
@@ -783,64 +786,111 @@ h1{
 }
 
 #foo62{
-	width: 15%;
 	margin-bottom: -5%;
+	width: 15%;
 }
 
 .Foo7{
-	width: 90%;
 	display: inline;
+	width: 90%;
 }
 
 #foo71{
-	width: 30%;
 	background-color:#1ABC9C;
-	text-align: center;
-	color: white;
-	padding: 5% 0;
-	margin: 4% 1% 1% 1%;
-	border-radius: 5px;
 	border: none; 
+	border-radius: 5px;
+	color: white;
+	margin: 4% 1% 1% 1%;
+	padding: 5% 0;
+	text-align: center;
+	width: 30%;
 }
 
 #foo72{
-	width: 30%;
 	background-color:#3498DB;
-	text-align: center;
-	color: white;
-	padding: 5% 0;
-	margin: 4% 1% 1% 1%;
-	border-radius: 5px;
 	border: none; 
+	border-radius: 5px;
+	color: white;
+	margin: 4% 1% 1% 1%;
+	padding: 5% 0;
+	text-align: center;
+	width: 30%;
 }
 
 #foo73{
-	width: 30%;
 	background-color:#E74C3C;
-	text-align: center;
-	color: white;
-	padding: 5% 0;
-	margin: 4% 1% 1% 1%;
-	border-radius: 5px;
 	border: none; 
+	border-radius: 5px;
+	color: white;
+	margin: 4% 1% 1% 1%;
+	padding: 5% 0;
+	text-align: center;
+	width: 30%;
 }
 
+.Foo8 h3{
+	display:inline-block;
+	margin: 0;
+	width: 100%;
+}
+
+.Foo8 textarea{
+	display:inline-block;
+	height: 7em;
+	margin: 3% 0;
+	width: 100%;
+}
+.Foo8 h4{
+	display: inline-block;
+	margin-left: 20%;
+	margin-top: 2%;
+	white-space: nowrap;
+	width: 30%;
+}
+.Foo8 h3:nth-child(n+3){
+	margin: 2% 0 0;
+	width: 45%;
+
+}
+.Foo8 input:nth-of-type(1){
+	width:80%; 
+}
+.Foo8 input:nth-of-type(3n+2){
+	margin: 0;
+	width: 20%;
+}
+#foo85 select{
+	width: 25%;
+}
+#foo85 h4{
+	margin: 0;
+	width:40%;
+}
+#foo85 input{
+	width: 30%;
+}	
+#foo852 {
+	display: none;
+}
+#foo853 {
+	display: none;
+}
 
 .ContentOverflow{
-	overflow-y: auto; 
-	height: 10em;
-	width: 100%;
-	border:solid #595959 1px;
 	background-color: #C9CEDB;
+	border:solid #595959 1px;
+	height: 10em;
+	overflow-y: auto; 
+	width: 100%;
 }
 
 #contentOverflow-Usuario{
-	overflow-y: auto; 
-	height: 10em;
-	width: 100%;
-	border:solid #595959 1px;
 	background-color: #C9CEDB;
+	border:solid #595959 1px;
+	height: 10em;
+	overflow-y: auto; 
 	text-align: left;
+	width: 100%;
 }
 
 .ContentOverflow table{
@@ -859,10 +909,10 @@ h1{
 }
 .CU_errors{
 	color: red;
-	width:45%;
 	display: inline-block;
 	font-size: 12px;
 	margin: 0.2em 2% 0.2em 1%;
+	width:45%;
 }
 .Foo4 {
 	width: 100%;
@@ -872,18 +922,19 @@ h1{
 }
 .EU_errors{
 	color: red;
-	width:45%;
 	display: inline-block;
 	font-size: 12px;
 	margin: 0.2em 2% 0.2em 1%;
+	width:45%;
 }
  
+
 
 @media screen and (max-width:1024px){
 
 	#LoginContainer{
-		top: 15%;
 		min-width: 219px;
+		top: 15%;
 	}
 
 	.AlertBody{
@@ -914,21 +965,23 @@ h1{
 
 	.MenuTop{
 		left: 16em;
-		min-width: 540px;
+		min-width: 638px;
+	}
+
+	.MenuLista{
+		width: 80%;
 	}
 
 	.Menu-Item{
-		min-width: 96px;
-		width: 12%;
+		font-size: 9px;
 		height: 1.2em;
-		font-size: 12px;
+		min-width: 78px;
+
 	}
 
 	.Menu-ItemSelected{
-		min-width: 96px;
-		width: 12%;
+		font-size: 9px;
 		height: 1.2em;
-		font-size: 12px;
 	}
 
 	.ComboBoxDominio{
@@ -944,8 +997,8 @@ h1{
 	}
 
 	input[name="Boton2"]{
-		height: 1.5em;
 		font-size: 12px;
+		height: 1.5em;
 	}
 
 	.Titulo{
@@ -958,7 +1011,7 @@ h1{
 
 	.Pizarra{
 		left: 16em;
-		min-width: 540px;
+		min-width: 638px;
 	}
 
 	.MenuLeft-ArticlesContainer{
@@ -966,3 +1019,271 @@ h1{
 	}
 }
 
+/*Estilo de Tests*/
+.TituloTest{
+	background-color: #16A085;
+	border-radius: 5px;
+	color: white;
+	display: inline-block;
+	height: 4.5em;
+	margin: 0.5em 1% 0.5em 1%;
+	min-height: 60px;
+	position: absolute;
+	text-align: center;
+	width:98%;
+}
+.ContentTest{
+	background-color: white;
+	border-radius: 5px;
+	bottom: 0.5em;
+	margin: 0 1%;
+	position: absolute;
+	top: 5.5em;
+	width: 98%;
+}
+.ContentTest ul{
+	height: 3em;
+	margin: 0.5em 0;
+	padding: 0;
+	text-align: center;
+}
+.ItemTest{
+	background-color: #BDC3C7;
+	border-radius: 5px;
+	cursor: pointer;
+	float: left;
+	font-size: 0.8vw;
+	font-weight: bold;
+	height: 2.3em;
+	margin-left: 1.33%;
+	padding: 0.2em;
+	text-align: center;
+	width: 18%;
+}
+.ItemTestSelected{
+	background-color: #16A085;;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	float: left;
+	font-size: 0.8vw;
+	font-weight: bold;
+	height: 2.3em;
+	margin-left: 1.33%;
+	padding: 0.2em;
+	text-align: center;
+	width: 18%;
+
+}
+#marcadorTestContainer{
+	display: inline-block;
+	margin: 0;
+	position: fixed;
+	text-align: center;
+	width: 4%;
+}
+#marcadorTestContainer p{
+	font-weight: bolder;
+	margin: 0;
+}
+#marcadorTest{
+	background-color: #3498DB;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	height: 2em;
+	margin: 0.2em;
+	text-align: center;
+}
+
+#marcadorTest p{
+	margin: 0.5em;
+	padding:0.4em;
+	text-align: center;
+}
+
+#liTest1Content{
+	background-color: #DFE2E9;
+	bottom: 0.5em;
+	border-radius: 5px;
+	display: block;
+	left: 0.5em;
+	overflow-y: auto;
+	position: absolute;
+	right: 0.5em;
+	top: 3.5em;
+}
+#liTest1Content1 label{
+	display: inline-block;
+	font-size: 1em;
+	font-weight: bolder;
+	margin: 2% 3% 2% 15%;
+	width: 20%;
+}
+
+#liTest1Content1 select:first-of-type{
+	margin: 1em;
+}
+#liTest1Content1 ul{
+	list-style: none;
+	margin: auto;
+	width: 50%;
+}
+
+#liTest1Content1 ul li{
+	text-align: left;
+}
+
+#liTest1Content1 ul li:last-of-type{
+	text-align: center;
+}
+
+#liTest1Content1 ul li>input{
+	margin: 2%;
+}
+#liTest1Content1 ul li:first-of-type input{
+	width: 40%;
+	margin: 2%;
+}
+
+#formTest {
+	display: inline-block;
+	vertical-align: middle;
+	width: 30%;
+}
+#formTest input{
+	margin: 0;
+}
+#testOtros{
+	display: none;
+	margin: 0;
+	text-align: center;
+	width: auto;
+}
+.ComboBoxTest{
+	background-color: #496BFF;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	margin: 1.2em;
+	padding: 0.2em;
+	width: 14em;
+}
+#testP1{
+	display: inline-block;
+	margin-left: 15%;
+}
+#testP2{
+	display: none;
+	margin-left: 15%;
+}
+#calificacionTest1{
+	display: inline-block;
+}
+#calificacionTest2{
+	display: none;
+}
+
+.TestButton{
+	border: none;
+	display: inline-block;
+}
+#liTest1Content1{
+	display: none;
+}
+#liTest1Content2{
+	overflow: hidden;
+}
+#liTest1Content2 section:first-of-type{
+	display: inline-block;
+	height: 100%;
+	margin-right: 0.5%;
+	width: 79.5%;
+}
+#botonEsconder{
+	width: 10px;
+	height: 55px;
+	padding: 4.5px;
+	position: absolute;
+	top: 50%;
+	right: 20%;
+	background-color: #16A085;
+	border-radius: 5px 0 0 5px;
+	cursor: pointer;
+}
+#botonEsconder img{
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+#liTest1Content2 section:last-of-type{
+	background-color: white;
+	display: inline-block;
+	float: right;
+	height: 100%;
+	width: 20%;
+}
+#liTest1Content2 section:last-of-type > div:first-of-type{
+	height: 74.5%;
+	overflow-y: auto;
+	border: 1px solid #0F6D5B; 
+}
+#liTest1Content2 section:last-of-type > div:last-of-type{
+	height: 25%;
+}
+#liTest1Content2 section:last-of-type > div:last-of-type input{
+	display: inline-block;
+	width: 40%;
+	margin: 0 4% 4% 4%;
+	font-size: 0.9vw;
+	color: white;
+	border-radius: 0 0 5px 5px;
+	border: none;
+	padding: 2%;
+	background-color: #16A085; 
+	cursor: pointer;
+}
+#testSection1 div:nth-of-type(2){
+	width: 65%;
+	float: left;
+	margin: 2.5%;
+	height: 10%;
+	display: inline-block;
+	border: solid #91BEAC;
+}
+#testSection1 div:nth-of-type(2) textarea{
+	width: 80%;
+	height:100%;
+}
+#testSection1 div:nth-of-type(3){
+	width: 22%;
+	margin: 2.5%;
+	height: 10%;
+	display: inline-block;
+}
+.TestIcon{
+	height: 2.3vw;
+	border: solid #91BEAC;
+	position: relative;
+	top: 29%;
+}
+.TestTreeTittles{
+	padding: 2%;
+	background-color: #16A085;
+	border:1px solid #0F6D5B;
+	cursor: pointer;
+}
+.TestTreeBody{
+	background-color: #91BEAC;
+	display: none;
+}
+.TestTreeBody p{
+	padding: 2%;
+	margin: 0;
+}
+.TestArrow{
+	float: right;
+	margin-top: 5px;
+}

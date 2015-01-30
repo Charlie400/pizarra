@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-<html>
 <head>
 	<meta charset="UTF-8"/>
 	<title>Pizarra</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="{{ asset ('js/jquery-1.11.1.js') }}"></script>
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="{{ asset ('js/utils.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/canvas.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorder.js') }}"></script>
@@ -32,21 +33,23 @@
 					<li id="presentacion" Class="Menu-Item">Presentación</li>
 					<li id="edicion" Class="Menu-Item">Edición</li>
 					<li id="usuarios" Class="Menu-Item">Usuarios</li>
+					<li id="asignaciones" Class="Menu-Item">Asignaciones</li>
+					<li id="generacion" Class="Menu-Item">Generación de Test</li>
 					<li id="administracion" Class="Menu-Item">Administración</li>
-					<div class="CuadroUsuario">
-						<?php $user = Auth::user(); ?>
-						<p class="CuadroUsuarioP">{{ ucfirst(strtolower($user->username)) }}</p>
-						<p class="CuadroUsuarioLogOut">
-							<a style="text-decoration:none; color:black" href="{{ route('logout') }}">
-								LogOut
-							</a>
-						</p>
-					</div>
-					<div class="CuadroInformativo">
+				</ul>
+				<div class="CuadroUsuario">
+					<?php $user = Auth::user(); ?>
+					<p class="CuadroUsuarioP">{{ ucfirst(strtolower($user->username)) }}</p>
+					<p class="CuadroUsuarioLogOut">
+						<a style="text-decoration:none; color:black" href="{{ route('logout') }}">
+							LogOut
+						</a>
+					</p>
+				</div>
+				<div class="CuadroInformativo">
 					<p class="CuadroP1"></p>
 					<p class="CuadroP2"></p>
 				</div>
-				</ul>
 			</nav>
 
 			<!-- CONECTANDO EL FORMULARIO CON LOS SELECTS A LA BASE DE DATOS -->
@@ -106,6 +109,22 @@
 				<input id="botonEditarUsuario" onClick="editUsuario()" type="submit" name="Boton2" value="Editar Usuario"/>
 				<input id="botonEliminarUsuario" onClick="deleteUsuario()" type="submit" name="Boton2" value="Eliminar Usuario"> 
 			</div>
+			<div id="asignacionesHerramientas" class="MenuHerramientas">
+				<select id="comboAsignacion" class="ComboBoxClase">
+					<option id="materialOption" value="0">Material de apoyo</option>
+					<option id="tareaOption" value="1">Tareas a realizar</option>
+				</select>
+				<input id="botonCrearAsignacion" onclick="createAsignacion()" type="submit" name="Boton2" value="Crear asignación">
+				<input id="botonModificarAsignacion" onclick="editAsignacion()" type="submit" name="Boton2" value="Modificar asignación">
+				<input id="botonEliminarAsignacion" onclick="deleteAsignacion()" type="submit" name="Boton2" value="Eliminar asignación">
+			</div>
+			<div id="generacionHerramientas" class="MenuHerramientas">
+				<input id="botonCrearTest" onclick="window.open('http://localhost/pizarra/laravel/public/config/test');" type="submit" name="Boton2" value="Nuevo">
+				<input id="botonModificarTest" onclick="modificarTest()" type="submit" name="Boton2" value="Modificar">
+				<input id="botonEliminarTest" onclick="eliminarTest()" type="submit" name="Boton2" value="Eliminar">
+				<input id="botonImprimirTest" onclick="imprimirTest()" type="submit" name="Boton2" value="Imprimir">
+				<input id="botonGuardarTest" onclick="guardarTest()" type="submit" name="Boton2" value="Guardar Como">
+			</div>
 			<!-- <div id="administracionHerramientas" class="MenuHerramientas">
 				<input id="botonProfe" onClick="createProfesor()" type="submit" name="Boton2" value="Usuarios"/>
 			</div> -->
@@ -133,194 +152,226 @@
 		</canvas>
 	</div>
 
-	<div class="AlertContainer">
-		
-			<div id="alertBody" class="AlertBodyBig, AlertBody">
-				<div class="AlertTittleContainer">
-					<h4>Título</h4><img onClick="closeAlert()" src="images/CloseButton.png" height="20" id="closeButton">
-				</div>
-				<div class="AlertContent">
-					
-				</div>
-				<div class="AlertElement">
-					{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo1', 
-								   'id' => 'createDomClass']) }}
+	<div class="AlertContainer">	
+		<div id="alertBody" class="AlertBodyBig, AlertBody">
+			<div class="AlertTittleContainer">
+				<h4>Título</h4><img onClick="closeAlert()" src="images/CloseButton.png" height="20" id="closeButton">
+			</div>
+			<div class="AlertContent">
+				
+			</div>
+			<div class="AlertElement">
+				{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo1', 
+							   'id' => 'createDomClass']) }}
 
-						{{ Field::select('selectDominio', null, ['input' => ['class' => 'ComboBoxDominio']]) }}
-						{{ Field::text('foo11') }}
-						<p id="foo1Fail"><p>
+				{{ Field::select('selectDominio', null, ['input' => ['class' => 'ComboBoxDominio']]) }}
+				{{ Field::text('foo11') }}
+					<p id="foo1Fail"><p>
+					<div class="ButtonsContainer">					
+						<button class="OkButton Button">Aceptar</button>
+						<div class="AddButton Button" id="addButtomFoo1" onClick="">Agregar</div>
+						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+					</div>	
+				{{ Form::close() }}	
+				{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo2']) }}						
+					<div class="ContentOverflow">
+						<table>
+							<thead>
+								<tr>
+									<td><strong>Imagen</strong></td>
+									<td><strong>Escenario</strong></td>
+									<td><strong>Seleccionar</strong></td>
+								</tr>
+							</thead>
+							<tbody id="" class="content">
+									
+							</tbody>
+						</table>
+					</div>	
+					<div class="ButtonsContainer">	
+						<div  class="UncheckButton">Aceptar</div>
+						<button class="CheckButton">Aceptar</button>
+						<button class="AddButton Button">Agregar</button>
+						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+					</div>												
+				{{ Form::close() }}
+				{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo3']) }}								
+					<select id="roles1" class="ComboBoxClase" name="roles">
+						<option value="alumno">Alumno</option>
+						<option value="admin">Docente</option>
+					</select>
+					<div id="contentOverflow-Usuario" class="ContentOverflow">
+						{{ Field::text('firstname', null, ['input' => ['id' => 'firstname1', 
+						'placeholder' => 'Nombre']]) }}
+						{{ Field::text('lastname', null, ['input' => ['id' => 'lastname1', 
+						'placeholder' => 'Apellidos']]) }}
+						<p id="firstname1Error" class="CU_errors"></p>
+						<p id="lastname1Error" class="CU_errors"></p>
+						{{ Field::text('username', null, ['input' => ['id' => 'username1', 
+						'placeholder' => 'Username']]) }}
+						{{ Field::text('nif', null, ['input' => ['id' => 'nif1', 'placeholder' => 'Dni']]) }}
+						<p id="username1Error" class="CU_errors"></p>
+						<p id="nif1Error" class="CU_errors"></p>
+						{{ Field::text('adress', null, ['input' => ['id' => 'adress1', 
+						'placeholder' => 'Dirección']]) }}
+						{{ Field::text('locality', null, ['input' => ['id' => 'locality1', 
+						'placeholder' => 'Localidad']]) }}
+						<p id="adress1Error" class="CU_errors"></p>
+						<p id="locality1Error" class="CU_errors"></p>
+						{{ Field::text('province', null, ['input' => ['id' => 'province1', 
+						'placeholder' => 'Provincia']]) }}
+						{{ Field::text('cp', null, ['input' => ['id' => 'cp1', 
+						'placeholder' => 'Código postal']]) }}
+						<p id="province1Error" class="CU_errors"></p>
+						<p id="cp1Error" class="CU_errors"></p>
+						{{ Field::text('phone', null, ['input' => ['id' => 'phone1', 'placeholder' => 'Tlf']]) }}
+						{{ Field::email('email', null, ['input' => ['id' => 'email1', 
+						'placeholder' => 'E-mail']]) }}
+						<p id="phone1Error" class="CU_errors"></p>
+						<p id="email1Error" class="CU_errors"></p>
+						{{ Field::date('borndate', null, ['input' => ['id' => 'borndate1']]) }}
+						{{ Field::text('obs', null, ['input' => ['id' => 'obs1', 
+						'placeholder' => 'Observaciones']]) }}
+						<p id="borndate1Error" class="CU_errors"></p>
+						<p id="obs1Error" class="CU_errors"></p>
+						{{ Field::password('password', ['input' => ['id' => 'password1', 
+						'placeholder' => 'Nueva Contraseña']]) }}
+						{{ Field::password('password_confirmation', 
+						['input' => ['id' => 'password_confirmation1', 'placeholder' => 'Repite Contraseña']]) }}
+						<p id="password1Error" class="CU_errors"></p>
+						<p id="password_confirmation1Error" class="CU_errors"></p>
+					</div>
+					<div class="ButtonsContainer">					
+						<div class="OkButton Button" onClick="createUser()">Aceptar</div>
+						<button class="AddButton Button">Agregar</button>
+						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+					</div>	
+				{{ Form::close() }}
 
-						<div class="ButtonsContainer">					
-							<button class="OkButton Button">Aceptar</button>
-							<div class="AddButton Button" id="addButtomFoo1" onClick="">Agregar</div>
-							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-						</div>	
-					{{ Form::close() }}	
-					{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo2']) }}						
-						<div class="ContentOverflow">
-							<table>
-								<thead>
-									<tr>
-										<td><strong>Imagen</strong></td>
-										<td><strong>Escenario</strong></td>
-										<td><strong>Seleccionar</strong></td>
-									</tr>
-								</thead>
-								<tbody id="" class="content">
-										
-								</tbody>
-							</table>
-						</div>	
-						<div class="ButtonsContainer">	
-							<div  class="UncheckButton">Aceptar</div>
-							<button class="CheckButton">Aceptar</button>
-							<button class="AddButton Button">Agregar</button>
-							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-						</div>						
-					{{ Form::close() }}
-					{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo3']) }}								
-						<select id="roles1" class="ComboBoxClase" name="roles">
+				{{ Form::model($user, ['method' => 'POST', 'role' => 'form', 
+							   'class' => 'Foo4']) }}						
+					<select id="roles" class="ComboBoxClase" name="roles">
+						@if($user->roles === "alumno")
 							<option value="alumno">Alumno</option>
 							<option value="admin">Docente</option>
-						</select>
-						<div id="contentOverflow-Usuario" class="ContentOverflow">
-							{{ Field::text('firstname', null, ['input' => ['id' => 'firstname1', 
-							'placeholder' => 'Nombre']]) }}
-							{{ Field::text('lastname', null, ['input' => ['id' => 'lastname1', 
-							'placeholder' => 'Apellidos']]) }}
-							<p id="firstname1Error" class="CU_errors"></p>
-							<p id="lastname1Error" class="CU_errors"></p>
-							{{ Field::text('username', null, ['input' => ['id' => 'username1', 
-							'placeholder' => 'Username']]) }}
-							{{ Field::text('nif', null, ['input' => ['id' => 'nif1', 'placeholder' => 'Dni']]) }}
-							<p id="username1Error" class="CU_errors"></p>
-							<p id="nif1Error" class="CU_errors"></p>
-							{{ Field::text('adress', null, ['input' => ['id' => 'adress1', 
-							'placeholder' => 'Dirección']]) }}
-							{{ Field::text('locality', null, ['input' => ['id' => 'locality1', 
-							'placeholder' => 'Localidad']]) }}
-							<p id="adress1Error" class="CU_errors"></p>
-							<p id="locality1Error" class="CU_errors"></p>
-							{{ Field::text('province', null, ['input' => ['id' => 'province1', 
-							'placeholder' => 'Provincia']]) }}
-							{{ Field::text('cp', null, ['input' => ['id' => 'cp1', 
-							'placeholder' => 'Código postal']]) }}
-							<p id="province1Error" class="CU_errors"></p>
-							<p id="cp1Error" class="CU_errors"></p>
-							{{ Field::text('phone', null, ['input' => ['id' => 'phone1', 'placeholder' => 'Tlf']]) }}
-							{{ Field::email('email', null, ['input' => ['id' => 'email1', 
-							'placeholder' => 'E-mail']]) }}
-							<p id="phone1Error" class="CU_errors"></p>
-							<p id="email1Error" class="CU_errors"></p>
-							{{ Field::date('borndate', null, ['input' => ['id' => 'borndate1']]) }}
-							{{ Field::text('obs', null, ['input' => ['id' => 'obs1', 
-							'placeholder' => 'Observaciones']]) }}
-							<p id="borndate1Error" class="CU_errors"></p>
-							<p id="obs1Error" class="CU_errors"></p>
-							{{ Field::password('password', ['input' => ['id' => 'password1', 
-							'placeholder' => 'Nueva Contraseña']]) }}
-							{{ Field::password('password_confirmation', 
-							['input' => ['id' => 'password_confirmation1', 'placeholder' => 'Repite Contraseña']]) }}
-							<p id="password1Error" class="CU_errors"></p>
-							<p id="password_confirmation1Error" class="CU_errors"></p>
-						</div>
-						<div class="ButtonsContainer">					
-							<div class="OkButton Button" onClick="createUser()">Aceptar</div>
-							<button class="AddButton Button">Agregar</button>
-							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-						</div>	
-					{{ Form::close() }}
+						@else
+							<option value="admin">Docente</option>
+							<option value="alumno">Alumno</option>
+						@endif
+					</select>
+					<div id="contentOverflow-Usuario" class="ContentOverflow">
+						{{ Field::text('firstname', null, ['input' => ['placeholder' => 'Nombre', 
+									   'value' => $user->firstname ]]) }}
+						{{ Field::text('lastname', null, ['input' => ['placeholder' => 'Apellidos', 
+									   'value' => $user->lastname ]]) }}
+						<p id="firstnameError" class="EU_errors"></p>
+						<p id="lastnameError" class="EU_errors"></p>
+						{{ Field::text('username', null, ['input' => ['placeholder' => 'Username', 
+									   'value' => $user->username ]]) }}
+						{{ Field::text('nif', null, ['input' => ['placeholder' => 'Dni', 
+									   'value' => $user->nif ]]) }}
+						<p id="usernameError" class="EU_errors"></p>
+						<p id="nifError" class="EU_errors"></p>
+						{{ Field::text('adress', null, ['input' => ['placeholder' => 'Dirección', 
+									   'value' => $user->adress ]]) }}
+						{{ Field::text('locality', null, ['input' => ['placeholder' => 'Localidad', 
+									   'value' => $user->locality ]]) }}
+						<p id="adressError" class="EU_errors"></p>			   
+						<p id="localityError" class="EU_errors"></p>
+						{{ Field::text('province', null, ['input' => ['placeholder' => 'Provincia', 
+									   'value' => $user->province ]]) }}
+						{{ Field::text('cp', null, ['input' => ['placeholder' => 'Código postal', 
+									   'value' => $user->cp ]]) }}
+						<p id="provinceError" class="EU_errors"></p>
+						<p id="cpError" class="EU_errors"></p>
+						{{ Field::text('phone', null, ['input' => ['placeholder' => 'Tlf', 
+									   'value' => $user->phone ]]) }}
+						{{ Field::email('email', null, ['input' => ['placeholder' => 'E-mail', 
+									   'value' => $user->email ]]) }}
+						<p id="phoneError" class="EU_errors"></p>
+						<p id="emailError" class="EU_errors"></p>
+						{{ Field::date('borndate', null, ['input' => [ 'value' => $user->borndate ]]) }}
+						{{ Field::text('obs', null, ['input' => ['placeholder' => 'Observaciones', 
+									   'value' => $user->obs ]]) }}
+						<p id="borndateError" class="EU_errors"></p>
+						<p id="obsError" class="EU_errors"></p>										   
+						{{ Field::password('oldpassword', ['input' => ['placeholder' => 'Contraseña actual']]) }}
+						{{ Field::password('password', ['input' => ['placeholder' => 'Nueva Contraseña']]) }}
+						<p id="oldpasswordError" class="EU_errors"></p>
+						<p id="passwordError" class="EU_errors"></p>
+						{{ Field::password('password_confirmation', 
+						['input' => ['placeholder' => 'Repite Contraseña']]) }}
+						<p id="password_confirmationError" class="EU_errors"></p>
+					
+					</div>
+					<div class="ButtonsContainer">					
+						<div class="OkButton Button" onClick="editUser()">Aceptar</div>
+						<button class="AddButton Button">Agregar</button>
+						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+					</div>	
+				{{ Form::close() }}
 
-					{{ Form::model($user, ['method' => 'POST', 'role' => 'form', 
-								   'class' => 'Foo4']) }}						
-						<select id="roles" class="ComboBoxClase" name="roles">
-							@if($user->roles === "alumno")
-								<option value="alumno">Alumno</option>
-								<option value="admin">Docente</option>
-							@else
-								<option value="admin">Docente</option>
-								<option value="alumno">Alumno</option>
-							@endif
+				{{ Form::open(['class' => 'Foo5']) }}
+					<div class="ButtonsContainer">					
+						<div class="RecordButton Button" onclick="recordButtom()">Grabar</div>
+						<button class="AddButton Button">Agregar</button>
+						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+					</div>	
+				{{ Form::close() }}
+				{{ Form::open(['method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo6', 
+							   'id' => 'fileForm1']) }}
+					{{ Field::text('name', null, ['input' => ['id' => 'foo61'], 
+								   'label' => ['style' => 'display:inline-block;']]) }}<br>
+					Seleccionar imagen <p id="fileContainer1"></p> <p id="fileContainer2"></p>
+					<!-- <input id="foo62" name="" src="images/upload.png" type="image"> -->
+					<div class="ButtonsContainer">					
+						<button class="OkButton Button">Aceptar</button>
+						<button class="AddButton Button">Agregar</button>
+						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+					</div>	
+				{{ Form::close() }}
+				<form class="Foo7">
+					<!-- <img width="100%" src="images/escenarios/fondo1.jpg"> -->
+					<input id="foo71" name="" type="button" value="Publicar">
+					<input id="foo72" name="" type="button" value="descargar">
+					<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
+				</form>
+				<form class="Foo8">
+					<h3>Título</h3>
+					<input id="foo81" type="text">
+					<h3>Descripción</h3>
+					<textarea id="foo82"></textarea>
+					<h4 id="foo83">Documento adjunto</h4>
+					<input id="foo84" type="checkbox">
+					<section id="foo85">
+						<h3>Test</h3>
+						<select class="ComboBoxClase">
+							<option>Temático</option>
+							<option>Generales</option>
+							<option>Repaso</option>
 						</select>
-						<div id="contentOverflow-Usuario" class="ContentOverflow">
-							{{ Field::text('firstname', null, ['input' => ['placeholder' => 'Nombre', 
-										   'value' => $user->firstname ]]) }}
-							{{ Field::text('lastname', null, ['input' => ['placeholder' => 'Apellidos', 
-										   'value' => $user->lastname ]]) }}
-							<p id="firstnameError" class="EU_errors"></p>
-							<p id="lastnameError" class="EU_errors"></p>
-							{{ Field::text('username', null, ['input' => ['placeholder' => 'Username', 
-										   'value' => $user->username ]]) }}
-							{{ Field::text('nif', null, ['input' => ['placeholder' => 'Dni', 
-										   'value' => $user->nif ]]) }}
-							<p id="usernameError" class="EU_errors"></p>
-							<p id="nifError" class="EU_errors"></p>
-							{{ Field::text('adress', null, ['input' => ['placeholder' => 'Dirección', 
-										   'value' => $user->adress ]]) }}
-							{{ Field::text('locality', null, ['input' => ['placeholder' => 'Localidad', 
-										   'value' => $user->locality ]]) }}
-							<p id="adressError" class="EU_errors"></p>			   
-							<p id="localityError" class="EU_errors"></p>
-							{{ Field::text('province', null, ['input' => ['placeholder' => 'Provincia', 
-										   'value' => $user->province ]]) }}
-							{{ Field::text('cp', null, ['input' => ['placeholder' => 'Código postal', 
-										   'value' => $user->cp ]]) }}
-							<p id="provinceError" class="EU_errors"></p>
-							<p id="cpError" class="EU_errors"></p>
-							{{ Field::text('phone', null, ['input' => ['placeholder' => 'Tlf', 
-										   'value' => $user->phone ]]) }}
-							{{ Field::email('email', null, ['input' => ['placeholder' => 'E-mail', 
-										   'value' => $user->email ]]) }}
-							<p id="phoneError" class="EU_errors"></p>
-							<p id="emailError" class="EU_errors"></p>
-							{{ Field::date('borndate', null, ['input' => [ 'value' => $user->borndate ]]) }}
-							{{ Field::text('obs', null, ['input' => ['placeholder' => 'Observaciones', 
-										   'value' => $user->obs ]]) }}
-							<p id="borndateError" class="EU_errors"></p>
-							<p id="obsError" class="EU_errors"></p>										   
-							{{ Field::password('oldpassword', ['input' => ['placeholder' => 'Contraseña actual']]) }}
-							{{ Field::password('password', ['input' => ['placeholder' => 'Nueva Contraseña']]) }}
-							<p id="oldpasswordError" class="EU_errors"></p>
-							<p id="passwordError" class="EU_errors"></p>
-							{{ Field::password('password_confirmation', 
-							['input' => ['placeholder' => 'Repite Contraseña']]) }}
-							<p id="password_confirmationError" class="EU_errors"></p>
-						
-						</div>
-						<div class="ButtonsContainer">					
-							<div class="OkButton Button" onClick="editUser()">Aceptar</div>
-							<button class="AddButton Button">Agregar</button>
-							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-						</div>	
-					{{ Form::close() }}
-					{{ Form::open(['class' => 'Foo5']) }}
-						<div class="ButtonsContainer">					
-							<div class="RecordButton Button" onclick="recordButtom()">Grabar</div>
-							<button class="AddButton Button">Agregar</button>
-							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-						</div>	
-					{{ Form::close() }}
-					{{ Form::open(['method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo6', 
-								   'id' => 'fileForm1']) }}
-						{{ Field::text('name', null, ['input' => ['id' => 'foo61'], 
-									   'label' => ['style' => 'display:inline-block;']]) }}<br>
-						Seleccionar imagen <p id="fileContainer1"></p> <p id="fileContainer2"></p>
-						<!-- <input id="foo62" name="" src="images/upload.png" type="image"> -->
-						<div class="ButtonsContainer">					
-							<button class="OkButton Button">Aceptar</button>
-							<button class="AddButton Button">Agregar</button>
-							<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
-						</div>	
-					{{ Form::close() }}
-					</form>
-						<form class="Foo7">
-						<!-- <img width="100%" src="images/escenarios/fondo1.jpg"> -->
-						<input id="foo71" name="" type="button" value="Publicar">
-						<input id="foo72" name="" type="button" value="descargar">
-						<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
-					</form>
-				</div>													
-			</div>		
+						<table>
+
+						</table>
+						<h4>Modo exámen</h4>
+						<input id="foo851" type="checkbox">
+						<h4 id="foo852">Duración(horas/minutos)</h4>
+						<input id="foo853" type="time">
+					</section>
+					<h3>fecha desde</h3>
+					<h3>fecha hasta</h3>
+					<input type="text" id="foo86" class="Datepicker" readonly="readonly" size="12">					
+					<input type="text" id="foo87" class="Datepicker" readonly="readonly" size="12">
+					<h4>siempre visible</h4>
+					<input id="foo88" type="checkbox">
+					<div class="ButtonsContainer">					
+						<button class="OkButton Button">Aceptar</button>
+						<button class="AddButton Button">Agregar</button>
+						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+					</div>	
+				</form>
+			</div>													
+		</div>		
 	</div>
 	<div class="ColorPickerContainer">
 		<h5> Color Picker</h5>
@@ -372,6 +423,5 @@
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/dibujo.js"></script>
-	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 </body>
 </html>

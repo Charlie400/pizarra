@@ -12,7 +12,8 @@ var Name = {
 	SubirEscenarios: 'alertEscenarios',
 	SubirElementos: 'alertElementos',
 	GuardarSnapshot: 'guardarSnapshot',
-	GuardarGrabacion: 'guardarGrabacion'
+	GuardarGrabacion: 'guardarGrabacion',
+	CrearAsignacion: 'crearAsignacion'
 };
 //funcion para cambiar clase por parámetros.
 function changeClass(cElemento, cClaseNueva){
@@ -30,6 +31,8 @@ $('#c').attr('height', $('.Pizarra').height());
 $('#imageTemp').attr('width', $('.Pizarra').width());
 $('#imageTemp').attr('height', $('.Pizarra').height());
 });
+
+//función para abrir menús desplegables.
 
 $('.MenuLeft-ItemLista-Esc').on('click', ListaClick1);
 function ListaClick1(){
@@ -59,10 +62,120 @@ function ListaClick2(){
 	 	$( ".ElementosContainer" ).slideUp();
 	}
 }
+
+//función para controlar el árbol de preguntas en el tipo test.
+
+$(".TestTreeTittles").each(function(i) {
+        $(this).attr('id', "testTreeTittles" + (i + 1));
+    });
+$(".TestTreeBody").each(function(i) {
+        $(this).attr('id', "testTreeBody" + (i + 1));
+    });
+$('.TestTreeTittles').on('click', ListaClick3);
+function ListaClick3(){
+	var pregunta = this.id.slice(-1);
+	var testArrowId = ("#testTreeTittles"+pregunta);
+	var respuesta = ("#testTreeBody"+pregunta); 
+	if ($(respuesta).is(':hidden')) {
+
+	 	$(testArrowId).children('img').removeAttr('src');
+	 	$(testArrowId).children('img').attr('src',"../images/DownArrow.png");
+	 	$(respuesta).slideDown();
+	}else{
+		$(testArrowId).children('img').removeAttr('src');
+	 	$(testArrowId).children('img').attr('src',"../images/RightArrow.png");
+	 	$(respuesta).slideUp();
+	}
+};
+//función que oculta el árbol de preguntas:
+function slideRight(){
+	if ($("#testSection2").is(':hidden')) {
+		$("#testSection2").css('display','inline-block');
+		$("#testSection2").animate({width:"20%"},150);
+		$("#testSection1").animate({width:"79.5%"},150);
+		$("#botonEsconder").animate({right:"20%"},150);
+	}else{
+		$("#testSection2").animate({width:"0"},150);
+		setTimeout(function(){$("#testSection2").css('display','none')},150);
+		$("#testSection1").animate({width:"100%"},150);
+		$("#botonEsconder").animate({right:"0"},150);
+
+	};
+}
+
+/*Funciones que controlan la pestaña test*/
+$("#liTest1Content").hide();
+$("#liTest2Content").hide();
+$("#liTest3Content").hide();
+$("#liTest4Content").hide();
+$("#liTest5Content").hide();
+
+$("#liTest1").on('click',liTest1F);
+function liTest1F(){
+	changeClass('#liTest1', 'ItemTestSelected');
+	changeClass('#liTest2', 'ItemTest');
+	changeClass('#liTest3', 'ItemTest');
+	changeClass('#liTest4', 'ItemTest');
+	changeClass('#liTest5', 'ItemTest');
+
+	$("#liTest1Content").show();
+	$("#liTest2Content, #liTest3Content, #liTest4Content, #liTest5Content").hide();
+}
+
+$("#liTest2").on('click',liTest2F);
+function liTest2F(){
+	changeClass('#liTest1', 'ItemTest');
+	changeClass('#liTest2', 'ItemTestSelected');
+	changeClass('#liTest3', 'ItemTest');
+	changeClass('#liTest4', 'ItemTest');
+	changeClass('#liTest5', 'ItemTest');
+
+	$("#liTest2Content").show();
+	$("#liTest1Content, #liTest3Content, #liTest4Content, #liTest5Content").hide();
+}
+
+$("#liTest3").on('click',liTest3F);
+function liTest3F(){
+	changeClass('#liTest1', 'ItemTest');
+	changeClass('#liTest2', 'ItemTest');
+	changeClass('#liTest3', 'ItemTestSelected');
+	changeClass('#liTest4', 'ItemTest');
+	changeClass('#liTest5', 'ItemTest');
+
+	$("#liTest3Content").show();
+	$("#liTest1Content, #liTest2Content, #liTest4Content, #liTest5Content").hide();
+}
+
+$("#liTest4").on('click',liTest4F);
+function liTest4F(){
+	changeClass('#liTest1', 'ItemTest');
+	changeClass('#liTest2', 'ItemTest');
+	changeClass('#liTest3', 'ItemTest');
+	changeClass('#liTest4', 'ItemTestSelected');
+	changeClass('#liTest5', 'ItemTest');
+
+	$("#liTest4Content").show();
+	$("#liTest1Content, #liTest2Content, #liTest3Content, #liTest5Content").hide();
+}
+
+$("#liTest5").on('click',liTest5F);
+function liTest5F(){
+	changeClass('#liTest1', 'ItemTest');
+	changeClass('#liTest2', 'ItemTest');
+	changeClass('#liTest3', 'ItemTest');
+	changeClass('#liTest4', 'ItemTest');
+	changeClass('#liTest5', 'ItemTestSelected');
+
+	$("#liTest5Content").show();
+	$("#liTest1Content, #liTest2Content, #liTest3Content, #liTest4Content").hide();
+}
+
 /*Comienzan las funciones que cambian las pestañas del menú principal*/
 $("#presentacionHerramientas").hide();
 $("#edicionHerramientas").hide();
 $("#usuariosHerramientas").hide();
+$("#asignacionesHerramientas").hide();
+$("#generacionHerramientas").hide();
 $("#administracionHerramientas").hide();
 
 $("#presentacion").on('click',Presentacion);
@@ -71,10 +184,12 @@ function Presentacion(){
 	changeClass('#presentacion', 'Menu-ItemSelected');
 	changeClass('#edicion', 'Menu-Item');
 	changeClass('#usuarios', 'Menu-Item');
+	changeClass('#asignaciones', 'Menu-Item');
+	changeClass('#generacion', 'Menu-Item');
 	changeClass('#administracion', 'Menu-Item');
 
 	$("#presentacionHerramientas").show();
-	$("#edicionHerramientas, #usuariosHerramientas, #administracionHerramientas").hide();
+	$("#edicionHerramientas, #usuariosHerramientas, #asignacionesHerramientas, #generacionHerramientas, #administracionHerramientas").hide();
 }
 
 $("#edicion").on('click',Edicion);
@@ -83,9 +198,11 @@ function Edicion(){
 	changeClass('#presentacion', 'Menu-Item');
 	changeClass('#edicion', 'Menu-ItemSelected');
 	changeClass('#usuarios', 'Menu-Item');
+	changeClass('#asignaciones', 'Menu-Item');
+	changeClass('#generacion', 'Menu-Item');
 	changeClass('#administracion', 'Menu-Item');
 
-	$("#presentacionHerramientas, #usuariosHerramientas, #administracionHerramientas").hide();
+	$("#presentacionHerramientas, #usuariosHerramientas, #asignacionesHerramientas, #generacionHerramientas, #administracionHerramientas").hide();
 	$("#edicionHerramientas").show();
 }
 
@@ -95,10 +212,40 @@ function Usuarios(){
 	changeClass('#presentacion', 'Menu-Item');
 	changeClass('#edicion', 'Menu-Item');
 	changeClass('#usuarios', 'Menu-ItemSelected');
+	changeClass('#asignaciones', 'Menu-Item');
+	changeClass('#generacion', 'Menu-Item');
 	changeClass('#administracion', 'Menu-Item');
 
-	$("#presentacionHerramientas, #edicionHerramientas, #administracionHerramientas").hide();
+	$("#presentacionHerramientas, #edicionHerramientas, #asignacionesHerramientas, #generacionHerramientas, #administracionHerramientas").hide();
 	$("#usuariosHerramientas").show();
+}
+
+$("#asignaciones").on('click',Asignaciones);
+
+function Asignaciones(){
+	changeClass('#presentacion', 'Menu-Item');
+	changeClass('#edicion', 'Menu-Item');
+	changeClass('#usuarios', 'Menu-Item');
+	changeClass('#asignaciones', 'Menu-ItemSelected');
+	changeClass('#generacion', 'Menu-Item');
+	changeClass('#administracion', 'Menu-Item');
+
+	$("#presentacionHerramientas, #edicionHerramientas, #usuariosHerramientas, #generacionHerramientas, #administracionHerramientas").hide();
+	$("#asignacionesHerramientas").show();		
+}
+
+$("#generacion").on('click',Generacion);
+
+function Generacion(){
+	changeClass('#presentacion', 'Menu-Item');
+	changeClass('#edicion', 'Menu-Item');
+	changeClass('#usuarios', 'Menu-Item');
+	changeClass('#asignaciones', 'Menu-Item');
+	changeClass('#generacion', 'Menu-ItemSelected');
+	changeClass('#administracion', 'Menu-Item');
+
+	$("#presentacionHerramientas, #edicionHerramientas, #usuariosHerramientas, #asignacionesHerramientas, #administracionHerramientas").hide();
+	$("#generacionHerramientas").show();		
 }
 
 $("#administracion").on('click',Administracion);
@@ -107,9 +254,11 @@ function Administracion(){
 	changeClass('#presentacion', 'Menu-Item');
 	changeClass('#edicion', 'Menu-Item');
 	changeClass('#usuarios', 'Menu-Item');
+	changeClass('#asignaciones', 'Menu-Item');
+	changeClass('#generacion', 'Menu-Item');
 	changeClass('#administracion', 'Menu-ItemSelected');
 	
-	$("#presentacionHerramientas, #edicionHerramientas, #usuariosHerramientas").hide();
+	$("#presentacionHerramientas, #edicionHerramientas, #asignacionesHerramientas, #generacionHerramientas, #usuariosHerramientas").hide();
 	$("#administracionHerramientas").show();
 }
 /*Terminan las funciones del menú principal*/
@@ -122,8 +271,58 @@ if ($("#dominio").val() == 0){
 	$("#clase").attr('class', 'ComboBoxClase');
 }
 
+$("#claseTest").on("change", testOtros);
+function testOtros(){
+var otros = $('#claseTest').find('option:selected').val();
+	if (otros == "otros"){
+		$("#testOtros").val("");
+		$("#testOtros").css('display','inline');
+	}else{
+		$("#testOtros").css('display','none');
+	}
+}
 
-$("#dominio").on("click", GetComboDominio);
+$(".ComboBoxTest").on("change", respuestaTest);
+function respuestaTest(){
+	var comboTest = $('.ComboBoxTest').find('option:selected').val();
+	if (comboTest == "0"){
+		$("#formTest").css('display','inline-block');
+		$("#calificacionTest1").css('display','inline-block');
+		$("#Testp1").css('display','inline-block');
+		$("#calificacionTest2").css('display','none');
+		$("#Testp2").css('display','none');
+	}else{
+		$("#formTest").css('display','none');
+		$("#calificacionTest2").css('display','inline-block');
+		$("#Testp2").css('display','inline-block');
+		$("#calificacionTest1").css('display','none');
+		$("#Testp1").css('display','none');
+	}
+}
+//función para incluir calendario a los formularios.
+$(function() {
+    $( ".Datepicker").datepicker();
+    $.datepicker.regional['es'] = {
+		closeText: 'Cerrar',
+		prevText: '&#x3c;Ant',
+		nextText: 'Sig&#x3e;',
+		currentText: 'Hoy',
+		monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+		'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+		'Jul','Ago','Sep','Oct','Nov','Dic'],
+		dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+		weekHeader: 'Sm',
+		dateFormat: 'dd/mm/yy',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+  }); 
+
 
 //Esta función controla el logout.
 $(".CuadroUsuarioP").on("click", OpenlogOut);
@@ -168,6 +367,7 @@ function stopButtom()
 	stopVideoAudio();
 }
 
+$("#dominio").on("click", GetComboDominio);
 //Esta variable contendrá el valor del dominio seleccionado anteriormente.
 var selectDominio = "";
 
@@ -204,6 +404,7 @@ function GetComboClase(){
 	}
 }
 
+
 /* Funciones para alerts en botones */
 
 function hideFormsLess(clase)
@@ -213,28 +414,31 @@ function hideFormsLess(clase)
 	switch(clase)
 	{
 		case ".Foo1":
-			$(".Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7").hide();
+			$(".Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
 		break;
 		case ".Foo2":
-			$(".Foo1,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7").hide();
+			$(".Foo1,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
 		break;
 		case ".Foo3":
-			$(".Foo1,.Foo2,.Foo4,.Foo5,.Foo6,.Foo7").hide();
+			$(".Foo1,.Foo2,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
 		break;
 		case ".Foo4":
-			$(".Foo1,.Foo2,.Foo3,.Foo5,.Foo6,.Foo7").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo5,.Foo6,.Foo7,.Foo8").hide();
 		break;
 		case ".Foo5":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo6,.Foo7").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo6,.Foo7,.Foo8").hide();
 		break;
 		case ".Foo6":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo7").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo7,.Foo8").hide();
 		break;
 		case ".Foo7":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo8").hide();
+		break;
+		case ".Foo8":
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7").hide();
 		break;
 		case "":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
 		break;
 	}
 }
@@ -451,6 +655,36 @@ function saveRecord()
 	formParametros(false,false,true,"Guardar Grabación","", Name.GuardarGrabacion);
 	$("#foo71").attr('name',"PublicarGrabacion");
 	$("#foo72").attr('name',"DescargarGrabacion");
+}
+
+function createAsignacion()
+{
+	var clase = ".Foo8";
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(clase);
+	hideFormsLess(clase);
+	$(".AlertContainer").fadeIn();
+	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
+	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);	
+	if ($('#comboAsignacion').val() == 0) {
+		$('#foo83').css('display','initial');
+		$('#foo84').css('display','initial');
+		$('#foo85').css('display','none');
+	}else{
+		$('#foo83').css('display','none');
+		$('#foo84').css('display','none');
+		$('#foo85').css('display','initial');
+	};
+	$("#foo851").on('change',function(){
+		if ($("#foo851").is(':checked')){
+			$("#foo852").css("display","inline-block");
+			$("#foo853").css("display","inline-block");
+		}else
+		{
+			$("#foo852").css("display","none");
+			$("#foo853").css("display","none");
+		}
+	});
 }
 
 
