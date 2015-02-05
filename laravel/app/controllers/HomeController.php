@@ -208,6 +208,19 @@ class HomeController extends BaseController {
 	public function proof()
 	{		
 		//dd(URL::to('/agregar'));
+		$message = "Esto es una prueba de que funciona correctamente el envio de email de php para poder añadirlo a 
+		la pizarra";
+
+		$message = wordwrap($message, 70, '\r\n');
+
+		$cabeceras = 'From: fisionnucelar@gmail.com' . "\r\n" .
+	    'X-Mailer: PHP/' . phpversion();
+		
+		if (mail("entrenarydefinir@gmail.com", "Esto es un título", $message, $cabeceras))
+		{
+			dd('conseguido');
+		}
+		dd('fail');
 	}
 
 	public function createUndo()

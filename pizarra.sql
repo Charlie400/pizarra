@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.2.3
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-01-2015 a las 02:40:18
--- Versión del servidor: 5.6.21
--- Versión de PHP: 5.5.19
+-- Tiempo de generación: 04-02-2015 a las 21:07:47
+-- Versión del servidor: 5.6.16
+-- Versión de PHP: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `acl_classes` (
 `id` int(10) unsigned NOT NULL,
   `class_type` char(200) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `acl_entries` (
   `granting_strategy` char(30) COLLATE utf8_unicode_ci NOT NULL,
   `audit_success` tinyint(1) NOT NULL,
   `audit_failure` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `acl_object_identities` (
   `class_id` int(10) unsigned NOT NULL,
   `object_identifier` char(100) COLLATE utf8_unicode_ci NOT NULL,
   `entries_inheriting` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `acl_security_identities` (
 `id` int(10) unsigned NOT NULL,
   `identifier` char(200) COLLATE utf8_unicode_ci NOT NULL,
   `username` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `clases` (
   `id_dominio` bigint(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
 
 --
 -- Volcado de datos para la tabla `clases`
@@ -114,8 +114,7 @@ INSERT INTO `clases` (`id`, `Nombre`, `id_dominio`, `created_at`, `updated_at`) 
 (5, 'Diodos', 2, '2014-12-08 07:10:42', '2014-12-08 07:10:42'),
 (6, 'Corriente Alterna', 2, '2014-12-08 07:11:31', '2014-12-08 07:11:31'),
 (7, 'Tejidos', 3, '2014-12-08 07:13:21', '2014-12-08 07:13:21'),
-(9, 'Fibras', 3, '2014-12-08 07:15:20', '2014-12-08 07:15:20'),
-(10, 'Montanbike', 4, '2015-01-18 18:10:45', '2015-01-18 18:10:45');
+(9, 'Fibras', 3, '2014-12-08 07:15:20', '2014-12-08 07:15:20');
 
 -- --------------------------------------------------------
 
@@ -147,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `dominios` (
   `Nombre` char(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `dominios`
@@ -156,8 +155,7 @@ CREATE TABLE IF NOT EXISTS `dominios` (
 INSERT INTO `dominios` (`id`, `Nombre`, `created_at`, `updated_at`) VALUES
 (1, 'Seguridad Vial', '2014-12-07 11:42:51', '0000-00-00 00:00:00'),
 (2, 'Electrónica', '2014-12-07 11:42:51', '0000-00-00 00:00:00'),
-(3, 'Anatomía', '2014-12-07 11:42:51', '0000-00-00 00:00:00'),
-(4, 'Bicicletas', '2015-01-18 18:10:29', '2015-01-18 18:10:29');
+(3, 'Anatomía', '2014-12-07 11:42:51', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -169,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `dominio_x_alumno` (
 `id` bigint(20) unsigned NOT NULL,
   `id_dominio` bigint(20) unsigned DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `dominio_x_alumno`
@@ -188,11 +186,11 @@ CREATE TABLE IF NOT EXISTS `elementos` (
 `id` int(11) unsigned NOT NULL,
   `Nombre` char(255) COLLATE utf8_unicode_ci NOT NULL,
   `clase_id` int(11) unsigned NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
   `fullname` char(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -210,7 +208,14 @@ CREATE TABLE IF NOT EXISTS `escenarios` (
   `tipo` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `escenarios`
+--
+
+INSERT INTO `escenarios` (`id`, `clase_id`, `user_id`, `Nombre`, `fullname`, `Orden`, `tipo`, `created_at`, `updated_at`) VALUES
+(3, 2, 7, 'fondo1', 'fondo1.jpg', 0, '', '2015-01-14 11:24:33', '2015-01-14 11:24:33');
 
 -- --------------------------------------------------------
 
@@ -222,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `escenarioximagen` (
 `id` int(11) NOT NULL,
   `Id_Escenario` bigint(20) NOT NULL,
   `Id_imagen` bigint(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=44 ;
 
 --
 -- Volcado de datos para la tabla `escenarioximagen`
@@ -276,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `temarios` (
 `id` bigint(20) NOT NULL,
   `idDominio` bigint(20) NOT NULL,
   `nombre` char(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 --
 -- Volcado de datos para la tabla `temarios`
@@ -308,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `undoimages` (
   `dir` char(255) COLLATE utf8_spanish_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -324,6 +329,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` char(255) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` datetime NOT NULL,
   `roles` enum('admin','alumno') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'alumno',
+  `id_dominio` char(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `firstname` char(120) COLLATE utf8_unicode_ci NOT NULL,
@@ -337,16 +343,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `cp` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `borndate` char(30) COLLATE utf8_unicode_ci NOT NULL,
   `obs` char(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `enabled`, `password`, `last_login`, `roles`, `created_at`, `updated_at`, `firstname`, `lastname`, `phone`, `remember_token`, `nif`, `adress`, `locality`, `province`, `cp`, `borndate`, `obs`) VALUES
-(7, 'RoYer', 'papa@gmail.com', 1, '$2y$10$gzggzE5bwK7CnQPC3ScJ5u6PWHxgpLvFj.RoL9JK.zmGslo1BB6qK', '0000-00-00 00:00:00', 'alumno', '2014-12-21 13:36:26', '2014-12-19 08:53:22', 'Juan Carlos', 'Jenaro', '673215987', 'prFdUPIRLGv2UPDOqOPliEon7PKLMdOPHeqIj7SrmdYA6xsLtGHiSgXrj4ln', '', '', '', '', '', '', ''),
-(8, 'Andres', 'andresito@gmail.com', 1, '$2y$10$GkIFu39D5iziY5/72kW/KuLBEpzj4cm.KVziX9K7M5BX3w8Njjnz.', '0000-00-00 00:00:00', 'alumno', '2014-12-17 12:13:04', '2014-12-16 20:08:07', 'Andrés', 'Jenaro', '', NULL, '', '', '', '', '', '', ''),
-(10, 'Prado', 'mdpcamacho@gmail.com', 1, '$2y$10$ogeyrkg6JeVceIapmu9sw.61nt.vAhqFI6LtBxfyKCfdOjX7lcZHC', '0000-00-00 00:00:00', 'alumno', '2014-12-19 09:42:47', '2014-12-19 09:42:47', 'María del Prado', 'Camacho Rojas', '', NULL, '', '', '', '', '', '', '');
+INSERT INTO `users` (`id`, `username`, `email`, `enabled`, `password`, `last_login`, `roles`, `id_dominio`, `created_at`, `updated_at`, `firstname`, `lastname`, `phone`, `remember_token`, `nif`, `adress`, `locality`, `province`, `cp`, `borndate`, `obs`) VALUES
+(7, 'Royer', 'papa@gmail.com', 1, '$2y$10$gzggzE5bwK7CnQPC3ScJ5u6PWHxgpLvFj.RoL9JK.zmGslo1BB6qK', '0000-00-00 00:00:00', 'alumno', '0', '2015-01-15 18:19:03', '2015-01-15 17:19:03', 'Juan Carlos', 'Jenaro', '673215987', 'cWO1xRnnHUEfbfYneocEXkPfLmsXgvAty3VWfZynoUlCu0Mxt6ZULojToxlj', '', '', '', '', '', '', ''),
+(8, 'Andres', 'andresito@gmail.com', 1, '$2y$10$GkIFu39D5iziY5/72kW/KuLBEpzj4cm.KVziX9K7M5BX3w8Njjnz.', '0000-00-00 00:00:00', 'alumno', '0', '2014-12-17 12:13:04', '2014-12-16 20:08:07', 'Andrés', 'Jenaro', '', NULL, '', '', '', '', '', '', ''),
+(10, 'Prado', 'mdpcamacho@gmail.com', 1, '$2y$10$ogeyrkg6JeVceIapmu9sw.61nt.vAhqFI6LtBxfyKCfdOjX7lcZHC', '0000-00-00 00:00:00', 'alumno', '3,1,2', '2015-02-04 12:03:58', '2014-12-25 20:46:54', 'María del Prado', 'Camacho Rojas', '', 'Zl2CIophbZm69fqKn8iVx0SrJ6gEWkbz5wl1nJfJttjSlyH4MnqM0cmnQpYy', '', '', '', '', '', '', '');
 
 --
 -- Índices para tablas volcadas
@@ -470,12 +476,12 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `clases`
 --
 ALTER TABLE `clases`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `dominios`
 --
 ALTER TABLE `dominios`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `dominio_x_alumno`
 --
@@ -485,12 +491,12 @@ MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT de la tabla `elementos`
 --
 ALTER TABLE `elementos`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `escenarios`
 --
 ALTER TABLE `escenarios`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `escenarioximagen`
 --
@@ -510,7 +516,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- Restricciones para tablas volcadas
 --

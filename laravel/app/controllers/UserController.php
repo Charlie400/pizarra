@@ -52,8 +52,8 @@ class UserController extends BaseController
 
 	public function createUser()
 	{		
-		$datos = Input::only('firstname', 'lastname', 'username', 'password', 'password_confirmation', 'email', 
-							 'phone', 'roles', 'nif', 'adress', 'locality', 'province', 'cp', 'borndate', 'obs');
+		$datos = Input::only('firstname', 'lastname', 'username', 'password', 'password_confirmation', 'email',  
+					'phone', 'roles', 'nif', 'adress', 'locality', 'province', 'cp', 'borndate', 'obs', 'id_dominio');
 
 		if (empty($datos['password']))
 		{
@@ -90,7 +90,8 @@ class UserController extends BaseController
 		$user  = Auth::user();
 		$data  = Input::only('firstname', 'lastname', 'username', 'oldpassword', 'password', 'email',
 							 'password_confirmation', 'phone', 'roles', 'nif', 'adress', 'locality',
-							 'province', 'cp', 'borndate', 'obs');	
+							 'province', 'cp', 'borndate', 'obs');
+		$data['id_dominio'] = \Auth::user()->id_dominio;
 
 		if (empty($data['password']))
 		{
@@ -118,5 +119,20 @@ class UserController extends BaseController
 			$error->oldpassword = "Debes introducir una contraseña";			
 			echo json_encode($error);
 		}
+	}
+
+	/*
+		*Es necesario instalar mercury en local para enviar emails
+		*ver: https://www.youtube.com/watch?v=qqFEg4QfOS8
+	*/
+
+	public function sendMail()
+	{
+		$message = "Esto es una prueba de que funciona correctamente el envio de email de php para poder añadirlo a 
+		la pizarra";
+
+		wordwrap($message, 70, '\r\n');
+
+		mail("Entrenarydefinir@gmail.com", "Esto es un título", $message);
 	}
 }

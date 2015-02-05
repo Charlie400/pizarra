@@ -551,7 +551,8 @@ function createAlumno()
 	$(".AlertContainer").css('display', 'inline-block');
 	showClass(clase);
 	hideFormsLess(clase);
-	formParametros(true, false, true,  "Añadir Alumno", "Rellene los campos y pulse aceptar.", Name.Alumno);
+	formParametros(true, false, true,  "Añadir Alumno", "Rellene los campos y pulse aceptar. *Recuerde seleccionar un"
+	+" dominio en las pestaña de \"Presentacion\".", Name.Alumno);
 }
 
 function closeAlert()
@@ -1114,9 +1115,9 @@ function modifyUser(id, names, action, clClass, endOfId)
 function createUser()
 {
 	var names = ['firstname', 'lastname', 'username', 'nif', 'adress', 'locality', 'province', 'cp', 'phone', 
-				 'email', 'borndate', 'obs', 'password', 'password_confirmation', 'roles'], 
+				 'email', 'borndate', 'obs', 'password', 'password_confirmation', 'roles', 'id_dominio'], 
 	id   = ['firstname1', 'lastname1', 'username1', 'nif1', 'adress1', 'locality1', 'province1', 'cp1', 'phone1', 
-		    'email1', 'borndate1', 'obs1', 'password1', 'password_confirmation1', 'roles1'];
+		    'email1', 'borndate1', 'obs1', 'password1', 'password_confirmation1', 'roles1', 'dominio'];
 
 	modifyUser(id, names, 'create', '.CU_errors', '1Error');
 }

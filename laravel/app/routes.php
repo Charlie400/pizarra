@@ -15,7 +15,7 @@ Route::group(['before' => 'guest'], function ()
 {
 	//LOGIN
 	Route::get('/login', ['as' => 'loginForm', 'uses' => 'UserController@index']);
-	Route::post('/login', ['as' => 'login', 'before' => 'csrf', 'uses' => 'UserController@login']);
+	Route::post('/login', ['as' => 'login', 'uses' => 'UserController@login']);
 });
 
 Route::group(['before' => 'auth'], function()
@@ -36,14 +36,9 @@ Route::group(['before' => 'auth'], function()
 	Route::post('/create/user', ['as' => 'createUser', 'uses' => 'UserController@createUser']);
 	Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'UserController@editUser']);
 
-	Route::group(['before' => 'csrf'], function()
-	{
-		Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);
-		Route::post('/borrar/elemento', ['as' => 'borrarElemento', 'uses' => 'HomeController@borrarElemento']);
-
-		/*TERMINAN FUNCIONALIDADES DEL HOME*/
-
-	});
+	Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);
+	Route::post('/borrar/elemento', ['as' => 'borrarElemento', 'uses' => 'HomeController@borrarElemento']);
+	/*TERMINAN FUNCIONALIDADES DEL HOME*/
 
 	//SNAPSHOT
 	Route::post('/save-snapshot', ['as' => 'saveSnapShot', 'uses' => 'HomeController@saveSnapShot']);

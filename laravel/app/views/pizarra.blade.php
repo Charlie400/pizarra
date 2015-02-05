@@ -61,11 +61,11 @@
 					<!-- ESTO ES UN CICLO FOREACH DE PHP CON SINTAXIS DEL MOTOR DE PLANTILLAS BLADE 
 					LO UTILIZAMOS PARA AÑADIR LOS OPTIONS NECESARIOS AL SELECT DEPENDIENDO DE LOS
 					DOMINIOS DE LA BASE DE DATOS -->
-
+					
 					@foreach($dominios as $d)
 						<?php 
 							$name = $d->Nombre;
-							$id   = $d->id; 
+							$id   = $d->id; 							
 						?>
 						<option id="dom{{ $id }}" value="{{ $id }}">{{ $name }}</option>	
 					@endforeach
