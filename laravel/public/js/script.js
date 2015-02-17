@@ -87,20 +87,87 @@ function ListaClick3(){
 	 	$(respuesta).slideUp();
 	}
 };
-//función que oculta el árbol de preguntas:
+//funciones que ocultan el árbol de preguntas y la explicación:
 function slideRight(){
-	if ($("#testSection2").is(':hidden')) {
+	if ($("#testTreeContainer").is(':hidden')) {
 		$("#testSection2").css('display','inline-block');
-		$("#testSection2").animate({width:"20%"},150);
+		$("#testTreeContainer").css('display','block');
+		$("#testTreeButtonsContainer").css('display','block');
+		$("#testSection2").animate({width:"20.4%"},150);
 		$("#testSection1").animate({width:"79.5%"},150);
-		$("#botonEsconder").animate({right:"20%"},150);
+		$("#botonEsconder1").animate({left:"79.6%"},150);
+		$("#botonEsconder1 img").css("transform", "rotate(0deg)");
+		$("#explicacionContainer textarea").animate({width:"70%"},150);
+		$("#explicacionContainer").animate({right:"19.9%"},150);
+		$("#explicacionIcons").animate({left:"73.5%"},150);
+		$("#botonEsconder2").animate({left:"38.1%"},150);
 	}else{
-		$("#testSection2").animate({width:"0"},150);
-		setTimeout(function(){$("#testSection2").css('display','none')},150);
-		$("#testSection1").animate({width:"100%"},150);
-		$("#botonEsconder").animate({right:"0"},150);
+		$("#testSection2").animate({width:"1.9%"},150);
+		$("#testTreeContainer").css('display','none');
+		$("#testTreeButtonsContainer").css('display','none');
+		$("#testSection1").animate({width:"98%"},150);
+		$("#botonEsconder1").animate({left:"98%"},150);
+		$("#botonEsconder1 img").css("transform", "rotate(180deg)");
+		$("#explicacionContainer").animate({right:"1.92%"},150);
+		$("#explicacionContainer textarea").animate({width:"90%"},150);
+		$("#explicacionIcons").animate({left:"93.5%"},150);
+		$("#botonEsconder2").animate({left:"47.1%"},150);
 
 	};
+}
+
+function slideDown(){
+	if ($("#explicacionContainer").is(':hidden')) {
+		$("#preguntasContainer").animate({height:"60%"},15);
+		$("#botonEsconder2").animate({top:"60%"},15);
+		$("#botonEsconder2").css("border-radius", "0 0 5px 5px");
+		$("#botonEsconder2 img").css("transform", "rotate(0deg)")
+		$("#explicacionContainer").css("display","block");
+	}else{
+		$("#explicacionContainer").css("display","none");
+		$("#preguntasContainer").animate({height:"97%"},150);
+		$("#botonEsconder2").animate({top:"96.9%"},150);
+		$("#botonEsconder2").css("border-radius", "5px 5px 0 0");
+		$("#botonEsconder2 img").css("transform", "rotate(180deg)");
+	}
+}
+
+//Esta función muestra los formularios para los tests.
+function crearTest(){
+	$("#liTest1Content1").css("display","none");
+	$("#liTest1Content2").css("display","block");
+	var tipoTest = $('input[name=TipoRespuesta]:checked').val();
+	if (tipoTest === "Monorespuesta"){
+		$(".MultiRespuestaTest").css("display","none")
+		$(".MonoRespuestaTest").css("display","initial")
+	}else{
+		$(".MultiRespuestaTest").css("display","initial")
+		$(".MonoRespuestaTest").css("display","none")
+	};
+}
+
+function volverTest(){
+	$("#liTest1Content1").css("display","block");
+	$("#liTest1Content2").css("display","none");
+	$("#liTest2Content1").css("display","block");
+	$("#liTest2Content2").css("display","none");
+	$("#liTest3Content1").css("display","block");
+	$("#liTest3Content2").css("display","none");
+	$("#liTest4Content1").css("display","block");
+	$("#liTest4Content2").css("display","none");
+	$("#liTest5Content1").css("display","block");
+	$("#liTest5Content2").css("display","none");
+}
+
+function generarTest(){
+	$("#liTest2Content1").css("display","none");
+	$("#liTest2Content2").css("display","block");
+	$("#liTest3Content1").css("display","none");
+	$("#liTest3Content2").css("display","block");
+	$("#liTest4Content1").css("display","none");
+	$("#liTest4Content2").css("display","block");
+	$("#liTest5Content1").css("display","none");
+	$("#liTest5Content2").css("display","block");
 }
 
 /*Funciones que controlan la pestaña test*/
@@ -291,14 +358,17 @@ function respuestaTest(){
 		$("#Testp1").css('display','inline-block');
 		$("#calificacionTest2").css('display','none');
 		$("#Testp2").css('display','none');
+		$(".TestValue").css("display","none");
 	}else{
 		$("#formTest").css('display','none');
 		$("#calificacionTest2").css('display','inline-block');
 		$("#Testp2").css('display','inline-block');
 		$("#calificacionTest1").css('display','none');
 		$("#Testp1").css('display','none');
+		$(".TestValue").css("display","table-cell");
 	}
 }
+respuestaTest();
 //función para incluir calendario a los formularios.
 $(function() {
     $( ".Datepicker").datepicker();
@@ -693,6 +763,7 @@ function createAsignacion()
 		}
 	});
 }
+
 
 
 

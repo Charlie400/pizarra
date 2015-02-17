@@ -209,14 +209,11 @@ function sendWithAjax(method, url, header, b, archivo)
             {                                
                 if (req.readyState === 4 && req.status === 200)
                 {
-                    //no tocar encima de aquí
 
-                    //COLOCAR ALERT AQUI
-                    //nota; el botón descargar contendrá el método:
-                    //downloadFile('/video/vid.avi');
-                    //el botón guardar(en el servidor) simplemente cerrará el alert.
-
-                    //no tocar a partir de aquí
+                    saveRecord();
+                    document.getElementById("foo72").addEventListener("click", function(){
+                        downloadFile('/video/vid.avi');
+                    });
                     
                     frames.length = 0;
                     a = 0;

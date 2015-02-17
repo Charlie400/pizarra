@@ -61,11 +61,11 @@
 					<!-- ESTO ES UN CICLO FOREACH DE PHP CON SINTAXIS DEL MOTOR DE PLANTILLAS BLADE 
 					LO UTILIZAMOS PARA AÑADIR LOS OPTIONS NECESARIOS AL SELECT DEPENDIENDO DE LOS
 					DOMINIOS DE LA BASE DE DATOS -->
-					
+
 					@foreach($dominios as $d)
 						<?php 
 							$name = $d->Nombre;
-							$id   = $d->id; 							
+							$id   = $d->id; 
 						?>
 						<option id="dom{{ $id }}" value="{{ $id }}">{{ $name }}</option>	
 					@endforeach
@@ -88,9 +88,6 @@
 				</div>
 				<div id="botonDibujoDiv" onClick="dibujoManoAlzada()">
 					<input id="botonDibujo" type="image" src="images/draw.png"/>
-				</div>
-				<div id="draggable" class="ui-widget-content">
-					<p>Drag me around</p>
 				</div>
 
 			<!-- CONECTANDO EL FORMULARIO CON LOS SELECTS A LA BASE DE DATOS -->
@@ -332,7 +329,7 @@
 				{{ Form::close() }}
 				<form class="Foo7">
 					<!-- <img width="100%" src="images/escenarios/fondo1.jpg"> -->
-					<input id="foo71" name="" type="button" value="Publicar">
+					<input id="foo71" onclick="closeAlert()" name="" type="button" value="Publicar">
 					<input id="foo72" name="" type="button" value="descargar">
 					<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
 				</form>
