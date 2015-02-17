@@ -20,6 +20,11 @@ class UserRepo extends BaseRepo
 		return 'users';
 	}
 
+	public function authUser()
+	{
+		return \Auth::user();
+	}
+
 	public function generatePassword()
 	{
 		$pass    = "";
@@ -49,5 +54,10 @@ class UserRepo extends BaseRepo
 		$carac = $a[mt_rand(0, $count)];
 
 		return $carac;
+	}
+
+	public function dominioPivotRepo()	
+	{
+		return new DominioPivotRepo();
 	}
 }

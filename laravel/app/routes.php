@@ -20,6 +20,7 @@ Route::group(['before' => 'guest'], function ()
 
 Route::group(['before' => 'auth'], function()
 {
+	Route::get('/pruebas', ['as' => 'indexProof', 'uses' => 'HomeController@indexProof']);
 	//INDEX HOME
 	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 	Route::get('/config/test', ['as' => 'test', 'uses' => 'TestController@index']);
@@ -35,6 +36,11 @@ Route::group(['before' => 'auth'], function()
 	Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
 	Route::post('/create/user', ['as' => 'createUser', 'uses' => 'UserController@createUser']);
 	Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'UserController@editUser']);
+	
+	Route::get('/baja/alumno', ['as' => 'unsubscribe', 'uses' => 'UserController@unsubscribe']);
+	Route::get('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);
+	Route::post('/crear/material', ['as' => 'supportMaterial', 'uses' => 'MaterialController@createMaterial']); 	
+	//POST por GET para pruebas
 
 	Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);
 	Route::post('/borrar/elemento', ['as' => 'borrarElemento', 'uses' => 'HomeController@borrarElemento']);

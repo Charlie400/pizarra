@@ -23,6 +23,11 @@ abstract class BaseRepo
 		return $this->model->all();
 	}
 
+	public function findWith($id, $with)
+	{
+		return $this->model->with($with)->find($id);
+	}
+
 	public function findCustomMenuImages($claseId)
 	{
 		$userId  = \Auth::user()->id;
@@ -67,8 +72,59 @@ abstract class BaseRepo
 		return $manager->errors();
 	}
 
+	public function newCreateNewRecord(array $datos, $manager = false, $entity = false)
+	{		
+		if ( ! $entity)
+		{
+			$entity = $this->model;
+		}
+
+		if ( ! $manager) $manager = $this->defaultManager($entity, $datos);
+
+		if ($manager->save())
+		{
+			return true;
+		}
+
+		return $manager->errors();
+	}
+
 	public function numberFromString($string)
 	{
 		return filter_var($string, FILTER_SANITIZE_NUMBER_INT);
+	}
+
+	public function processCheckboxs(array $data, array $names)
+	{
+		foreach ($names as $name)
+		{
+			if ( ! is_null($data[$name]))
+				$data[$name] = 1;
+			else
+				$data[$name] = 0;
+		}
+
+		return $data;
+	}
+
+	public function timeStringToSeconds($timeString, $delimiter = ':')
+	{
+		$timeString  = explode(':', $timeString);
+
+		$count = count($timeString);
+
+		if ($three = ($count == 3) or $count == 2)
+		{
+			$hours   = (int) $timeString[0];
+			$minuts  = (int) $timeString[1];
+			$seconds = 0;
+			if ($three)	$seconds = (int) $timeString[2];	
+
+			$seconds = $hours * 3600 + $minuts * 60 + $seconds;
+
+			return $seconds;
+		}
+		
+		return null;
 	}
 }

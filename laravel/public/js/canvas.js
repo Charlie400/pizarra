@@ -42,17 +42,18 @@ function getCanvasSnapshot()
     req.send(data);
 
     req.onreadystatechange = function () {
-                                downloadFile('/snapshots/00000000.png', req);
+                                if (request.readyState === 4 && request.status === 200 
+                                    && request.responseText === 'true')
+                                {
+                                    downloadFile('/snapshots/00000000.png');
+                                }   
                             }
 }
 
 //DOWNLOADS FUNCTION
-function downloadFile(dir, request)
-{    
-    if (request.readyState === 4 && request.status === 200 && request.responseText === 'true')
-    {
-        window.location.href = serverURL + '/descargar' + dir;
-    }
+function downloadFile(dir)
+{       
+    window.location.href = serverURL + '/descargar' + dir;
 }
 
 /*------------------RECORDING CANVAS IMAGES AND STORING IN ARRAY--------------------*/
@@ -205,11 +206,18 @@ function sendWithAjax(method, url, header, b, archivo)
         else
         {            
             req.onreadystatechange = function ()
-            {                
-                downloadFile('/video/vid.avi', req);
-
+            {                                
                 if (req.readyState === 4 && req.status === 200)
                 {
+                    //no tocar encima de aquí
+
+                    //COLOCAR ALERT AQUI
+                    //nota; el botón descargar contendrá el método:
+                    //downloadFile('/video/vid.avi');
+                    //el botón guardar(en el servidor) simplemente cerrará el alert.
+
+                    //no tocar a partir de aquí
+                    
                     frames.length = 0;
                     a = 0;
                     //Aquí se reactiva el botón de grabar

@@ -83,6 +83,18 @@ class FileController extends BaseController
 		}
 	}
 
+	//Funcionalidades por conectar
+
+	public function uploadFooFile(array $file, array $allow, $dir)
+	{	
+		if ($this->validFile($file['name'], $allow) && move_uploaded_file($file['tmp_name'], $dir)) 
+			return true;
+
+		return false;
+	}
+
+	//FIN Funcionalidades por conectar
+
 	public function downloadFile($carpet, $fileName)
 	{
 		$file     = '/js/multimedia/' . $carpet . '/' . $fileName;
@@ -128,6 +140,7 @@ class FileController extends BaseController
 		{			
 			//Conseguimos la extensión del archivo	
 			$ext   = array_pop($fileName);
+			$ext   = strtolower($ext);
 
 			//Comprobamos si es un archivo permitido
 			$inArray = in_array($ext, $allow);
@@ -137,5 +150,5 @@ class FileController extends BaseController
 		}
 
 		return false;
-	}
+	}	
 }

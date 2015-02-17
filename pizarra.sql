@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-02-2015 a las 21:07:47
+-- Tiempo de generación: 17-02-2015 a las 12:43:48
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -138,6 +138,27 @@ INSERT INTO `clasexalumno` (`idClase`, `idAlumno`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `dominiopivot`
+--
+
+CREATE TABLE IF NOT EXISTS `dominiopivot` (
+`id` int(11) unsigned NOT NULL,
+  `id_dominio` int(11) unsigned NOT NULL,
+  `id_user` int(11) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `dominiopivot`
+--
+
+INSERT INTO `dominiopivot` (`id`, `id_dominio`, `id_user`, `created_at`, `updated_at`) VALUES
+(1, 2, 10, '2015-02-13 10:19:18', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `dominios`
 --
 
@@ -156,25 +177,6 @@ INSERT INTO `dominios` (`id`, `Nombre`, `created_at`, `updated_at`) VALUES
 (1, 'Seguridad Vial', '2014-12-07 11:42:51', '0000-00-00 00:00:00'),
 (2, 'Electrónica', '2014-12-07 11:42:51', '0000-00-00 00:00:00'),
 (3, 'Anatomía', '2014-12-07 11:42:51', '0000-00-00 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `dominio_x_alumno`
---
-
-CREATE TABLE IF NOT EXISTS `dominio_x_alumno` (
-`id` bigint(20) unsigned NOT NULL,
-  `id_dominio` bigint(20) unsigned DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
-
---
--- Volcado de datos para la tabla `dominio_x_alumno`
---
-
-INSERT INTO `dominio_x_alumno` (`id`, `id_dominio`, `id_user`) VALUES
-(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -274,6 +276,41 @@ INSERT INTO `escenarioximagen` (`id`, `Id_Escenario`, `Id_imagen`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `materiales`
+--
+
+CREATE TABLE IF NOT EXISTS `materiales` (
+`id` int(11) unsigned NOT NULL,
+  `titulo` char(150) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `documento` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `desde` datetime NOT NULL,
+  `hasta` datetime NOT NULL,
+  `visible` tinyint(1) unsigned NOT NULL,
+  `time` char(9) COLLATE utf8_spanish_ci NOT NULL DEFAULT '00:00',
+  `testype` int(10) unsigned NOT NULL,
+  `examen` tinyint(1) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `materialespivot`
+--
+
+CREATE TABLE IF NOT EXISTS `materialespivot` (
+`id` int(11) unsigned NOT NULL,
+  `id_user` int(11) unsigned NOT NULL,
+  `id_material` int(11) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `temarios`
 --
 
@@ -329,7 +366,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` char(255) COLLATE utf8_unicode_ci NOT NULL,
   `last_login` datetime NOT NULL,
   `roles` enum('admin','alumno') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'alumno',
-  `id_dominio` char(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `firstname` char(120) COLLATE utf8_unicode_ci NOT NULL,
@@ -343,16 +379,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `cp` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `borndate` char(30) COLLATE utf8_unicode_ci NOT NULL,
   `obs` char(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `enabled`, `password`, `last_login`, `roles`, `id_dominio`, `created_at`, `updated_at`, `firstname`, `lastname`, `phone`, `remember_token`, `nif`, `adress`, `locality`, `province`, `cp`, `borndate`, `obs`) VALUES
-(7, 'Royer', 'papa@gmail.com', 1, '$2y$10$gzggzE5bwK7CnQPC3ScJ5u6PWHxgpLvFj.RoL9JK.zmGslo1BB6qK', '0000-00-00 00:00:00', 'alumno', '0', '2015-01-15 18:19:03', '2015-01-15 17:19:03', 'Juan Carlos', 'Jenaro', '673215987', 'cWO1xRnnHUEfbfYneocEXkPfLmsXgvAty3VWfZynoUlCu0Mxt6ZULojToxlj', '', '', '', '', '', '', ''),
-(8, 'Andres', 'andresito@gmail.com', 1, '$2y$10$GkIFu39D5iziY5/72kW/KuLBEpzj4cm.KVziX9K7M5BX3w8Njjnz.', '0000-00-00 00:00:00', 'alumno', '0', '2014-12-17 12:13:04', '2014-12-16 20:08:07', 'Andrés', 'Jenaro', '', NULL, '', '', '', '', '', '', ''),
-(10, 'Prado', 'mdpcamacho@gmail.com', 1, '$2y$10$ogeyrkg6JeVceIapmu9sw.61nt.vAhqFI6LtBxfyKCfdOjX7lcZHC', '0000-00-00 00:00:00', 'alumno', '3,1,2', '2015-02-04 12:03:58', '2014-12-25 20:46:54', 'María del Prado', 'Camacho Rojas', '', 'Zl2CIophbZm69fqKn8iVx0SrJ6gEWkbz5wl1nJfJttjSlyH4MnqM0cmnQpYy', '', '', '', '', '', '', '');
+INSERT INTO `users` (`id`, `username`, `email`, `enabled`, `password`, `last_login`, `roles`, `created_at`, `updated_at`, `firstname`, `lastname`, `phone`, `remember_token`, `nif`, `adress`, `locality`, `province`, `cp`, `borndate`, `obs`) VALUES
+(7, 'Royer', 'papa@gmail.com', 1, '$2y$10$gzggzE5bwK7CnQPC3ScJ5u6PWHxgpLvFj.RoL9JK.zmGslo1BB6qK', '0000-00-00 00:00:00', 'alumno', '2015-01-15 18:19:03', '2015-01-15 17:19:03', 'Juan Carlos', 'Jenaro', '673215987', 'cWO1xRnnHUEfbfYneocEXkPfLmsXgvAty3VWfZynoUlCu0Mxt6ZULojToxlj', '', '', '', '', '', '', ''),
+(8, 'Andres', 'andresito@gmail.com', 1, '$2y$10$GkIFu39D5iziY5/72kW/KuLBEpzj4cm.KVziX9K7M5BX3w8Njjnz.', '0000-00-00 00:00:00', 'alumno', '2014-12-17 12:13:04', '2014-12-16 20:08:07', 'Andrés', 'Jenaro', '', NULL, '', '', '', '', '', '', ''),
+(10, 'Prado', 'mdpcamacho@gmail.com', 1, '$2y$10$ogeyrkg6JeVceIapmu9sw.61nt.vAhqFI6LtBxfyKCfdOjX7lcZHC', '0000-00-00 00:00:00', 'alumno', '2015-02-13 09:14:08', '2015-02-06 10:03:53', 'María del Prado', 'Camacho Rojas', '', 'Zl2CIophbZm69fqKn8iVx0SrJ6gEWkbz5wl1nJfJttjSlyH4MnqM0cmnQpYy', '', '', '', '', '', '', '');
 
 --
 -- Índices para tablas volcadas
@@ -401,16 +437,16 @@ ALTER TABLE `clasexalumno`
  ADD PRIMARY KEY (`idClase`,`idAlumno`);
 
 --
+-- Indices de la tabla `dominiopivot`
+--
+ALTER TABLE `dominiopivot`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id_UNIQUE` (`id`);
+
+--
 -- Indices de la tabla `dominios`
 --
 ALTER TABLE `dominios`
  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `dominio_x_alumno`
---
-ALTER TABLE `dominio_x_alumno`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id_UNIQUE` (`id`);
 
 --
 -- Indices de la tabla `elementos`
@@ -428,6 +464,18 @@ ALTER TABLE `escenarios`
 -- Indices de la tabla `escenarioximagen`
 --
 ALTER TABLE `escenarioximagen`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `materiales`
+--
+ALTER TABLE `materiales`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `materialespivot`
+--
+ALTER TABLE `materialespivot`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -478,15 +526,15 @@ MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 ALTER TABLE `clases`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT de la tabla `dominiopivot`
+--
+ALTER TABLE `dominiopivot`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT de la tabla `dominios`
 --
 ALTER TABLE `dominios`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT de la tabla `dominio_x_alumno`
---
-ALTER TABLE `dominio_x_alumno`
-MODIFY `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `elementos`
 --
@@ -503,6 +551,16 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 ALTER TABLE `escenarioximagen`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 --
+-- AUTO_INCREMENT de la tabla `materiales`
+--
+ALTER TABLE `materiales`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `materialespivot`
+--
+ALTER TABLE `materialespivot`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `temarios`
 --
 ALTER TABLE `temarios`
@@ -516,7 +574,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- Restricciones para tablas volcadas
 --

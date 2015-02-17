@@ -31,6 +31,13 @@ var ajaxManager = {
 	{
 		return $('#' + id).val();
 	},
+	execute: function(url, data, method)
+	{
+		data   = data || {};
+		method = method || 'POST';
+
+		createAjaxRequest(data, url, '', '', '', method);
+	},
 	shotQuery: function(url, id, names)
 	{
 		var names = names || id,
@@ -38,7 +45,8 @@ var ajaxManager = {
 
 		if (data !== null)
 		{
-			createAjaxRequest(data, url, '', '', '', 'POST');
+			this.execute(url, data);
+			//createAjaxRequest(data, url, '', '', '', 'POST');
 		}
 	}
 }

@@ -336,40 +336,41 @@
 					<input id="foo72" name="" type="button" value="descargar">
 					<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
 				</form>
-				<form class="Foo8">
+				{{ Form::open(['route' => 'supportMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8']) }} 
 					<h3>Título</h3>
-					<input id="foo81" type="text">
+					<input id="foo81" name="titulo" type="text">
 					<h3>Descripción</h3>
-					<textarea id="foo82"></textarea>
+					<textarea id="foo82" name="descripcion" ></textarea>
 					<h4 id="foo83">Documento adjunto</h4>
-					<input id="foo84" type="checkbox">
+					<input id="foo84" name="documento" type="file">
 					<section id="foo85">
 						<h3>Test</h3>
-						<select class="ComboBoxClase">
-							<option>Temático</option>
-							<option>Generales</option>
-							<option>Repaso</option>
+						<select class="ComboBoxClase" name="testType">
+							<option value="0">Temático</option>
+							<option value="1">Generales</option>
+							<option value="2">Repaso</option>
 						</select>
 						<table>
 
 						</table>
 						<h4>Modo exámen</h4>
-						<input id="foo851" type="checkbox">
+						<input id="foo851" type="checkbox" name="examen" value="1">
 						<h4 id="foo852">Duración(horas/minutos)</h4>
-						<input id="foo853" type="time">
+						<input id="foo853" type="time" name="time">
 					</section>
 					<h3>fecha desde</h3>
 					<h3>fecha hasta</h3>
-					<input type="text" id="foo86" class="Datepicker" readonly="readonly" size="12">					
-					<input type="text" id="foo87" class="Datepicker" readonly="readonly" size="12">
+					<input type="text" id="foo86" name="desde" class="Datepicker" readonly="readonly" size="12">	
+					<input type="text" id="foo87" name="hasta" class="Datepicker" readonly="readonly" size="12">
 					<h4>siempre visible</h4>
-					<input id="foo88" type="checkbox">
+					<input id="foo88" type="checkbox" name="visible" value="1">
+					<input type="hidden" value="0" id="typeAsignacion" name="typeAsignacion" />
 					<div class="ButtonsContainer">					
 						<button class="OkButton Button">Aceptar</button>
 						<button class="AddButton Button">Agregar</button>
 						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 					</div>	
-				</form>
+				{{ Form::close() }}
 			</div>													
 		</div>		
 	</div>

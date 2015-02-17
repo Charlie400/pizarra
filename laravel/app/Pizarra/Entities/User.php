@@ -9,7 +9,7 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
-	protected $fillable = ['firstname', 'lastname', 'username', 'password', 'email', 'id_dominio',
+	protected $fillable = ['firstname', 'lastname', 'username', 'password', 'email',
 						   'phone', 'roles', 'nif', 'adress', 'locality', 'province', 'cp', 'obs'];
 
 	public function setPasswordAttribute($value)
@@ -17,13 +17,8 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 		$this->attributes['password'] = \Hash::make($value);
 	}
 
-	public function getIdDominioAttribute($value)
+	public function dominioPivot()
 	{
-		return explode(',', $value);
-	}
-
-	public function setIdDominioAttribute($value)
-	{
-		return $this->attributes['id_dominio'] = implode(',', $value);
+		return $this->hasMany('Pizarra\Entities\DominioPivot', 'id_user', 'id');
 	}
 }

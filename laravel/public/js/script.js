@@ -663,15 +663,21 @@ function createAsignacion()
 	var clase = ".Foo8";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
-	hideFormsLess(clase);
+	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);	
-	if ($('#comboAsignacion').val() == 0) {
+
+	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
+	var typeAsignacion = $('#typeAsignacion');
+	
+	if ($('#comboAsignacion').val() == 0) { //Apoyo
+		typeAsignacion.val(0);
 		$('#foo83').css('display','initial');
 		$('#foo84').css('display','initial');
 		$('#foo85').css('display','none');
-	}else{
+	}else{									//Tareas
+		typeAsignacion.val(1);
 		$('#foo83').css('display','none');
 		$('#foo84').css('display','none');
 		$('#foo85').css('display','initial');

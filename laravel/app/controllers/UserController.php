@@ -121,6 +121,61 @@ class UserController extends BaseController
 		}
 	}
 
+	//Funcionalidades por conectar
+
+	public function baseSubscribe($subscribe)
+	{
+		//Se obtienen los valores enviados por el formulario.
+		//$data = Input::only('id', 'id_dominio');
+		$data   = array('id' => 10, 'id_dominio' => 12);
+
+		//Se comprueba si los valores están vacíos, de estarlos, la ejecución termina aquí
+		if (empty($data['id_dominio']) or empty($data['id'])) return \Redirect::back();
+
+		//Se pide al repositorio que nos devuelva al usuario con id = $data['id']
+		$user    = $this->userRepo->findWith($data['id'], 'dominioPivot');
+
+		//Se obtienen los dominios en los que el alumno está dado de alta
+
+		$dominioPivotRepo = $this->userRepo->dominioPivotRepo();
+		$dominioPivot     = $dominioPivotRepo->getModel();
+
+		$query            = $dominioPivot
+							->where('id_user', $data['id'])
+							->where('id_dominio', $data['id_dominio']);
+
+		$userDominios     = $query->get();
+
+		$count = count($userDominios);
+
+		if ($subscribe && $count == 0)
+		{
+			//Si el método subscribe llamó a este método y la id_dominio a insertar no está en la base de datos
+			//se añade el valor
+			$dominioPivotRepo->createNewRecord(['id_dominio' => $data['id_dominio'], 'id_user' => $data['id']]);
+		}
+		elseif ( ! $subscribe && $count == 1)
+		{
+			//Si el método unsubscribe llamó a este método y la id_dominio a insertar está en la base de datos
+			//se elimina el valor
+			$query->delete();
+		}
+
+		return \Redirect::back();
+	}
+
+	public function subscribe() //dar de baja; route = '/baja/alumno';
+	{
+		return $this->baseSubscribe(true);		
+	}
+
+	public function unsubscribe() //dar de alta; route = '/alta/alumno';
+	{
+		return $this->baseSubscribe(false);		
+	}
+
+	//FIN Funcionalidades por conectar
+
 	/*
 		*Es necesario instalar mercury en local para enviar emails
 		*ver: https://www.youtube.com/watch?v=qqFEg4QfOS8
