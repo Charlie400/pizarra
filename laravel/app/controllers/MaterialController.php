@@ -19,53 +19,111 @@ class MaterialController extends BaseController {
 		$this->fileController = new FileController($escenarioRepo, $elementoRepo);
 	}
 
-	public function createMaterial()
+	public function baseEditCreateMaterial($preFuncion, $material = false, $manager = false)
 	{
 		$type = Input::only('typeAsignacion')['typeAsignacion'];
 
-		if ( ! is_null($type) && $type) dd($this->createTaskMaterial());
-		elseif ( ! is_null($type) && ! $type) dd($this->createSupportMaterial());
+		if ( ! is_null($type) )
+		{
+			if ( $type ) 
+			{
+				$data  = Input::only('titulo', 'descripcion', 'testType', 'time', 'examen', 'desde', 'hasta', 
+									 'visible');			
+				$manager = new TaskManager($this->materialRepo->getModel(), $data);
+
+				$checkboxs = ['examen', 'visible'];
+
+				$funcion = $preFuncion . 'TaskMaterial';
+			}
+			else
+			{ 
+				$data  = Input::only('titulo', 'descripcion', 'desde', 'hasta', 'visible');
+
+				$checkboxs = ['visible'];
+
+				$funcion = $preFuncion . 'SupportMaterial';
+			}
+			
+			$data = $this->materialRepo->processCheckboxs($data, $checkboxs);			
+
+			return $this->{$funcion}($data, $manager, $material);
+		}
 
 		return Redirect::back();
 	}
 
-	public function createSupportMaterial()
+	public function createMaterial()
+	{
+		dd($this->baseEditCreateMaterial('create'));
+	}
+
+	public function createSupportMaterial($data, $manager, $material)
+	{
+		return $this->supportMaterial($data, $manager, $material);
+	}
+
+	public function createTaskMaterial($data, $manager, $material)
+	{
+		return $this->taskMaterial($data, $manager, $material);
+	}
+
+	public function supportMaterial($data, $manager, $material)
 	{
 		if ( ! isset($_FILES['documento'])) return false;
-
-		$data  = Input::only('titulo', 'descripcion', 'desde', 'hasta', 'visible');
-		$data  = $this->materialRepo->processCheckboxs($data, ['visible']);
 
 		$hasDocument = false;
 		$file  = $_FILES['documento'];
 
-		if ( ! empty($file['name']) && ! empty($file['tmpname']))
+		if ( ! empty($file['name']) && ! empty($file['tmp_name']))
 		{
 			$dir   = public_path() . '/Documentos/' . $file['name'];		
-			$allow = ['pdf', 'doc', 'odt', 'avi', 'wmv', 'mpeg', 'mov', 'flv'];
+			$allow = ['pdf', 'doc', 'odt', 'avi', 'wmv', 'mpeg', 'mov', 'flv', 'jpg'];
 			$hasDocument = true;
+
+			$data['documento'] = $dir;
 		}
 
-		if ( ! $hasDocument or $this->fileController->uploadFooFile($file, $allow, $dir))
+		if ($this->fileController->uploadFooFile($file, $allow, $dir))
 		{
-			if ($hasDocument) $data['documento'] = $dir;			
-
-			return $this->materialRepo->newCreateNewRecord($data);
+			return $this->materialRepo->newCreateNewRecord($data, false, $material);
 		}
+
+		return false;
 	}
 
-	public function createTaskMaterial()
+	public function taskMaterial($data, $manager, $material)
 	{
-		$data  = Input::only('titulo', 'descripcion', 'testType', 'time', 'examen', 'desde', 'hasta', 'visible');
-		$data  = $this->materialRepo->processCheckboxs($data, ['examen', 'visible']);
-
-		$manager = new TaskManager($this->materialRepo->getModel(), $data);
-		
 		if ( ! $data['examen']) unset($data['time']);
 
-		return $this->materialRepo->newCreateNewRecord($data, $manager);
-
-		//dd($this->materialRepo->timeStringToSeconds($this->materialRepo->findAll()[0]->time));
+		return $this->materialRepo->newCreateNewRecord($data, $manager, $material);
 	}
+
+	/*FUNCIONALIDADES POR CONECTAR*/
+
+	public function editMaterial()
+	{
+		$idMaterial = Input::only('id_material')['id_material'];
+
+		if ( ! is_null($idMaterial) )
+		{
+			$material = $this->materialRepo->find($idMaterial);
+
+			if( ! is_null($material) ) dd($this->baseEditCreateMaterial('edit', $material));
+		}
+
+		echo "Debes pasar una id de material válida";
+	}
+
+	public function editSupportMaterial($data, $manager, $material)
+	{
+		return $this->supportMaterial($data, $manager, $material);
+	}
+
+	public function editTaskMaterial($data, $manager, $material)
+	{
+		return $this->taskMaterial($data, $manager, $material);
+	}
+
+	/*FIN FUNCIONALIDADES POR CONECTAR*/
 
 }

@@ -66,7 +66,7 @@ class UserController extends BaseController
 		$created = $this->userRepo->createNewRecord($datos);
 		
 		if ($created === true)		
-		{
+		{			
 			if ( isset($pass) )
 			{
 				echo json_encode("Pass: $pass");

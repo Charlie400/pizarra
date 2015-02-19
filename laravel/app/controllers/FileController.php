@@ -87,10 +87,7 @@ class FileController extends BaseController
 
 	public function uploadFooFile(array $file, array $allow, $dir)
 	{	
-		if ($this->validFile($file['name'], $allow) && move_uploaded_file($file['tmp_name'], $dir)) 
-			return true;
-
-		return false;
+		return $this->validFile($file['name'], $allow) && move_uploaded_file($file['tmp_name'], $dir);
 	}
 
 	//FIN Funcionalidades por conectar

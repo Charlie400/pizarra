@@ -24,7 +24,7 @@ class RegisterManager extends BaseManager
 			'locality'    => 'max:120',
 			'province'    => 'max:120:',
 			'cp'          => 'digits:5',
-			//'borndate'  => '',
+			'borndate'    => 'required',
 			'obs'         => 'max:255',
 			'id_dominio'  => 'required|numeric'
 		];

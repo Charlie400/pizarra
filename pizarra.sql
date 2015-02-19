@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-02-2015 a las 12:43:48
+-- Tiempo de generación: 19-02-2015 a las 12:40:53
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `materiales` (
   `examen` tinyint(1) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -377,18 +377,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `locality` char(120) COLLATE utf8_unicode_ci NOT NULL,
   `province` char(120) COLLATE utf8_unicode_ci NOT NULL,
   `cp` char(5) COLLATE utf8_unicode_ci NOT NULL,
-  `borndate` char(30) COLLATE utf8_unicode_ci NOT NULL,
+  `borndate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `obs` char(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `enabled`, `password`, `last_login`, `roles`, `created_at`, `updated_at`, `firstname`, `lastname`, `phone`, `remember_token`, `nif`, `adress`, `locality`, `province`, `cp`, `borndate`, `obs`) VALUES
-(7, 'Royer', 'papa@gmail.com', 1, '$2y$10$gzggzE5bwK7CnQPC3ScJ5u6PWHxgpLvFj.RoL9JK.zmGslo1BB6qK', '0000-00-00 00:00:00', 'alumno', '2015-01-15 18:19:03', '2015-01-15 17:19:03', 'Juan Carlos', 'Jenaro', '673215987', 'cWO1xRnnHUEfbfYneocEXkPfLmsXgvAty3VWfZynoUlCu0Mxt6ZULojToxlj', '', '', '', '', '', '', ''),
-(8, 'Andres', 'andresito@gmail.com', 1, '$2y$10$GkIFu39D5iziY5/72kW/KuLBEpzj4cm.KVziX9K7M5BX3w8Njjnz.', '0000-00-00 00:00:00', 'alumno', '2014-12-17 12:13:04', '2014-12-16 20:08:07', 'Andrés', 'Jenaro', '', NULL, '', '', '', '', '', '', ''),
-(10, 'Prado', 'mdpcamacho@gmail.com', 1, '$2y$10$ogeyrkg6JeVceIapmu9sw.61nt.vAhqFI6LtBxfyKCfdOjX7lcZHC', '0000-00-00 00:00:00', 'alumno', '2015-02-13 09:14:08', '2015-02-06 10:03:53', 'María del Prado', 'Camacho Rojas', '', 'Zl2CIophbZm69fqKn8iVx0SrJ6gEWkbz5wl1nJfJttjSlyH4MnqM0cmnQpYy', '', '', '', '', '', '', '');
+(7, 'Royer', 'papa@gmail.com', 1, '$2y$10$gzggzE5bwK7CnQPC3ScJ5u6PWHxgpLvFj.RoL9JK.zmGslo1BB6qK', '0000-00-00 00:00:00', 'alumno', '2015-01-15 18:19:03', '2015-01-15 17:19:03', 'Juan Carlos', 'Jenaro', '673215987', 'cWO1xRnnHUEfbfYneocEXkPfLmsXgvAty3VWfZynoUlCu0Mxt6ZULojToxlj', '', '', '', '', '', '0000-00-00 00:00:00', ''),
+(8, 'Andres', 'andresito@gmail.com', 1, '$2y$10$GkIFu39D5iziY5/72kW/KuLBEpzj4cm.KVziX9K7M5BX3w8Njjnz.', '0000-00-00 00:00:00', 'alumno', '2014-12-17 12:13:04', '2014-12-16 20:08:07', 'Andrés', 'Jenaro', '', NULL, '', '', '', '', '', '0000-00-00 00:00:00', ''),
+(10, 'Prado', 'mdpcamacho@gmail.com', 1, '$2y$10$ogeyrkg6JeVceIapmu9sw.61nt.vAhqFI6LtBxfyKCfdOjX7lcZHC', '0000-00-00 00:00:00', 'alumno', '2015-02-13 09:14:08', '2015-02-06 10:03:53', 'María del Prado', 'Camacho Rojas', '', 'Zl2CIophbZm69fqKn8iVx0SrJ6gEWkbz5wl1nJfJttjSlyH4MnqM0cmnQpYy', '', '', '', '', '', '0000-00-00 00:00:00', '');
 
 --
 -- Índices para tablas volcadas
@@ -554,7 +554,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 -- AUTO_INCREMENT de la tabla `materiales`
 --
 ALTER TABLE `materiales`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `materialespivot`
 --
@@ -574,7 +574,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- Restricciones para tablas volcadas
 --

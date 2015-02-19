@@ -127,4 +127,14 @@ abstract class BaseRepo
 		
 		return null;
 	}
+
+	public function dateFormat($date, $format = 'Y-m-d H:i:s')
+	{
+		$check = explode('/', $date);
+		if (count($check) > 1) $date = implode('-', $check);
+
+		$date = new \DateTime($date);
+
+		return $date->format($format);
+	}
 }

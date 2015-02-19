@@ -330,7 +330,8 @@
 				<form class="Foo7">
 					<!-- <img width="100%" src="images/escenarios/fondo1.jpg"> -->
 					<input id="foo71" onclick="closeAlert()" name="" type="button" value="Publicar">
-					<input id="foo72" name="" type="button" value="descargar">
+					<input id="foo72" name="" type="button" value="Descargar">
+					<!-- Añadir que al cancelar se elimine el vídeo -->
 					<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
 				</form>
 				{{ Form::open(['route' => 'supportMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8']) }} 
