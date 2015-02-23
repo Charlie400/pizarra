@@ -23,6 +23,7 @@ Route::group(['before' => 'auth'], function()
 	Route::get('/pruebas', ['as' => 'indexProof', 'uses' => 'HomeController@indexProof']);
 	//INDEX HOME
 	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+	Route::get('/alumnos', ['as' => 'alumno', 'uses' => 'AlumnoController@index']);
 	Route::get('/config/test', ['as' => 'test', 'uses' => 'TestController@index']);
 
 	/*COMIENZAN FUNCIONALIDADES DEL HOME*/

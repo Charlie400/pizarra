@@ -83,7 +83,7 @@ class MaterialController extends BaseController {
 			$data['documento'] = $dir;
 		}
 
-		if ($this->fileController->uploadFooFile($file, $allow, $dir))
+		if ( ! $hasDocument or $this->fileController->uploadFooFile($file, $allow, $dir))
 		{
 			return $this->materialRepo->newCreateNewRecord($data, false, $material);
 		}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-02-2015 a las 12:40:53
+-- Tiempo de generación: 21-02-2015 a las 13:26:08
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -19,74 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `pizarra`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `acl_classes`
---
-
-CREATE TABLE IF NOT EXISTS `acl_classes` (
-`id` int(10) unsigned NOT NULL,
-  `class_type` char(200) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `acl_entries`
---
-
-CREATE TABLE IF NOT EXISTS `acl_entries` (
-`id` int(10) unsigned NOT NULL,
-  `class_id` int(10) unsigned NOT NULL,
-  `object_identity_id` int(10) unsigned DEFAULT NULL,
-  `security_identity_id` int(10) unsigned NOT NULL,
-  `field_name` char(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ace_order` smallint(5) unsigned NOT NULL,
-  `mask` int(11) NOT NULL,
-  `granting` tinyint(1) NOT NULL,
-  `granting_strategy` char(30) COLLATE utf8_unicode_ci NOT NULL,
-  `audit_success` tinyint(1) NOT NULL,
-  `audit_failure` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `acl_object_identities`
---
-
-CREATE TABLE IF NOT EXISTS `acl_object_identities` (
-`id` int(10) unsigned NOT NULL,
-  `parent_object_identity_id` int(10) unsigned DEFAULT NULL,
-  `class_id` int(10) unsigned NOT NULL,
-  `object_identifier` char(100) COLLATE utf8_unicode_ci NOT NULL,
-  `entries_inheriting` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `acl_object_identity_ancestors`
---
-
-CREATE TABLE IF NOT EXISTS `acl_object_identity_ancestors` (
-  `object_identity_id` int(10) unsigned NOT NULL,
-  `ancestor_id` int(10) unsigned NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `acl_security_identities`
---
-
-CREATE TABLE IF NOT EXISTS `acl_security_identities` (
-`id` int(10) unsigned NOT NULL,
-  `identifier` char(200) COLLATE utf8_unicode_ci NOT NULL,
-  `username` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -292,7 +224,15 @@ CREATE TABLE IF NOT EXISTS `materiales` (
   `examen` tinyint(1) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=11 ;
+
+--
+-- Volcado de datos para la tabla `materiales`
+--
+
+INSERT INTO `materiales` (`id`, `titulo`, `descripcion`, `documento`, `desde`, `hasta`, `visible`, `time`, `testype`, `examen`, `created_at`, `updated_at`) VALUES
+(8, 'Mirame el titulito', 'Como chorrea, como chorrea la superwoper cuando la aprietaaaas...', '', '2015-02-20 00:00:00', '2015-02-23 23:59:59', 1, '00:00', 0, 0, '2015-02-20 16:49:15', '2015-02-20 15:31:16'),
+(10, 'Mirame el titulito', 'Como chorrea, como chorrea la superwoper cuando la aprietaaaas...', '', '2015-02-17 00:00:00', '2015-02-23 23:59:59', 0, '00:00', 0, 0, '2015-02-20 15:41:25', '2015-02-20 15:41:25');
 
 -- --------------------------------------------------------
 
@@ -305,6 +245,36 @@ CREATE TABLE IF NOT EXISTS `materialespivot` (
   `id_user` int(11) unsigned NOT NULL,
   `id_material` int(11) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `preguntas`
+--
+
+CREATE TABLE IF NOT EXISTS `preguntas` (
+`id` int(11) unsigned NOT NULL,
+  `pregunta` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `respuestas` tinyint(2) unsigned NOT NULL,
+  `id_test` int(11) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `respuestas`
+--
+
+CREATE TABLE IF NOT EXISTS `respuestas` (
+`id` int(11) unsigned NOT NULL,
+  `respuesta` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `id_test` int(11) unsigned NOT NULL,
+  `id_pregunta` int(11) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
@@ -338,6 +308,24 @@ INSERT INTO `temarios` (`id`, `idDominio`, `nombre`) VALUES
 (11, 1, 'a ver esta'),
 (12, 1, 'familia nueva'),
 (13, 1, 'familia nueva');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tests`
+--
+
+CREATE TABLE IF NOT EXISTS `tests` (
+`id` int(11) unsigned NOT NULL,
+  `titulo` char(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `id_clase` int(11) unsigned NOT NULL,
+  `type` enum('0','1') COLLATE utf8_spanish_ci NOT NULL,
+  `preguntas` tinyint(2) unsigned NOT NULL,
+  `respuestas` tinyint(3) unsigned NOT NULL,
+  `active` tinyint(1) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -379,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `cp` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `borndate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `obs` char(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `users`
@@ -393,36 +381,6 @@ INSERT INTO `users` (`id`, `username`, `email`, `enabled`, `password`, `last_log
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `acl_classes`
---
-ALTER TABLE `acl_classes`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_69DD750638A36066` (`class_type`);
-
---
--- Indices de la tabla `acl_entries`
---
-ALTER TABLE `acl_entries`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_46C8B806EA000B103D9AB4A64DEF17BCE4289BF4` (`class_id`,`object_identity_id`,`field_name`,`ace_order`), ADD KEY `IDX_46C8B806EA000B103D9AB4A6DF9183C9` (`class_id`,`object_identity_id`,`security_identity_id`), ADD KEY `IDX_46C8B806EA000B10` (`class_id`), ADD KEY `IDX_46C8B8063D9AB4A6` (`object_identity_id`), ADD KEY `IDX_46C8B806DF9183C9` (`security_identity_id`);
-
---
--- Indices de la tabla `acl_object_identities`
---
-ALTER TABLE `acl_object_identities`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_9407E5494B12AD6EA000B10` (`object_identifier`,`class_id`), ADD KEY `IDX_9407E54977FA751A` (`parent_object_identity_id`);
-
---
--- Indices de la tabla `acl_object_identity_ancestors`
---
-ALTER TABLE `acl_object_identity_ancestors`
- ADD PRIMARY KEY (`object_identity_id`,`ancestor_id`), ADD KEY `IDX_825DE2993D9AB4A6` (`object_identity_id`), ADD KEY `IDX_825DE299C671CEA1` (`ancestor_id`);
-
---
--- Indices de la tabla `acl_security_identities`
---
-ALTER TABLE `acl_security_identities`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `UNIQ_8835EE78772E836AF85E0677` (`identifier`,`username`);
 
 --
 -- Indices de la tabla `clases`
@@ -479,9 +437,27 @@ ALTER TABLE `materialespivot`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `preguntas`
+--
+ALTER TABLE `preguntas`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `respuestas`
+--
+ALTER TABLE `respuestas`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `temarios`
 --
 ALTER TABLE `temarios`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tests`
+--
+ALTER TABLE `tests`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -500,26 +476,6 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
---
--- AUTO_INCREMENT de la tabla `acl_classes`
---
-ALTER TABLE `acl_classes`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `acl_entries`
---
-ALTER TABLE `acl_entries`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `acl_object_identities`
---
-ALTER TABLE `acl_object_identities`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `acl_security_identities`
---
-ALTER TABLE `acl_security_identities`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `clases`
 --
@@ -554,17 +510,32 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
 -- AUTO_INCREMENT de la tabla `materiales`
 --
 ALTER TABLE `materiales`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `materialespivot`
 --
 ALTER TABLE `materialespivot`
 MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `preguntas`
+--
+ALTER TABLE `preguntas`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `respuestas`
+--
+ALTER TABLE `respuestas`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `temarios`
 --
 ALTER TABLE `temarios`
 MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT de la tabla `tests`
+--
+ALTER TABLE `tests`
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `undoimages`
 --
@@ -574,32 +545,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `acl_entries`
---
-ALTER TABLE `acl_entries`
-ADD CONSTRAINT `FK_46C8B8063D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `FK_46C8B806DF9183C9` FOREIGN KEY (`security_identity_id`) REFERENCES `acl_security_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `FK_46C8B806EA000B10` FOREIGN KEY (`class_id`) REFERENCES `acl_classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `acl_object_identities`
---
-ALTER TABLE `acl_object_identities`
-ADD CONSTRAINT `FK_9407E54977FA751A` FOREIGN KEY (`parent_object_identity_id`) REFERENCES `acl_object_identities` (`id`);
-
---
--- Filtros para la tabla `acl_object_identity_ancestors`
---
-ALTER TABLE `acl_object_identity_ancestors`
-ADD CONSTRAINT `FK_825DE2993D9AB4A6` FOREIGN KEY (`object_identity_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `FK_825DE299C671CEA1` FOREIGN KEY (`ancestor_id`) REFERENCES `acl_object_identities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

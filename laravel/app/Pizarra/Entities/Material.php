@@ -28,6 +28,10 @@ class Material extends \Eloquent {
 
 	public function setHastaAttribute($value)
 	{
-		$this->attributes['hasta'] = $this->dateFormat($value);
+		$date = $this->dateFormat($value);
+
+		$newDate =  strtotime("+23 hour 59 minute 59 second", strtotime($date));
+
+		$this->attributes['hasta'] = date($this->format, $newDate);
 	}
 }

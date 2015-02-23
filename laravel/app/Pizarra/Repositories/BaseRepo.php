@@ -137,4 +137,14 @@ abstract class BaseRepo
 
 		return $date->format($format);
 	}
+
+	public function currentDate()
+	{
+		return date('Y-m-d H-i-s', strtotime('+1 hour'));
+	}
+
+	public function addTime($add, $date)
+	{
+		return strtotime($add, strtotime($date));
+	}
 }

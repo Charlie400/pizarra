@@ -20,37 +20,30 @@ class MaterialesPivotRepo extends BaseRepo
 		return 'materialespivot';
 	}
 
-	public function getUserMaterials($idUser) //Trae los materiales que tiene asignados un usuario
+	public function getUserOrMaterials($relationship, $field, $id)
 	{
 		$pivots = $this->model
-				->with('material')
-				->where('id_user', $idUser)
+				->with($relationship)
+				->where($field, $id)
 				->get();
 
-		$materials = array();
+		$entity = array();
 
 		foreach ($pivots as $pivot)
 		{
-			array_push($materials, $pivot->material);
+			array_push($entity, $pivot->$relationship);
 		}
 
-		return $materials;
+		return $entity;
+	}
+
+	public function getUserMaterials($idUser) //Trae los materiales que tiene asignados un usuario
+	{
+		return $this->getUserOrMaterials('material', 'id_user', $idUser);
 	}
 
 	public function getMaterialUsers($idMaterial) //Trae los usuarios que tiene asignados un material
 	{
-		$pivots = $this->model
-				->with('user')
-				->where('id_material', $idMaterial)
-				->get();
-
-		$users = array();
-
-		foreach ($pivots as $pivot)
-		{
-			array_push($users, $pivot->user);
-		}
-
-		return $users;
+		return $this->getUserOrMaterials('user', 'id_material', $idMaterial);
 	}
 }
