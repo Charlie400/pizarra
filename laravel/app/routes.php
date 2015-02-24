@@ -37,6 +37,9 @@ Route::group(['before' => 'auth'], function()
 	Route::post('/agregar', ['as' => 'addFoo', 'uses' => 'HomeController@addFoo']);
 	Route::post('/create/user', ['as' => 'createUser', 'uses' => 'UserController@createUser']);
 	Route::post('/edit/user', ['as' => 'editUser', 'uses' => 'UserController@editUser']);
+	Route::post('/tipos-de-test/{penaliza}/{multirespuesta}', ['as' => 'testTypes', 
+															  'uses' => 'TestController@getTestTypes']);
+	Route::post('/crear/test', ['as' => 'createTest', 'uses' => 'TestController@createTest']);
 	
 	Route::get('/baja/alumno', ['as' => 'unsubscribe', 'uses' => 'UserController@unsubscribe']);
 	Route::get('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);

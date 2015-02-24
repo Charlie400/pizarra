@@ -6,11 +6,12 @@ class TestManager extends BaseManager
 	{
 		$rules = [
 			'titulo'      => 'required|max:120',
-			'id_clase'    => 'required|numeric',
-			'type'        => 'required',
+			'id_clase'    => 'numeric',
+			'id_category' => 'required|numeric',
 			'preguntas'   => 'required|numeric',
 			'respuestas'  => 'required|numeric',
-			'active'      => 'required|in:0,1'
+			'active'      => 'required|in:0,1',
+			'puntuacion'  => 'required|numeric'
 		];
 
 		return $rules;

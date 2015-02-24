@@ -3,7 +3,7 @@
 use Pizarra\Entities\Test;
 use Pizarra\Managers\TestManager;
 
-class MaterialRepo extends BaseRepo
+class TestRepo extends BaseRepo
 {
 	protected $manager;
 
@@ -23,7 +23,7 @@ class MaterialRepo extends BaseRepo
 		return $this->manager;
 	}
 
-	public function newgetManager()
+	public function newGetManager()
 	{
 		return $this->manager;
 	}

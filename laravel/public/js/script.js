@@ -132,20 +132,6 @@ function slideDown(){
 	}
 }
 
-//Esta función muestra los formularios para los tests.
-function crearTest(){
-	$("#liTest1Content1").css("display","none");
-	$("#liTest1Content2").css("display","block");
-	var tipoTest = $('input[name=TipoRespuesta]:checked').val();
-	if (tipoTest === "Monorespuesta"){
-		$(".MultiRespuestaTest").css("display","none")
-		$(".MonoRespuestaTest").css("display","initial")
-	}else{
-		$(".MultiRespuestaTest").css("display","initial")
-		$(".MonoRespuestaTest").css("display","none")
-	};
-}
-
 function volverTest(){
 	$("#liTest1Content1").css("display","block");
 	$("#liTest1Content2").css("display","none");
@@ -352,14 +338,14 @@ var otros = $('#claseTest').find('option:selected').val();
 $(".ComboBoxTest").on("change", respuestaTest);
 function respuestaTest(){
 	var comboTest = $('.ComboBoxTest').find('option:selected').val();
-	if (comboTest == "0"){
+	if (comboTest == "1"){
 		$("#formTest").css('display','inline-block');
 		$("#calificacionTest1").css('display','inline-block');
 		$("#Testp1").css('display','inline-block');
 		$("#calificacionTest2").css('display','none');
 		$("#Testp2").css('display','none');
 		$(".TestValue").css("display","none");
-	}else{
+	}else if (comboTest == "2"){
 		$("#formTest").css('display','none');
 		$("#calificacionTest2").css('display','inline-block');
 		$("#Testp2").css('display','inline-block');

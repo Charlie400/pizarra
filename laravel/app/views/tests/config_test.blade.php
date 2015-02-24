@@ -7,6 +7,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="{{ asset ('/js/jquery-1.11.1.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('/js/utils.js') }}"></script>
+	<script type="text/javascript" src="{{ asset ('/js/test.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('/js/recorderjs/recorder.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('/js/recorderjs/recorderWorker.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -42,22 +43,23 @@
 							<input id="testOtros" type="text" placeholder="Indique tema">
 						</li>
 						<li><label>Tipo de Test</label>
-							<select class="ComboBoxTest">
-								<option value="0">Test sin penalizacion</option>
-								<option value="1">Test con penalizacion</option>
+							<select id="categoryTest" class="ComboBoxTest">
+								<option value="1">Test sin penalizacion</option>
+								<option value="2">Test con penalizacion</option>
 							</select>
 							<div id="formTest">
-								<input type="radio" name="TipoRespuesta" value="Monorespuesta" checked/>Monorespuesta</br>
-								<input type="radio" name="TipoRespuesta" value="Multirespuesta"/>Multirespuesta</br>
+								<input id="monorespuesta" type="radio" name="TipoRespuesta" value="0" checked/>Monorespuesta</br>
+								<input id="multirespuesta" type="radio" name="TipoRespuesta" value="1"/>Multirespuesta</br>
 							</div>
 						</li>
-						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>
-						<li><label>Numero de respuestas</label><input type="number" min="1" max=""></li>
+						<li><label>Numero de preguntas</label><input id="preguntas" type="number" min="1" max=""></li>
+						<li><label>Numero de respuestas</label><input id="respuestas" type="number" min="1" max=""></li>
 						<li><label>Calificacion test</label>
 						<input id="calificacionTest1" type="number" min="1" max=""><p id="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
 						<input id="calificacionTest2" type="number" min="0" max=""></br><p id="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
 						</li>
-						<li><div class="OkButton Button TestButton" onClick="crearTest()">Crear nuevo test</div><input type="submit" class="CancelButton Button TestButton" onClick="closeAlert()" value="Cancelar"></li>
+						<li><div class="OkButton Button TestButton" onClick="crearTest()">Crear nuevo test</div>
+						<div class="CancelButton Button TestButton" onClick="closeAlert()">Cancelar</div></li>
 					</ul>	
 				</form>
 			</div>
@@ -70,64 +72,7 @@
 						<img src="../images/DownArrowWhite.png">
 					</div>
 					<div id="preguntasContainer">
-						<table>
-							<td><h3>Pregunta 1</h3></td>
-							<tr>
-								<th><textarea placeholder="<<Escriba su pregunta aquí>>"></textarea></th>
-								<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/SubirLocal.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/Iconovideo.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/Iconoimagen.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/IconoEscenario.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/IconoElemento.png"></th>
-							</tr>
-						</table>
-						<table>
-							<tr class="RespuestaTable">
-								<th><input class="MultiRespuestaTest" type="checkbox"></th>
-								<th><input class="MonoRespuestaTest" name="SeleccionarRespuesta" type="radio"></th>
-								<th></th>
-								<th><textarea placeholder="<<Escriba su respuesta aquí>>"></textarea></th>
-								<th class="TestValue"><input placeholder="Valor" type="number"></th>
-								<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/SubirLocal.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/Iconovideo.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/Iconoimagen.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/IconoEscenario.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/IconoElemento.png"></th>
-							</tr>
-							<tr class="RespuestaTable">
-								<th><input class="MultiRespuestaTest" type="checkbox"></th>
-								<th><input class="MonoRespuestaTest" name="SeleccionarRespuesta"  type="radio"></th>
-								<th></li></th>
-								<th><textarea placeholder="<<Escriba su respuesta aquí>>"></textarea></th>
-								<th class="TestValue"><input placeholder="Valor" type="number"></th>
-								<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/SubirLocal.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/Iconovideo.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/Iconoimagen.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/IconoEscenario.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/IconoElemento.png"></th>
-							</tr>
-							<tr class="RespuestaTable">
-								<th><input class="MultiRespuestaTest" type="checkbox"></th>
-								<th><input class="MonoRespuestaTest" name="SeleccionarRespuesta"  type="radio"></th>
-								<th></li></th>
-								<th><textarea placeholder="<<Escriba su respuesta aquí>>"></textarea></th>
-								<th class="TestValue"><input placeholder="Valor" type="number"></th>
-								<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/SubirLocal.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/Iconovideo.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/Iconoimagen.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/IconoEscenario.png"></th>
-								<th class="IconTh"><img class="TestIcon" src="../images/IconoElemento.png"></th>
-							</tr>
-						</table>
-						<div class="TestButtonsContainer">
-							<input type="submit" class="OkButton Button TestButton" value="Finalizar Test">
-							<div class="BackButton Button TestButton" onClick="volverTest()">Volver Configuración Test</div>
-							<input type="submit" class="CancelButton Button TestButton" onClick="closeAlert()" value="Cancelar">
-						</div>
+												
 					</div>
 					<div id="explicacionContainer">
 						<p>Explicación de la pregunta</p>
@@ -191,8 +136,8 @@
 						</li>
 						<li><label>Tipo de Test</label>
 							<select class="ComboBoxTest">
-								<option value="0">Test sin penalizacion</option>
-								<option value="1">Test con penalizacion</option>
+								<option value="1">Test sin penalizacion</option>
+								<option value="2">Test con penalizacion</option>
 							</select>
 						</li>
 						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>
@@ -248,8 +193,8 @@
 						</li>
 						<li><label>Tipo de Test</label>
 							<select class="ComboBoxTest">
-								<option value="0">Test sin penalizacion</option>
-								<option value="1">Test con penalizacion</option>
+								<option value="1">Test sin penalizacion</option>
+								<option value="2">Test con penalizacion</option>
 							</select>
 						</li>
 						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>
@@ -305,8 +250,8 @@
 						</li>
 						<li><label>Tipo de Test</label>
 							<select class="ComboBoxTest">
-								<option value="0">Test sin penalizacion</option>
-								<option value="1">Test con penalizacion</option>
+								<option value="1">Test sin penalizacion</option>
+								<option value="2">Test con penalizacion</option>
 							</select>
 						</li>
 						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>
@@ -362,8 +307,8 @@
 						</li>
 						<li><label>Tipo de Test</label>
 							<select class="ComboBoxTest">
-								<option value="0">Test sin penalizacion</option>
-								<option value="1">Test con penalizacion</option>
+								<option value="1">Test sin penalizacion</option>
+								<option value="2">Test con penalizacion</option>
 							</select>
 						</li>
 						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>

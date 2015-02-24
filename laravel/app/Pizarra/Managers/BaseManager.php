@@ -37,7 +37,7 @@ abstract class BaseManager
 
 		$this->entity->save();
 
-		return true;
+		return $this->entity;
 	}
 
 	public function errors()
