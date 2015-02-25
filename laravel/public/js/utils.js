@@ -32,6 +32,100 @@ function typeTest(penaliza, multirespuesta, callback)
 		});	
 }
 
+/* En base al número de preguntas y respuestas debe darme las ids que por lógica le fueron asignadas */
+function getPregResIds(respuestas, preguntas)
+{
+	var ids = {
+		preguntas: [],
+		respuestas: []
+	};
+
+	for (var i = 1; i <= preguntas; i++)
+	{
+		ids.preguntas.push('pregunta' + i);
+
+		for (var a = 1; a <= respuestas; a++)
+		{
+			ids.respuestas.push('respuesta' + i + a);
+		}
+	}
+
+	console.log(ids);
+
+	return ids;
+}
+
+/*En base al número de pregunta y con el objeto generado en getPregResIds, te dirá cuales son las respuestas
+  asociadas a esa pregunta*/
+function getResForPreg(object, pregunta)
+{
+	var begin      = pregunta * 3 - 3,
+		end        = pregunta * 3 - 1,
+		respuestas = [];
+
+	for (var i = begin; i >= begin && i <= end; i++)
+	{
+		respuestas.push(object.respuestas[i]);
+	}
+
+	console.log(respuestas);
+
+	return respuestas;
+}
+
+function getClassValues(clase)
+{
+	var clase  = document.getElementsByClassName(clase),
+		count  = clase.length,
+		values = [];
+
+	for (var i = 0; i < count; i++)
+	{
+		values.push(clase[i].value);
+	}
+
+	return values;
+}
+
+function setClassValues(clase, value)
+{
+	var clase  = document.getElementsByClassName(clase),
+		count  = clase.length;		
+
+	for (var i = 0; i < count; i++)
+	{
+		clase[i].value = value;
+	}	
+}
+
+function changeValue(id, i, checkbox)
+{
+	var element = document.getElementById(id);
+
+	if (checkbox)
+	{
+		console.log('dentro');
+		if (element.value == '0')
+		{			
+			element.value = 1;
+		}
+		else
+		{
+			element.value = 0;
+		}
+	}
+	else
+	{
+		console.log('fuera');
+		var clase = 'checkradio' + i;
+		
+		setClassValues(clase, 0);
+
+		element.value = 1;
+	}
+
+}
+
 //Objeto ajaxManager
 
 var ajaxManager = {
@@ -149,7 +243,6 @@ function AjaxManager()
 
 	//Desglosa la data en un string preparado para enviarse vía Ajax
 	this.processData = function(data){
-
 		data = data || {};
 
 		if (typeof data === typeof {})
@@ -211,6 +304,7 @@ function AjaxManager()
 			data: {ejemplo: "Esto es un ejemplo", ejemplo2: "Esto es un segundo ejemplo"},
 			method: method,
 			url: url,
+			processData: true,
 			responseType: 'text',
 			headers: {header: value},
 			success: function(response){
@@ -223,9 +317,10 @@ function AjaxManager()
 		}
 	*/
 	this.request = function(object){
-		object.method = object.method || 'POST';		
+		object.method = object.method || 'POST';
+		object.processData = typeof(object.processData) || true;
 
-		object.data = this.processData(object.data);
+		if (object.processData) object.data = this.processData(object.data);
 
 		req.open(object.method, baseURL + object.url);
 

@@ -40,6 +40,8 @@ Route::group(['before' => 'auth'], function()
 	Route::post('/tipos-de-test/{penaliza}/{multirespuesta}', ['as' => 'testTypes', 
 															  'uses' => 'TestController@getTestTypes']);
 	Route::post('/crear/test', ['as' => 'createTest', 'uses' => 'TestController@createTest']);
+	Route::post('/crear/preguntas/{id}', ['as' => 'createPreguntas', 'uses' => 'TestController@createPreguntas']);
+	Route::post('/crear/respuestas/{id}', ['as' => 'createRespuestas', 'uses' => 'TestController@createRespuestas']);
 	
 	Route::get('/baja/alumno', ['as' => 'unsubscribe', 'uses' => 'UserController@unsubscribe']);
 	Route::get('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);

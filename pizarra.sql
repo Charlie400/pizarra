@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-02-2015 a las 13:26:08
+-- Tiempo de generación: 25-02-2015 a las 20:12:11
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -142,14 +142,7 @@ CREATE TABLE IF NOT EXISTS `escenarios` (
   `tipo` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `escenarios`
---
-
-INSERT INTO `escenarios` (`id`, `clase_id`, `user_id`, `Nombre`, `fullname`, `Orden`, `tipo`, `created_at`, `updated_at`) VALUES
-(3, 2, 7, 'fondo1', 'fondo1.jpg', 0, '', '2015-01-14 11:24:33', '2015-01-14 11:24:33');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -259,9 +252,10 @@ CREATE TABLE IF NOT EXISTS `preguntas` (
   `pregunta` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `respuestas` tinyint(2) unsigned NOT NULL,
   `id_test` int(11) unsigned NOT NULL,
+  `valor` float unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=316 ;
 
 -- --------------------------------------------------------
 
@@ -274,9 +268,10 @@ CREATE TABLE IF NOT EXISTS `respuestas` (
   `respuesta` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `id_test` int(11) unsigned NOT NULL,
   `id_pregunta` int(11) unsigned NOT NULL,
+  `correcta` tinyint(1) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=67 ;
 
 -- --------------------------------------------------------
 
@@ -312,6 +307,30 @@ INSERT INTO `temarios` (`id`, `idDominio`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `testcategories`
+--
+
+CREATE TABLE IF NOT EXISTS `testcategories` (
+`id` tinyint(1) unsigned NOT NULL,
+  `nombre` char(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `penaliza` tinyint(1) unsigned NOT NULL,
+  `monorespuesta` tinyint(1) unsigned NOT NULL,
+  `multirespuesta` tinyint(1) unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `testcategories`
+--
+
+INSERT INTO `testcategories` (`id`, `nombre`, `penaliza`, `monorespuesta`, `multirespuesta`, `created_at`) VALUES
+(1, 'Test sin penalizar', 0, 1, 0, '2015-02-23 12:54:08'),
+(2, 'Test penalizando', 1, 1, 0, '2015-02-23 12:54:08'),
+(3, 'Test sin penalizar', 0, 0, 1, '2015-02-23 12:54:08');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tests`
 --
 
@@ -319,13 +338,14 @@ CREATE TABLE IF NOT EXISTS `tests` (
 `id` int(11) unsigned NOT NULL,
   `titulo` char(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `id_clase` int(11) unsigned NOT NULL,
-  `type` enum('0','1') COLLATE utf8_spanish_ci NOT NULL,
+  `id_category` tinyint(1) unsigned NOT NULL,
   `preguntas` tinyint(2) unsigned NOT NULL,
   `respuestas` tinyint(3) unsigned NOT NULL,
+  `puntuacion` tinyint(3) unsigned NOT NULL,
   `active` tinyint(1) unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=33 ;
 
 -- --------------------------------------------------------
 
@@ -455,6 +475,12 @@ ALTER TABLE `temarios`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `testcategories`
+--
+ALTER TABLE `testcategories`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `tests`
 --
 ALTER TABLE `tests`
@@ -500,7 +526,7 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `escenarios`
 --
 ALTER TABLE `escenarios`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `escenarioximagen`
 --
@@ -520,22 +546,27 @@ MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=316;
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT de la tabla `temarios`
 --
 ALTER TABLE `temarios`
 MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
+-- AUTO_INCREMENT de la tabla `testcategories`
+--
+ALTER TABLE `testcategories`
+MODIFY `id` tinyint(1) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT de la tabla `tests`
 --
 ALTER TABLE `tests`
-MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT de la tabla `undoimages`
 --

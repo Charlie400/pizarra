@@ -5,6 +5,7 @@ abstract class BaseManager
 
 	protected $entity;
 	protected $data;
+	protected $errors;
 
 	public function __construct($entity, $data)
 	{
