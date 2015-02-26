@@ -373,7 +373,7 @@
 		</div>		
 	</div>
 	<div class="ColorPickerContainer">
-		<h5> Color Picker</h5>
+		<h5>Mano Alzada</h5>
 		<img onClick="closeAlert()" src="images/CloseButton2.png" height="20" id="closeButton2">
 		<div class="ColorPickerBig">
 			<div class="ColorPicker" style="background-color:#1ABC9C"></div>
@@ -401,6 +401,7 @@
 			<div>
 				<img class="LineWidthModifier" src="images/pencil.png" heigth="20" width="20" id="pencil">
 				<img class="LineWidthModifier" onClick = "eraseCanvas()" src="images/eraser.png" heigth="20" width="20" id="eraser">
+				<img src="images/A.png" heigth="20" width="20" id="type">
 			</div>
 		</div>
 		<div class="WidthContainer">
@@ -410,6 +411,7 @@
 		        <option value="rect">Rectangulo</option>
 	        	<option value="pencil">Lápiz</option>
 	        	<option value="circ">Circulo</option>
+	        	<option value="text">Texto</option>
 			</select>
 		</div>
 		<div class="WidthContainer">
@@ -418,7 +420,48 @@
 				<img class="LineWidthModifier" src="images/goRight.png" heigth="20" width="20" id="goRight">
 				<img class="LineWidthModifier" src="images/goBack.png" heigth="20" width="20" id="goBack">
 			</div>
-		<div>
+		</div>
+	</div>
+	<div class="TempTypeText">
+		Escriba un texto:<br>
+		<input id="canvasText" type="text">
+	</div>
+	<div class="TypeContainer">
+		<h5>Editor de texto</h5>
+		<img onClick="closeAlert()" src="images/CloseButton2.png" height="20" id="closeButton3">
+		<span>Tamaño:</span>
+		 <select id="sizeTtool">
+	        <option value="8px">8</option>
+	        <option value="10px">10</option>
+        	<option value="12px">12</option>
+        	<option value="14px">14</option>
+        	<option value="16px">16</option>
+        	<option value="18px">18</option>
+        	<option value="20px">20</option>
+        	<option value="22px">22</option>
+        	<option value="24px">24</option>
+        	<option value="26px">26</option>
+        	<option value="28px">28</option>
+        	<option value="36px">36</option>
+        	<option value="48px">48</option>
+        	<option value="72px">72</option>
+		</select>
+		<span>Fuente:</span>
+		 <select id="fontTtool">
+	        <option value="verdana">verdana</option>
+	        <option value="monospace">monospace</option>
+        	<option value="cursive">cursive</option>
+        	<option value="serif">serif</option>
+        	<option value="fantasy">fantasy</option>
+        	<option value="arial">arial</option>
+        	<option value="arial">calibri</option>
+		</select>
+		<span>Tipo:</span>
+		 <select id="typeTtool">
+	        <option value="normal">normal</option>
+	        <option value="italic">italic</option>
+        	<option value="bold">bold</option>
+		</select>
 	</div>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/dibujo.js"></script>

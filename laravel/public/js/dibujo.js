@@ -1,7 +1,13 @@
 
 var canvasn, contextt, canvaso, contexto, img;
 var sGrosor = 3;
-var sLastColorPicked = '#000000'
+var sLastColorPicked = '#000000';
+var sPintarActivo = true;
+var sEscribirActivo = true;
+var sFormatText = "normal 12px verdana";
+var sX;
+var sY;
+
 if(window.addEventListener) {
 window.addEventListener('load', function () {
   
@@ -100,6 +106,7 @@ window.addEventListener('load', function () {
   // Este objeto guarda la implementación para cada herramienta de pintado
   var tools = {};
 
+
   // El lápiz de pintar
   tools.pencil = function () {
     var tool = this;
@@ -115,9 +122,11 @@ window.addEventListener('load', function () {
 
     // Esta función es llamada cada vez que se mueve el ratón. Obviamente 
     // dibuja si el estado de tool.starder está a true(cuando se pulsa el botón del ratón)
-    // the mouse button).
     this.mousemove = function (ev) {
       if (tool.started) {
+      if(!sPintarActivo){
+        return;
+      }
         contextt.lineTo(ev._x, ev._y);
         contextt.stroke();
       }
@@ -131,6 +140,63 @@ window.addEventListener('load', function () {
       }
     };
   };
+
+  $('#canvasText').change(TypeText);
+   function TypeText(){
+    contextt.font = sFormatText;
+    contextt.fillText($('#canvasText').val(), sX, sY);
+    img_update();
+  }
+
+//Herramienta texto
+tools.text = function () {
+  var tool = this;
+
+  this.started = false;
+
+  this.mousedown = function (ev) {
+    tool.started = true;
+    tool.x0 = ev._x;
+    tool.y0 = ev._y;
+  };
+
+  this.mousemove = function (ev) {
+    if (!tool.started) {
+      return;
+    }
+
+    if(!sEscribirActivo){
+      return;
+    }
+
+    var x = Math.min(ev._x,  tool.x0),
+        y = Math.min(ev._y,  tool.y0),
+        w = Math.abs(ev._x - tool.x0),
+        h = Math.abs(ev._y - tool.y0);
+
+    contextt.clearRect(0, 0, canvasn.width, canvasn.height);
+
+    if (!w || !h) {
+      return;
+    }
+
+    contextt.strokeRect(x, y, w, h);
+    sX = x;
+    sY = y;
+  };
+
+  this.mouseup = function (ev) {
+    if (tool.started) {
+      tool.mousemove(ev);
+      tool.started = false;
+      contextt.clearRect(0, 0, canvasn.width, canvasn.height);
+      $('.TempTypeText').show();
+      $('.TempTypeText').draggable();
+      $('#canvasText').val('');
+    }
+  };
+};
+
 
 // Herramienta de círculo
   tools.circ = function () {
@@ -146,6 +212,10 @@ window.addEventListener('load', function () {
 
     this.mousemove = function (ev) {
       if (!tool.started) {
+        return;
+      }
+
+      if(!sPintarActivo){
         return;
       }
 
@@ -193,6 +263,10 @@ window.addEventListener('load', function () {
         return;
       }
 
+      if(!sPintarActivo){
+        return;
+      }
+
       var x = Math.min(ev._x,  tool.x0),
           y = Math.min(ev._y,  tool.y0),
           w = Math.abs(ev._x - tool.x0),
@@ -221,6 +295,8 @@ window.addEventListener('load', function () {
     var tool = this;
     this.started = false;
 
+
+
     this.mousedown = function (ev) {
       tool.started = true;
       tool.x0 = ev._x;
@@ -232,8 +308,11 @@ window.addEventListener('load', function () {
         return;
       }
 
-      contextt.clearRect(0, 0, canvasn.width, canvasn.height);
+      if(!sPintarActivo){
+        return;
+      }
 
+      contextt.clearRect(0, 0, canvasn.width, canvasn.height);
       contextt.beginPath();
       contextt.moveTo(tool.x0, tool.y0);
       contextt.lineTo(ev._x,   ev._y);
@@ -248,6 +327,9 @@ window.addEventListener('load', function () {
         img_update();
       }
     };
+
+    sPintarActivo = false;
+
   };
 
   init();
@@ -270,7 +352,8 @@ function cambiarColor(){
   sLastColorPicked = rgb2hex($(this).css('background-color'));
 }
  
-$('.LineWidthModifier').on('click', cambiaTrazado);
+$('#mas').on('click', cambiaTrazado);
+$('#menos').on('click', cambiaTrazado);
 
 function cambiaTrazado(){
 
@@ -326,3 +409,39 @@ function eraseCanvas(){
   }
   
 }
+
+$('#pencil').on('click', ActivarPintar);
+
+function ActivarPintar(){
+  sPintarActivo = true;
+}
+
+$('#type').on('click', ActivarEscribir);
+
+function ActivarEscribir(){
+  sEscribirActivo = true;
+}
+
+$('#sizeTtool').change(TextSize);
+
+function TextSize(){
+  var sCadena = sFormatText.split(' ');
+  sFormatText = sCadena[0] + " " + $("#sizeTtool option:selected").text() +  "px" + " " + sCadena[2];
+}
+
+$('#fontTtool').change(TextFont);
+
+function TextFont(){
+  var sCadena = sFormatText.split(' ');
+  sFormatText = sCadena[0] + " " + sCadena[1] + " " + $("#fontTtool option:selected").text();
+}
+
+$('#typeTtool').change(TextTypeFun);
+
+function TextTypeFun(){
+  var sCadena = sFormatText.split(' ');
+  sFormatText = $("#typeTtool option:selected").text() + " " + sCadena[1] + " " + sCadena[2];
+}
+
+
+
