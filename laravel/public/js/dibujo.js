@@ -415,8 +415,10 @@ $('#pencil').on('click', ActivarPintar);
 function ActivarPintar(){
   if (sPintarActivo){
     sPintarActivo = false;
+    $('#pencil').css('box-shadow', '');
   }else{
     sPintarActivo = true;
+    $('#pencil').css('box-shadow', '0px 0px 2px #FFF');
   }
 }
 

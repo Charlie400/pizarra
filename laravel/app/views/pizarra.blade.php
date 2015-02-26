@@ -457,7 +457,7 @@
 		</div>
 	</div>
 	<div class="TempTypeText">
-		Escriba un texto:<br>
+		Escriba un texto:<img onClick="closeAlert()" src="images/CloseButton2.png" height="15" id="closeButton4"><br>
 		<input id="canvasText" type="text">
 	</div>
 	<div class="TypeContainer">

@@ -1359,5 +1359,11 @@ $('#type').on('click', EditorDeTexto);
 function EditorDeTexto(){
 	$('.TypeContainer').draggable();
 	$(".TypeContainer").toggle();
+	if (!$(".TypeContainer").is(":visible")){
+    	$('#type').css('box-shadow', '');
+  	}else{
+    	sPintarActivo = true;
+    	$('#type').css('box-shadow', '0px 0px 2px #FFF');
+  	}	
 }
 
