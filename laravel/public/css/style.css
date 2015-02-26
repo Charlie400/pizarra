@@ -16,6 +16,13 @@ body{
 	font-weight: lighter;
 	margin: 0;
 }
+textarea{
+	resize:none;
+}
+
+
+
+
 
 #LoginContainer{
 	background-color: #2C3E50;
@@ -296,6 +303,18 @@ input:-ms-input-placeholder {
 	right: 0;
 	top: 5em;
 }
+.AreaTrabajo{
+	background: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 0;
+	display: inline-block;
+	left: 20.8em;
+	margin: 0.5em 0.5em 0.5em 0;
+	position: absolute;	
+	right: 0;
+	top: 5em;
+}
 
 #imageTemp{
 	border: none;
@@ -515,6 +534,7 @@ h1{
 	border-radius: 5px;
 	display: inline-block;
 	left: 30%;
+	max-width: 673px;
 	min-width: 420px;
 	padding-bottom: 0.5em;
 	position: absolute;
@@ -827,13 +847,12 @@ h1{
 
 .Foo8 h3{
 	display:inline-block;
-	margin: 0;
-	width: 100%;
+	margin: 0.9em;
 }
 
 .Foo8 textarea{
 	display:inline-block;
-	height: 7em;
+	height: 4em;
 	margin: 3% 0;
 	width: 100%;
 }
@@ -844,7 +863,7 @@ h1{
 	white-space: nowrap;
 	width: 30%;
 }
-.Foo8 h3:nth-child(n+3){
+.Foo8 h3:nth-child(n+5){
 	margin: 2% 0 0;
 	width: 45%;
 
@@ -854,10 +873,10 @@ h1{
 }
 .Foo8 input:nth-of-type(3n+2){
 	margin: 0;
-	width: 20%;
 }
 #foo85 select{
 	width: 25%;
+	margin: 1em;
 }
 #foo85 h4{
 	margin: 0;
@@ -880,6 +899,13 @@ h1{
 	overflow-y: auto; 
 	width: 100%;
 }
+.ContentOverflow-Asignacion{
+	background-color: #C9CEDB;
+	border:solid #595959 1px;
+	height: 5em;
+	overflow-y: auto; 
+	width: 100%;
+}
 
 #contentOverflow-Usuario{
 	background-color: #C9CEDB;
@@ -890,7 +916,7 @@ h1{
 	width: 100%;
 }
 
-.ContentOverflow table{
+.ContentOverflow table, .ContentOverflow-Asignacion table{
 	width: 100%;
 }
 .Foo3 {
@@ -924,7 +950,6 @@ h1{
 	margin: 0.2em 2% 0.2em 1%;
 	width:45%;
 }
-
 .TypeContainer{
 	background-color: #2C3E50;
 	border: 2px solid #000;
@@ -967,6 +992,409 @@ h1{
 #canvasText{
 	color: black;
 }
+
+/*Estilo de Tests*/
+.TituloTest{
+	background-color: #16A085;
+	border-radius: 5px;
+	color: white;
+	display: inline-block;
+	height: 4.5em;
+	margin: 0.5em 1% 0.5em 1%;
+	min-height: 60px;
+	position: absolute;
+	text-align: center;
+	width:98%;
+}
+.ContentTest{
+	background-color: white;
+	border-radius: 5px;
+	bottom: 0.5em;
+	margin: 0 1%;
+	position: absolute;
+	top: 5.5em;
+	width: 98%;
+}
+.ContentTest ul{
+	height: 3em;
+	list-style: none;
+	margin: 0.5em 0;
+	padding: 0;
+	text-align: center;
+}
+.ItemTest{
+	background-color: #BDC3C7;
+	border-radius: 5px;
+	cursor: pointer;
+	float: left;
+	font-size: 0.8vw;
+	font-weight: bold;
+	height: 2.3em;
+	margin-left: 1.33%;
+	padding: 0.2em;
+	text-align: center;
+	width: 18%;
+}
+.ItemTestSelected{
+	background-color: #16A085;;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	float: left;
+	font-size: 0.8vw;
+	font-weight: bold;
+	height: 2.3em;
+	margin-left: 1.33%;
+	padding: 0.2em;
+	text-align: center;
+	width: 18%;
+
+}
+#marcadorTestContainer{
+	display: inline-block;
+	margin: 0;
+	position: fixed;
+	text-align: center;
+	width: 4%;
+}
+#marcadorTestContainer p{
+	font-weight: bolder;
+	margin: 0;
+}
+#marcadorTest{
+	background-color: #3498DB;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	height: 2em;
+	margin: 0.2em;
+	text-align: center;
+}
+
+#marcadorTest p{
+	margin: 0.5em;
+	padding:0.4em;
+	text-align: center;
+}
+
+#liTest1Content, .LiTestAutomatico{
+	background-color: #DFE2E9;
+	bottom: 0.5em;
+	border-radius: 5px;
+	display: block;
+	left: 0.5em;
+	position: absolute;
+	right: 0.5em;
+	top: 3.5em;
+}
+#liTest1Content1 label, .LiTestAutomatico1 label{
+	display: inline-block;
+	font-size: 1em;
+	font-weight: bolder;
+	margin: 2% 3% 2% 15%;
+	width: 20%;
+}
+
+#liTest1Content1 select:first-of-type, .LiTestAutomatico1 select:first-of-type{
+	margin: 1em;
+}
+#liTest1Content1 ul, .LiTestAutomatico1 ul{
+	list-style: none;
+	margin: auto;
+	width: 50%;
+}
+
+#liTest1Content1 ul li, .LiTestAutomatico1 ul li{
+	text-align: left;
+}
+
+#liTest1Content1 ul li:last-of-type, .LiTestAutomatico1 ul li:last-of-type{
+	text-align: center;
+}
+
+#liTest1Content1 ul li>input, .LiTestAutomatico1 ul li>input{
+	margin: 2%;
+}
+#liTest1Content1 ul li:first-of-type input, .LiTestAutomatico1 ul li:first-of-type input{
+	width: 40%;
+	margin: 2%;
+}
+
+#formTest {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 0.8em;
+}
+#formTest input{
+	margin: 0;
+}
+#testOtros{
+	display: none;
+	margin: 0;
+	text-align: center;
+	width: auto;
+}
+.ComboBoxTest{
+	background-color: #496BFF;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	margin: 1.2em;
+	padding: 0.2em;
+	width: 12em;
+}
+.ComboBoxAlumno{
+	background-color: #E97352;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	margin: 1.2em;
+	padding: 0.2em;
+	width: 12em;
+}
+.ComboBoxAsignadas{
+	background-color: #7BB241;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	margin: 1.2em;
+	padding: 0.2em;
+	width: 12em;
+}
+
+.testP1{
+	display: inline-block;
+	margin-left: 15%;
+}
+.testP2{
+	display: none;
+	margin-left: 15%;
+}
+#calificacionTest1{
+	display: inline-block;
+}
+#calificacionTest2{
+	display: none;
+}
+
+.TestButton{
+	border: none;
+	display: inline-block;
+}
+#liTest1Content1, .LiTestAutomatico1{
+	display: block;
+}
+#liTest1Content2, .LiTestAutomatico2{
+	display: none;
+	height: 100%;
+}
+#liTest1Content2 section:first-of-type{
+	display: inline-block;
+	height: 100%;
+	width: 79.5%;
+}
+#botonEsconder1{
+	width: 0.5%;
+	height: 55px;
+	padding: 4.5px;
+	position: absolute;
+	top: 50%;
+	left: 79.6%;
+	background-color: #16A085;
+	border-radius: 0 5px 5px 0;
+	cursor: pointer;
+}
+#botonEsconder2{
+	width: 55px;
+	height: 1.8%;
+	padding: 4.5px;
+	position: absolute;
+	top: 60%;
+	left: 38.1%;
+	background-color: #16A085;
+	border-radius: 0 0 5px 5px;
+	cursor: pointer;
+}
+#botonEsconder1 img{
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+#botonEsconder2 img{
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+.DeleteButton{
+	position: relative;
+	border: none;
+	padding: 1%;
+	margin: auto;
+	color: white;
+	border-radius: 5px;
+	background-color: #0F6D5B;
+}
+#liTest1Content2 section:last-of-type{
+	background-color: white;
+	border-left: 1px solid #0F6D5B;
+	display: inline-block;
+	float: right;
+	height: 100%;
+	width: 20.4%;
+}
+#liTest1Content2 section:last-of-type > div:first-of-type{
+	width: 80%;
+	margin: auto;
+	height: 74.5%;
+	overflow-y: auto;
+	border: 1px solid #0F6D5B; 
+	background-color: #E7E9EE;
+}
+#testSection1 table{
+	width: 95%;
+	margin: 2.5%;
+}
+#testSection1 textarea{
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+}
+.TestValue{
+	width: 10%;
+}
+.TestValue input{
+	width: 80%;
+	text-align: center;
+}
+.IconTh{
+	width: 5%;
+}
+#testSection1 table tr:nth-child(2){
+	border: solid #91BEAC;
+	height: 5em;
+	display: table-row;
+}
+.RespuestaTable{
+	border: solid #91BEAC;
+	height: 5em;
+	display: table-row;	
+}
+.DeleteButtonTable{
+	width: 10%;
+}
+.BackButton{
+	background-color: #E97352;
+	border: none;
+	width: 27%;
+	text-align: center;
+}
+.TestButtonsContainer input{
+	width: 27%;
+}
+#testSection1 table tr:nth-child(2) th:first-child{
+	margin: 0;
+}
+#testSection2{
+	height: 100%;
+}
+.TestIcon{
+	height: 2.3vw;
+	border: solid #91BEAC;
+	top: 29%;
+	cursor: pointer;
+}
+#preguntasContainer{
+	height: 60%;
+	overflow: auto;
+	width: 100%;
+}
+#explicacionContainer{
+	height: 40%;
+	border-top: 1px solid #0F6D5B;
+	background-color: white;
+}
+#explicacionContainer p{
+	text-align: center;
+	margin: 2% 0 0 0;
+	font-weight: bolder;
+}
+#explicacionContainer textarea{
+	width: 70%;
+	margin: 0;
+	height: 27%;
+	position: absolute;
+	bottom: 0.5%;
+	top: 70%;
+	left: 0.5%;
+	background-color: #E7E9EE;
+}
+
+#explicacionIcons{
+	position: absolute;
+	bottom: 5.5%;
+	left: 73.5%;
+}
+#explicacionContainer div img{
+	display: block;
+	height: 1.7vw;
+}
+.TestTreeTittles{
+	padding: 2%;
+	background-color: #16A085;
+	border:1px solid #0F6D5B;
+	cursor: pointer;
+}
+.TestTreeBody{
+	background-color: #91BEAC;
+	display: none;
+}
+.TestTreeBody p{
+	padding: 2%;
+	margin: 0;
+}
+.TestArrow{
+	float: right;
+	margin-top: 5px;
+}
+#claseTest{
+	width: 12em;
+}
+#preguntasContainer2 {
+	height: 80%;
+	overflow: auto;
+}
+#preguntasContainer2 table{
+	margin: auto;
+}
+#preguntasContainer2 section{
+	padding: 2%;
+	border:1px solid #0F6D5B;
+}	
+.TestButtonsContainer{
+	height: 18%;
+}
+.TestButton2_1{
+	position: absolute;
+	bottom: 1%;
+}
+.TestButton2_2{
+	position: absolute;
+	bottom: 1%;
+	left: 32%;
+}
+.TestButton2_3{
+	position: absolute;
+	bottom: 1%;
+	left: 66%;
+}
+ 
+
 
 @media screen and (max-width:1024px){
 
@@ -1055,407 +1483,16 @@ h1{
 	.MenuLeft-ArticlesContainer{
 		width: 12.4em;
 	}
+
+	.ComboBoxAsignadas{
+		width: 10em;
+	}
+
+	.ComboBoxAlumno{
+		width: 10em;
+	}
+	.Foo8 h4{
+		margin-left: 0;
+	}
 }
 
-/*Estilo de Tests*/
-.TituloTest{
-	background-color: #16A085;
-	border-radius: 5px;
-	color: white;
-	display: inline-block;
-	height: 4.5em;
-	margin: 0.5em 1% 0.5em 1%;
-	min-height: 60px;
-	position: absolute;
-	text-align: center;
-	width:98%;
-}
-.ContentTest{
-	background-color: white;
-	border-radius: 5px;
-	bottom: 0.5em;
-	margin: 0 1%;
-	position: absolute;
-	top: 5.5em;
-	width: 98%;
-}
-.ContentTest ul{
-	height: 3em;
-	margin: 0.5em 0;
-	padding: 0;
-	text-align: center;
-}
-.ItemTest{
-	background-color: #BDC3C7;
-	border-radius: 5px;
-	cursor: pointer;
-	float: left;
-	font-size: 0.8vw;
-	font-weight: bold;
-	height: 2.3em;
-	margin-left: 1.33%;
-	padding: 0.2em;
-	text-align: center;
-	width: 18%;
-}
-.ItemTestSelected{
-	background-color: #16A085;;
-	border-radius: 5px;
-	color: white;
-	cursor: pointer;
-	float: left;
-	font-size: 0.8vw;
-	font-weight: bold;
-	height: 2.3em;
-	margin-left: 1.33%;
-	padding: 0.2em;
-	text-align: center;
-	width: 18%;
-
-}
-#marcadorTestContainer{
-	display: inline-block;
-	margin: 0;
-	position: fixed;
-	text-align: center;
-	width: 4%;
-}
-#marcadorTestContainer p{
-	font-weight: bolder;
-	margin: 0;
-}
-#marcadorTest{
-	background-color: #3498DB;
-	border: none;
-	border-radius: 5px;
-	color: white;
-	height: 2em;
-	margin: 0.2em;
-	text-align: center;
-}
-
-#marcadorTest p{
-	margin: 0.5em;
-	padding:0.4em;
-	text-align: center;
-}
-
-#liTest1Content, #liTest2Content, #liTest3Content, #liTest4Content, #liTest5Content{
-	background-color: #DFE2E9;
-	bottom: 0.5em;
-	border-radius: 5px;
-	display: block;
-	left: 0.5em;
-	position: absolute;
-	right: 0.5em;
-	top: 3.5em;
-}
-#liTest1Content1 label, #liTest2Content1 label, #liTest3Content1 label, #liTest4Content1 label, #liTest5Content1 label{
-	display: inline-block;
-	font-size: 1em;
-	font-weight: bolder;
-	margin: 2% 3% 2% 15%;
-	width: 20%;
-}
-
-#liTest1Content1 select:first-of-type, #liTest2Content1 select:first-of-type, #liTest3Content1 select:first-of-type, #liTest4Content1 select:first-of-type, #liTest5Content1 select:first-of-type{
-	margin: 1em;
-}
-#liTest1Content1 ul, #liTest2Content1 ul, #liTest3Content1 ul, #liTest4Content1 ul, #liTest5Content1 ul{
-	list-style: none;
-	margin: auto;
-	width: 50%;
-}
-
-#liTest1Content1 ul li, #liTest2Content1 ul li, #liTest3Content1 ul li, #liTest4Content1 ul li, #liTest5Content1 ul li{
-	text-align: left;
-}
-
-#liTest1Content1 ul li:last-of-type, #liTest2Content1 ul li:last-of-type, #liTest3Content1 ul li:last-of-type, #liTest4Content1 ul li:last-of-type, #liTest5Content1 ul li:last-of-type{
-	text-align: center;
-}
-
-#liTest1Content1 ul li>input, #liTest2Content1 ul li>input, #liTest3Content1 ul li>input, #liTest4Content1 ul li>input, #liTest5Content1 ul li>input{
-	margin: 2%;
-}
-#liTest1Content1 ul li:first-of-type input, #liTest2Content1 ul li:first-of-type input, #liTest3Content1 ul li:first-of-type input, #liTest4Content1 ul li:first-of-type input, #liTest5Content1 ul li:first-of-type input{
-	width: 40%;
-	margin: 2%;
-}
-
-#formTest {
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 0.8em;
-}
-#formTest input{
-	margin: 0;
-}
-#testOtros{
-	display: none;
-	margin: 0;
-	text-align: center;
-	width: auto;
-}
-.ComboBoxTest{
-	background-color: #496BFF;
-	border: none;
-	border-radius: 5px;
-	color: white;
-	cursor: pointer;
-	display: inline-block;
-	margin: 1.2em;
-	padding: 0.2em;
-	width: 12em;
-}
-.ComboBoxAlumno{
-	background-color: #E97352;
-	border: none;
-	border-radius: 5px;
-	color: white;
-	cursor: pointer;
-	display: inline-block;
-	margin: 1.2em;
-	padding: 0.2em;
-	width: 12em;
-}
-
-#testP1{
-	display: inline-block;
-	margin-left: 15%;
-}
-#testP2{
-	display: none;
-	margin-left: 15%;
-}
-#calificacionTest1{
-	display: inline-block;
-}
-#calificacionTest2{
-	display: none;
-}
-
-.TestButton{
-	border: none;
-	display: inline-block;
-}
-#liTest1Content1, #liTest2Content1, #liTest3Content1, #liTest4Content1, #liTest5Content1{
-	display: block;
-}
-#liTest1Content2, #liTest2Content2, #liTest3Content2, #liTest4Content2, #liTest5Content2{
-	display: none;
-}
-#liTest1Content2 section:first-of-type{
-	display: inline-block;
-	height: 100%;
-	width: 79.5%;
-}
-#botonEsconder1{
-	width: 0.5%;
-	height: 55px;
-	padding: 4.5px;
-	position: absolute;
-	top: 50%;
-	left: 79.6%;
-	background-color: #16A085;
-	border-radius: 0 5px 5px 0;
-	cursor: pointer;
-}
-#botonEsconder2{
-	width: 55px;
-	height: 1.8%;
-	padding: 4.5px;
-	position: absolute;
-	top: 60%;
-	left: 38.1%;
-	background-color: #16A085;
-	border-radius: 0 0 5px 5px;
-	cursor: pointer;
-}
-#botonEsconder1 img{
-	width: 100%;
-	height: 100%;
-	color: white;
-}
-#botonEsconder2 img{
-	width: 100%;
-	height: 100%;
-	color: white;
-}
-.DeleteButton{
-	position: relative;
-	border: none;
-	padding: 1%;
-	margin: auto;
-	color: white;
-	border-radius: 5px;
-	background-color: #0F6D5B;
-}
-#liTest1Content2 section:last-of-type{
-	background-color: white;
-	border-left: 1px solid #0F6D5B;
-	display: inline-block;
-	float: right;
-	height: 100%;
-	width: 20.4%;
-}
-#liTest1Content2 section:last-of-type > div:first-of-type{
-	width: 80%;
-	margin: auto;
-	height: 74.5%;
-	overflow-y: auto;
-	border: 1px solid #0F6D5B; 
-	background-color: #E7E9EE;
-}
-#liTest1Content2 section:last-of-type > div:last-of-type{
-	height: 25%;
-}
-#liTest1Content2 section:last-of-type > div:last-of-type input{
-	display: inline-block;
-	width: 35%;
-	margin: 0 -1% 4% 10%;
-	font-size: 0.8vw;
-	color: white;
-	border-radius: 0 0 5px 5px;
-	border: none;
-	padding: 2%;
-	background-color: #16A085; 
-	cursor: pointer;
-}
-#testSection1 table{
-	width: 95%;
-	margin: 2.5%;
-}
-#testSection1 textarea{
-	width: 100%;
-	margin: 1%;
-	height: 100%;
-	border-radius: 5px;
-	resize:none;
-}
-.TestValue{
-	width: 10%;
-}
-.TestValue input{
-	width: 80%;
-	text-align: center;
-}
-.IconTh{
-	width: 5%;
-}
-#testSection1 table tr:nth-child(2){
-	border: solid #91BEAC;
-	height: 5em;
-	display: table-row;
-}
-.RespuestaTable{
-	border: solid #91BEAC;
-	height: 5em;
-	display: table-row;	
-}
-.DeleteButtonTable{
-	width: 10%;
-}
-.BackButton{
-	background-color: #E97352;
-	border: none;
-	width: 27%;
-	text-align: center;
-}
-.TestButtonsContainer input{
-	width: 27%;
-}
-#testSection1 table tr:nth-child(2) th:first-child{
-	margin: 0;
-}
-.TestIcon{
-	height: 2.3vw;
-	border: solid #91BEAC;
-	position: relative;
-	top: 29%;
-	cursor: pointer;
-}
-#preguntasContainer{
-	height: 60%;
-	overflow: auto;
-	width: 100%;
-}
-#explicacionContainer{
-	height: 40%;
-	border-top: 1px solid #0F6D5B;
-	background-color: white;
-}
-#explicacionContainer p{
-	text-align: center;
-	margin: 2% 0 0 0;
-	font-weight: bolder;
-}
-#explicacionContainer textarea{
-	width: 70%;
-	margin: 0;
-	height: initial;
-	position: absolute;
-	bottom: 0.5%;
-	top: 70%;
-	left: 0.5%;
-	background-color: #E7E9EE;
-}
-
-#explicacionIcons{
-	position: absolute;
-	bottom: 5.5%;
-	left: 73.5%;
-}
-#explicacionContainer div img{
-	display: block;
-	height: 1.7vw;
-}
-.TestTreeTittles{
-	padding: 2%;
-	background-color: #16A085;
-	border:1px solid #0F6D5B;
-	cursor: pointer;
-}
-.TestTreeBody{
-	background-color: #91BEAC;
-	display: none;
-}
-.TestTreeBody p{
-	padding: 2%;
-	margin: 0;
-}
-.TestArrow{
-	float: right;
-	margin-top: 5px;
-}
-#claseTest{
-	width: 12em;
-}
-#preguntasContainer2 {
-	height: 80%;
-	overflow: auto;
-}
-#preguntasContainer2 table{
-	margin: auto;
-}
-#preguntasContainer2 section{
-	padding: 2%;
-	border:1px solid #0F6D5B;
-}	
-.TestButtonsContainer{
-	height: 18%;
-}
-.TestButton2_1{
-	position: absolute;
-	bottom: 1%;
-}
-.TestButton2_2{
-	position: absolute;
-	bottom: 1%;
-	left: 32%;
-}
-.TestButton2_3{
-	position: absolute;
-	bottom: 1%;
-	left: 66%;
-}

@@ -13,7 +13,8 @@ var Name = {
 	SubirElementos: 'alertElementos',
 	GuardarSnapshot: 'guardarSnapshot',
 	GuardarGrabacion: 'guardarGrabacion',
-	CrearAsignacion: 'crearAsignacion'
+	CrearAsignacion: 'crearAsignacion',
+	ModificarTest: 'modificarTest'
 };
 //funcion para cambiar clase por parámetros.
 function changeClass(cElemento, cClaseNueva){
@@ -135,33 +136,19 @@ function slideDown(){
 function volverTest(){
 	$("#liTest1Content1").css("display","block");
 	$("#liTest1Content2").css("display","none");
-	$("#liTest2Content1").css("display","block");
-	$("#liTest2Content2").css("display","none");
-	$("#liTest3Content1").css("display","block");
-	$("#liTest3Content2").css("display","none");
-	$("#liTest4Content1").css("display","block");
-	$("#liTest4Content2").css("display","none");
-	$("#liTest5Content1").css("display","block");
-	$("#liTest5Content2").css("display","none");
+	$(".LiTestAutomatico1").css("display","block");
+	$(".LiTestAutomatico2").css("display","none");
 }
 
 function generarTest(){
-	$("#liTest2Content1").css("display","none");
-	$("#liTest2Content2").css("display","block");
-	$("#liTest3Content1").css("display","none");
-	$("#liTest3Content2").css("display","block");
-	$("#liTest4Content1").css("display","none");
-	$("#liTest4Content2").css("display","block");
-	$("#liTest5Content1").css("display","none");
-	$("#liTest5Content2").css("display","block");
+	$(".LiTestAutomatico1").css("display","none");
+	$(".LiTestAutomatico2").css("display","block");
+	$(".contentTest ul").css("display","none");
 }
 
 /*Funciones que controlan la pestaña test*/
 $("#liTest1Content").hide();
-$("#liTest2Content").hide();
-$("#liTest3Content").hide();
-$("#liTest4Content").hide();
-$("#liTest5Content").hide();
+$(".LiTestAutomatico").hide();
 
 $("#liTest1").on('click',liTest1F);
 function liTest1F(){
@@ -172,7 +159,13 @@ function liTest1F(){
 	changeClass('#liTest5', 'ItemTest');
 
 	$("#liTest1Content").show();
-	$("#liTest2Content, #liTest3Content, #liTest4Content, #liTest5Content").hide();
+	$(".LiTestAutomatico").hide();
+	$(".ComboBoxTest").val(0);
+	$("#formTest").css('display','inline-block');
+	$(".Testp2").css('display','none');
+	$(".Testp1").css('display','inline-block');
+	$(".TestValue").css("display","none");
+
 }
 
 $("#liTest2").on('click',liTest2F);
@@ -183,8 +176,13 @@ function liTest2F(){
 	changeClass('#liTest4', 'ItemTest');
 	changeClass('#liTest5', 'ItemTest');
 
-	$("#liTest2Content").show();
-	$("#liTest1Content, #liTest3Content, #liTest4Content, #liTest5Content").hide();
+	$(".LiTestAutomatico").show();
+	$(".AlumnoTest").show();
+	$("#liTest1Content").hide();
+	$(".ComboBoxTest").val(0);
+	$(".Testp2").css('display','none');
+	$(".Testp1").css('display','inline-block');
+	volverTest();
 }
 
 $("#liTest3").on('click',liTest3F);
@@ -195,8 +193,13 @@ function liTest3F(){
 	changeClass('#liTest4', 'ItemTest');
 	changeClass('#liTest5', 'ItemTest');
 
-	$("#liTest3Content").show();
-	$("#liTest1Content, #liTest2Content, #liTest4Content, #liTest5Content").hide();
+	$(".LiTestAutomatico").show();
+	$(".AlumnoTest").hide();
+	$("#liTest1Content").hide();
+	$(".ComboBoxTest").val(0);
+	$(".Testp2").css('display','none');
+	$(".Testp1").css('display','inline-block');
+	volverTest();
 }
 
 $("#liTest4").on('click',liTest4F);
@@ -207,8 +210,13 @@ function liTest4F(){
 	changeClass('#liTest4', 'ItemTestSelected');
 	changeClass('#liTest5', 'ItemTest');
 
-	$("#liTest4Content").show();
-	$("#liTest1Content, #liTest2Content, #liTest3Content, #liTest5Content").hide();
+	$(".LiTestAutomatico").show();
+	$(".AlumnoTest").hide();
+	$("#liTest1Content").hide();
+	$(".ComboBoxTest").val(0);
+	$(".Testp2").css('display','none');
+	$(".Testp1").css('display','inline-block');
+	volverTest();
 }
 
 $("#liTest5").on('click',liTest5F);
@@ -219,8 +227,13 @@ function liTest5F(){
 	changeClass('#liTest4', 'ItemTest');
 	changeClass('#liTest5', 'ItemTestSelected');
 
-	$("#liTest5Content").show();
-	$("#liTest1Content, #liTest2Content, #liTest3Content, #liTest4Content").hide();
+	$(".LiTestAutomatico").show();
+	$(".AlumnoTest").hide();
+	$("#liTest1Content").hide();
+	$(".ComboBoxTest").val(0);
+	$(".Testp2").css('display','none');
+	$(".Testp1").css('display','inline-block');
+	volverTest();
 }
 
 /*Comienzan las funciones que cambian las pestañas del menú principal*/
@@ -323,10 +336,10 @@ if ($("#dominio").val() == 0){
 	$("#clase").prop("disabled", false);
 	$("#clase").attr('class', 'ComboBoxClase');
 }
-
+//Esta función añade un cuadro de texto para agregar clase a un test.
 $("#claseTest").on("change", testOtros);
 function testOtros(){
-var otros = $('#claseTest').find('option:selected').val();
+var otros = $('#claseTest').val();
 	if (otros == "otros"){
 		$("#testOtros").val("");
 		$("#testOtros").css('display','inline');
@@ -334,23 +347,19 @@ var otros = $('#claseTest').find('option:selected').val();
 		$("#testOtros").css('display','none');
 	}
 }
-
+//Ésta función oculta la opción de seleccionar el tipo de respuesta así como la información dependiendo del tipo de test seleccionado en el combo
 $(".ComboBoxTest").on("change", respuestaTest);
 function respuestaTest(){
-	var comboTest = $('.ComboBoxTest').find('option:selected').val();
+	var comboTest = $(".ComboBoxTest").not( ":hidden" ).val();
 	if (comboTest == "1"){
 		$("#formTest").css('display','inline-block');
-		$("#calificacionTest1").css('display','inline-block');
-		$("#Testp1").css('display','inline-block');
-		$("#calificacionTest2").css('display','none');
-		$("#Testp2").css('display','none');
+		$(".Testp2").css('display','none');
+		$(".Testp1").css('display','inline-block');
 		$(".TestValue").css("display","none");
 	}else if (comboTest == "2"){
 		$("#formTest").css('display','none');
-		$("#calificacionTest2").css('display','inline-block');
-		$("#Testp2").css('display','inline-block');
-		$("#calificacionTest1").css('display','none');
-		$("#Testp1").css('display','none');
+		$(".Testp1").css('display','none');
+		$(".Testp2").css('display','inline-block');
 		$(".TestValue").css("display","table-cell");
 	}
 }
@@ -470,38 +479,41 @@ function hideFormsLess(clase)
 	switch(clase)
 	{
 		case ".Foo1":
-			$(".Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
+			$(".Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8,.Foo9").hide();
 		break;
 		case ".Foo2":
-			$(".Foo1,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
+			$(".Foo1,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8,.Foo9").hide();
 		break;
 		case ".Foo3":
-			$(".Foo1,.Foo2,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
+			$(".Foo1,.Foo2,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8,.Foo9").hide();
 		break;
 		case ".Foo4":
-			$(".Foo1,.Foo2,.Foo3,.Foo5,.Foo6,.Foo7,.Foo8").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo5,.Foo6,.Foo7,.Foo8,.Foo9").hide();
 		break;
 		case ".Foo5":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo6,.Foo7,.Foo8").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo6,.Foo7,.Foo8,.Foo9").hide();
 		break;
 		case ".Foo6":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo7,.Foo8").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo7,.Foo8,.Foo9").hide();
 		break;
 		case ".Foo7":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo8").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo8,.Foo9").hide();
 		break;
 		case ".Foo8":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo9").hide();
+		break;
+		case ".Foo9":
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
 		break;
 		case "":
-			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8").hide();
+			$(".Foo1,.Foo2,.Foo3,.Foo4,.Foo5,.Foo6,.Foo7,.Foo8,.Foo9").hide();
 		break;
 	}
 }
 
 function showClass(clase)
 {
-	$(clase).css('display', 'inline-block');
+	$(clase).css('display', 'initial');
 }
 
 function initializeCreate()
@@ -721,8 +733,58 @@ function createAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
+	$(".ComboBoxAsignadas").hide();
+	if ($(window).width() <= 1024) {
+	$(".ComboBoxAlumno").css("margin","auto");
+	$(".ComboBoxAlumno").css("display","block");
+	};
+	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "0");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);	
+
+	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
+	var typeAsignacion = $('#typeAsignacion');
+	
+	if ($('#comboAsignacion').val() == 0) { //Apoyo
+		typeAsignacion.val(0);
+		$('#foo83').css('display','block');
+		$('#foo84').css('display','block');
+		$('#foo85').css('display','none');
+	}else{									//Tareas
+		typeAsignacion.val(1);
+		$('#foo83').css('display','none');
+		$('#foo84').css('display','none');
+		$('#foo85').css('display','block');
+	};
+	$("#foo851").on('change',function(){
+		if ($("#foo851").is(':checked')){
+			$("#foo852").css("display","inline-block");
+			$("#foo853").css("display","inline-block");
+		}else
+		{
+			$("#foo852").css("display","none");
+			$("#foo853").css("display","none");
+		}
+	});
+}
+
+function editAsignacion()
+{
+	var clase = ".Foo8";
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(clase);
+	hideFormsLess(clase); 
+	$(".AlertContainer").fadeIn();
+	$(".ComboBoxAsignadas").show();
+	$(".ComboBoxAlumno").css("display","inline-block");
+	$(".ComboBoxAlumno").css("margin","1.2em");
+	if ($(window).width() <= 1024) {
+	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "0em");	
+	}else{
+	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "8em");
+	};
+	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
+	formParametros(true,false,true,"Modificar "+asignacion,"Modifique los cambios deseados y pulse aceptar", Name.CrearAsignacion);	
 
 	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
 	var typeAsignacion = $('#typeAsignacion');
@@ -750,6 +812,68 @@ function createAsignacion()
 	});
 }
 
+function deleteAsignacion()
+{
+	var clase = ".Foo8";
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(clase);
+	hideFormsLess(clase); 
+	$(".AlertContainer").fadeIn();
+	$(".ComboBoxAlumno").css("display","inline-block");
+	$(".ComboBoxAlumno").css("margin","1.2em");
+	$(".ComboBoxAsignadas").show();
+	if ($(window).width() <= 1024) {
+	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "0em");	
+	}else{
+	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "8em");
+	};
+	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
+	formParametros(true,false,true,"Eliminar "+asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.CrearAsignacion);	
+
+	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
+	var typeAsignacion = $('#typeAsignacion');
+	
+	if ($('#comboAsignacion').val() == 0) { //Apoyo
+		typeAsignacion.val(0);
+		$('#foo83').css('display','initial');
+		$('#foo84').css('display','initial');
+		$('#foo85').css('display','none');
+	}else{									//Tareas
+		typeAsignacion.val(1);
+		$('#foo83').css('display','none');
+		$('#foo84').css('display','none');
+		$('#foo85').css('display','initial');
+	};
+	$("#foo851").on('change',function(){
+		if ($("#foo851").is(':checked')){
+			$("#foo852").css("display","inline-block");
+			$("#foo853").css("display","inline-block");
+		}else
+		{
+			$("#foo852").css("display","none");
+			$("#foo853").css("display","none");
+		}
+	});
+}
+
+function modificarTest()
+{
+	var clase = ".Foo9";
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(clase);
+	hideFormsLess(clase); 
+	$(".AlertContainer").fadeIn();
+	formParametros(false,true,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
+}
+function eliminarTest()
+{
+	var clase = ".Foo9";
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(clase);
+	hideFormsLess(clase); 
+	$(".AlertContainer").fadeIn();
+	formParametros(true,false,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
+}
 
 
 
@@ -1204,7 +1328,6 @@ function dibujoManoAlzada(){
 	$(".ColorPickerContainer").css('top', p.top);
 	$(".ColorPickerContainer").toggle();
 	$("#closeButton2").on("click",ocultarColorPicker);
-	$("#closeButton3").on("click",ocultarTypeContainer);
 	function ocultarColorPicker(){
 		$(".ColorPickerContainer").hide();	
 		if ($(".ColorPickerContainer").is(":visible")){
@@ -1218,9 +1341,6 @@ function dibujoManoAlzada(){
 	}else{
 		$('#botonDibujoDiv').css('background-color','#3498DB');
 	}	
-	function ocultarTypeContainer(){
-		$(".TypeContainer").hide();	
-	}
 }
 
 $('.ColorPickerContainer h4').on('mouseover', moverMenu);
@@ -1229,11 +1349,3 @@ function moverMenu(){
 	//$('.ColorPickerContainer').drags();
 	$('.ColorPickerContainer').draggable();
 }
-
-$('#type').on('click', EditorDeTexto);
-
-function EditorDeTexto(){
-	$('.TypeContainer').draggable();
-	$(".TypeContainer").toggle();
-}
-

@@ -330,11 +330,17 @@
 				<form class="Foo7">
 					<!-- <img width="100%" src="images/escenarios/fondo1.jpg"> -->
 					<input id="foo71" onclick="closeAlert()" name="" type="button" value="Publicar">
-					<input id="foo72" name="" type="button" value="Descargar">
+					<input id="foo72" name="" type="button" value="descargar">
 					<!-- Añadir que al cancelar se elimine el vídeo -->
 					<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
 				</form>
 				{{ Form::open(['route' => 'supportMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8']) }} 
+					<select class="ComboBoxAlumno">
+						<option id="claseOption" value="#">Alumno</option>									
+					</select>
+					<select class="ComboBoxAsignadas">
+						<option id="claseOption" value="#">Asignacion</option>									
+					</select>
 					<h3>Título</h3>
 					<input id="foo81" name="titulo" type="text">
 					<h3>Descripción</h3>
@@ -348,9 +354,19 @@
 							<option value="1">Generales</option>
 							<option value="2">Repaso</option>
 						</select>
-						<table>
-
-						</table>
+						<div class="ContentOverflow-Asignacion">
+							<table>
+								<thead>
+									<tr>
+										<td><strong>#</strong></td>
+										<td><strong>Título</strong></td>
+									</tr>
+								</thead>
+								<tbody id="" class="content">
+										
+								</tbody>
+							</table>
+						</div>	
 						<h4>Modo exámen</h4>
 						<input id="foo851" type="checkbox" name="examen" value="1">
 						<h4 id="foo852">Duración(horas/minutos)</h4>
@@ -369,11 +385,32 @@
 						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 					</div>	
 				{{ Form::close() }}
+				<form class="Foo9">
+					<div class="ContentOverflow">
+						<table>
+							<thead>
+								<tr>
+									<td><strong>número</strong></td>
+									<td><strong>tipo</strong></td>
+									<td><strong>Seleccionar</strong></td>
+								</tr>
+							</thead>
+							<tbody id="" class="content">
+									
+							</tbody>
+						</table>
+					</div>
+					<div class="ButtonsContainer">
+						<button class="OkButton Button">Aceptar</button>
+						<button onclick="window.open('http://localhost/pizarra/laravel/public/config/test');" class="AddButton Button">Aceptar</button>
+						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
+					</div>	
+				</form>
 			</div>													
 		</div>		
 	</div>
 	<div class="ColorPickerContainer">
-		<h5>Mano Alzada</h5>
+		<h5> Mano Alzada</h5>
 		<img onClick="closeAlert()" src="images/CloseButton2.png" height="20" id="closeButton2">
 		<div class="ColorPickerBig">
 			<div class="ColorPicker" style="background-color:#1ABC9C"></div>

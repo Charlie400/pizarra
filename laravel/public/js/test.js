@@ -2,6 +2,7 @@ var pacience = 0,
 testObject   = [];
 //Esta función muestra los formularios para los tests.
 function crearTest(){
+	$(".contentTest ul").css("display","none");
 	var ajax = new AjaxManager();
 
 	var data = ajax.constructData(['tituloTest', 'claseTest', 'categoryTest', 'multirespuesta',

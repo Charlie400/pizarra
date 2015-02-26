@@ -55,8 +55,8 @@
 						<li><label>Numero de preguntas</label><input id="preguntas" type="number" min="1" max=""></li>
 						<li><label>Numero de respuestas</label><input id="respuestas" type="number" min="1" max=""></li>
 						<li><label>Calificacion test</label>
-						<input id="calificacionTest" type="number" min="1" max=""><p id="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
-						<input id="calificacionTest2" type="number" min="0" max=""></br><p id="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
+						<input id="calificacionTest" type="number" min="1" max=""><p class="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
+						<p class="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
 						</li>
 						<li><div class="OkButton Button TestButton" onClick="crearTest()">Crear nuevo test</div>
 						<div class="CancelButton Button TestButton" onClick="closeAlert()">Cancelar</div></li>
@@ -72,7 +72,7 @@
 						<img src="../images/DownArrowWhite.png">
 					</div>
 					<div id="preguntasContainer">
-												
+						
 					</div>
 					<div id="explicacionContainer">
 						<p>Explicación de la pregunta</p>
@@ -105,15 +105,11 @@
 							<p>Respuesta 3</p>
 						</div>
 					</div>
-					<div id="testTreeButtonsContainer">
-						<input type="submit" value="Añadir pregunta">
-						<input type="submit" value="Añadir respuesta">
-					</div>
 				</section>
 			</div>
 		</div>
-		<div id="liTest2Content">
-			<div id="liTest2Content1">
+		<div class="LiTestAutomatico">
+			<div class="LiTestAutomatico1">
 				<div id="marcadorTestContainer">
 					<p>Test Nº</p>
 					<div id="marcadorTest">
@@ -123,7 +119,7 @@
 				<form>
 					<ul>
 						<li><label>Título</label><input id="tituloTest" type="text"></li>
-						<li><label>Alumno</label>
+						<li class="AlumnoTest"><label>Alumno</label>
 							<select id="alumnoTest" class="ComboBoxAlumno">
 								<option id="claseOption" value="#">Alumno</option>									
 							</select>
@@ -142,186 +138,15 @@
 						</li>
 						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>
 						<li><label>Calificacion test</label>
-						<input id="calificacionTest1" type="number" min="1" max=""><p id="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
-						<input id="calificacionTest2" type="number" min="0" max=""></br><p id="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
+						<input id="calificacionTest1" type="number" min="1" max=""><p class="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
+						<input id="calificacionTest2" type="number" min="0" max=""></br><p class="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
 						</li>
 						<li><div id="generarTest1" class="OkButton Button TestButton" onClick="generarTest()">Generar</div><input type="submit" class="CancelButton Button TestButton" onClick="closeAlert()" value="Cancelar"></li>
 					</ul>	
 				</form>
 			</div>
-			<div id="liTest2Content2">
-				<div id="preguntasContainer2">
-					<section>
-						<h3>Pregunta 1</h3>
-						<p>Cras id eleifend erat, a consequat libero. Curabitur nec nibh enim. Aliquam maximus dapibus tristique. Mauris et tincidunt orci</p>
-					</section>
-					<div>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-					</div>
-				</div>
-				<div class="TestButtonsContainer">
-						<input type="submit" class="OkButton Button TestButton TestButton2_1" value="Finalizar Test">
-						<div class="BackButton Button TestButton TestButton2_2" onClick="volverTest()">Volver Configuración Test</div>
-						<input type="submit" class="CancelButton Button TestButton TestButton2_3" onClick="closeAlert()" value="Cancelar">
-					</div>
-			</div>
-		</div>
-		<div id="liTest3Content">
-			<div id="liTest3Content1">
-				<div id="marcadorTestContainer">
-					<p>Test Nº</p>
-					<div id="marcadorTest">
-						<p>1</p>
-					</div>
-				</div>
-				<form>
-					<ul>
-						<li><label>Título</label><input id="tituloTest" type="text"></li>
-						<li><label>Clase(opcional)</label>
-							<select id="claseTest" class="ComboBoxClase">
-								<option id="claseOption" value="#">Clase</option>
-								<option value="otros">otros</option>									
-							</select>
-						</li>
-						<li><label>Tipo de Test</label>
-							<select class="ComboBoxTest">
-								<option value="1">Test sin penalizacion</option>
-								<option value="2">Test con penalizacion</option>
-							</select>
-						</li>
-						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>
-						<li><label>Calificacion test</label>
-						<input id="calificacionTest1" type="number" min="1" max=""><p id="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
-						<input id="calificacionTest2" type="number" min="0" max=""></br><p id="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
-						</li>
-						<li><div id="generarTest2" class="OkButton Button TestButton" onClick="generarTest()">Generar</div><input type="submit" class="CancelButton Button TestButton" onClick="closeAlert()" value="Cancelar"></li>
-					</ul>	
-				</form>
-			</div>
-			<div id="liTest3Content2">
-				<div id="preguntasContainer3">
-					<section>
-						<h3>Pregunta 1</h3>
-						<p>Cras id eleifend erat, a consequat libero. Curabitur nec nibh enim. Aliquam maximus dapibus tristique. Mauris et tincidunt orci</p>
-					</section>
-					<div>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-					</div>
-				</div>
-				<div class="TestButtonsContainer">
-						<input type="submit" class="OkButton Button TestButton TestButton2_1" value="Finalizar Test">
-						<div class="BackButton Button TestButton TestButton2_2" onClick="volverTest()">Volver Configuración Test</div>
-						<input type="submit" class="CancelButton Button TestButton TestButton2_3" onClick="closeAlert()" value="Cancelar">
-					</div>
-			</div>
-		</div>
-		<div id="liTest4Content">
-			<div id="liTest4Content1">
-				<div id="marcadorTestContainer">
-					<p>Test Nº</p>
-					<div id="marcadorTest">
-						<p>1</p>
-					</div>
-				</div>
-				<form>
-					<ul>
-						<li><label>Título</label><input id="tituloTest" type="text"></li>
-						<li><label>Clase(opcional)</label>
-							<select id="claseTest" class="ComboBoxClase">
-								<option id="claseOption" value="#">Clase</option>
-								<option value="otros">otros</option>									
-							</select>
-						</li>
-						<li><label>Tipo de Test</label>
-							<select class="ComboBoxTest">
-								<option value="1">Test sin penalizacion</option>
-								<option value="2">Test con penalizacion</option>
-							</select>
-						</li>
-						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>
-						<li><label>Calificacion test</label>
-						<input id="calificacionTest1" type="number" min="1" max=""><p id="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
-						<input id="calificacionTest2" type="number" min="0" max=""></br><p id="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
-						</li>
-						<li><div id="generarTest3" class="OkButton Button TestButton" onClick="generarTest()">Generar</div><input type="submit" class="CancelButton Button TestButton" onClick="closeAlert()" value="Cancelar"></li>
-					</ul>	
-				</form>
-			</div>
-			<div id="liTest4Content2">
-				<div id="preguntasContainer4">
-					<section>
-						<h3>Pregunta 1</h3>
-						<p>Cras id eleifend erat, a consequat libero. Curabitur nec nibh enim. Aliquam maximus dapibus tristique. Mauris et tincidunt orci</p>
-					</section>
-					<div>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-						<section>
-							Mauris nec massa tincidunt, pellentesque neque at, luctus massa. Nullam pharetra nibh ac lorem feugiat suscipit. Pellentesque sit amet rhoncus nisi.
-						</section>
-					</div>
-				</div>
-				<div class="TestButtonsContainer">
-						<input type="submit" class="OkButton Button TestButton TestButton2_1" value="Finalizar Test">
-						<div class="BackButton Button TestButton TestButton2_2" onClick="volverTest()">Volver Configuración Test</div>
-						<input type="submit" class="CancelButton Button TestButton TestButton2_3" onClick="closeAlert()" value="Cancelar">
-					</div>
-			</div>
-		</div>
-		<div id="liTest5Content">
-			<div id="liTest5Content1">
-				<div id="marcadorTestContainer">
-					<p>Test Nº</p>
-					<div id="marcadorTest">
-						<p>1</p>
-					</div>
-				</div>
-				<form>
-					<ul>
-						<li><label>Título</label><input id="tituloTest" type="text"></li>
-						<li><label>Clase(opcional)</label>
-							<select id="claseTest" class="ComboBoxClase">
-								<option id="claseOption" value="#">Clase</option>
-								<option value="otros">otros</option>									
-							</select>
-						</li>
-						<li><label>Tipo de Test</label>
-							<select class="ComboBoxTest">
-								<option value="1">Test sin penalizacion</option>
-								<option value="2">Test con penalizacion</option>
-							</select>
-						</li>
-						<li><label>Numero de preguntas</label><input type="number" min="1" max=""></li>
-						<li><label>Calificacion test</label>
-						<input id="calificacionTest1" type="number" min="1" max=""><p id="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
-						<input id="calificacionTest2" type="number" min="0" max=""></br><p id="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
-						</li>
-						<li><div id="generarTest4" class="OkButton Button TestButton" onClick="generarTest()">Generar</div><input type="submit" class="CancelButton Button TestButton" onClick="closeAlert()" value="Cancelar"></li>
-					</ul>	
-				</form>
-			</div>
-			<div id="liTest5Content2">
-				<div id="preguntasContainer5">
+			<div class="LiTestAutomatico2">
+				<div id="preguntasContainer">
 					<section>
 						<h3>Pregunta 1</h3>
 						<p>Cras id eleifend erat, a consequat libero. Curabitur nec nibh enim. Aliquam maximus dapibus tristique. Mauris et tincidunt orci</p>
