@@ -413,7 +413,11 @@ function eraseCanvas(){
 $('#pencil').on('click', ActivarPintar);
 
 function ActivarPintar(){
-  sPintarActivo = true;
+  if (sPintarActivo){
+    sPintarActivo = false;
+  }else{
+    sPintarActivo = true;
+  }
 }
 
 $('#type').on('click', ActivarEscribir);
