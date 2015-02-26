@@ -5,13 +5,11 @@ function crearTest(){
 	var ajax = new AjaxManager();
 
 	var data = ajax.constructData(['tituloTest', 'claseTest', 'categoryTest', 'multirespuesta',
-								   'preguntas', 'respuestas', 'calificacionTest1'], ['titulo', 'id_clase', 
+								   'preguntas', 'respuestas', 'calificacionTest'], ['titulo', 'id_clase', 
 								   'id_category', 'multirespuesta', 'preguntas', 'respuestas', 'puntuacion']);
 
 	if (document.getElementById('monorespuesta').checked) data['multirespuesta'] = 0;
 	else if (document.getElementById('multirespuesta').checked) data['multirespuesta'] = 1;
-
-	console.log(data['id_category'] == '2');
 
 	typeTest(data['id_category'] == '2', data['multirespuesta'], function(id){
 
@@ -105,7 +103,9 @@ function insertPregResContent(object, responseType)
 		{
 			if (mono)
 			{
-				content.append('<table id="respuestasContainer">'+
+				var id = 'formres' + i;
+				content.append('<form id="' + id + '"></form>');
+				$('#' + id).append('<table id="respuestasContainer">'+
 							'<tr class="RespuestaTable">'+								
 								'<th><input id="checkradio' + i + a + '" class="MonoRespuestaTest pregunta' + i + ' checkradio' + i + ' checkradio" onChange="changeValue(this.id,' + i + ')" name="SeleccionarRespuesta" type="radio" '+
 								'value="0"></th>'+

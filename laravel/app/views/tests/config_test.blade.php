@@ -55,7 +55,7 @@
 						<li><label>Numero de preguntas</label><input id="preguntas" type="number" min="1" max=""></li>
 						<li><label>Numero de respuestas</label><input id="respuestas" type="number" min="1" max=""></li>
 						<li><label>Calificacion test</label>
-						<input id="calificacionTest1" type="number" min="1" max=""><p id="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
+						<input id="calificacionTest" type="number" min="1" max=""><p id="Testp1">Seleccione el número de preguntas correctas necesarias para aprobar el test.</p>
 						<input id="calificacionTest2" type="number" min="0" max=""></br><p id="Testp2">Indique la puntuacion necesaria para aprobar el test.</p>
 						</li>
 						<li><div class="OkButton Button TestButton" onClick="crearTest()">Crear nuevo test</div>
