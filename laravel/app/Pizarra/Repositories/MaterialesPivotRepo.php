@@ -46,4 +46,9 @@ class MaterialesPivotRepo extends BaseRepo
 	{
 		return $this->getUserOrMaterials('user', 'id_material', $idMaterial);
 	}
+
+	public function subscribeMaterial($idUser, $idMaterial)
+	{
+		return $this->newCreateNewRecord(['id_user' => $idUser, 'id_material' => $idMaterial]);
+	}
 }

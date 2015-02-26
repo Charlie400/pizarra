@@ -1,6 +1,7 @@
 <?php
 
 use Pizarra\Repositories\MaterialRepo;
+use Pizarra\Repositories\MaterialesPivotRepo as PivotRepo;
 
 //for get FileController
 use Pizarra\Repositories\EscenarioRepo;
@@ -13,11 +14,15 @@ class MaterialController extends BaseController {
 	protected $materialRepo;
 	protected $fileController;
 
-	public function __construct(MaterialRepo $materialRepo, EscenarioRepo $escenarioRepo, ElementoRepo $elementoRepo)
+	public function __construct(MaterialRepo $materialRepo, PivotRepo $pivotRepo, EscenarioRepo $escenarioRepo, 
+								ElementoRepo $elementoRepo)
 	{
 		$this->materialRepo   = $materialRepo;
+		$this->pivotRepo      = $pivotRepo;
 		$this->fileController = new FileController($escenarioRepo, $elementoRepo);
 	}
+
+	//BEGIN CRUD
 
 	public function baseEditCreateMaterial($preFuncion, $material = false, $manager = false)
 	{
@@ -122,6 +127,15 @@ class MaterialController extends BaseController {
 	public function editTaskMaterial($data, $manager, $material)
 	{
 		return $this->taskMaterial($data, $manager, $material);
+	}
+
+	//END CRUD
+
+	public function subscribeUserToMaterial()
+	{
+		$data = Input::only('id_user', 'id_material');
+
+		$this->pivotRepo->subscribeMaterial($data['id_user'], $data['id_material']);
 	}
 
 	/*FIN FUNCIONALIDADES POR CONECTAR*/

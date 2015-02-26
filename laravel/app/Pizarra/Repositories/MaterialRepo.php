@@ -90,5 +90,5 @@ class MaterialRepo extends BaseRepo
 	public function deleteMaterial($idMaterial)
 	{
 		return $this->find($idMaterial)->delete();
-	}
+	}	
 }

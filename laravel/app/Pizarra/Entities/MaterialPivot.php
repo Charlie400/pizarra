@@ -1,6 +1,6 @@
 <?php namespace Pizarra\Entities;
 
-class DominioPivot extends \Eloquent {
+class MaterialPivot extends \Eloquent {
 	protected $fillable = ['id_material', 'id_user'];
 	protected $table 	= 'materialespivot';
 

@@ -16,14 +16,6 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-
-	<!-- PENSAR QUE HACER CON EL GENERADOR DE CONTRASEÑAS -->
-	@if(\Session::has('password'))
-		<!-- <input value="{{ \Session::get('password') }}" -->
-		<script type="text/javascript">
-			alert("{{ \Session::get('password') }}");
-		</script>
-	@endif
 	<header>
 		<div class="Titulo">
 			<h1>Pizarra Digital</h1>
@@ -336,7 +328,12 @@
 				</form>
 				{{ Form::open(['route' => 'supportMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8']) }} 
 					<select class="ComboBoxAlumno">
-						<option id="claseOption" value="#">Alumno</option>									
+						<option id="claseOption" value="#">Alumno</option>
+
+						@foreach($alumnos as $alumno)
+							<option id="{{ $alumno->id }}" value="{{ $alumno->id }}">{{ $alumno->username }}</option>
+						@endforeach
+
 					</select>
 					<select class="ComboBoxAsignadas">
 						<option id="claseOption" value="#">Asignacion</option>									

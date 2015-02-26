@@ -25,6 +25,13 @@ class UserRepo extends BaseRepo
 		return \Auth::user();
 	}
 
+	public function allAlumnos()
+	{
+		return $this->model
+			   ->where('roles', 'alumno')
+			   ->get();
+	}
+
 	public function generatePassword()
 	{
 		$pass    = "";

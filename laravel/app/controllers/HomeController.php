@@ -4,6 +4,7 @@ use Pizarra\Repositories\EscenarioRepo;
 use Pizarra\Repositories\ElementoRepo;
 use Pizarra\Repositories\DominioRepo;
 use Pizarra\Repositories\ClaseRepo;
+use Pizarra\Repositories\UserRepo;
 use Pizarra\Components\Recorder\RecorderUtils as Recorder;
 
 class HomeController extends BaseController {
@@ -25,15 +26,17 @@ class HomeController extends BaseController {
 	protected $elementoRepo;
 	protected $dominioRepo;
 	protected $claseRepo;
+	protected $userRepo;
 
 	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, EscenarioRepo $escenarioRepo,
-								ElementoRepo $elementoRepo, Recorder $recorder)
+								ElementoRepo $elementoRepo, Recorder $recorder, UserRepo $userRepo)
 	{
 		$this->escenarioRepo = $escenarioRepo;	
 		$this->elementoRepo  = $elementoRepo;	
 		$this->dominioRepo   = $dominioRepo;
 		$this->claseRepo     = $claseRepo;
 		$this->recorder      = $recorder;
+		$this->userRepo      = $userRepo;
 	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
@@ -42,8 +45,9 @@ class HomeController extends BaseController {
 	public function index()
 	{
 		$dominios = $this->dominioRepo->findAll();
+		$alumnos  = $this->userRepo->allAlumnos();
 
-		return View::make('pizarra', compact('dominios'));
+		return View::make('pizarra', compact('dominios', 'alumnos'));
 	}
 
 	public function getMenuImages($repo)
