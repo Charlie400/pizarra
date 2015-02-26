@@ -42,8 +42,9 @@ function crearTest(){
 				}
 				else
 				{
+
 					testObject = test;
-					console.log(testObject.errors);
+					console.log('Esto es:'+testObject.errors);
 					if ( ! testObject.errors)
 					{						
 						$("#liTest1Content1").css("display","none");

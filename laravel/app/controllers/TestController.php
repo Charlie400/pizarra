@@ -50,7 +50,7 @@ class TestController extends BaseController {
 		else
 		{
 			$errors = $manager->errors();
-			$errors->errors = true;
+			$errors->add('errors', true);
 
 			echo json_encode($errors);			
 		}
