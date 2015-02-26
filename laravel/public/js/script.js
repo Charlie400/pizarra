@@ -1328,6 +1328,7 @@ function dibujoManoAlzada(){
 	$(".ColorPickerContainer").css('top', p.top);
 	$(".ColorPickerContainer").toggle();
 	$("#closeButton2").on("click",ocultarColorPicker);
+	$("#closeButton3").on("click",ocultarTypeContainer);
 	function ocultarColorPicker(){
 		$(".ColorPickerContainer").hide();	
 		if ($(".ColorPickerContainer").is(":visible")){
@@ -1341,6 +1342,9 @@ function dibujoManoAlzada(){
 	}else{
 		$('#botonDibujoDiv').css('background-color','#3498DB');
 	}	
+	function ocultarTypeContainer(){
+		$(".TypeContainer").hide();	
+	}
 }
 
 $('.ColorPickerContainer h4').on('mouseover', moverMenu);
@@ -1349,3 +1353,11 @@ function moverMenu(){
 	//$('.ColorPickerContainer').drags();
 	$('.ColorPickerContainer').draggable();
 }
+
+$('#type').on('click', EditorDeTexto);
+
+function EditorDeTexto(){
+	$('.TypeContainer').draggable();
+	$(".TypeContainer").toggle();
+}
+
