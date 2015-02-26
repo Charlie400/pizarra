@@ -14,6 +14,9 @@ var Name = {
 	GuardarSnapshot: 'guardarSnapshot',
 	GuardarGrabacion: 'guardarGrabacion',
 	CrearAsignacion: 'crearAsignacion',
+	EnviarAsignacion: 'enviarAsignacion',
+	ModificarAsignacion: 'modificarAsignacion',
+	EliminarAsignacion: 'eliminarAsignacion',
 	ModificarTest: 'modificarTest'
 };
 //funcion para cambiar clase por parámetros.
@@ -733,12 +736,6 @@ function createAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$(".ComboBoxAsignadas").hide();
-	if ($(window).width() <= 1024) {
-	$(".ComboBoxAlumno").css("margin","auto");
-	$(".ComboBoxAlumno").css("display","block");
-	};
-	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "0");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);	
 
@@ -747,8 +744,8 @@ function createAsignacion()
 	
 	if ($('#comboAsignacion').val() == 0) { //Apoyo
 		typeAsignacion.val(0);
-		$('#foo83').css('display','block');
-		$('#foo84').css('display','block');
+		$('#foo83').css('display','inline-block');
+		$('#foo84').css('display','inline-block');
 		$('#foo85').css('display','none');
 	}else{									//Tareas
 		typeAsignacion.val(1);
@@ -768,6 +765,20 @@ function createAsignacion()
 	});
 }
 
+function sendAsignacion()
+{
+	var clase = ".Foo9";
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(clase);
+	hideFormsLess(clase); 
+	$(".AlertContainer").fadeIn();
+	$("#td1").hide();
+	$("#td2").show();
+	$("#td3").hide();
+	$(".ComboBoxAsignadas").show();
+	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
+	formParametros(true,false,true,"Enviar "+asignacion,"Seleccione alumno y asignación y pulse aceptar", Name.EnviarAsignacion);	
+}
 function editAsignacion()
 {
 	var clase = ".Foo8";
@@ -775,16 +786,8 @@ function editAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$(".ComboBoxAsignadas").show();
-	$(".ComboBoxAlumno").css("display","inline-block");
-	$(".ComboBoxAlumno").css("margin","1.2em");
-	if ($(window).width() <= 1024) {
-	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "0em");	
-	}else{
-	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "8em");
-	};
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
-	formParametros(true,false,true,"Modificar "+asignacion,"Modifique los cambios deseados y pulse aceptar", Name.CrearAsignacion);	
+	formParametros(true,false,true,"Modificar "+asignacion,"Modifique los cambios deseados y pulse aceptar", Name.ModificarAsignacion);	
 
 	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
 	var typeAsignacion = $('#typeAsignacion');
@@ -819,16 +822,8 @@ function deleteAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$(".ComboBoxAlumno").css("display","inline-block");
-	$(".ComboBoxAlumno").css("margin","1.2em");
-	$(".ComboBoxAsignadas").show();
-	if ($(window).width() <= 1024) {
-	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "0em");	
-	}else{
-	$(".Foo8 h3:nth-of-type(1)").css("margin-left", "8em");
-	};
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
-	formParametros(true,false,true,"Eliminar "+asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.CrearAsignacion);	
+	formParametros(true,false,true,"Eliminar "+asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.EliminarAsignacion);	
 
 	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
 	var typeAsignacion = $('#typeAsignacion');
@@ -862,6 +857,10 @@ function modificarTest()
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
 	hideFormsLess(clase); 
+	$("#td1").show();
+	$("#td2").hide();
+	$("#td3").show();
+	$(".ComboBoxAsignadas").hide();
 	$(".AlertContainer").fadeIn();
 	formParametros(false,true,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
 }
@@ -870,7 +869,11 @@ function eliminarTest()
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
-	hideFormsLess(clase); 
+	hideFormsLess(clase);
+	$("#td1").show();
+	$("#td2").hide();
+	$("#td3").show();
+	$(".ComboBoxAsignadas").hide();
 	$(".AlertContainer").fadeIn();
 	formParametros(true,false,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
 }
@@ -1368,6 +1371,6 @@ function EditorDeTexto(){
   	}else{
     	sPintarActivo = true;
     	$('#type').css('box-shadow', '0px 0px 2px #FFF');
-  	}	
+  	}
 }
 

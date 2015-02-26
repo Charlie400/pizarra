@@ -20,7 +20,13 @@ textarea{
 	resize:none;
 }
 
-
+#svg1{
+	
+}
+#svgChild1{
+	stroke-width:5px;
+	stroke:green;
+}
 
 
 
@@ -775,7 +781,7 @@ h1{
 
 .AlertElement{
 	height: 100%;
-	margin: 5% 5% 15% 5%;
+	margin: 0% 5% 15% 5%;
 }
 
 .AlertElement input{
@@ -849,7 +855,7 @@ h1{
 
 .Foo8 h3{
 	display:inline-block;
-	margin: 0.9em;
+	margin: 0 1em;
 }
 
 .Foo8 textarea{
@@ -878,7 +884,7 @@ h1{
 }
 #foo85 select{
 	width: 25%;
-	margin: 1em;
+	margin: 0.1em;
 }
 #foo85 h4{
 	margin: 0;
@@ -981,7 +987,6 @@ h1{
 	right:2%; 
 	top:2%;
 }
-
 #closeButton4{
 	color: white;
 	cursor: pointer;

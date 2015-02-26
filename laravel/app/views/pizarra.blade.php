@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+
 	<header>
 		<div class="Titulo">
 			<h1>Pizarra Digital</h1>
@@ -104,6 +105,7 @@
 					<option id="tareaOption" value="1">Tareas a realizar</option>
 				</select>
 				<input id="botonCrearAsignacion" onclick="createAsignacion()" type="submit" name="Boton2" value="Crear asignación">
+				<input id="botonEnviarAsignacion" onclick="sendAsignacion()" type="submit" name="Boton2" value="Enviar asignación">
 				<input id="botonModificarAsignacion" onclick="editAsignacion()" type="submit" name="Boton2" value="Modificar asignación">
 				<input id="botonEliminarAsignacion" onclick="deleteAsignacion()" type="submit" name="Boton2" value="Eliminar asignación">
 			</div>
@@ -155,6 +157,10 @@
 
 				{{ Field::select('selectDominio', null, ['input' => ['class' => 'ComboBoxDominio']]) }}
 				{{ Field::text('foo11') }}
+				<svg id="svg1" width="40" height="40">
+					<line id="svgChild1" x1="0" y1="0" x2="100" y2="100"/>
+					<line id="svgChild1" x1="100" y1="100" x2="400" y2="400"/>
+				</svg>	
 					<p id="foo1Fail"><p>
 					<div class="ButtonsContainer">					
 						<button class="OkButton Button">Aceptar</button>
@@ -327,19 +333,10 @@
 					<input id="foo73" onClick="closeAlert()" type="button" value="Cancelar">
 				</form>
 				{{ Form::open(['route' => 'supportMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8']) }} 
-					<select class="ComboBoxAlumno">
-						<option id="claseOption" value="#">Alumno</option>
-
-						@foreach($alumnos as $alumno)
-							<option id="{{ $alumno->id }}" value="{{ $alumno->id }}">{{ $alumno->username }}</option>
-						@endforeach
-
-					</select>
-					<select class="ComboBoxAsignadas">
-						<option id="claseOption" value="#">Asignacion</option>									
-					</select>
-					<h3>Título</h3>
-					<input id="foo81" name="titulo" type="text">
+					<div>
+						<h3>Título</h3>
+						<input id="foo81" name="titulo" type="text">
+					</div>
 					<h3>Descripción</h3>
 					<textarea id="foo82" name="descripcion" ></textarea>
 					<h4 id="foo83">Documento adjunto</h4>
@@ -383,12 +380,16 @@
 					</div>	
 				{{ Form::close() }}
 				<form class="Foo9">
+					<select class="ComboBoxAsignadas">
+						<option id="claseOption" value="#">Asignacion</option>									
+					</select>
 					<div class="ContentOverflow">
 						<table>
 							<thead>
 								<tr>
-									<td><strong>número</strong></td>
-									<td><strong>tipo</strong></td>
+									<td id="td1"><strong>número</strong></td>
+									<td id="td2"><strong>Alumno</strong></td>
+									<td id="td3"><strong>tipo</strong></td>
 									<td><strong>Seleccionar</strong></td>
 								</tr>
 							</thead>
