@@ -1329,6 +1329,7 @@ function dibujoManoAlzada(){
 	$(".ColorPickerContainer").toggle();
 	$("#closeButton2").on("click",ocultarColorPicker);
 	$("#closeButton3").on("click",ocultarTypeContainer);
+	$("#closeButton4").on("click",ocultarInputText);
 	function ocultarColorPicker(){
 		$(".ColorPickerContainer").hide();	
 		if ($(".ColorPickerContainer").is(":visible")){
@@ -1344,6 +1345,9 @@ function dibujoManoAlzada(){
 	}	
 	function ocultarTypeContainer(){
 		$(".TypeContainer").hide();	
+	}
+	function ocultarInputText(){
+		$(".TempTypeText").hide();	
 	}
 }
 
