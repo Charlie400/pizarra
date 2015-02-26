@@ -546,7 +546,7 @@ h1{
 	position: absolute;
 	right: 30%;
 	text-align: center;
-	top: 12%;
+	top: 9%;
 	width: 40%;
 }
 
@@ -781,7 +781,7 @@ h1{
 
 .AlertElement{
 	height: 100%;
-	margin: 0% 5% 15% 5%;
+	margin: 0% 5% 10% 5%;
 }
 
 .AlertElement input{
