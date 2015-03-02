@@ -42,10 +42,16 @@ function getCanvasSnapshot()
     req.send(data);
 
     req.onreadystatechange = function () {
-                                if (request.readyState === 4 && request.status === 200 
-                                    && request.responseText === 'true')
+                                if (req.readyState === 4 && req.status === 200 
+                                    && req.responseText === 'true')
                                 {
-                                    downloadFile('/snapshots/00000000.png');
+                                    saveSnapshot()
+
+                                    document.getElementById("foo72").addEventListener("click", function(){
+                                        downloadFile('/snapshots/00000000.png');
+                                        closeAlert();
+                                    });
+                                    
                                 }   
                             }
 }

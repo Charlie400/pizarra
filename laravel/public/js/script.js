@@ -339,34 +339,6 @@ if ($("#dominio").val() == 0){
 	$("#clase").prop("disabled", false);
 	$("#clase").attr('class', 'ComboBoxClase');
 }
-//Esta función añade un cuadro de texto para agregar clase a un test.
-$("#claseTest").on("change", testOtros);
-function testOtros(){
-var otros = $('#claseTest').val();
-	if (otros == "otros"){
-		$("#testOtros").val("");
-		$("#testOtros").css('display','inline');
-	}else{
-		$("#testOtros").css('display','none');
-	}
-}
-//Ésta función oculta la opción de seleccionar el tipo de respuesta así como la información dependiendo del tipo de test seleccionado en el combo
-$(".ComboBoxTest").on("change", respuestaTest);
-function respuestaTest(){
-	var comboTest = $(".ComboBoxTest").not( ":hidden" ).val();
-	if (comboTest == "1"){
-		$("#formTest").css('display','inline-block');
-		$(".Testp2").css('display','none');
-		$(".Testp1").css('display','inline-block');
-		$(".TestValue").css("display","none");
-	}else if (comboTest == "2"){
-		$("#formTest").css('display','none');
-		$(".Testp1").css('display','none');
-		$(".Testp2").css('display','inline-block');
-		$(".TestValue").css("display","table-cell");
-	}
-}
-respuestaTest();
 //función para incluir calendario a los formularios.
 $(function() {
     $( ".Datepicker").datepicker();
@@ -729,6 +701,11 @@ function saveRecord()
 	$("#foo72").attr('name',"DescargarGrabacion");
 }
 
+function getSelectedDomain()
+{
+	return $('#dominio').val();
+}
+
 function createAsignacion()
 {
 	var clase = ".Foo8";
@@ -737,7 +714,14 @@ function createAsignacion()
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
-	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);	
+	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);
+
+	//Vaciar los campos del alert
+	empty(['foo81', 'foo82', 'foo853', 'foo86', 'foo87', 'foo88', 'foo851']);
+
+	//Se le da valor al campor supportTaskDominio que enviará posteriormente la información al servidor con la id
+	//de dominio
+	document.getElementById('supportTaskDominio').value = getSelectedDomain();	
 
 	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
 	var typeAsignacion = $('#typeAsignacion');
@@ -813,6 +797,8 @@ function editAsignacion()
 			$("#foo853").css("display","none");
 		}
 	});
+
+	fillWithAsignacion(8);
 }
 
 function deleteAsignacion()
@@ -850,36 +836,6 @@ function deleteAsignacion()
 		}
 	});
 }
-
-function modificarTest()
-{
-	var clase = ".Foo9";
-	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
-	showClass(clase);
-	hideFormsLess(clase); 
-	$("#td1").show();
-	$("#td2").hide();
-	$("#td3").show();
-	$(".ComboBoxAsignadas").hide();
-	$(".AlertContainer").fadeIn();
-	formParametros(false,true,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
-}
-function eliminarTest()
-{
-	var clase = ".Foo9";
-	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
-	showClass(clase);
-	hideFormsLess(clase);
-	$("#td1").show();
-	$("#td2").hide();
-	$("#td3").show();
-	$(".ComboBoxAsignadas").hide();
-	$(".AlertContainer").fadeIn();
-	formParametros(true,false,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
-}
-
-
-
 
 //En la variable n se pasará un nombre para el input dado que es necesario para enviar el formulario.
 function formParametros(pOkButton, pAddButton, pCancelButton, pTitulo, pCuerpo, n){
@@ -1321,6 +1277,16 @@ function editUser()
 	modifyUser(id, names, 'edit', '.EU_errors', 'Error');
 }
 
+function testLocation()
+{
+	var id_dominio = getSelectedDomain();
+
+	if ( ! isEmpty(id_dominio) )
+	{
+		window.open('http://localhost/pizarra/laravel/public/config/test/' + id_dominio);
+	}
+}
+
 /*-------------------- TERMINAN MÉTODOS PARA ENVIAR FORMS POR AJAX -----------------------*/
 
 /*------------TERMINAN LAS FUNCIONES QUE USAN AJAX PARA INTERACTUAR CON EL CONTENIDO-----------*/
@@ -1373,4 +1339,3 @@ function EditorDeTexto(){
     	$('#type').css('box-shadow', '0px 0px 2px #FFF');
   	}
 }
-

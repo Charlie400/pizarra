@@ -18,6 +18,11 @@ abstract class BaseRepo
 		return $this->model->find($id);
 	}
 
+	public function where($field, $value)
+	{
+		return $this->model->where($field, $value);
+	}
+
 	public function findAll()
 	{
 		return $this->model->all();

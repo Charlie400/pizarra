@@ -3,14 +3,14 @@
 	<meta charset="UTF-8"/>
 	<title>Nuevo Test</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="stylesheet" type="text/css" href="../css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset ('/css/normalize.css') }}">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="{{ asset ('/js/jquery-1.11.1.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('/js/utils.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('/js/test.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('/js/recorderjs/recorder.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('/js/recorderjs/recorderWorker.js') }}"></script>
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset ('/css/style.css') }}">
 </head>
 <body class="BodyTest">
 	<div class="TituloTest">
@@ -36,9 +36,13 @@
 					<ul>
 						<li><label>Título</label><input id="tituloTest" type="text"></li>
 						<li><label>Clase(opcional)</label>
-							<select id="claseTest" class="ComboBoxClase">
+							<select id="claseTest1" class="ComboBoxClase">
 								<option id="claseOption" value="#">Clase</option>
-								<option value="otros">otros</option>									
+
+								@foreach($clases as $clase)								
+									<option value="$clase->id">{{ $clase->Nombre }}</option>			
+								@endforeach
+
 							</select>
 							<input id="testOtros" type="text" placeholder="Indique tema">
 						</li>
@@ -66,10 +70,10 @@
 			<div id="liTest1Content2">
 				<section id="testSection1">
 					<div id="botonEsconder1" onclick="slideRight()">
-						<img src="../images/RightArrowWhite.png">
+						<img src="{{ asset ('/images/RightArrowWhite.png') }}">
 					</div>
 					<div id="botonEsconder2" onclick="slideDown()">
-						<img src="../images/DownArrowWhite.png">
+						<img src="{{ asset ('/images/DownArrowWhite.png') }}">
 					</div>
 					<div id="preguntasContainer">
 						
@@ -78,18 +82,18 @@
 						<p>Explicación de la pregunta</p>
 						<textarea></textarea>
 						<div id="explicacionIcons">
-							<img class="TestIcon" src="../images/SubirLocal.png">
-							<img class="TestIcon" src="../images/Iconovideo.png">
-							<img class="TestIcon" src="../images/Iconoimagen.png">
-							<img class="TestIcon" src="../images/IconoEscenario.png">
-							<img class="TestIcon" src="../images/IconoElemento.png">
+							<img class="TestIcon" src="{{ asset ('/images/SubirLocal.png') }}">
+							<img class="TestIcon" src="{{ asset ('/images/Iconovideo.png') }}">
+							<img class="TestIcon" src="{{ asset ('/images/Iconoimagen.png') }}">
+							<img class="TestIcon" src="{{ asset ('/images/IconoEscenario.png') }}">
+							<img class="TestIcon" src="{{ asset ('/images/IconoElemento.png') }}">
 						</div>
 					</div>
 				</section>
 				<section id="testSection2">
 					<div id="testTreeContainer">
 						<div class="TestTreeTittles">
-							<input type="radio" name="PreguntaTest"><label>Pregunta 1</label><img src="../images/RightArrow.png" class="TestArrow" width="9" height="9">
+							<input type="radio" name="PreguntaTest"><label>Pregunta 1</label><img src="{{ asset ('/images/RightArrow.png') }}" class="TestArrow" width="9" height="9">
 						</div>
 						<div class="TestTreeBody">
 							<p>Respuesta 1</p>
@@ -97,7 +101,7 @@
 							<p>Respuesta 3</p>
 						</div>
 						<div class="TestTreeTittles">
-							<input type="radio" name="PreguntaTest"><label>Pregunta 2</label><img src="../images/RightArrow.png" class="TestArrow" width="9" height="9">
+							<input type="radio" name="PreguntaTest"><label>Pregunta 2</label><img src="{{ asset ('/images/RightArrow.png') }}" class="TestArrow" width="9" height="9">
 						</div>
 						<div class="TestTreeBody">
 							<p>Respuesta 1</p>
@@ -121,13 +125,25 @@
 						<li><label>Título</label><input id="tituloTest" type="text"></li>
 						<li class="AlumnoTest"><label>Alumno</label>
 							<select id="alumnoTest" class="ComboBoxAlumno">
-								<option id="claseOption" value="#">Alumno</option>									
+								<option id="claseOption" value="#">Alumno</option>								
+
+								@foreach($pivots as $pivot)
+									<?php $user = $pivot->user; ?>
+									<option value="{{ $user->id }}">
+										{{ $user->firstname . ' ' . $user->lastname }}
+									</option>
+								@endforeach
+
 							</select>
 						</li>
 						<li><label>Clase(opcional)</label>
-							<select id="claseTest" class="ComboBoxClase">
+							<select id="claseTest2" class="ComboBoxClase">
 								<option id="claseOption" value="#">Clase</option>
-								<option value="otros">otros</option>									
+
+								@foreach($clases as $clase)								
+									<option value="$clase->id">{{ $clase->Nombre }}</option>			
+								@endforeach		
+
 							</select>
 						</li>
 						<li><label>Tipo de Test</label>
@@ -171,6 +187,6 @@
 			</div>
 		</div>
 	</div>
-		<script type="text/javascript" src="../js/script.js"></script>
+		<script type="text/javascript" src="{{ asset ('/js/script.js') }}"></script>
 </body>
 </html>

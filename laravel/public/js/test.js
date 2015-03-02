@@ -1,3 +1,60 @@
+//Esta función añade un cuadro de texto para agregar clase a un test.
+$("#claseTest").on("change", testOtros);
+function testOtros(){
+var otros = $('#claseTest').val();
+	if (otros == "otros"){
+		$("#testOtros").val("");
+		$("#testOtros").css('display','inline');
+	}else{
+		$("#testOtros").css('display','none');
+	}
+}
+
+//Ésta función oculta la opción de seleccionar el tipo de respuesta así como la información dependiendo del tipo de test seleccionado en el combo
+$(".ComboBoxTest").on("change", respuestaTest);
+function respuestaTest(){
+	var comboTest = $(".ComboBoxTest").not( ":hidden" ).val();
+	if (comboTest == "1"){
+		$("#formTest").css('display','inline-block');
+		$(".Testp2").css('display','none');
+		$(".Testp1").css('display','inline-block');
+		$(".TestValue").css("display","none");
+	}else if (comboTest == "2"){
+		$("#formTest").css('display','none');
+		$(".Testp1").css('display','none');
+		$(".Testp2").css('display','inline-block');
+		$(".TestValue").css("display","table-cell");
+	}
+}
+respuestaTest();
+
+function modificarTest()
+{
+	var clase = ".Foo9";
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(clase);
+	hideFormsLess(clase); 
+	$("#td1").show();
+	$("#td2").hide();
+	$("#td3").show();
+	$(".ComboBoxAsignadas").hide();
+	$(".AlertContainer").fadeIn();
+	formParametros(false,true,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
+}
+function eliminarTest()
+{
+	var clase = ".Foo9";
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
+	showClass(clase);
+	hideFormsLess(clase);
+	$("#td1").show();
+	$("#td2").hide();
+	$("#td3").show();
+	$(".ComboBoxAsignadas").hide();
+	$(".AlertContainer").fadeIn();
+	formParametros(true,false,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
+}
+
 var pacience = 0,
 testObject   = [];
 //Esta función muestra los formularios para los tests.

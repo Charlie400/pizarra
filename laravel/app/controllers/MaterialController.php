@@ -33,7 +33,8 @@ class MaterialController extends BaseController {
 			if ( $type ) 
 			{
 				$data  = Input::only('titulo', 'descripcion', 'testType', 'time', 'examen', 'desde', 'hasta', 
-									 'visible');			
+									 'visible', 'id_dominio');				
+
 				$manager = new TaskManager($this->materialRepo->getModel(), $data);
 
 				$checkboxs = ['examen', 'visible'];
@@ -42,7 +43,7 @@ class MaterialController extends BaseController {
 			}
 			else
 			{ 
-				$data  = Input::only('titulo', 'descripcion', 'desde', 'hasta', 'visible');
+				$data  = Input::only('titulo', 'descripcion', 'desde', 'hasta', 'visible', 'id_dominio');
 
 				$checkboxs = ['visible'];
 
@@ -136,6 +137,20 @@ class MaterialController extends BaseController {
 		$data = Input::only('id_user', 'id_material');
 
 		$this->pivotRepo->subscribeMaterial($data['id_user'], $data['id_material']);
+	}
+
+	public function getMaterial($id)
+	{
+		$material = $this->materialRepo->find($id);
+
+		if ( ! is_null($material))
+		{
+			echo json_encode($material);
+		}
+		else
+		{
+			throw new Error("No existe el material consultado.");
+		}
 	}
 
 	/*FIN FUNCIONALIDADES POR CONECTAR*/

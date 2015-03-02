@@ -24,7 +24,7 @@ Route::group(['before' => 'auth'], function()
 	//INDEX HOME
 	Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 	Route::get('/alumnos', ['as' => 'alumno', 'uses' => 'AlumnoController@index']);
-	Route::get('/config/test', ['as' => 'test', 'uses' => 'TestController@index']);
+	Route::get('/config/test/{id_dominio}', ['as' => 'test', 'uses' => 'TestController@index']);
 
 	/*COMIENZAN FUNCIONALIDADES DEL HOME*/
 	Route::get('/mostrar-clases', ['as' => 'getClasses', 'uses' => 'HomeController@getClasses']);
@@ -46,6 +46,7 @@ Route::group(['before' => 'auth'], function()
 	Route::get('/baja/alumno', ['as' => 'unsubscribe', 'uses' => 'UserController@unsubscribe']);
 	Route::get('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);
 	Route::post('/crear/material', ['as' => 'supportMaterial', 'uses' => 'MaterialController@createMaterial']); 	
+	Route::post('/traer/material/{id}', ['as' => 'getMaterial', 'uses' => 'MaterialController@getMaterial']);
 	//POST por GET para pruebas
 
 	Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);

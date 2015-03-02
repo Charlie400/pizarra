@@ -1,0 +1,10 @@
+-Añadido alert cuando se hace un snapshot para decidir subirla o eliminarla
+-No quede texto al abrir crear asignación.
+-Añadir clases en crear test, para ello enviaremos la id_dominio en la url al cargar la pantalla de crear tests.
+-Añadir usuarios en crear test.
+
+-HACER-Cuando captures una imagen se guarde con un nombre único(con uniqid() por ejemplo) para luego poder usarlos en el servidor sin que
+sobreescriban, también si se pulsa cancelar debe hacer una petición de eliminación de la imagen en cuestión.
+
+-FALTA- Checkbox en tareas a realizar en la parte donde están los tests.
+-FALTA- Poder añadir elementos al canvas

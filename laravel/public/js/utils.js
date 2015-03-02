@@ -1,5 +1,22 @@
 ; /*  AQUÍ SOLO SE ESCRIBIRÁN FUNCIONES QUE SIRVAN DE AYUDA AL RESTO DE ARCHIVOS, PERO NUNCA UNA FUNCIONALIDAD  */ 
 
+function empty(ids)
+{
+	var element;
+	for (var i in ids)
+	{
+		element = document.getElementById(ids[i]);
+		if (element.type != 'checkbox')
+		{
+			element.value = "";			
+		}
+		else
+		{
+			element.checked = false;
+		}
+	}
+}
+
 function isEmpty(bar)
 {
 	bar = bar.replace(/ /g, '');

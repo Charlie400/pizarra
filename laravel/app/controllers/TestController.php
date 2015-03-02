@@ -9,19 +9,34 @@ use Pizarra\Managers\RespuestaManager;
 use Pizarra\Managers\PreguntaManager;
 
 use Pizarra\Repositories\TestRepo;
+use Pizarra\Repositories\ClaseRepo;
+use Pizarra\Repositories\DominioPivotRepo;
 
 class TestController extends BaseController {
 
 	protected $testRepo;
+	protected $claseRepo;
+	protected $dominioPivotRepo;
 
-	public function __construct(TestRepo $testRepo)
+	public function __construct(TestRepo $testRepo, ClaseRepo $claseRepo, DominioPivotRepo $dominioPivotRepo)
 	{
-		$this->testRepo = $testRepo;
+		$this->testRepo  		= $testRepo;
+		$this->claseRepo 		= $claseRepo;
+		$this->dominioPivotRepo = $dominioPivotRepo;
 	}
 
-	public function index()
+	public function index($id_dominio)
 	{
-		return View::make('tests/config_test');
+		$clases = $this->claseRepo
+					->where('id_dominio', $id_dominio)
+					->get();
+
+		$pivots = $this->dominioPivotRepo
+					->where('id_dominio', $id_dominio)
+					->with('user')
+					->get();
+
+		return View::make('tests/config_test', compact('clases', 'pivots'));
 	}
 
 	public function getTestTypes($penaliza, $multirespuesta)

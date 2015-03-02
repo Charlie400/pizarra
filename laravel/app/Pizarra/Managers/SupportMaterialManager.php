@@ -10,7 +10,8 @@ class SupportMaterialManager extends BaseManager
 			'documento'   => '',
 			'desde' 	  => 'required',
 			'hasta'       => 'required',
-			'visible'     => 'required|in:0,1'			
+			'visible'     => 'required|in:0,1',
+			'id_dominio'  => 'required|numeric'
 		];
 
 		return $rules;

@@ -11,6 +11,7 @@
 	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="{{ asset ('js/utils.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/canvas.js') }}"></script>
+	<script type="text/javascript" src="{{ asset ('js/material.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorder.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorderWorker.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -110,7 +111,7 @@
 				<input id="botonEliminarAsignacion" onclick="deleteAsignacion()" type="submit" name="Boton2" value="Eliminar asignación">
 			</div>
 			<div id="generacionHerramientas" class="MenuHerramientas">
-				<input id="botonCrearTest" onclick="window.open('http://localhost/pizarra/laravel/public/config/test');" type="submit" name="Boton2" value="Nuevo">
+				<input id="botonCrearTest" onclick="testLocation()" type="submit" name="Boton2" value="Nuevo">
 				<input id="botonModificarTest" onclick="modificarTest()" type="submit" name="Boton2" value="Modificar">
 				<input id="botonEliminarTest" onclick="eliminarTest()" type="submit" name="Boton2" value="Eliminar">
 				<input id="botonImprimirTest" onclick="imprimirTest()" type="submit" name="Boton2" value="Imprimir">
@@ -373,6 +374,7 @@
 					<h4>siempre visible</h4>
 					<input id="foo88" type="checkbox" name="visible" value="1">
 					<input type="hidden" value="0" id="typeAsignacion" name="typeAsignacion" />
+					<input type="hidden" value="" id="supportTaskDominio" name="id_dominio" />
 					<div class="ButtonsContainer">					
 						<button class="OkButton Button">Aceptar</button>
 						<button class="AddButton Button">Agregar</button>

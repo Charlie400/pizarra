@@ -7,12 +7,13 @@ class TaskMaterialManager extends BaseManager
 		$rules = [
 			'titulo'      => 'required|max:150',
 			'descripcion' => 'required|max:1000',
-			'time'        => 'required',
+			'time'        => '',
 			'testType'    => 'required',
-			'examen'      => 'required|in:0,1',
+			'examen'      => 'in:0,1',
 			'desde' 	  => '',
 			'hasta'       => '',
-			'visible'     => 'required|in:0,1'	
+			'visible'     => 'required|in:0,1',
+			'id_dominio'  => 'required|numeric'
 		];
 
 		return $rules;

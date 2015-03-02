@@ -2,7 +2,7 @@
 
 class Material extends \Eloquent {
 	protected $fillable = ['time', 'testtype', 'examen', 'titulo', 'descripcion', 'documento', 'desde', 'hasta', 
-						   'visible'];
+						   'visible', 'id_dominio'];
 	protected $table    = 'materiales';
 	protected $format   = 'Y-m-d H:i:s';
 
@@ -33,5 +33,10 @@ class Material extends \Eloquent {
 		$newDate =  strtotime("+23 hour 59 minute 59 second", strtotime($date));
 
 		$this->attributes['hasta'] = date($this->format, $newDate);
+	}
+
+	public function setExamenAttribute($value)
+	{
+		if (is_null($value)) $this->attributes['examen'] = 0;
 	}
 }

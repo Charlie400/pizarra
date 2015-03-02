@@ -25,8 +25,7 @@ class RegisterManager extends BaseManager
 			'province'    => 'max:120:',
 			'cp'          => 'digits:5',
 			'borndate'    => 'required',
-			'obs'         => 'max:255',
-			'id_dominio'  => 'required|numeric'
+			'obs'         => 'max:255'
 		];
 
 		return $rules;

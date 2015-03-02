@@ -205,7 +205,7 @@ class RecorderUtils {
 
 			if ($delete)
 			{
-				sleep(10);
+				sleep(2);
 
 				$this->deleteFile($file);
 			}
