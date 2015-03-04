@@ -31,12 +31,12 @@ class HomeController extends BaseController {
 	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, EscenarioRepo $escenarioRepo,
 								ElementoRepo $elementoRepo, Recorder $recorder, UserRepo $userRepo)
 	{
-		$this->escenarioRepo = $escenarioRepo;	
-		$this->elementoRepo  = $elementoRepo;	
-		$this->dominioRepo   = $dominioRepo;
-		$this->claseRepo     = $claseRepo;
-		$this->recorder      = $recorder;
-		$this->userRepo      = $userRepo;
+		$this->escenarioRepo 	= $escenarioRepo;	
+		$this->elementoRepo  	= $elementoRepo;	
+		$this->dominioRepo   	= $dominioRepo;
+		$this->claseRepo     	= $claseRepo;
+		$this->recorder      	= $recorder;
+		$this->userRepo         = $userRepo;
 	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
@@ -45,7 +45,6 @@ class HomeController extends BaseController {
 	public function index()
 	{
 		$dominios = $this->dominioRepo->findAll();
-		$alumnos  = $this->userRepo->allAlumnos();
 
 		return View::make('pizarra', compact('dominios', 'alumnos'));
 	}

@@ -132,11 +132,21 @@ class MaterialController extends BaseController {
 
 	//END CRUD
 
-	public function subscribeUserToMaterial()
+	public function subscribeUsersToMaterial()
 	{
 		$data = Input::only('id_user', 'id_material');
+		$createdAll = true;		
 
-		$this->pivotRepo->subscribeMaterial($data['id_user'], $data['id_material']);
+		if ( ! is_null($data['id_user']) && ! is_null($data['id_material']) 
+		&& count($data['id_user']) > 0 && ! empty($data['id_material']))
+		{
+			foreach ($data['id_user'] as $idUser)
+			{
+				if ($this->pivotRepo->subscribeMaterial($idUser, $data['id_material']) != true) $createdAll = false;
+			}
+		}
+
+		return Redirect::back();
 	}
 
 	public function getMaterial($id)
@@ -146,6 +156,24 @@ class MaterialController extends BaseController {
 		if ( ! is_null($material))
 		{
 			echo json_encode($material);
+		}
+		else
+		{
+			throw new Error("No existe el material consultado.");
+		}
+	}
+
+	public function getDomainMaterials()
+	{	
+		$id_dominio = Input::only('id_dominio')['id_dominio'];
+
+		$materials = $this->materialRepo
+					 	->where('id_dominio', $id_dominio)
+					 	->get();
+
+		if ( ! is_null($materials))
+		{
+			echo json_encode($materials);
 		}
 		else
 		{

@@ -47,6 +47,10 @@ Route::group(['before' => 'auth'], function()
 	Route::get('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);
 	Route::post('/crear/material', ['as' => 'supportMaterial', 'uses' => 'MaterialController@createMaterial']); 	
 	Route::post('/traer/material/{id}', ['as' => 'getMaterial', 'uses' => 'MaterialController@getMaterial']);
+	Route::post('/asignar/material', ['as' => 'asignarMaterial', 'uses' => 'MaterialController@subscribeUsersToMaterial']);
+	Route::post('/traer/dominio/materiales', ['as' => 'getDomainMaterials', 'uses' => 'MaterialController@getDomainMaterials']);
+
+	Route::post('/traer/dominio/usuarios', ['as' => 'getDomainUsers', 'uses' => 'UserController@getDomainUsers']);
 	//POST por GET para pruebas
 
 	Route::post('/borrar/escenario', ['as' => 'borrarEscenario', 'uses' => 'HomeController@borrarEscenario']);

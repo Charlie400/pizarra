@@ -7,9 +7,6 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="{{ asset ('/js/jquery-1.11.1.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('/js/utils.js') }}"></script>
-	<script type="text/javascript" src="{{ asset ('/js/test.js') }}"></script>
-	<script type="text/javascript" src="{{ asset ('/js/recorderjs/recorder.js') }}"></script>
-	<script type="text/javascript" src="{{ asset ('/js/recorderjs/recorderWorker.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="{{ asset ('/css/style.css') }}">
 </head>
 <body class="BodyTest">
@@ -188,5 +185,6 @@
 		</div>
 	</div>
 		<script type="text/javascript" src="{{ asset ('/js/script.js') }}"></script>
+		<script type="text/javascript" src="{{ asset ('/js/test.js') }}"></script>
 </body>
 </html>

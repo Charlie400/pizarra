@@ -163,7 +163,7 @@ function liTest1F(){
 
 	$("#liTest1Content").show();
 	$(".LiTestAutomatico").hide();
-	$(".ComboBoxTest").val(0);
+	$(".ComboBoxTest").val(1);
 	$("#formTest").css('display','inline-block');
 	$(".Testp2").css('display','none');
 	$(".Testp1").css('display','inline-block');
@@ -182,7 +182,7 @@ function liTest2F(){
 	$(".LiTestAutomatico").show();
 	$(".AlumnoTest").show();
 	$("#liTest1Content").hide();
-	$(".ComboBoxTest").val(0);
+	$(".ComboBoxTest").val(1);
 	$(".Testp2").css('display','none');
 	$(".Testp1").css('display','inline-block');
 	volverTest();
@@ -199,7 +199,7 @@ function liTest3F(){
 	$(".LiTestAutomatico").show();
 	$(".AlumnoTest").hide();
 	$("#liTest1Content").hide();
-	$(".ComboBoxTest").val(0);
+	$(".ComboBoxTest").val(1);
 	$(".Testp2").css('display','none');
 	$(".Testp1").css('display','inline-block');
 	volverTest();
@@ -216,7 +216,7 @@ function liTest4F(){
 	$(".LiTestAutomatico").show();
 	$(".AlumnoTest").hide();
 	$("#liTest1Content").hide();
-	$(".ComboBoxTest").val(0);
+	$(".ComboBoxTest").val(1);
 	$(".Testp2").css('display','none');
 	$(".Testp1").css('display','inline-block');
 	volverTest();
@@ -233,7 +233,7 @@ function liTest5F(){
 	$(".LiTestAutomatico").show();
 	$(".AlumnoTest").hide();
 	$("#liTest1Content").hide();
-	$(".ComboBoxTest").val(0);
+	$(".ComboBoxTest").val(1);
 	$(".Testp2").css('display','none');
 	$(".Testp1").css('display','inline-block');
 	volverTest();
@@ -706,6 +706,49 @@ function getSelectedDomain()
 	return $('#dominio').val();
 }
 
+/*
+* Comprueba que la información enviada por sendAsignacion este preparada para ir al servidor, aún así habrá una 
+* posterior comprobación en el servidor, para evitar envios fraudulentos.
+*/
+function checkSendAsignacion()
+{
+	//Comprobamos cuantos checkboxs tiene nuestro formulario
+	var cuantosChecks = getClassValues('checkBoxSendAsignacion').length,
+	//Traemos el valor del select de asignación y declaramos algunas variables útiles
+		select        = document.getElementById('ComboBoxAsignaciones').value, id,
+		checkboxs     = [];
+
+	//Comprobamos que checkbox están seleccionados y los almacenamos en un array
+	for (var i = 0; i < cuantosChecks; i++)
+	{
+		id = 'checkBoxSendAsignacion' +  i;
+
+		if (isChecked(id))
+		{
+			checkboxs.push(document.getElementById(id).value);
+		}
+	}
+
+	console.log(checkboxs);
+	console.log(select);
+
+	//Definimos unas variables booleanas en las que almacenaremos los resultados en forma de cumplido o no cumplido
+	var checkEmpty, selectEmpty;
+
+	checkEmpty  = arrayEmpty(checkboxs);
+	selectEmpty = isEmpty(select);
+
+	if (checkEmpty || selectEmpty)
+	{
+		css('asignacionError', 'display', 'inline-block');
+	}
+	else
+	{
+		simulateClick('OkButtomSimulateClick');
+	}	
+
+}
+
 function createAsignacion()
 {
 	var clase = ".Foo8";
@@ -751,6 +794,44 @@ function createAsignacion()
 
 function sendAsignacion()
 {
+	getDomainMaterials(function(materials){
+		console.log(materials);
+		var material, select = $('#ComboBoxAsignaciones');
+
+		select.empty();
+		select.append('<option value="">Asignaciones</option>');
+
+		for (var i in materials)
+		{
+			material = materials[i];			
+			
+			select.append('<option value="' + material.id + '">'+ 
+								material.titulo + 
+						  '</option>');
+		}
+	});
+
+	getDomainUsers(function(users) {
+		console.log(users);
+		var user, tbody = $('#tbodySendAsignacion');
+
+		tbody.empty();
+
+		for (var i in users)
+		{
+			user  = users[i];
+			user.name = user.firstname + ' ' + user.lastname;
+
+			tbody.append('<tr>'+
+							'<td><strong>'+ user.name + '</strong></td>'+
+							'<td><input name="id_user[]" type="checkbox" class="checkBoxSendAsignacion"'+
+							'id="checkBoxSendAsignacion' + i + '"' +
+							'value="' + user.id + 
+							'" /></td>'+
+					  '</tr>');
+		}
+	});
+
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);

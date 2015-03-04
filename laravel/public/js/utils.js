@@ -17,6 +17,21 @@ function empty(ids)
 	}
 }
 
+function simulateClick(id)
+{
+	document.getElementById(id).click();
+}
+
+function isCheckbox(id)
+{
+	if (document.getElementById(id).type == 'checkbox')
+	{
+		return true;
+	}
+
+	return false;
+}
+
 function isEmpty(bar)
 {
 	bar = bar.replace(/ /g, '');
@@ -24,6 +39,36 @@ function isEmpty(bar)
 	if (bar === '') return true;
 	
 	return false;
+}
+
+function isChecked(id)
+{
+	if (isCheckbox(id))
+	{
+		return document.getElementById(id).checked;
+	}
+
+	return null;
+}
+
+function isArray(array)
+{
+	return array instanceof Array;
+}
+
+function arrayEmpty(array)
+{	
+	if (isArray(array))
+	{
+		return ! array.length > 0;
+	}
+
+	return null;
+}
+
+function css(id, property, value)
+{
+	document.getElementById(id).style[property] = value;
 }
 
 function typeTest(penaliza, multirespuesta, callback)
@@ -89,6 +134,43 @@ function getResForPreg(object, pregunta)
 
 	return respuestas;
 }
+
+function getDomainFoo(url, callback)
+{
+	var domain = getSelectedDomain(),
+		ajax   = new AjaxManager();
+
+	ajax.request({
+			data: {"id_dominio": domain},
+			url: url,
+			responseType: 'json',
+			success: function(response){
+				//AQUI
+				callback(response);
+			},
+			errors: function(err)
+			{
+				console.log("Aquí tienes el error: " + err);
+			}
+		});
+}
+
+//Trae a los usuarios pertenecientes al dominio seleccionado
+function getDomainUsers(callback)
+{
+	getDomainFoo('/traer/dominio/usuarios', function(res){
+		callback(res);
+	});
+}
+
+//Trae a los materiales pertenecientes al dominio seleccionado
+function getDomainMaterials(callback)
+{
+	getDomainFoo('/traer/dominio/materiales', function(res){
+		callback(res);
+	});
+}
+
 
 function getClassValues(clase)
 {

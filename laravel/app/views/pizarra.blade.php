@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="{{ asset ('js/jquery-1.11.1.js') }}"></script>
 	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="{{ asset ('js/utils.js') }}"></script>
+	<script type="text/javascript" src="{{ asset ('js/test.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/canvas.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/material.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorder.js') }}"></script>
@@ -381,9 +382,8 @@
 						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 					</div>	
 				{{ Form::close() }}
-				<form class="Foo9">
-					<select class="ComboBoxAsignadas">
-						<option id="claseOption" value="#">Asignacion</option>									
+				{{ Form::open(['route' => 'asignarMaterial', 'method' => 'POST', 'class' => 'Foo9']) }}
+					<select name="id_material" id="ComboBoxAsignaciones" class="ComboBoxAsignadas">							
 					</select>
 					<div class="ContentOverflow">
 						<table>
@@ -395,13 +395,17 @@
 									<td><strong>Seleccionar</strong></td>
 								</tr>
 							</thead>
-							<tbody id="" class="content">
+							<tbody id="tbodySendAsignacion" class="content">
 									
 							</tbody>
 						</table>
 					</div>
+					<span id="asignacionError" class="CU_errors" style="display:none">
+						Seleccione un material y al menos un alumno antes de enviar.
+					</span>
 					<div class="ButtonsContainer">
-						<button class="OkButton Button">Aceptar</button>
+						<div class="OkButton Button" onClick="checkSendAsignacion()" >Aceptar</div>
+						<button id="OkButtomSimulateClick" style="display: none;"></button>
 						<button onclick="window.open('http://localhost/pizarra/laravel/public/config/test');" class="AddButton Button">Aceptar</button>
 						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 					</div>	

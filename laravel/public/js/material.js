@@ -32,14 +32,3 @@ function fillWithAsignacion(id)
 	});
 
 }
-
-//Deja los campos de la asignación vacía
-function emptyAsignacion()
-{
-	$('#foo81').val("");
-	$('#foo82').val("");
-	$('#foo86').val("");
-	$('#foo87').val("");
-	if($('#foo88').is(':checked')) $('#foo88').prop('checked', '');
-	if($('#foo851').is(':checked')) $('#foo851').prop('checked', '');
-}

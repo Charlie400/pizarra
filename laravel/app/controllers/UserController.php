@@ -3,16 +3,19 @@
 use Pizarra\Entities\User;
 use Pizarra\Managers\LoginManager;
 use Pizarra\Repositories\UserRepo;
+use Pizarra\Repositories\DominioPivotRepo;
 
 class UserController extends BaseController
 {
 
 	protected $errors;
 	protected $userRepo;
+	protected $dominioPivotRepo;
 
-	public function __construct(UserRepo $userRepo)
+	public function __construct(UserRepo $userRepo, DominioPivotRepo $dominioPivotRepo)
 	{
 		$this->userRepo = $userRepo;
+		$this->dominioPivotRepo = $dominioPivotRepo;
 	}
 
 	public function index()
@@ -172,6 +175,27 @@ class UserController extends BaseController
 	public function unsubscribe() //dar de alta; route = '/alta/alumno';
 	{
 		return $this->baseSubscribe(false);		
+	}
+
+	public function getDomainUsers()
+	{
+		$data = Input::only('id_dominio');
+
+		$pivots = $this->dominioPivotRepo
+					->where('id_dominio', $data['id_dominio'])
+					->with('user')
+					->get();
+
+		$users = array();
+
+		foreach ($pivots as $pivot) 
+		{
+			$users[] = $pivot->user;
+		}
+
+		unset($pivots);
+
+		echo json_encode($users);
 	}
 
 	//FIN Funcionalidades por conectar
