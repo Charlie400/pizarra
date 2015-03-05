@@ -37,7 +37,7 @@
 								<option id="claseOption" value="#">Clase</option>
 
 								@foreach($clases as $clase)								
-									<option value="$clase->id">{{ $clase->Nombre }}</option>			
+									<option value="{{ $clase->id }}">{{ $clase->Nombre }}</option>			
 								@endforeach
 
 							</select>
@@ -138,7 +138,7 @@
 								<option id="claseOption" value="#">Clase</option>
 
 								@foreach($clases as $clase)								
-									<option value="$clase->id">{{ $clase->Nombre }}</option>			
+									<option value="{{ $clase->id }}">{{ $clase->Nombre }}</option>			
 								@endforeach		
 
 							</select>

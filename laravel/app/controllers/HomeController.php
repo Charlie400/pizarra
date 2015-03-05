@@ -5,6 +5,7 @@ use Pizarra\Repositories\ElementoRepo;
 use Pizarra\Repositories\DominioRepo;
 use Pizarra\Repositories\ClaseRepo;
 use Pizarra\Repositories\UserRepo;
+use Pizarra\Repositories\ImageRepo;
 use Pizarra\Components\Recorder\RecorderUtils as Recorder;
 
 class HomeController extends BaseController {
@@ -27,9 +28,11 @@ class HomeController extends BaseController {
 	protected $dominioRepo;
 	protected $claseRepo;
 	protected $userRepo;
+	protected $imageRepo;
 
 	public function __construct(DominioRepo $dominioRepo, ClaseRepo $claseRepo, EscenarioRepo $escenarioRepo,
-								ElementoRepo $elementoRepo, Recorder $recorder, UserRepo $userRepo)
+								ElementoRepo $elementoRepo, Recorder $recorder, UserRepo $userRepo,
+								ImageRepo $imageRepo)
 	{
 		$this->escenarioRepo 	= $escenarioRepo;	
 		$this->elementoRepo  	= $elementoRepo;	
@@ -37,10 +40,10 @@ class HomeController extends BaseController {
 		$this->claseRepo     	= $claseRepo;
 		$this->recorder      	= $recorder;
 		$this->userRepo         = $userRepo;
+		$this->imageRepo        = $imageRepo;
 	}
 
 	/*--------------EMPIEZAN MÉTODOS PARA MOSTRAR LA PANTALLA DE PROFESOR-----------------*/
-
 
 	public function index()
 	{
@@ -172,10 +175,12 @@ class HomeController extends BaseController {
 	}
 
 	public function saveSnapShot()
-	{		
-		if ($_POST['limit'] && $_POST['limit'] == 1 && isset($_POST['data']))
-		{
-			$this->recorder->saveSnapShot();
+	{	
+		if (isset($_POST['limit'], $_POST['data'], $_POST['id_dominio']) && $_POST['limit'] == 1 )
+		{	
+			$id_dominio = $_POST['id_dominio'];			
+
+			$this->recorder->saveSnapShot($this->imageRepo, $id_dominio);
 		}
 	}
 
@@ -206,6 +211,17 @@ class HomeController extends BaseController {
 			sleep(0.15);
 			$this->recorder->fillFile($audio, $path);
 		}
+	}
+
+	public function deleteSnapshot($id)
+	{
+		$path = public_path() . '/js/multimedia/snapshots/' . $id . '.png';
+
+		$this->recorder->deleteFile($path);
+
+		$image = $this->imageRepo->find($id);
+
+		echo json_encode($image->delete());
 	}
 
 	public function indexProof()

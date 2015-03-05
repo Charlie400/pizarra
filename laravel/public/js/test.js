@@ -62,7 +62,7 @@ function crearTest(){
 	$(".contentTest ul").css("display","none");
 	var ajax = new AjaxManager();
 
-	var data = ajax.constructData(['tituloTest', 'claseTest', 'categoryTest', 'multirespuesta',
+	var data = ajax.constructData(['tituloTest', 'claseTest1', 'categoryTest', 'multirespuesta',
 								   'preguntas', 'respuestas', 'calificacionTest'], ['titulo', 'id_clase', 
 								   'id_category', 'multirespuesta', 'preguntas', 'respuestas', 'puntuacion']);
 

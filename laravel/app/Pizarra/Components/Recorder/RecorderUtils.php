@@ -135,27 +135,59 @@ class RecorderUtils {
 		}					
 	}
 
-	public function saveSnapShot()
+	public function saveSnapShot($imageRepo, $id_dominio)
 	{
+		//Preparamos la ruta donde se almacenará la imagen
 		$multimedia = public_path() . '/js/multimedia';
+			//El slug nos servirá para almacenar solo la última parte de la url de la imagen
+		$slug = '/snapshots/';
 
-		$path = "$multimedia/snapshots/";
+		$path = $multimedia . $slug;
 
-		if ($this->fileExist($path))
-		{			
-			$d    = $this->decodeBase64($_POST['data']);
-				    
-			$this->createImageFile($path, 0, $d);
+		//Guardamos una entidad vacía para poder usar la id como nombre de la imagen.
+		$image   = $imageRepo->getModel();
 
-			echo json_encode(true);
+		$image->save();
+
+		//Actualizamos con el manager la entidad
+		$id = $image->id;
+
+		//Completamos el slug
+		$slug = $slug . $id . '.png';
+
+		$manager = $imageRepo->getManager($image, ['url' => $slug, 'id_dominio' => $id_dominio]);
+
+		$isSave = $manager->save();
+
+		//Comprobamos que exite el directiorio, si no, lo creamos
+		if ($this->fileExist($path) && $isSave)
+		{	
+			//Decodificamos los datos		
+			$d   = $this->decodeBase64($_POST['data']);
+			
+			//Creamos la imagen
+			$this->createImageFile($path, 0, $d, $path . $id . '.png');
+
+			//Devolvemos true para indicar que el proceso fue exitoso.
+			echo json_encode($id);
+			
+		}
+		else
+		{
+			//En caso de fallo borramos la entidad
+			$image->delete();
 		}
 	}
 
 	///TEMP
 
-	public function createImageFile($path, $i, $d)
+	public function createImageFile($path, $i, $d, $filename = false)
 	{
-		$filename = sprintf('%s%08d.png', $path, $i);
+		if ( ! $filename )
+		{
+			$filename = sprintf('%s%08d.png', $path, $i);
+		}
+
 		$this->createFile($filename, $d);	
 	}
 
@@ -182,13 +214,20 @@ class RecorderUtils {
 		return "ffmpeg -f image2 -i $pathImg -i $pathAudio -r $fPerSecond -s $size $pathVid";
 	}
 
+	public function downloadSnapshot()
+	{
+		
+	}
+
 	public function downloadFile($file, $delete = false)
 	{		
 		$fileName = $this->outLast(($this->divide('/', $file)));
 		$dir  = public_path();
 		$file = $dir . $file;
 
-		if ($this->isAllowDownload($fileName) && \File::exists($file))
+		$allow = array('png', 'avi');
+
+		if ($this->validFile($file, $allow) && \File::exists($file))
 		{
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/octet-stream');
@@ -224,6 +263,27 @@ class RecorderUtils {
 	public function isAllowDownload($fileName)
 	{
 		return in_array($fileName, $this->allowFiles());		
+	}
+
+	public function validFile($fileName, $allow)
+	{
+		//Obtenemos la extensión del archivo
+		$fileName = explode('.', $fileName);
+
+		$count = count($fileName) > 1;		
+
+		if ($count)
+		{	
+			//Conseguimos la extensión del archivo	
+			$ext   = array_pop($fileName);
+			$ext   = strtolower($ext);
+
+			//Comprobamos si es un archivo permitido
+			return in_array($ext, $allow);
+			
+		}
+
+		return false;
 	}
 
 	///TEMP

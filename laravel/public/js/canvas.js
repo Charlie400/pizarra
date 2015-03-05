@@ -31,29 +31,58 @@ function stopVideoAudio()
 
 /*------------------GETTING CANVAS SNAPSHOT--------------------*/
 
+var imageId;
+
 function getCanvasSnapshot()
 {
-    var snapshot = getDataURL(), url = serverURL+'/save-snapshot', data, req;
-    
-    req  = createXMLHttpRequest('post', url, 'application/x-www-form-urlencoded');
+    var snapshot   = getDataURL(), url = serverURL+'/save-snapshot', data, req,
+        id_dominio = getSelectedDomain();
 
-    data = 'data='+encodeURIComponent(snapshot)+'&limit=1&packages=1';
+    if ( ! isEmpty(id_dominio) )
+    {
 
-    req.send(data);
+        req  = createXMLHttpRequest('post', url, 'application/x-www-form-urlencoded');
 
-    req.onreadystatechange = function () {
-                                if (req.readyState === 4 && req.status === 200 
-                                    && req.responseText === 'true')
-                                {
-                                    saveSnapshot()
+        data = 'data='+encodeURIComponent(snapshot)+'&limit=1&packages=1&id_dominio=' + id_dominio;
 
-                                    document.getElementById("foo72").addEventListener("click", function(){
-                                        downloadFile('/snapshots/00000000.png');
-                                        closeAlert();
-                                    });
-                                    
-                                }   
-                            }
+        req.send(data);
+
+        req.onreadystatechange = function () {
+                                    if (req.readyState === 4 && req.status === 200)
+                                    {
+                                        imageId  = req.responseText;
+                                        var slug = '/snapshots/' + imageId + '.png';
+                                        saveSnapshot();
+
+                                        document.getElementById("foo72").addEventListener("click", function(){
+                                            downloadFile(slug);
+                                            closeAlert();
+                                        });
+                                        
+                                    }   
+                                }
+    }
+    else
+    {
+        alert('Debes seleccionar un dominio.');
+    }
+}
+
+function deleteSnapshot()
+{
+    var ajax = new AjaxManager();
+
+    ajax.request({
+            url: '/delete-snapshot/' + imageId,
+            success: function()
+            {
+                closeAlert();
+            },
+            errors: function(err)
+            {
+                console.log("Aquí tienes el error: " + err);
+            }
+        });
 }
 
 //DOWNLOADS FUNCTION

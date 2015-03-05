@@ -59,6 +59,7 @@ Route::group(['before' => 'auth'], function()
 
 	//SNAPSHOT
 	Route::post('/save-snapshot', ['as' => 'saveSnapShot', 'uses' => 'HomeController@saveSnapShot']);
+	Route::post('/delete-snapshot/{id}', ['as' => 'deleteSnapShot', 'uses' => 'HomeController@deleteSnapShot']);
 	
 	/*BEGIN VIDEO CANVAS AND AUDIO*/
 	Route::post('/save-video', ['as' => 'saveVideo', 'uses' => 'HomeController@saveVideo']);

@@ -95,7 +95,7 @@ class FileController extends BaseController
 	public function downloadFile($carpet, $fileName)
 	{
 		$file     = '/js/multimedia/' . $carpet . '/' . $fileName;
-		$delete   = true;		
+		$delete   = true;	
 
 		Recorder::downloadFile($file, $delete);
 	}
@@ -140,9 +140,7 @@ class FileController extends BaseController
 			$ext   = strtolower($ext);
 
 			//Comprobamos si es un archivo permitido
-			$inArray = in_array($ext, $allow);
-
-		 	return $inArray;
+			return in_array($ext, $allow);
 			
 		}
 
