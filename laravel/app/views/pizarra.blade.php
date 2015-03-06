@@ -10,8 +10,8 @@
 	<script type="text/javascript" src="{{ asset ('js/jquery-1.11.1.js') }}"></script>
 	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	<script type="text/javascript" src="{{ asset ('js/utils.js') }}"></script>
-	<script type="text/javascript" src="{{ asset ('js/test.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/canvas.js') }}"></script>
+	<script type="text/javascript" src="{{ asset ('js/test.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/material.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorder.js') }}"></script>
 	<script type="text/javascript" src="{{ asset ('js/recorderjs/recorderWorker.js') }}"></script>
@@ -30,7 +30,6 @@
 					<li id="usuarios" Class="Menu-Item">Usuarios</li>
 					<li id="asignaciones" Class="Menu-Item">Asignaciones</li>
 					<li id="generacion" Class="Menu-Item">Generación de Test</li>
-					<li id="administracion" Class="Menu-Item">Administración</li>
 				</ul>
 				<div class="CuadroUsuario">
 					<?php $user = Auth::user(); ?>
@@ -118,9 +117,6 @@
 				<input id="botonImprimirTest" onclick="imprimirTest()" type="submit" name="Boton2" value="Imprimir">
 				<input id="botonGuardarTest" onclick="guardarTest()" type="submit" name="Boton2" value="Guardar Como">
 			</div>
-			<!-- <div id="administracionHerramientas" class="MenuHerramientas">
-				<input id="botonProfe" onClick="createProfesor()" type="submit" name="Boton2" value="Usuarios"/>
-			</div> -->
 		</div>
 	</header>
 
@@ -154,15 +150,37 @@
 				
 			</div>
 			<div class="AlertElement">
+
 				{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo1', 
 							   'id' => 'createDomClass']) }}
+			   <div id="Foo1ContentOverflow" class="ContentOverflow">
+						<table>
+							<thead>
+								<tr>
+									<td id="td1"><strong>número</strong></td>
+									<td id="td2"><strong>Alumno</strong></td>
+									<td id="td3"><strong>tipo</strong></td>
+									<td><strong>Seleccionar</strong></td>
+								</tr>
+							</thead>
+							<tbody id="tbodySendAsignacion" class="content">
+									
+							</tbody>
+						</table>
+					</div>
 
 				{{ Field::select('selectDominio', null, ['input' => ['class' => 'ComboBoxDominio']]) }}
 				{{ Field::text('foo11') }}
-				<svg id="svg1" width="40" height="40">
-					<line id="svgChild1" x1="0" y1="0" x2="100" y2="100"/>
-					<line id="svgChild1" x1="100" y1="100" x2="400" y2="400"/>
-				</svg>	
+				<svg class="svg1" width="25" height="25">
+					<circle cx="12.5" cy="12.5" r="11" stroke="grey" stroke-width="2" fill="none"></circle>
+					<line id="svg1Child1" x1="6" y1="13" x2="12" y2="20" stroke-linecap="round"></line>
+					<line id="svg1Child2" x1="12" y1="20" x2="24" y2="7" stroke-linecap="round"></line>
+				</svg>
+				<svg class="svg2" width="25" height="25">
+					<circle cx="12.5" cy="12.5" r="11" stroke="grey" stroke-width="2" fill="none"></circle>
+					<line id="svg2Child1" x1="6" y1="6" x2="20" y2="20" stroke-linecap="round"></line>
+					<line id="svg2Child2" x1="6" y1="20" x2="20" y2="6" stroke-linecap="round"></line>
+				</svg>
 					<p id="foo1Fail"><p>
 					<div class="ButtonsContainer">					
 						<button class="OkButton Button">Aceptar</button>
@@ -238,6 +256,16 @@
 						<p id="password1Error" class="CU_errors"></p>
 						<p id="password_confirmation1Error" class="CU_errors"></p>
 					</div>
+					<svg class="svg1" width="25" height="25">
+						<circle cx="12.5" cy="12.5" r="11" stroke="grey" stroke-width="2" fill="none"></circle>
+						<line id="svg1Child1" x1="6" y1="13" x2="12" y2="20" stroke-linecap="round"></line>
+						<line id="svg1Child2" x1="12" y1="20" x2="24" y2="7" stroke-linecap="round"></line>
+					</svg>
+					<svg class="svg2" width="25" height="25">
+						<circle cx="12.5" cy="12.5" r="11" stroke="grey" stroke-width="2" fill="none"></circle>
+						<line id="svg2Child1" x1="6" y1="6" x2="20" y2="20" stroke-linecap="round"></line>
+						<line id="svg2Child2" x1="6" y1="20" x2="20" y2="6" stroke-linecap="round"></line>
+					</svg>
 					<div class="ButtonsContainer">					
 						<div class="OkButton Button" onClick="createUser()">Aceptar</div>
 						<button class="AddButton Button">Agregar</button>
@@ -299,8 +327,17 @@
 						{{ Field::password('password_confirmation', 
 						['input' => ['placeholder' => 'Repite Contraseña']]) }}
 						<p id="password_confirmationError" class="EU_errors"></p>
-					
 					</div>
+					<svg class="svg1" width="25" height="25">
+						<circle cx="12.5" cy="12.5" r="11" stroke="grey" stroke-width="2" fill="none"></circle>
+						<line id="svg1Child1" x1="6" y1="13" x2="12" y2="20" stroke-linecap="round"></line>
+						<line id="svg1Child2" x1="12" y1="20" x2="24" y2="7" stroke-linecap="round"></line>
+					</svg>
+					<svg class="svg2" width="25" height="25">
+						<circle cx="12.5" cy="12.5" r="11" stroke="grey" stroke-width="2" fill="none"></circle>
+						<line id="svg2Child1" x1="6" y1="6" x2="20" y2="20" stroke-linecap="round"></line>
+						<line id="svg2Child2" x1="6" y1="20" x2="20" y2="6" stroke-linecap="round"></line>
+					</svg>
 					<div class="ButtonsContainer">					
 						<div class="OkButton Button" onClick="editUser()">Aceptar</div>
 						<button class="AddButton Button">Agregar</button>
@@ -336,7 +373,9 @@
 				</form>
 				{{ Form::open(['route' => 'supportMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8']) }} 
 					<div>
-						<h3>Título</h3>
+						<select name="id_material" id="ComboBoxAsignaciones" class="ComboBoxAsignadas">										
+						</select>
+						<h3>Título</h3>						
 						<input id="foo81" name="titulo" type="text">
 					</div>
 					<h3>Descripción</h3>
@@ -365,8 +404,8 @@
 						</div>	
 						<h4>Modo exámen</h4>
 						<input id="foo851" type="checkbox" name="examen" value="1">
-						<h4 id="foo852">Duración(horas/minutos)</h4>
-						<input id="foo853" type="time" name="time">
+						<h4 id="foo852">Duración(minutos)</h4>
+						<input id="foo853" type="number" name="time" min="1" max="60">
 					</section>
 					<h3>fecha desde</h3>
 					<h3>fecha hasta</h3>
@@ -383,7 +422,7 @@
 					</div>	
 				{{ Form::close() }}
 				{{ Form::open(['route' => 'asignarMaterial', 'method' => 'POST', 'class' => 'Foo9']) }}
-					<select name="id_material" id="ComboBoxAsignaciones" class="ComboBoxAsignadas">							
+					<select name="id_material" id="ComboBoxAsignaciones" class="ComboBoxAsignadas">										
 					</select>
 					<div class="ContentOverflow">
 						<table>
@@ -400,7 +439,7 @@
 							</tbody>
 						</table>
 					</div>
-					<span id="asignacionError" class="CU_errors" style="display:none">
+					<span id="asignacionError" class="CU_errors CU_errorsAsignacion" style="display:none">
 						Seleccione un material y al menos un alumno antes de enviar.
 					</span>
 					<div class="ButtonsContainer">

@@ -19,16 +19,78 @@ body{
 textarea{
 	resize:none;
 }
-
-#svg1{
-	
+/*keyframes para animar checks*/
+.svg1{
+ 	-webkit-animation: svg1Second 3s;
+    animation: svg1Second 3s;
+    display: none;
 }
-#svgChild1{
-	stroke-width:5px;
-	stroke:green;
+#svg1Child1{
+	stroke-width:4px;
+	stroke:#16A085;
+	-webkit-animation: svg1First 3s;
+    animation: svg1First 3s;
 }
-
-
+#svg1Child2{
+	stroke-width:4px;
+	stroke:#16A085;
+	-webkit-animation: svg1First 3s;
+    animation: svg1First 3s;
+}
+@-webkit-keyframes svg1First {
+	0%   { opacity: 0;stroke:grey;}
+    30% { opacity: 1;stroke:grey;}
+    60% {stroke:#16A085;}
+}
+@keyframes svg1First {
+ 	0%   { opacity: 0;stroke:grey;}
+    30% { opacity: 1;stroke:grey;}
+    60% {stroke:#16A085;}
+}
+@-webkit-keyframes svg1Second {
+    30% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}
+@keyframes svg1Second {
+    30% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}
+.svg2{
+ 	-webkit-animation: svg2Second 3s;
+    animation: svg2Second 3s;
+    display: none;
+}
+#svg2Child1{
+	stroke-width:4px;
+	stroke:red;
+	-webkit-animation: svg2First 3s;
+    animation: svg2First 3s;
+}
+#svg2Child2{
+	stroke-width:4px;
+	stroke:red;
+	-webkit-animation: svg2First 3s;
+    animation: svg2First 3s;
+}
+@-webkit-keyframes svg2First {
+	0%   { opacity: 0;stroke:grey;}
+    30% { opacity: 1;stroke:grey;}
+    60% {stroke:red;}
+}
+@keyframes svg2First {
+ 	0%   { opacity: 0;stroke:grey;}
+    30% { opacity: 1;stroke:grey;}
+    60% {stroke:red;}
+}
+@-webkit-keyframes svg2Second {
+    30% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}
+@keyframes svg2Second {
+    30% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+}
+/*Terminan keyframes*/
 
 #LoginContainer{
 	background-color: #2C3E50;
@@ -409,6 +471,21 @@ h1{
 	white-space: nowrap;
 	width: 15%;
 }
+.Menu-ItemDisabled{
+	background-color: #E3E7E8;
+	border-radius: 5px;
+	color: #BDC3C7;
+	cursor: default;
+	display: inline-block;
+	font-size: 0.8vw;
+	font-weight: bold;
+	height: 1.3em;
+	padding: 0.2em;
+	text-align: center;
+	top: 0.1em;
+	white-space: nowrap;
+	width: 15%;
+}
 
 .MenuHerramientas{
 	height: 1.8em;
@@ -421,7 +498,7 @@ h1{
 	color: white;
 	cursor: pointer;
 	display: inline-block;
-	margin: 0 0 0 0.5em;
+	margin: 0 0 3px 0.5em;
 	padding: 0.2em;
 	vertical-align: bottom;
 	width: 10em;
@@ -434,7 +511,7 @@ h1{
 	color: white;
 	cursor: pointer;
 	display: inline-block;
-	margin: 0 0 0 0.5em;
+	margin: 0 0 3px 0.5em;
 	padding: 0.2em;
 	vertical-align: bottom;
 	width: 10em;
@@ -446,7 +523,7 @@ h1{
 	border-radius: 5px;
 	color: #ECF0F1;
 	display: inline-block;
-	margin: 0 0 0 0.5em;
+	margin: 0 0 3px 0.5em;
 	padding: 0.2em;
 	vertical-align: bottom;
 	width: 10em;
@@ -776,7 +853,6 @@ h1{
 
 #selectDominio{
 	display: inline-block;
-	margin: 5% 25%;
 }
 
 .AlertElement{
@@ -877,7 +953,7 @@ h1{
 
 }
 .Foo8 input:nth-of-type(1){
-	width:80%; 
+	width:44%; 
 }
 .Foo8 input:nth-of-type(3n+2){
 	margin: 0;
@@ -944,6 +1020,10 @@ h1{
 	font-size: 12px;
 	margin: 0.2em 2% 0.2em 1%;
 	width:45%;
+}
+.CU_errorsAsignacion{
+	width: 65%;
+	font-size: 14px;
 }
 .Foo4 {
 	width: 100%;
@@ -1021,6 +1101,24 @@ h1{
 	position: absolute;
 	text-align: center;
 	width:98%;
+}
+.AlertTestContent{
+	background-color: rgba(0,0,0,0.5);
+	display: none;
+	height: 100%;
+	position: absolute;
+	width: 100%;
+	z-index: 1;
+}
+.AlertTestContain{
+	background-color: #ECF0F1;
+	border-radius: 5px;
+	margin: auto;
+	padding: 1em;
+	position: relative;
+	text-align: center;
+	top: 35%;
+	width: 16%;
 }
 .ContentTest{
 	background-color: white;

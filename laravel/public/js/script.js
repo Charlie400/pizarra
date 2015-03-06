@@ -91,6 +91,18 @@ function ListaClick3(){
 	 	$(respuesta).slideUp();
 	}
 };
+//Estas funciones controlan el check y la cruz animada al modificar la bd;
+function showCheck()
+{
+	$(".svg2").css("display","none");
+	$(".svg1").css("display","inline-block");
+};
+function showCross()
+{
+	$(".svg1").css("display","none");
+	$(".svg2").css("display","inline-block");
+};
+
 //funciones que ocultan el árbol de preguntas y la explicación:
 function slideRight(){
 	if ($("#testTreeContainer").is(':hidden')) {
@@ -245,33 +257,47 @@ $("#edicionHerramientas").hide();
 $("#usuariosHerramientas").hide();
 $("#asignacionesHerramientas").hide();
 $("#generacionHerramientas").hide();
-$("#administracionHerramientas").hide();
 
 $("#presentacion").on('click',Presentacion);
 
 function Presentacion(){
-	changeClass('#presentacion', 'Menu-ItemSelected');
-	changeClass('#edicion', 'Menu-Item');
-	changeClass('#usuarios', 'Menu-Item');
-	changeClass('#asignaciones', 'Menu-Item');
-	changeClass('#generacion', 'Menu-Item');
-	changeClass('#administracion', 'Menu-Item');
-
+	if ($("#clase").is(":disabled"))
+	{
+		changeClass('#presentacion', 'Menu-ItemSelected');
+		changeClass('#edicion', 'Menu-Item');
+		changeClass('#usuarios', 'Menu-ItemDisabled');
+		changeClass('#asignaciones', 'Menu-ItemDisabled');
+		changeClass('#generacion', 'Menu-ItemDisabled');
+	}else{
+		changeClass('#presentacion', 'Menu-ItemSelected');
+		changeClass('#edicion', 'Menu-Item');
+		changeClass('#usuarios', 'Menu-Item');
+		changeClass('#asignaciones', 'Menu-Item');
+		changeClass('#generacion', 'Menu-Item');
+	};
 	$("#presentacionHerramientas").show();
-	$("#edicionHerramientas, #usuariosHerramientas, #asignacionesHerramientas, #generacionHerramientas, #administracionHerramientas").hide();
+	$("#edicionHerramientas, #usuariosHerramientas, #asignacionesHerramientas, #generacionHerramientas").hide();
 }
 
 $("#edicion").on('click',Edicion);
 
 function Edicion(){
-	changeClass('#presentacion', 'Menu-Item');
-	changeClass('#edicion', 'Menu-ItemSelected');
-	changeClass('#usuarios', 'Menu-Item');
-	changeClass('#asignaciones', 'Menu-Item');
-	changeClass('#generacion', 'Menu-Item');
-	changeClass('#administracion', 'Menu-Item');
+	if ($("#clase").is(":disabled"))
+	{
+		changeClass('#presentacion', 'Menu-Item');
+		changeClass('#edicion', 'Menu-ItemSelected');
+		changeClass('#usuarios', 'Menu-ItemDisabled');
+		changeClass('#asignaciones', 'Menu-ItemDisabled');
+		changeClass('#generacion', 'Menu-ItemDisabled');
+	}else{
+		changeClass('#presentacion', 'Menu-Item');
+		changeClass('#edicion', 'Menu-ItemSelected');
+		changeClass('#usuarios', 'Menu-Item');
+		changeClass('#asignaciones', 'Menu-Item');
+		changeClass('#generacion', 'Menu-Item');
+	};
 
-	$("#presentacionHerramientas, #usuariosHerramientas, #asignacionesHerramientas, #generacionHerramientas, #administracionHerramientas").hide();
+	$("#presentacionHerramientas, #usuariosHerramientas, #asignacionesHerramientas, #generacionHerramientas").hide();
 	$("#edicionHerramientas").show();
 }
 
@@ -283,9 +309,8 @@ function Usuarios(){
 	changeClass('#usuarios', 'Menu-ItemSelected');
 	changeClass('#asignaciones', 'Menu-Item');
 	changeClass('#generacion', 'Menu-Item');
-	changeClass('#administracion', 'Menu-Item');
 
-	$("#presentacionHerramientas, #edicionHerramientas, #asignacionesHerramientas, #generacionHerramientas, #administracionHerramientas").hide();
+	$("#presentacionHerramientas, #edicionHerramientas, #asignacionesHerramientas, #generacionHerramientas").hide();
 	$("#usuariosHerramientas").show();
 }
 
@@ -297,9 +322,8 @@ function Asignaciones(){
 	changeClass('#usuarios', 'Menu-Item');
 	changeClass('#asignaciones', 'Menu-ItemSelected');
 	changeClass('#generacion', 'Menu-Item');
-	changeClass('#administracion', 'Menu-Item');
 
-	$("#presentacionHerramientas, #edicionHerramientas, #usuariosHerramientas, #generacionHerramientas, #administracionHerramientas").hide();
+	$("#presentacionHerramientas, #edicionHerramientas, #usuariosHerramientas, #generacionHerramientas").hide();
 	$("#asignacionesHerramientas").show();		
 }
 
@@ -311,30 +335,22 @@ function Generacion(){
 	changeClass('#usuarios', 'Menu-Item');
 	changeClass('#asignaciones', 'Menu-Item');
 	changeClass('#generacion', 'Menu-ItemSelected');
-	changeClass('#administracion', 'Menu-Item');
 
-	$("#presentacionHerramientas, #edicionHerramientas, #usuariosHerramientas, #asignacionesHerramientas, #administracionHerramientas").hide();
+	$("#presentacionHerramientas, #edicionHerramientas, #usuariosHerramientas, #asignacionesHerramientas").hide();
 	$("#generacionHerramientas").show();		
 }
 
-$("#administracion").on('click',Administracion);
-
-function Administracion(){
-	changeClass('#presentacion', 'Menu-Item');
-	changeClass('#edicion', 'Menu-Item');
-	changeClass('#usuarios', 'Menu-Item');
-	changeClass('#asignaciones', 'Menu-Item');
-	changeClass('#generacion', 'Menu-Item');
-	changeClass('#administracion', 'Menu-ItemSelected');
-	
-	$("#presentacionHerramientas, #edicionHerramientas, #asignacionesHerramientas, #generacionHerramientas, #usuariosHerramientas").hide();
-	$("#administracionHerramientas").show();
-}
 /*Terminan las funciones del menú principal*/
-//esta función controla el bloqueo del combobox clase.
+//esta función controla el bloqueo del combobox clase y las pestañas del menú principal.
 if ($("#dominio").val() == 0){
 	$("#clase").prop("disabled", true)
 	$("#clase").attr('class', 'ComboBoxDisabled');
+	$("#usuarios").unbind('click');
+	$("#usuarios").attr('class', 'Menu-ItemDisabled');
+	$("#asignaciones").unbind('click');
+	$("#asignaciones").attr('class', 'Menu-ItemDisabled');
+	$("#generacion").unbind('click');
+	$("#generacion").attr('class', 'Menu-ItemDisabled');
 }else{
 	$("#clase").prop("disabled", false);
 	$("#clase").attr('class', 'ComboBoxClase');
@@ -407,7 +423,7 @@ function stopButtom()
 	stopVideoAudio();
 }
 
-$("#dominio").on("click", GetComboDominio);
+$("#dominio").on("change", GetComboDominio);
 //Esta variable contendrá el valor del dominio seleccionado anteriormente.
 var selectDominio = "";
 
@@ -420,7 +436,13 @@ function GetComboDominio(){
 			$(".CuadroP1").append($("#dominio").find('option:selected').text());
 			$("#clase").prop("disabled", false);
 			$("#clase").attr('class', 'ComboBoxClase');
-		
+			$("#usuarios").bind('click',Usuarios);
+			$("#usuarios").attr('class', 'Menu-Item');
+			$("#asignaciones").bind('click',Asignaciones);
+			$("#asignaciones").attr('class', 'Menu-Item');
+			$("#generacion").bind('click',Generacion);
+			$("#generacion").attr('class', 'Menu-Item');
+				
 
 	}else{
 		$("#clase").prop("disabled", true)
@@ -428,6 +450,12 @@ function GetComboDominio(){
 		$("#clase").val("#");
 		$(".CuadroP1").empty();
 		$(".CuadroP2").empty();
+		$("#usuarios").unbind('click');
+		$("#usuarios").attr('class', 'Menu-ItemDisabled');
+		$("#asignaciones").unbind('click');
+		$("#asignaciones").attr('class', 'Menu-ItemDisabled');
+		$("#generacion").unbind('click');
+		$("#generacion").attr('class', 'Menu-ItemDisabled');
 	}
 }
 
@@ -488,7 +516,7 @@ function hideFormsLess(clase)
 
 function showClass(clase)
 {
-	$(clase).css('display', 'initial');
+	$(clase).css('display', 'inline');
 }
 
 function initializeCreate()
@@ -515,6 +543,8 @@ function createClase()
 	$(clase.Input).val('');
 	$(clase.Input).attr('name',"clase");
 	$(clase.Input).attr('placeholder',"Clase");
+	$("#Foo1ContentOverflow").css("display","none");
+	$("#foo11").show();
 	$("#selectDominio").show();
 	getDominios('#selectDominio');
 }
@@ -528,6 +558,8 @@ function createDominio()
 	$(clase.Input).val('');
 	$(clase.Input).attr('name',"dominio");
 	$(clase.Input).attr('placeholder',"Dominio");
+	$("#Foo1ContentOverflow").css("display","none");
+	$("#foo11").show();
 	$("#selectDominio").hide();
 }
 
@@ -621,9 +653,12 @@ function deleteUsuario()
 	$(".AlertContainer").fadeIn();
 	showClass(clase);
 	hideFormsLess(clase);
+	$("#Foo1ContentOverflow").css("display","inline-block");
+	$("#td1").hide();
+	$("#td2").show();
+	$("#td3").hide();
+	$("#foo11").hide();
 	formParametros(true, false, true,  "Eliminar Usuario", "Introduzca el usuario a eliminar y pulse aceptar.", Name.BorrarUsuario);
-	$("#foo11").attr('name',"borrarUsuario");
-	$("#foo11").attr('placeholder',"Usuario");
 	$("#selectDominio").hide();
 }
 
@@ -700,12 +735,10 @@ function saveRecord()
 	$("#foo71").attr('name',"PublicarGrabacion");
 	$("#foo72").attr('name',"DescargarGrabacion");
 }
-
 function getSelectedDomain()
 {
 	return $('#dominio').val();
 }
-
 /*
 * Comprueba que la información enviada por sendAsignacion este preparada para ir al servidor, aún así habrá una 
 * posterior comprobación en el servidor, para evitar envios fraudulentos.
@@ -756,6 +789,7 @@ function createAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
+	$("#ComboBoxAsignaciones").css("display","none");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);
 
@@ -851,6 +885,7 @@ function editAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
+	$("#ComboBoxAsignaciones").css("display","inline-block");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Modificar "+asignacion,"Modifique los cambios deseados y pulse aceptar", Name.ModificarAsignacion);	
 
@@ -878,8 +913,7 @@ function editAsignacion()
 			$("#foo853").css("display","none");
 		}
 	});
-
-	fillWithAsignacion(8);
+		fillWithAsignacion(8);
 }
 
 function deleteAsignacion()
@@ -889,6 +923,7 @@ function deleteAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
+	$("#ComboBoxAsignaciones").css("display","inline-block");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Eliminar "+asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.EliminarAsignacion);	
 
@@ -1379,7 +1414,6 @@ function dibujoManoAlzada(){
 	$(".ColorPickerContainer").toggle();
 	$("#closeButton2").on("click",ocultarColorPicker);
 	$("#closeButton3").on("click",ocultarTypeContainer);
-	$("#closeButton4").on("click",ocultarInputText);
 	function ocultarColorPicker(){
 		$(".ColorPickerContainer").hide();	
 		if ($(".ColorPickerContainer").is(":visible")){
@@ -1395,9 +1429,6 @@ function dibujoManoAlzada(){
 	}	
 	function ocultarTypeContainer(){
 		$(".TypeContainer").hide();	
-	}
-	function ocultarInputText(){
-		$(".TempTypeText").hide();	
 	}
 }
 

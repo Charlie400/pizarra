@@ -13,6 +13,12 @@
 	<div class="TituloTest">
 		<h1>Generación de Tests</h1>
 	</div>
+	<div class="AlertTestContent">
+		<div class="AlertTestContain">
+			<p>¡Test creado con éxito!</p>
+			<div class="OkButton Button TestButton">Aceptar</div>
+		</div>
+	</div>
 	<div class="ContentTest">
 		<ul>
 			<li id="liTest1" Class="ItemTest">Generación Manual</li>
@@ -35,11 +41,11 @@
 						<li><label>Clase(opcional)</label>
 							<select id="claseTest1" class="ComboBoxClase">
 								<option id="claseOption" value="#">Clase</option>
-
+								
 								@foreach($clases as $clase)								
-									<option value="{{ $clase->id }}">{{ $clase->Nombre }}</option>			
+									<option value="{{ $clase->id }}">{{ $clase->Nombre }}</option>				
 								@endforeach
-
+							
 							</select>
 							<input id="testOtros" type="text" placeholder="Indique tema">
 						</li>
@@ -130,17 +136,17 @@
 										{{ $user->firstname . ' ' . $user->lastname }}
 									</option>
 								@endforeach
-
+									
 							</select>
 						</li>
 						<li><label>Clase(opcional)</label>
 							<select id="claseTest2" class="ComboBoxClase">
 								<option id="claseOption" value="#">Clase</option>
-
+								
 								@foreach($clases as $clase)								
 									<option value="{{ $clase->id }}">{{ $clase->Nombre }}</option>			
 								@endforeach		
-
+								
 							</select>
 						</li>
 						<li><label>Tipo de Test</label>
