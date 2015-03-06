@@ -647,6 +647,8 @@ function editUsuario()
 
 function deleteUsuario()
 {
+	domainUsersInContent();
+
 	var clase = ".Foo1";
 	$('#foo1Fail').empty();
 	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
@@ -826,11 +828,12 @@ function createAsignacion()
 	});
 }
 
-function sendAsignacion()
+//Trae los materiales para el dominio y los coloca en los selects por su clase.
+function domainMaterialsInAsignadas()
 {
 	getDomainMaterials(function(materials){
 		console.log(materials);
-		var material, select = $('#ComboBoxAsignaciones');
+		var material, select = $('.ComboBoxAsignadas');
 
 		select.empty();
 		select.append('<option value="">Asignaciones</option>');
@@ -844,10 +847,13 @@ function sendAsignacion()
 						  '</option>');
 		}
 	});
+}
 
+function domainUsersInContent()
+{
 	getDomainUsers(function(users) {
 		console.log(users);
-		var user, tbody = $('#tbodySendAsignacion');
+		var user, tbody = $('.content');
 
 		tbody.empty();
 
@@ -865,6 +871,13 @@ function sendAsignacion()
 					  '</tr>');
 		}
 	});
+}
+
+function sendAsignacion()
+{
+	domainMaterialsInAsignadas();
+	
+	domainUsersInContent();
 
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
@@ -880,6 +893,8 @@ function sendAsignacion()
 }
 function editAsignacion()
 {
+	domainMaterialsInAsignadas();
+
 	var clase = ".Foo8";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
@@ -918,6 +933,8 @@ function editAsignacion()
 
 function deleteAsignacion()
 {
+	domainMaterialsInAsignadas();
+
 	var clase = ".Foo8";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);

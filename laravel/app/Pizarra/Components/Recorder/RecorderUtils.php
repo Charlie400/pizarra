@@ -214,11 +214,6 @@ class RecorderUtils {
 		return "ffmpeg -f image2 -i $pathImg -i $pathAudio -r $fPerSecond -s $size $pathVid";
 	}
 
-	public function downloadSnapshot()
-	{
-		
-	}
-
 	public function downloadFile($file, $delete = false)
 	{		
 		$fileName = $this->outLast(($this->divide('/', $file)));

@@ -373,7 +373,7 @@
 				</form>
 				{{ Form::open(['route' => 'supportMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8']) }} 
 					<div>
-						<select name="id_material" id="ComboBoxAsignaciones" class="ComboBoxAsignadas">										
+						<select name="id_material" id="ComboBoxEditarAsignaciones" class="ComboBoxAsignadas">										
 						</select>
 						<h3>Título</h3>						
 						<input id="foo81" name="titulo" type="text">
@@ -397,7 +397,7 @@
 										<td><strong>Título</strong></td>
 									</tr>
 								</thead>
-								<tbody id="" class="content">
+								<tbody id="" class="">
 										
 								</tbody>
 							</table>

@@ -2,9 +2,24 @@
 -No quede texto al abrir crear asignación.
 -Añadir clases en crear test, para ello enviaremos la id_dominio en la url al cargar la pantalla de crear tests.
 -Añadir usuarios en crear test.
+-Cuando captures una imagen se guarde con un nombre único(con uniqid() por ejemplo) para luego poder usarlos en el servidor sin que
+sobreescriban.
+-Poner que permita descargar los archivos de esa carpeta(snapshots) con extensión .png.
+-Descargar en base a la url enviada desde el servidor.
+-También si se pulsa cancelar debe hacer una petición de eliminación de la imagen en cuestión.
+-Comprobar que se esté recogiendo el campo clase al crear test.
 
--HACER-Cuando captures una imagen se guarde con un nombre único(con uniqid() por ejemplo) para luego poder usarlos en el servidor sin que
-sobreescriban, también si se pulsa cancelar debe hacer una petición de eliminación de la imagen en cuestión.
+-HACER- Añadir control de errores en crear test.
+-HACER- Crear 3 test para comprobar que todo marcha bien.
+-HACER- Introducir la fecha en el formato correcto en editar usuario, puedes ver el error en consola todo el tiempo.
+-HACER- Desactivar la publicación de capturas de pantalla si no hay seleccionado un dominio.
+
+-HACER-Para el final- Que se borre el registro de la DB al descargar la imagen.
+-HACER-Para el final- Comprobar si sigue funcionando la descarga del vídeo.
+
+-FALTA-URGENTE- En modificar y eliminar test se utiliza el mismo formulario que en enviar asignación, tienen que ser distintos.
+-FALTA-URGENTE- Ver la lista de asignaciones en modificar asignación para elegir cual editar.
+-FALTA-URGENTE- Ver la lista de asignaciones en eliminar asignación para elegir cual borrar.
 
 -FALTA- Checkbox en tareas a realizar en la parte donde están los tests.
--FALTA- Poder añadir elementos al canvas
+-FALTA- Poder añadir elementos al canvas.
