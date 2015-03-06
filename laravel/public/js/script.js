@@ -651,14 +651,14 @@ function deleteUsuario()
 
 	var clase = ".Foo1";
 	$('#foo1Fail').empty();
-	$("#alertBody").removeClass("AlertBodyBig").addClass("AlertBody"); 
+	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
 	showClass(clase);
 	hideFormsLess(clase);
 	$("#Foo1ContentOverflow").css("display","inline-block");
-	$("#td1").hide();
-	$("#td2").show();
-	$("#td3").hide();
+	$(".td1").hide();
+	$(".td2").show();
+	$(".td3").hide();
 	$("#foo11").hide();
 	formParametros(true, false, true,  "Eliminar Usuario", "Introduzca el usuario a eliminar y pulse aceptar.", Name.BorrarUsuario);
 	$("#selectDominio").hide();
@@ -791,7 +791,7 @@ function createAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$("#ComboBoxAsignaciones").css("display","none");
+	$("#ComboBoxEditarAsignaciones").css("display","none");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);
 
@@ -884,9 +884,9 @@ function sendAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$("#td1").hide();
-	$("#td2").show();
-	$("#td3").hide();
+	$(".td1").hide();
+	$(".td2").show();
+	$(".td3").hide();
 	$(".ComboBoxAsignadas").show();
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Enviar "+asignacion,"Seleccione alumno y asignación y pulse aceptar", Name.EnviarAsignacion);	
@@ -900,7 +900,7 @@ function editAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$("#ComboBoxAsignaciones").css("display","inline-block");
+	$("#ComboBoxEditarAsignaciones").css("display","inline-block");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Modificar "+asignacion,"Modifique los cambios deseados y pulse aceptar", Name.ModificarAsignacion);	
 
@@ -940,7 +940,7 @@ function deleteAsignacion()
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$("#ComboBoxAsignaciones").css("display","inline-block");
+	$("#ComboBoxEditarAsignaciones").css("display","inline-block");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Eliminar "+asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.EliminarAsignacion);	
 

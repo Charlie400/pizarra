@@ -157,9 +157,9 @@
 						<table>
 							<thead>
 								<tr>
-									<td id="td1"><strong>número</strong></td>
-									<td id="td2"><strong>Alumno</strong></td>
-									<td id="td3"><strong>tipo</strong></td>
+									<td class="td1"><strong>número</strong></td>
+									<td class="td2"><strong>Alumno</strong></td>
+									<td class="td3"><strong>tipo</strong></td>
 									<td><strong>Seleccionar</strong></td>
 								</tr>
 							</thead>
@@ -428,9 +428,9 @@
 						<table>
 							<thead>
 								<tr>
-									<td id="td1"><strong>número</strong></td>
-									<td id="td2"><strong>Alumno</strong></td>
-									<td id="td3"><strong>tipo</strong></td>
+									<td class="td1"><strong>número</strong></td>
+									<td class="td2"><strong>Alumno</strong></td>
+									<td class="td3"><strong>tipo</strong></td>
 									<td><strong>Seleccionar</strong></td>
 								</tr>
 							</thead>
