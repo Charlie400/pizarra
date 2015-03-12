@@ -98,7 +98,7 @@
 			<div id="usuariosHerramientas" class="MenuHerramientas">
 				<input id="botonAlumnos" onClick="createAlumno()" type="submit" name="Boton2" value="Crear Usuario"/>
 				<input id="botonEditarUsuario" onClick="editUsuario()" type="submit" name="Boton2" value="Editar Usuario"/>
-				<input id="botonEliminarUsuario" onClick="deleteUsuario()" type="submit" name="Boton2" value="Eliminar Usuario"> 
+				<input id="botonEliminarUsuario" onClick="deleteUsuario('contentDeleteUsuario')" type="submit" name="Boton2" value="Eliminar Usuario"> 
 			</div>
 			<div id="asignacionesHerramientas" class="MenuHerramientas">
 				<select id="comboAsignacion" class="ComboBoxClase">
@@ -106,7 +106,7 @@
 					<option id="tareaOption" value="1">Tareas a realizar</option>
 				</select>
 				<input id="botonCrearAsignacion" onclick="createAsignacion()" type="submit" name="Boton2" value="Crear asignación">
-				<input id="botonEnviarAsignacion" onclick="sendAsignacion()" type="submit" name="Boton2" value="Enviar asignación">
+				<input id="botonEnviarAsignacion" onclick="sendAsignacion('contentSendAsignacion')" type="submit" name="Boton2" value="Enviar asignación">
 				<input id="botonModificarAsignacion" onclick="editAsignacion()" type="submit" name="Boton2" value="Modificar asignación">
 				<input id="botonEliminarAsignacion" onclick="deleteAsignacion()" type="submit" name="Boton2" value="Eliminar asignación">
 			</div>
@@ -151,7 +151,7 @@
 			</div>
 			<div class="AlertElement">
 
-				{{ Form::open(['method' => 'POST', 'role' => 'form', 'class' => 'Foo1', 
+				{{ Form::open(['route' => 'unsubscribe','method' => 'POST', 'role' => 'form', 'class' => 'Foo1', 
 							   'id' => 'createDomClass']) }}
 			   <div id="Foo1ContentOverflow" class="ContentOverflow">
 						<table>
@@ -163,12 +163,12 @@
 									<td><strong>Seleccionar</strong></td>
 								</tr>
 							</thead>
-							<tbody id="tbodySendAsignacion" class="content">
+							<tbody id="tbodySendAsignacion" class="content contentDeleteUsuario">
 									
 							</tbody>
 						</table>
 					</div>
-
+				<input type="hidden" id="deleteUserIdDominio" name="id_dominio" value="" />
 				{{ Field::select('selectDominio', null, ['input' => ['class' => 'ComboBoxDominio']]) }}
 				{{ Field::text('foo11') }}
 				<svg class="svg1" width="25" height="25">
@@ -182,8 +182,12 @@
 					<line id="svg2Child2" x1="6" y1="20" x2="20" y2="6" stroke-linecap="round"></line>
 				</svg>
 					<p id="foo1Fail"><p>
+					<span id="deleteUserError" class="CU_errors CU_errorsAsignacion" style="display:none">
+						Seleccione un material y al menos un alumno antes de enviar.
+					</span>
 					<div class="ButtonsContainer">					
-						<button class="OkButton Button">Aceptar</button>
+						<div class="OkButton Button" onClick="checkDeleteUsuario()">Aceptar</div>
+						<button id="OkButtomDeleteUser" style="display:none;">Aceptar</button>
 						<div class="AddButton Button" id="addButtomFoo1" onClick="">Agregar</div>
 						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 					</div>	
@@ -434,7 +438,7 @@
 									<td><strong>Seleccionar</strong></td>
 								</tr>
 							</thead>
-							<tbody id="tbodySendAsignacion" class="content">
+							<tbody id="tbodySendAsignacion" class="content contentSendAsignacion">
 									
 							</tbody>
 						</table>

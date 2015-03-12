@@ -645,9 +645,9 @@ function editUsuario()
 	formParametros(true, false, true,  "Editar Usuario", "Rellene los campos y pulse aceptar.", Name.Usuario);
 }
 
-function deleteUsuario()
+function deleteUsuario(contentClass)
 {
-	domainUsersInContent();
+	domainUsersInContent(contentClass);
 
 	var clase = ".Foo1";
 	$('#foo1Fail').empty();
@@ -747,16 +747,31 @@ function getSelectedDomain()
 */
 function checkSendAsignacion()
 {
+	checkAnyContent('OkButtomSimulateClick', 'asignacionError', 'checkBoxSendAsignacion', 'ComboBoxAsignaciones');
+}
+
+function checkDeleteUsuario()
+{
+	var domain = getSelectedDomain();
+	
+	//Añadimos el id_dominio al un input oculto para enviarlo con el formulario	
+	document.getElementById('deleteUserIdDominio').value = domain;	
+
+	checkAnyContent('OkButtomDeleteUser', 'deleteUserError', 'checkBoxSendAsignacion');
+}
+
+function checkAnyContent(simulateClickId, errorId, checkClass, selectId)
+{
 	//Comprobamos cuantos checkboxs tiene nuestro formulario
-	var cuantosChecks = getClassValues('checkBoxSendAsignacion').length,
-	//Traemos el valor del select de asignación y declaramos algunas variables útiles
-		select        = document.getElementById('ComboBoxAsignaciones').value, id,
-		checkboxs     = [];
+	var cuantosChecks = getClassValues(checkClass).length,	
+		checkboxs     = [], id;
+
+		console.log(cuantosChecks);
 
 	//Comprobamos que checkbox están seleccionados y los almacenamos en un array
 	for (var i = 0; i < cuantosChecks; i++)
 	{
-		id = 'checkBoxSendAsignacion' +  i;
+		id = checkClass +  i;
 
 		if (isChecked(id))
 		{
@@ -765,23 +780,30 @@ function checkSendAsignacion()
 	}
 
 	console.log(checkboxs);
-	console.log(select);
+
+	//Traemos el valor del select de asignación si contamos con un id
+	if (selectId)
+	{
+		var select = document.getElementById(selectId).value,
+			selectEmpty = isEmpty(select);
+
+		console.log(select);
+	}
+
 
 	//Definimos unas variables booleanas en las que almacenaremos los resultados en forma de cumplido o no cumplido
-	var checkEmpty, selectEmpty;
+	var checkEmpty;
 
 	checkEmpty  = arrayEmpty(checkboxs);
-	selectEmpty = isEmpty(select);
 
 	if (checkEmpty || selectEmpty)
 	{
-		css('asignacionError', 'display', 'inline-block');
+		css(errorId, 'display', 'inline-block');
 	}
 	else
 	{
-		simulateClick('OkButtomSimulateClick');
+		simulateClick(simulateClickId);
 	}	
-
 }
 
 function createAsignacion()
@@ -849,13 +871,14 @@ function domainMaterialsInAsignadas()
 	});
 }
 
-function domainUsersInContent()
+function domainUsersInContent(clase)
 {
 	getDomainUsers(function(users) {
-		console.log(users);
-		var user, tbody = $('.content');
+	console.log(clase);
 
-		tbody.empty();
+		var user, tbody = $('.' + clase);
+
+		$('.content').empty();
 
 		for (var i in users)
 		{
@@ -864,7 +887,7 @@ function domainUsersInContent()
 
 			tbody.append('<tr>'+
 							'<td><strong>'+ user.name + '</strong></td>'+
-							'<td><input name="id_user[]" type="checkbox" class="checkBoxSendAsignacion"'+
+							'<td><input name="id_user[]" type="checkbox" class="checkBoxSendAsignacion"'+ 
 							'id="checkBoxSendAsignacion' + i + '"' +
 							'value="' + user.id + 
 							'" /></td>'+
@@ -873,11 +896,11 @@ function domainUsersInContent()
 	});
 }
 
-function sendAsignacion()
+function sendAsignacion(contentClass)
 {
 	domainMaterialsInAsignadas();
 	
-	domainUsersInContent();
+	domainUsersInContent(contentClass);
 
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 

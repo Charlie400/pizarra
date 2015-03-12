@@ -1,5 +1,5 @@
 ;
-var recording = false, serverURL = window.location.protocol+'//'+window.location.hostname+'/pizarra/laravel/public';
+var recording = false;
 
 function getElementById(id)
 {

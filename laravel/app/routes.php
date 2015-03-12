@@ -43,8 +43,8 @@ Route::group(['before' => 'auth'], function()
 	Route::post('/crear/preguntas/{id}', ['as' => 'createPreguntas', 'uses' => 'TestController@createPreguntas']);
 	Route::post('/crear/respuestas/{id}', ['as' => 'createRespuestas', 'uses' => 'TestController@createRespuestas']);
 	
-	Route::get('/baja/alumno', ['as' => 'unsubscribe', 'uses' => 'UserController@unsubscribe']);
-	Route::get('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);
+	Route::post('/baja/alumno', ['as' => 'unsubscribe', 'uses' => 'UserController@unsubscribe']);
+	Route::post('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);
 	Route::post('/crear/material', ['as' => 'supportMaterial', 'uses' => 'MaterialController@createMaterial']); 	
 	Route::post('/traer/material/{id}', ['as' => 'getMaterial', 'uses' => 'MaterialController@getMaterial']);
 	Route::post('/asignar/material', ['as' => 'asignarMaterial', 'uses' => 'MaterialController@subscribeUsersToMaterial']);

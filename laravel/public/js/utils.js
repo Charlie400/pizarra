@@ -1,5 +1,8 @@
 ; /*  AQUÍ SOLO SE ESCRIBIRÁN FUNCIONES QUE SIRVAN DE AYUDA AL RESTO DE ARCHIVOS, PERO NUNCA UNA FUNCIONALIDAD  */ 
 
+//url del servidor
+var serverURL = window.location.protocol+'//'+window.location.hostname+'/pizarra/laravel/public';
+
 function empty(ids)
 {
 	var element;

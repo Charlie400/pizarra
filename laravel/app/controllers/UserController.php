@@ -122,46 +122,53 @@ class UserController extends BaseController
 			$error->oldpassword = "Debes introducir una contraseña";			
 			echo json_encode($error);
 		}
-	}
+	}	
 
 	//Funcionalidades por conectar
+
+	public function deleteUser($id)
+	{
+		return $this->userRepo->find($id)->delete();
+	}
 
 	public function baseSubscribe($subscribe)
 	{
 		//Se obtienen los valores enviados por el formulario.
-		//$data = Input::only('id', 'id_dominio');
-		$data   = array('id' => 10, 'id_dominio' => 12);
+		$data = Input::only('id_user', 'id_dominio');
+		//$data   = array('id_user' => 10, 'id_dominio' => 12);
 
 		//Se comprueba si los valores están vacíos, de estarlos, la ejecución termina aquí
-		if (empty($data['id_dominio']) or empty($data['id'])) return \Redirect::back();
+		if (empty($data['id_dominio']) or count($data['id_user']) == 0) return \Redirect::back();
 
-		//Se pide al repositorio que nos devuelva al usuario con id = $data['id']
-		$user    = $this->userRepo->findWith($data['id'], 'dominioPivot');
-
-		//Se obtienen los dominios en los que el alumno está dado de alta
-
-		$dominioPivotRepo = $this->userRepo->dominioPivotRepo();
-		$dominioPivot     = $dominioPivotRepo->getModel();
-
-		$query            = $dominioPivot
-							->where('id_user', $data['id'])
-							->where('id_dominio', $data['id_dominio']);
-
-		$userDominios     = $query->get();
-
-		$count = count($userDominios);
-
-		if ($subscribe && $count == 0)
+		foreach($data['id_user'] as $idUser)
 		{
-			//Si el método subscribe llamó a este método y la id_dominio a insertar no está en la base de datos
-			//se añade el valor
-			$dominioPivotRepo->createNewRecord(['id_dominio' => $data['id_dominio'], 'id_user' => $data['id']]);
-		}
-		elseif ( ! $subscribe && $count == 1)
-		{
-			//Si el método unsubscribe llamó a este método y la id_dominio a insertar está en la base de datos
-			//se elimina el valor
-			$query->delete();
+			//Se pide al repositorio que nos devuelva al usuario con id = $idUser
+			$user = $this->userRepo->findWith($idUser, 'dominioPivot');
+
+			//Se obtienen los dominios en los que el alumno está dado de alta
+			$dominioPivotRepo = $this->userRepo->dominioPivotRepo();
+			$dominioPivot     = $dominioPivotRepo->getModel();
+
+			$query            = $dominioPivot
+								->where('id_user', $idUser)
+								->where('id_dominio', $data['id_dominio']);
+
+			$userDominios     = $query->get();
+
+			$count 			  = count($userDominios);
+
+			if ($subscribe && $count == 0)
+			{
+				//Si el método subscribe llamó a este método y la id_dominio a insertar no está en la base de datos
+				//se añade el valor
+				$dominioPivotRepo->createNewRecord(['id_dominio' => $data['id_dominio'], 'id_user' => $idUser]);
+			}
+			elseif ( ! $subscribe && $count == 1)
+			{
+				//Si el método unsubscribe llamó a este método y la id_dominio a insertar está en la base de datos
+				//se elimina el valor
+				$query->delete();
+			}
 		}
 
 		return \Redirect::back();
