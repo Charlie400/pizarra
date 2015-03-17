@@ -91,7 +91,38 @@ textarea{
     100% {transform:rotate(360deg);}
 }
 /*Terminan keyframes*/
-
+#timer{
+	position: absolute;
+	top: 39%;
+	left: 27.55%;
+	font-size: 26px;
+	font-weight: bolder;
+	color: #0D5E4E;
+}
+.Clock{
+	position: absolute;
+	top: 0%;
+	right: 0%;
+}
+.AreaTrabajoSection2Header{
+	background-color: #91BEAC;
+	height: 150px;
+	position: absolute;
+	width: 100%;
+	border-radius: 5px 5px 0 0;
+}
+.AreaTrabajoSection2Header h3{
+	text-align: center;
+	margin-top: 1em;
+	font-size: x-large;
+	color: white;
+	width: 80%;
+}
+.AreaTrabajoSection2PreguntasContainer{
+	background-color: rebeccapurple;
+	width: 80%;
+	height: 48.5%;
+}
 #LoginContainer{
 	background-color: #2C3E50;
 	border-radius: 5px; 
@@ -372,7 +403,7 @@ input:-ms-input-placeholder {
 	top: 5em;
 }
 .AreaTrabajo{
-	background: white;
+	background: #ECF0F1;
 	border: none;
 	border-radius: 5px;
 	bottom: 0;
@@ -383,7 +414,38 @@ input:-ms-input-placeholder {
 	right: 0;
 	top: 5em;
 }
-
+#tituloAlumno{
+	width: 40%;
+}
+#textareaAlumno{
+	width: 60%;
+	height: 35%;
+}
+#alumnoMaterialAdjunto{
+	display: block;
+	margin: auto;
+	margin-top: 2%;
+	border: none;
+	border-radius: 5px;
+	background-color: #16A085;
+	color: white;
+	font-weight: bolder;
+	padding: 0.4em;
+}
+#areaTrabajoSection1{
+	display: none;
+	text-align: center;
+	height: 95%;
+}
+#areaTrabajoSection2{
+	display: none;
+}
+.AlumnoAsignacion{
+	cursor: pointer;
+}
+.AlumnoTarea{
+	cursor: pointer;
+}
 #imageTemp{
 	border: none;
 	border-radius: 5px;
@@ -1589,7 +1651,7 @@ h1{
 		width: 15em;
 	}
 
-	.Pizarra{
+	.Pizarra,.AreaTrabajo{
 		left: 16em;
 		min-width: 638px;
 	}
