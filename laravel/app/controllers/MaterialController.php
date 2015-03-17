@@ -174,10 +174,7 @@ class MaterialController extends BaseController {
 		//Comprueba si el material existe(no es nulo)
 		if ( ! is_null($material))
 		{
-			//Respuesta para ajax
 			echo json_encode($material);
-			//Respuesta para el servidor
-			return $material;
 		}
 		else
 		{
@@ -193,7 +190,7 @@ class MaterialController extends BaseController {
 		//Buscamos y borramos el material mediante su id.
 		if ( ! is_null($id) && is_numeric($id) )
 		{
-			dd($this->getMaterial($id)->delete());
+			dd($this->materialRepo->find($id)->delete());
 		}
 
 		return Redirect::back();

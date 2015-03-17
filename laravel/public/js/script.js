@@ -753,6 +753,11 @@ function checkSendAsignacion()
 	checkAnyContent('OkButtomSimulateClick', 'asignacionError', 'checkBoxSendAsignacion', 'ComboBoxAsignaciones');
 }
 
+function checkDeleteAsignacion()
+{
+	checkAnyContent('OkButtomSimulateClick', 'deleteError', '', 'ComboBoxAsignaciones');
+}
+
 function checkDeleteUsuario()
 {
 	var domain = getSelectedDomain();
@@ -772,14 +777,20 @@ function checkAnyContent(simulateClickId, errorId, checkClass, selectId)
 		console.log(cuantosChecks);
 
 	//Comprobamos que checkbox están seleccionados y los almacenamos en un array
-	for (var i = 0; i < cuantosChecks; i++)
+	if ( cuantosChecks > 0 )
 	{
-		id = checkClass +  i;
-
-		if (isChecked(id))
+		for (var i = 0; i < cuantosChecks; i++)
 		{
-			checkboxs.push(document.getElementById(id).value);
+			id = checkClass +  i;
+
+			if (isChecked(id))
+			{
+				checkboxs.push(document.getElementById(id).value);
+			}
 		}
+
+		//Definimos una variable booleana en la que almacenaremos los resultados en forma de cumplido o no cumplido
+		var checkEmpty = arrayEmpty(checkboxs);
 	}
 
 	console.log(checkboxs);
@@ -791,13 +802,7 @@ function checkAnyContent(simulateClickId, errorId, checkClass, selectId)
 			selectEmpty = isEmpty(select);
 
 		console.log(select);
-	}
-
-
-	//Definimos unas variables booleanas en las que almacenaremos los resultados en forma de cumplido o no cumplido
-	var checkEmpty;
-
-	checkEmpty  = arrayEmpty(checkboxs);
+	}	
 
 	if (checkEmpty || selectEmpty)
 	{
@@ -913,13 +918,14 @@ function sendAsignacion(contentClass)
 	
 	domainUsersInContent(contentClass);
 
+	changeAction('Foo9', '/asignar/material');
+
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
 	$("#ComboBoxAsignaciones").show();
-	$("#ComboBoxEliminarAsignaciones").hide();
 	$(".ContentOverflow").show();
 	$(".td1").hide();
 	$(".td2").show();
@@ -958,18 +964,17 @@ function editAsignacion()
 }
 
 function deleteAsignacion()
-{
-	changeAsignacionAction('/borrar/material');
-
+{	
 	domainMaterialsInAsignadas();
+
+	changeAction('Foo9', '/borrar/material');
 
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$("#ComboBoxAsignaciones").hide();
-	$("#ComboBoxEliminarAsignaciones").show();
+	$("#ComboBoxAsignaciones").show();
 	$(".ContentOverflow").hide();
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Eliminar " + asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.EliminarAsignacion);

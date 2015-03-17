@@ -7,7 +7,7 @@ function getMaterial(id, callback)
 					url: '/traer/material/' + id,
 					responseType: 'json',
 					success: function(response){
-						callback(response);
+						callback(response);						
 						console.log(response);
 					},
 					errors: function(err)
@@ -32,7 +32,7 @@ function fillWithAsignacion()
 			$('#foo87').val(material.hasta);
 			$('#supportTaskDominio').val(material.id_dominio);
 			if(material.visible) $('#foo88').prop('checked', 'checked');
-			if(material.examen) $('#foo88').prop('checked', 'checked');
+			if(material.examen)  $('#foo851').prop('checked', 'checked');
 
 		});
 	}

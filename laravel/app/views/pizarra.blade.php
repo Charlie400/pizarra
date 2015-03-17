@@ -426,11 +426,10 @@
 						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
 					</div>	
 				{{ Form::close() }}
-				{{ Form::open(['route' => 'asignarMaterial', 'method' => 'POST', 'class' => 'Foo9']) }}
+				{{ Form::open(['route' => 'asignarMaterial', 'method' => 'POST', 'class' => 'Foo9', 
+				'id' => 'Foo9', 'role' => 'form']) }}
 					<select name="id_material" id="ComboBoxAsignaciones" class="ComboBoxAsignadas">										
-					</select>
-					<select name="id_material" id="ComboBoxEliminarAsignaciones" class="ComboBoxAsignadas">										
-					</select>
+					</select>					
 					<div class="ContentOverflow">
 						<table>
 							<thead>
@@ -449,8 +448,11 @@
 					<span id="asignacionError" class="CU_errors CU_errorsAsignacion" style="display:none">
 						Seleccione un material y al menos un alumno antes de enviar.
 					</span>
+					<span id="deleteError" class="CU_errors CU_errorsAsignacion" style="display:none">
+						Seleccione al menos un material antes de enviar.
+					</span>
 					<div class="ButtonsContainer">
-						<div class="OkButton Button" onClick="checkSendAsignacion()" >Aceptar</div>
+						<div class="OkButton Button" onClick="checkDeleteAsignacion()" >Aceptar</div>
 						<button id="OkButtomSimulateClick" style="display: none;"></button>
 						<button onclick="window.open('http://localhost/pizarra/laravel/public/config/test');" class="AddButton Button">Aceptar</button>
 						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>
