@@ -83,11 +83,11 @@ function ListaClick3(){
 	if ($(respuesta).is(':hidden')) {
 
 	 	$(testArrowId).children('img').removeAttr('src');
-	 	$(testArrowId).children('img').attr('src',"../images/DownArrow.png");
+	 	$(testArrowId).children('img').attr('src', serverURL+"/images/DownArrow.png");
 	 	$(respuesta).slideDown();
 	}else{
 		$(testArrowId).children('img').removeAttr('src');
-	 	$(testArrowId).children('img').attr('src',"../images/RightArrow.png");
+	 	$(testArrowId).children('img').attr('src', serverURL+"/images/RightArrow.png");
 	 	$(respuesta).slideUp();
 	}
 };
@@ -543,7 +543,7 @@ function createClase()
 	$(clase.Input).val('');
 	$(clase.Input).attr('name',"clase");
 	$(clase.Input).attr('placeholder',"Clase");
-	$("#Foo1ContentOverflow").css("display","none");
+	$("#Foo1ContentOverflow").hide();
 	$("#foo11").show();
 	$("#selectDominio").show();
 	getDominios('#selectDominio');
@@ -558,7 +558,7 @@ function createDominio()
 	$(clase.Input).val('');
 	$(clase.Input).attr('name',"dominio");
 	$(clase.Input).attr('placeholder',"Dominio");
-	$("#Foo1ContentOverflow").css("display","none");
+	$("#Foo1ContentOverflow").hide();
 	$("#foo11").show();
 	$("#selectDominio").hide();
 }
@@ -575,6 +575,7 @@ function borrarEscenario()
 	getMenuImages(getEndDir.Escenarios);
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
+	$(".ContentOverflow").show();
 	showClass(clase.Foo);
 	hideFormsLess(clase.Foo);
 	$(clase.Foo).get(0).setAttribute('action', serverURL + '/borrar/escenario');
@@ -603,6 +604,7 @@ function borrarElementos()
 	getMenuImages(getEndDir.Elementos);	
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
+	$(".ContentOverflow").show();	
 	showClass(clase.Foo);
 	hideFormsLess(clase.Foo);
 	$(clase.Foo).get(0).setAttribute('action', serverURL + '/borrar/elemento');
@@ -655,7 +657,8 @@ function deleteUsuario(contentClass)
 	$(".AlertContainer").fadeIn();
 	showClass(clase);
 	hideFormsLess(clase);
-	$("#Foo1ContentOverflow").css("display","inline-block");
+	$("#Foo1ContentOverflow").show();
+	$(".ContentOverflow").show();
 	$(".td1").hide();
 	$(".td2").show();
 	$(".td3").hide();
@@ -915,10 +918,12 @@ function sendAsignacion(contentClass)
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
+	$("#ComboBoxAsignaciones").show();
+	$("#ComboBoxEliminarAsignaciones").hide();
+	$(".ContentOverflow").show();
 	$(".td1").hide();
 	$(".td2").show();
 	$(".td3").hide();
-	$(".ComboBoxAsignadas").show();
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Enviar "+asignacion,"Seleccione alumno y asignación y pulse aceptar", Name.EnviarAsignacion);	
 }
@@ -939,28 +944,7 @@ function editAsignacion()
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
 	$("#ComboBoxEditarAsignaciones").css("display","inline-block");
-	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
-	formParametros(true,false,true,"Modificar "+asignacion,"Modifique los cambios deseados y pulse aceptar", Name.ModificarAsignacion);	
-
-	/*
-	*	Para poder distinguir materiales de apoyo de tareas existe este input oculto
-	*		Valores:
-	*			0 => Material de apoyo
-	*			1 => Tareas a realizar
-	*/
-	var typeAsignacion = $('#typeAsignacion');
-	
-	if ($('#comboAsignacion').val() == 0) { //Apoyo
-		typeAsignacion.val(0);
-		$('#foo83').css('display','initial');
-		$('#foo84').css('display','initial');
-		$('#foo85').css('display','none');
-	}else{									//Tareas
-		typeAsignacion.val(1);
-		$('#foo83').css('display','none');
-		$('#foo84').css('display','none');
-		$('#foo85').css('display','initial');
-	};
+	formParametros(true,false,true,"Modificar asignación","Modifique los cambios deseados y pulse aceptar", Name.ModificarAsignacion);	
 	$("#foo851").on('change',function(){
 		if ($("#foo851").is(':checked')){
 			$("#foo852").css("display","inline-block");
@@ -979,39 +963,16 @@ function deleteAsignacion()
 
 	domainMaterialsInAsignadas();
 
-	var clase = ".Foo8";
+	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
-	$("#ComboBoxEditarAsignaciones").css("display","inline-block");
+	$("#ComboBoxAsignaciones").hide();
+	$("#ComboBoxEliminarAsignaciones").show();
+	$(".ContentOverflow").hide();
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
-	formParametros(true,false,true,"Eliminar " + asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.EliminarAsignacion);	
-
-	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
-	var typeAsignacion = $('#typeAsignacion');
-	
-	if ($('#comboAsignacion').val() == 0) { //Apoyo
-		typeAsignacion.val(0);
-		$('#foo83').css('display','initial');
-		$('#foo84').css('display','initial');
-		$('#foo85').css('display','none');
-	}else{									//Tareas
-		typeAsignacion.val(1);
-		$('#foo83').css('display','none');
-		$('#foo84').css('display','none');
-		$('#foo85').css('display','initial');
-	};
-	$("#foo851").on('change',function(){
-		if ($("#foo851").is(':checked')){
-			$("#foo852").css("display","inline-block");
-			$("#foo853").css("display","inline-block");
-		}else
-		{
-			$("#foo852").css("display","none");
-			$("#foo853").css("display","none");
-		}
-	});
+	formParametros(true,false,true,"Eliminar " + asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.EliminarAsignacion);
 }
 
 //En la variable n se pasará un nombre para el input dado que es necesario para enviar el formulario.

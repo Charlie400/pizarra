@@ -429,6 +429,8 @@
 				{{ Form::open(['route' => 'asignarMaterial', 'method' => 'POST', 'class' => 'Foo9']) }}
 					<select name="id_material" id="ComboBoxAsignaciones" class="ComboBoxAsignadas">										
 					</select>
+					<select name="id_material" id="ComboBoxEliminarAsignaciones" class="ComboBoxAsignadas">										
+					</select>
 					<div class="ContentOverflow">
 						<table>
 							<thead>

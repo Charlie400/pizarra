@@ -34,10 +34,11 @@ function modificarTest()
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
 	hideFormsLess(clase); 
-	$("#td1").show();
-	$("#td2").hide();
-	$("#td3").show();
+	$(".td1").show();
+	$(".td2").hide();
+	$(".td3").show();
 	$(".ComboBoxAsignadas").hide();
+	$(".ContentOverflow").show();
 	$(".AlertContainer").fadeIn();
 	formParametros(false,true,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
 }
@@ -47,10 +48,11 @@ function eliminarTest()
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
 	hideFormsLess(clase);
-	$("#td1").show();
-	$("#td2").hide();
-	$("#td3").show();
+	$(".td1").show();
+	$(".td2").hide();
+	$(".td3").show();
 	$(".ComboBoxAsignadas").hide();
+	$(".ContentOverflow").show();
 	$(".AlertContainer").fadeIn();
 	formParametros(true,false,true,"Modificar Test","Seleccione test a modificar y pulse aceptar para eliminar", Name.ModificarTest);
 }
