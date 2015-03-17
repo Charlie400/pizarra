@@ -375,9 +375,10 @@
 					<!-- Añadir que al cancelar se elimine el vídeo -->
 					<input id="foo73" onClick="deleteSnapshot()" type="button" value="Cancelar">
 				</form>
-				{{ Form::open(['route' => 'supportMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8']) }} 
+				{{ Form::open(['route' => 'createMaterial', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'Foo8', 'id' => 'Foo8', 'role' => 'form']) }} 
 					<div>
-						<select name="id_material" id="ComboBoxEditarAsignaciones" class="ComboBoxAsignadas">										
+						<select name="id_material" id="ComboBoxEditarAsignaciones" class="ComboBoxAsignadas" 
+						onChange="fillWithAsignacion()">										
 						</select>
 						<h3>Título</h3>						
 						<input id="foo81" name="titulo" type="text">

@@ -808,6 +808,9 @@ function checkAnyContent(simulateClickId, errorId, checkClass, selectId)
 
 function createAsignacion()
 {
+
+	changeAsignacionAction('/crear/material');
+
 	var clase = ".Foo8";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
@@ -818,13 +821,18 @@ function createAsignacion()
 	formParametros(true,false,true,"Crear "+asignacion,"Rellene los campos y pulse aceptar", Name.CrearAsignacion);
 
 	//Vaciar los campos del alert
-	empty(['foo81', 'foo82', 'foo853', 'foo86', 'foo87', 'foo88', 'foo851']);
+	emptyAsignacion();
 
-	//Se le da valor al campor supportTaskDominio que enviará posteriormente la información al servidor con la id
+	//Se le da valor al campo supportTaskDominio que enviará posteriormente la información al servidor con la id
 	//de dominio
 	document.getElementById('supportTaskDominio').value = getSelectedDomain();	
 
-	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
+	/*
+	*	Para poder distinguir materiales de apoyo de tareas existe este input oculto
+	*		Valores:
+	*			0 => Material de apoyo
+	*			1 => Tareas a realizar
+	*/
 	var typeAsignacion = $('#typeAsignacion');
 	
 	if ($('#comboAsignacion').val() == 0) { //Apoyo
@@ -916,7 +924,14 @@ function sendAsignacion(contentClass)
 }
 function editAsignacion()
 {
+	//Traemos los materiales del dominio
 	domainMaterialsInAsignadas();
+
+	//Vaciamos los campos del material
+	emptyAsignacion();
+
+	//Cambiar action
+	changeAsignacionAction('/editar/material');
 
 	var clase = ".Foo8";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
@@ -927,7 +942,12 @@ function editAsignacion()
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
 	formParametros(true,false,true,"Modificar "+asignacion,"Modifique los cambios deseados y pulse aceptar", Name.ModificarAsignacion);	
 
-	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
+	/*
+	*	Para poder distinguir materiales de apoyo de tareas existe este input oculto
+	*		Valores:
+	*			0 => Material de apoyo
+	*			1 => Tareas a realizar
+	*/
 	var typeAsignacion = $('#typeAsignacion');
 	
 	if ($('#comboAsignacion').val() == 0) { //Apoyo
@@ -951,11 +971,12 @@ function editAsignacion()
 			$("#foo853").css("display","none");
 		}
 	});
-		fillWithAsignacion(8);
 }
 
 function deleteAsignacion()
 {
+	changeAsignacionAction('/borrar/material');
+
 	domainMaterialsInAsignadas();
 
 	var clase = ".Foo8";
@@ -965,7 +986,7 @@ function deleteAsignacion()
 	$(".AlertContainer").fadeIn();
 	$("#ComboBoxEditarAsignaciones").css("display","inline-block");
 	var asignacion = $("#comboAsignacion option:selected").text().toLowerCase();
-	formParametros(true,false,true,"Eliminar "+asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.EliminarAsignacion);	
+	formParametros(true,false,true,"Eliminar " + asignacion,"Seleccione asignación y pulse aceptar para eliminar", Name.EliminarAsignacion);	
 
 	//Para poder distinguir materiales de apoyo de tareas añadiré un input oculto
 	var typeAsignacion = $('#typeAsignacion');

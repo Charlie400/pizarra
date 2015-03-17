@@ -20,6 +20,40 @@ function empty(ids)
 	}
 }
 
+function changeAction(formID, action)
+{
+	var form = document.getElementById(formID);
+
+	if ( form && action && form.getAttribute('role') == 'form' )
+	{
+		form.action = serverURL + action;
+
+		console.log(form.action);		
+
+		return true;
+	}
+
+	return false;
+}
+
+//Encuentra un valor en un array y devuelve su índice
+function find(array, value)
+{	
+	if ( ! value )
+	{
+		if (typeof array.indexOf === 'function') return array.indexOf(value);
+		else if(array instanceof Array)
+		{
+			for (i in array)
+			{
+				if (array[i] === value) return i;
+			}
+		}
+	}
+
+	return false;	
+}
+
 function simulateClick(id)
 {
 	document.getElementById(id).click();

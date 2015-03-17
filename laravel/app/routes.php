@@ -45,8 +45,10 @@ Route::group(['before' => 'auth'], function()
 	
 	Route::post('/baja/alumno', ['as' => 'unsubscribe', 'uses' => 'UserController@unsubscribe']);
 	Route::post('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);
-	Route::post('/crear/material', ['as' => 'supportMaterial', 'uses' => 'MaterialController@createMaterial']); 	
+	Route::post('/crear/material', ['as' => 'createMaterial', 'uses' => 'MaterialController@createMaterial']);
+	Route::post('/editar/material', ['as' => 'editMaterial', 'uses' => 'MaterialController@editMaterial']);
 	Route::post('/traer/material/{id}', ['as' => 'getMaterial', 'uses' => 'MaterialController@getMaterial']);
+	Route::post('/borrar/material', ['as' => 'deleteMaterial', 'uses' => 'MaterialController@deleteMaterial']);
 	Route::post('/asignar/material', ['as' => 'asignarMaterial', 'uses' => 'MaterialController@subscribeUsersToMaterial']);
 	Route::post('/traer/dominio/materiales', ['as' => 'getDomainMaterials', 'uses' => 'MaterialController@getDomainMaterials']);
 
