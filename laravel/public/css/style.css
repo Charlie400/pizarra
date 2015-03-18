@@ -999,18 +999,18 @@ h1{
 .Foo8 textarea{
 	display:inline-block;
 	height: 4em;
-	margin: 3% 0;
+	margin: 1% 0;
 	width: 100%;
 }
 .Foo8 h4{
 	display: inline-block;
-	margin-left: 20%;
-	margin-top: 2%;
+	margin-left: 10%;
+	margin-top: 1%;
 	white-space: nowrap;
 	width: 30%;
 }
 .Foo8 h3:nth-child(n+5){
-	margin: 2% 0 0;
+	margin: 1% 0 0;
 	width: 45%;
 
 }
@@ -1339,7 +1339,7 @@ h1{
 	color: white;
 	cursor: pointer;
 	display: inline-block;
-	margin: 1.2em;
+	margin: 0.2em;
 	padding: 0.2em;
 	width: 12em;
 }
