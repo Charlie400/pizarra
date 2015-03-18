@@ -568,11 +568,14 @@ function borrarEscenario()
 	var clase = 
 	{
 		Foo: ".Foo2",
-		Cont: ".content"
+		Cont: ".ContentElemEsc"
 	};
 	$(clase.Cont).empty();
 	$(clase.Cont).attr('id', 'contentEscenarios');
+
+	// Traer las imagenes de los escenarios
 	getMenuImages(getEndDir.Escenarios);
+
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	$(".AlertContainer").fadeIn();
 	$(".ContentOverflow").show();
@@ -1223,7 +1226,7 @@ function getMenuImages(endDir)
 		createAjaxRequest(classValue, url, '', '', '');	
 
 		setTimeout(function () 
-		{
+		{		
 			if (endDir === getEndDir.Escenarios)
 			{
 				showMenuImages('#MAC1', '#contentEscenarios', "#fileContainer1", 'escenario', 'insertImageToCanvas', 

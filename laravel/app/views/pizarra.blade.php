@@ -202,7 +202,7 @@
 									<td><strong>Seleccionar</strong></td>
 								</tr>
 							</thead>
-							<tbody id="" class="content">
+							<tbody id="" class="content ContentElemEsc">
 									
 							</tbody>
 						</table>

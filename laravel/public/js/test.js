@@ -30,6 +30,9 @@ respuestaTest();
 
 function modificarTest()
 {
+	// Borramos el contenido html del tbody
+	cleanInnerHTML('tbodySendAsignacion');
+
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
@@ -44,6 +47,9 @@ function modificarTest()
 }
 function eliminarTest()
 {
+	// Borramos el contenido html del tbody
+	cleanInnerHTML('tbodySendAsignacion');
+	
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
