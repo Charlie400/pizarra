@@ -950,6 +950,9 @@ function editAsignacion()
 	hideFormsLess(clase); 
 	$(".AlertContainer").fadeIn();
 	$("#ComboBoxEditarAsignaciones").css("display","inline-block");
+	$('#foo83').show();
+	$('#foo84').show();
+	$('#foo85').show();
 	formParametros(true,false,true,"Modificar asignación","Modifique los cambios deseados y pulse aceptar", Name.ModificarAsignacion);	
 	$("#foo851").on('change',function(){
 		if ($("#foo851").is(':checked')){
