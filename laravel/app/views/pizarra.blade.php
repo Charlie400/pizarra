@@ -163,7 +163,7 @@
 									<td><strong>Seleccionar</strong></td>
 								</tr>
 							</thead>
-							<tbody id="tbodySendAsignacion" class="content contentDeleteUsuario">
+							<tbody id="tbodyDomClass" class="content contentDeleteUsuario">
 									
 							</tbody>
 						</table>
@@ -452,7 +452,7 @@
 						Seleccione al menos un material antes de enviar.
 					</span>
 					<div class="ButtonsContainer">
-						<div class="OkButton Button" onClick="checkDeleteAsignacion()" >Aceptar</div>
+						<div id="OkButtonSendDelAsig" class="OkButton Button" onClick="checkDeleteAsignacion()" >Aceptar</div>
 						<button id="OkButtomSimulateClick" style="display: none;"></button>
 						<button onclick="window.open('http://localhost/pizarra/laravel/public/config/test');" class="AddButton Button">Aceptar</button>
 						<div onClick="closeAlert()" class="CancelButton Button">Cancelar</div>

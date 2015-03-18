@@ -914,11 +914,20 @@ function domainUsersInContent(clase)
 
 function sendAsignacion(contentClass)
 {
+	// Trae los materiales pertenecientes al dominio seleccionado y ejecuta un callback
 	domainMaterialsInAsignadas();
 	
+	// Trae los usuarios pertenecientes al dominio seleccionado y ejecuta un callback		
 	domainUsersInContent(contentClass);
 
+	// Cambia el action del formulario
 	changeAction('Foo9', '/asignar/material');
+
+	// Oculta error de eliminar asignación
+	css('deleteError', 'display', 'none');
+
+	// Cambia la funcion de la propiedad onClick
+	changeOnClick('OkButtonSendDelAsig', 'checkSendAsignacion()');
 
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
@@ -968,9 +977,19 @@ function editAsignacion()
 
 function deleteAsignacion()
 {	
+	// Trae los materiales pertenecientes al dominio seleccionado y ejecuta un callback
 	domainMaterialsInAsignadas();
 
+	// Cambia el action del formulario
 	changeAction('Foo9', '/borrar/material');
+
+	cleanInnerHTML('tbodySendAsignacion');
+
+	//Oculta error de enviar asignación
+	css('asignacionError', 'display', 'none');
+
+	// Cambia la funcion de la propiedad onClick
+	changeOnClick('OkButtonSendDelAsig', 'checkDeleteAsignacion()');	
 
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 

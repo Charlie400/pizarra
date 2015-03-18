@@ -20,6 +20,11 @@ function empty(ids)
 	}
 }
 
+function cleanInnerHTML(id)
+{
+	document.getElementById(id).innerHTML = "";
+}
+
 function changeAction(formID, action)
 {
 	var form = document.getElementById(formID);
@@ -232,6 +237,19 @@ function setClassValues(clase, value)
 	{
 		clase[i].value = value;
 	}	
+}
+
+function changeOnClick(id, checkFunction)
+{
+	var element;
+
+	if ( element = document.getElementById(id) )
+	{
+		element.setAttribute('onClick', checkFunction);
+		return true;
+	}
+
+	return false;
 }
 
 function changeValue(id, i, checkbox)
