@@ -2,12 +2,11 @@
 
 use Pizarra\Repositories\MaterialRepo;
 use Pizarra\Repositories\MaterialesPivotRepo as PivotRepo;
+use Pizarra\Managers\TaskMaterialManager as TaskManager;
 
 //for get FileController
 use Pizarra\Repositories\EscenarioRepo;
 use Pizarra\Repositories\ElementoRepo;
-
-use Pizarra\Managers\TaskMaterialManager as TaskManager;
 
 class MaterialController extends BaseController {
 
