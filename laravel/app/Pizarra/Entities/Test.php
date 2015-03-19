@@ -1,7 +1,8 @@
 <?php namespace Pizarra\Entities;
 
 class Test extends \Eloquent {
-	protected $fillable = ['titulo','id_clase','id_category','preguntas','respuestas','active', 'puntuacion'];
+	protected $fillable = ['titulo','id_clase','id_category','preguntas','respuestas', 'active', 'puntuacion', 
+						   'id_dominio'];
 	protected $table    = 'tests';
 
 	public function getTable()

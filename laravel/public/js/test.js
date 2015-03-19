@@ -71,8 +71,8 @@ function crearTest(){
 	var ajax = new AjaxManager();
 
 	var data = ajax.constructData(['tituloTest', 'claseTest1', 'categoryTest', 'multirespuesta',
-								   'preguntas', 'respuestas', 'calificacionTest'], ['titulo', 'id_clase', 
-								   'id_category', 'multirespuesta', 'preguntas', 'respuestas', 'puntuacion']);
+								   'preguntas', 'respuestas', 'calificacionTest', 'idDominioConfigTest'], ['titulo', 'id_clase', 
+								   'id_category', 'multirespuesta', 'preguntas', 'respuestas', 'puntuacion', 'id_dominio']);
 
 	if (document.getElementById('monorespuesta').checked) data['multirespuesta'] = 0;
 	else if (document.getElementById('multirespuesta').checked) data['multirespuesta'] = 1;
@@ -109,7 +109,7 @@ function crearTest(){
 				{
 
 					testObject = test;
-					console.log('Esto es:'+testObject.errors);
+
 					if ( ! testObject.errors)
 					{						
 						$("#liTest1Content1").css("display","none");
@@ -144,15 +144,20 @@ function crearTest(){
 
 function insertPregResContent(object, responseType)
 {
+	// Apuntamos al elemento que contendrá las preguntas
 	var content  = $("#preguntasContainer"),
+	// Evaluamos si es mono o multirespuesta la pregunta
 	mono  = responseType == 'mono',
 	multi = responseType == 'multi';
 
+	// Nos aseguramos de que las preguntas sean tratadas como enteros.
 	object.preguntas  = parseInt(object.preguntas);
 	object.respuestas = parseInt(object.respuestas);
 
+	// Dos ciclos para mostrar los campos de preguntas y respuestas en base a la cantidad indicada por el object.
 	for (var i = 1; i <= object.preguntas; i++)
 	{	
+		// Añadimos el código HTML con un campo para cada pregunta, uno por vuelta del ciclo.
 		content.append('<table id="preguntasContainerTable">'+
 					'<td><h3>Pregunta ' + i + '</h3></td>'+
 					'<tr>'+
@@ -168,9 +173,19 @@ function insertPregResContent(object, responseType)
 
 		for (var a = 1; a <= object.respuestas; a++)
 		{
+			// Verificamos si es mono o multirespuesta para cargar el HTML adecuado.
 			if (mono)
 			{
+				// Aquí entramos si es una pregunta monorespuesta, aquí usaremos radios.
+
+				/* 
+				*	Construimos la id del formulario que contendrá de forma interesada los radios y checkboxs
+				*	cada pregunta contendrá todos sus radios en un formulario, para evitar que los radios
+				*	se mezclen con los de otras preguntas destruyendo la experiencia visual.
+				*/
 				var id = 'formres' + i;
+
+				// Añadimos el código HTML con un campo para cada respuesta, uno por vuelta del ciclo.
 				content.append('<form id="' + id + '"></form>');
 				$('#' + id).append('<table id="respuestasContainer">'+
 							'<tr class="RespuestaTable">'+								
@@ -190,6 +205,9 @@ function insertPregResContent(object, responseType)
 			}
 			else if (multi)
 			{
+				// Aquí entramos si es una pregunta multirespuesta, aquí usaremos checkboxs.
+
+				// Añadimos el código HTML con un campo para cada respuesta, uno por vuelta del ciclo.
 				content.append('<table id="respuestasContainer">'+
 							'<tr class="RespuestaTable">'+
 								'<th><input id="checkradio' + i + a + '" class="MultiRespuestaTest pregunta' + i + ' checkradio' + i + ' checkradio" onChange="changeValue(this.id,' + i + ',' + true + ')" type="checkbox" value="0"></th>'+
@@ -208,6 +226,8 @@ function insertPregResContent(object, responseType)
 		}
 	}
 
+	// Finalmente añadimos los botones.
+	
 	content.append('<div class="TestButtonsContainer">'+
 						'<div type="submit" onClick=crearPregRes() class="OkButton Button TestButton">Finalizar Test</div>'+
 						'<div class="BackButton Button TestButton" onClick="volverTest()">Volver Configuración Test</div>'+
@@ -241,7 +261,7 @@ function crearPregRes()
 						console.log(response);
 
 						// Instanciamos el objeto AjaxManager.
-						var ajax = new AjaxManager();
+						ajax = new AjaxManager();
 
 						// Obtenemos los valores de los checks o los radios para saber cuales están activos.
 						respuestas.checkradio = getClassValues('checkradio');

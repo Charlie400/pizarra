@@ -8,6 +8,7 @@ class TestManager extends BaseManager
 			'titulo'      => 'required|max:120',
 			'id_clase'    => 'numeric',
 			'id_category' => 'required|numeric',
+			'id_dominio'  => 'required|numeric',
 			'preguntas'   => 'required|numeric',
 			'respuestas'  => 'required|numeric',
 			'active'      => 'required|in:0,1',

@@ -51,7 +51,7 @@ class TestController extends BaseController {
 	{
 		// Recibimos los datos por POST.
 		$data = Input::only('titulo', 'id_clase', 'id_category', 'multirespuesta', 'preguntas', 'respuestas', 
-							'puntuacion');
+							'puntuacion', 'id_dominio');
 
 		// Al crear el test está inactivo por defecto hasta que tenga preguntas y respuestas relacionadas.
 		$data['active'] = 0;
@@ -63,7 +63,7 @@ class TestController extends BaseController {
 		$manager = $this->testRepo->getManager($this->testRepo->getModel(), $data);
 
 		// Comprobamos si los datos son válidos y los insertamos.
-		if ($test = $manager->save())
+		if ( $test = $manager->save() )
 		{	
 			// Entramos aquí en caso de éxito y devolvemos el test y una propiedad que determina que no hay errores.
 			$test->errors = false;

@@ -168,7 +168,7 @@
 				</form>
 			</div>
 			<div class="LiTestAutomatico2">
-				<div id="preguntasContainer">
+				<div id="preguntasContainer2">
 					<section>
 						<h3>Pregunta 1</h3>
 						<p>Cras id eleifend erat, a consequat libero. Curabitur nec nibh enim. Aliquam maximus dapibus tristique. Mauris et tincidunt orci</p>
