@@ -158,11 +158,11 @@ function insertPregResContent(object, responseType)
 					'<tr>'+
 						'<th><textarea id="pregunta' + i + '" class="pregunta' + i + '" placeholder="<<Escriba su pregunta aquí>>"></textarea></th>'+
 						'<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>'+
-						'<th class="IconTh"><img class="TestIcon" src="../images/SubirLocal.png"></th>'+
-						'<th class="IconTh"><img class="TestIcon" src="../images/Iconovideo.png"></th>'+
-						'<th class="IconTh"><img class="TestIcon" src="../images/Iconoimagen.png"></th>'+
-						'<th class="IconTh"><img class="TestIcon" src="../images/IconoEscenario.png"></th>'+
-						'<th class="IconTh"><img class="TestIcon" src="../images/IconoElemento.png"></th>'+
+						'<th class="IconTh"><img class="TestIcon" src="../../images/SubirLocal.png"></th>'+
+						'<th class="IconTh"><img class="TestIcon" src="../../images/Iconovideo.png"></th>'+
+						'<th class="IconTh"><img class="TestIcon" src="../../images/Iconoimagen.png"></th>'+
+						'<th class="IconTh"><img class="TestIcon" src="../../images/IconoEscenario.png"></th>'+
+						'<th class="IconTh"><img class="TestIcon" src="../../images/IconoElemento.png"></th>'+
 					'</tr>'+
 					'</table>');
 
@@ -180,11 +180,11 @@ function insertPregResContent(object, responseType)
 								'<th><textarea id="respuesta' + i + a + '" class="pregunta' + i + '" placeholder="<<Escriba su respuesta aquí>>"></textarea></th>'+
 								'<th class="TestValue"><input placeholder="Valor" type="number"></th>'+
 								'<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/SubirLocal.png"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/Iconovideo.png"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/Iconoimagen.png"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/IconoEscenario.png"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/IconoElemento.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/SubirLocal.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/Iconovideo.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/Iconoimagen.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/IconoEscenario.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/IconoElemento.png"></th>'+
 							'</tr>'+
 						'</table>');
 			}
@@ -197,11 +197,11 @@ function insertPregResContent(object, responseType)
 								'<th><textarea id="respuesta' + i + a + '" placeholder="<<Escriba su respuesta aquí>>"></textarea></th>'+
 								'<th class="TestValue"><input placeholder="Valor" type="number"></th>'+
 								'<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/SubirLocal.png"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/Iconovideo.png"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/Iconoimagen.png"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/IconoEscenario.png"></th>'+
-								'<th class="IconTh"><img class="TestIcon" src="../images/IconoElemento.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/SubirLocal.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/Iconovideo.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/Iconoimagen.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/IconoEscenario.png"></th>'+
+								'<th class="IconTh"><img class="TestIcon" src="../../images/IconoElemento.png"></th>'+
 							'</tr>'+
 						'</table>');
 			}
@@ -215,19 +215,22 @@ function insertPregResContent(object, responseType)
 					'</div>');
 }
 
+// Envía los datos de preguntas y respuestas al servidor para su validación e inserción.
 function crearPregRes()
 {
+	// En base al número de preguntas y respuestas debe darme las ids que por lógica le fueron asignadas.
 	var ids  = getPregResIds(testObject.respuestas, testObject.preguntas),
+	// Instanciamos el objeto AjaxManager.
 		ajax = new AjaxManager(),
 		data = {};
 
-
-	var preguntas  = ajax.constructData(ids.preguntas);
-
-	var respuestas = ajax.constructData(ids.respuestas);
+	// Obtenemos los datos de las preguntas y respuestas.
+	var preguntas  = ajax.constructData(ids.preguntas),
+		respuestas = ajax.constructData(ids.respuestas);
 
 	console.log(preguntas);
 
+	// Petición ajax para enviar las preguntas.
 	ajax.request({
 					data: preguntas,
 					method: 'POST',
@@ -236,10 +239,14 @@ function crearPregRes()
 					responseType: 'json',
 					success: function(response){
 						console.log(response);
+
+						// Instanciamos el objeto AjaxManager.
 						var ajax = new AjaxManager();
 
+						// Obtenemos los valores de los checks o los radios para saber cuales están activos.
 						respuestas.checkradio = getClassValues('checkradio');
 
+						// Petición ajax para enviar las respuestas.
 						ajax.request({
 										data: respuestas,
 										method: 'POST',

@@ -10,6 +10,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset ('/css/style.css') }}">
 </head>
 <body class="BodyTest">
+	{{-- Aquí almacenamos el id_dominio --}}
+	<input type="hidden" id="idDominioConfigTest" value="{{ $id_dominio }}" />
+
 	<div class="TituloTest">
 		<h1>Generación de Tests</h1>
 	</div>
