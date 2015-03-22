@@ -1,4 +1,4 @@
-//Trae un material de la base de datos por su id
+;//Trae un material de la base de datos por su id
 function getMaterial(id, callback)
 {
 	var ajax = new AjaxManager();

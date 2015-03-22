@@ -25,6 +25,21 @@ function cleanInnerHTML(id)
 	document.getElementById(id).innerHTML = "";
 }
 
+function cleanClassInnerHTML(clase)
+{
+	var elements = document.getElementsByClassName(clase), i;
+
+	for (i in elements)
+	{
+		elements[i].innerHTML = "";
+	}
+}
+
+function setInnerHTML(id, value)
+{
+	document.getElementById(id).innerHTML = value;
+}
+
 function changeAction(formID, action)
 {
 	var form = document.getElementById(formID);
@@ -64,6 +79,70 @@ function simulateClick(id)
 	document.getElementById(id).click();
 }
 
+// Devuelve un array con las keys de un objeto o array
+function getKeys(object, recursive, exceptDimension)
+{
+	// Comprobamos si es un objeto, en caso contrario retornamos null
+	if ( typeof(object) !== 'object' ) return null;
+
+	// Comprobamos si se ha pedido que se extraigan las keys de forma recursiva
+	if (recursive) return getKeysRecursive(object, exceptDimension);
+
+	// En keys almacenaremos las claves del objeto o array.
+	var keys = [], i;
+
+	// Añadimos al array las keys de la primera dimensión.
+	for (i in object)
+	{
+		keys.push(i);
+	}
+
+	return keys;
+}
+
+/* 
+* 	Devuelve las keys conseguidas de forma recursiva, también se puede decidir que una dimensión se ignore.
+*/
+function getKeysRecursive(object, exceptDimension, dimension)
+{
+	// Comprobamos si la variable object es un objeto.
+	if ( typeof(object) !== 'object' ) return null;
+
+	// Instanciamos las variables necesarias.
+		// En keys almacenaremos las claves del objeto o array.
+		// En getKeys guardaremos las keys obtenidas al volver a llamar a la función.
+	var keys  = [], getKeys, 
+	// Aquí almacenaremos la dimensión en la que nos encontramos, considerando a la primera como 1.
+	dimension = dimension || 1,
+	// La dimensión que queremos excluir, si no hay ninguna se asignará -1, así ninguna será excluida.
+	exceptDimension   = exceptDimension || -1,
+	// Comprobamos si hay que ignorar la dimesión actual
+	saveThisDimension = exceptDimension != dimension;
+
+	for (i in object)
+	{
+		if( saveThisDimension ) 
+		{
+			// Aquí entramos si está dimensión no será ignorada
+			keys.push(i);
+		}
+
+		// Llamamos recursivamente a la función para obtener las keys del resto de dimensiones.
+		getKeys = getKeysRecursive(object[i], exceptDimension, ++dimension);
+
+		if ( ! isNull(getKeys) )
+		{	
+			// Aquí entramos para guardar las keys obtenidas de forma recursiva.
+			for (k in getKeys)
+			{
+				keys.push(getKeys[k]);
+			}
+		}
+	}
+
+	return keys;
+}
+
 function isCheckbox(id)
 {
 	if (document.getElementById(id).type == 'checkbox')
@@ -74,6 +153,16 @@ function isCheckbox(id)
 	return false;
 }
 
+function isNull(bar)
+{
+	return bar === null;
+}
+
+function isUndefined(bar)
+{
+	return bar === undefined;
+}
+
 function isEmpty(bar)
 {
 	bar = bar.replace(/ /g, '');
@@ -81,6 +170,16 @@ function isEmpty(bar)
 	if (bar === '') return true;
 	
 	return false;
+}
+
+function isNumeric(bar)
+{
+	return ! isNaN( parseFloat(bar) );
+}
+
+function isString(bar)
+{
+	return typeof(bar) === 'string';
 }
 
 function isChecked(id)

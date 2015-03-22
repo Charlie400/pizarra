@@ -1,4 +1,4 @@
-//Esta función añade un cuadro de texto para agregar clase a un test.
+;//Esta función añade un cuadro de texto para agregar clase a un test.
 $("#claseTest").on("change", testOtros);
 function testOtros(){
 var otros = $('#claseTest').val();
@@ -162,7 +162,10 @@ function insertPregResContent(object, responseType)
 					'<td><h3>Pregunta ' + i + '</h3></td>'+
 					'<tr>'+
 						'<th><textarea id="pregunta' + i + '" class="pregunta' + i + '" placeholder="<<Escriba su pregunta aquí>>"></textarea></th>'+
+						'<th><span id="pregunta' + i + 'Error" class="CU_errors pregResSpansForErrors"></span></th>'+
 						'<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>'+
+						'<th class="TestValue"><input class="TestPregValue" placeholder="Valor" type="number"></th>'+
+						'<th><span id="pregunta' + i + 'valorError" class="CU_errors pregResSpansForErrors"></span></th>'+
 						'<th class="IconTh"><img class="TestIcon" src="../../images/SubirLocal.png"></th>'+
 						'<th class="IconTh"><img class="TestIcon" src="../../images/Iconovideo.png"></th>'+
 						'<th class="IconTh"><img class="TestIcon" src="../../images/Iconoimagen.png"></th>'+
@@ -192,8 +195,8 @@ function insertPregResContent(object, responseType)
 								'<th><input id="checkradio' + i + a + '" class="MonoRespuestaTest pregunta' + i + ' checkradio' + i + ' checkradio" onChange="changeValue(this.id,' + i + ')" name="SeleccionarRespuesta" type="radio" '+
 								'value="0"></th>'+
 								'<th></th>'+
-								'<th><textarea id="respuesta' + i + a + '" class="pregunta' + i + '" placeholder="<<Escriba su respuesta aquí>>"></textarea></th>'+
-								'<th class="TestValue"><input placeholder="Valor" type="number"></th>'+
+								'<th><textarea id="respuesta' + i + a + '" class="pregunta' + i + '" placeholder="<<Escriba su respuesta aquí>>"></textarea></th>'+								
+								'<th><span id="respuesta' + i + a + 'Error" class="CU_errors pregResSpansForErrors"></span></th>'+
 								'<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>'+
 								'<th class="IconTh"><img class="TestIcon" src="../../images/SubirLocal.png"></th>'+
 								'<th class="IconTh"><img class="TestIcon" src="../../images/Iconovideo.png"></th>'+
@@ -213,7 +216,7 @@ function insertPregResContent(object, responseType)
 								'<th><input id="checkradio' + i + a + '" class="MultiRespuestaTest pregunta' + i + ' checkradio' + i + ' checkradio" onChange="changeValue(this.id,' + i + ',' + true + ')" type="checkbox" value="0"></th>'+
 								'<th></th>'+
 								'<th><textarea id="respuesta' + i + a + '" placeholder="<<Escriba su respuesta aquí>>"></textarea></th>'+
-								'<th class="TestValue"><input placeholder="Valor" type="number"></th>'+
+								'<th><span id="respuesta' + i + a + 'Error" class="CU_errors pregResSpansForErrors"></span></th>'+
 								'<th class="DeleteButtonTable"><input class="DeleteButton" type="submit" value="Eliminar"></th>'+
 								'<th class="IconTh"><img class="TestIcon" src="../../images/SubirLocal.png"></th>'+
 								'<th class="IconTh"><img class="TestIcon" src="../../images/Iconovideo.png"></th>'+
@@ -235,6 +238,134 @@ function insertPregResContent(object, responseType)
 					'</div>');
 }
 
+function checkPregRes(preguntas, respuestas)
+{
+	// Número de preguntas
+	var pregCount  = testObject.preguntas,
+	//Número de respuestas
+		resCount   = testObject.respuestas,
+		// Cantidad de puntos a repartir
+		puntuacion = testObject.puntuacion,
+		// Objeto que almacenará los errores
+		errors	   = {
+			preguntas: {},
+			respuestas: {},
+			active: false
+		},
+		pregunta, preguntaId, pregValueId, valor, 
+		// Esta variable contendrá sumada la puntuación que ha asignado el usuario a cada pregunta.
+		totalPuntosAsignados = 0,		
+		emptyPregValue;
+
+	for (var i = 1; i <= pregCount; i++)
+	{	
+		// Construimos la claves del objeto que contiene las preguntas
+			// Esta primera es para las preguntas
+		preguntaId  = 'pregunta' + i;		
+			// Esta otra para los valores de las preguntas
+		pregValueId = preguntaId + 'valor';
+
+		// Aquí recuperamos la pregunta actual en base a las claves anteriores
+		pregunta = preguntas[preguntaId];
+
+		// Preguntas es un string y no está vacía.
+
+		if ( isEmpty(pregunta) || ! isString(pregunta) )
+		{
+			errors.preguntas[preguntaId] = "El campo pregunta no puede estar vacío";
+			errors.active = true;
+		}
+
+		// Almacenamos la puntuación de la pregunta actual
+		valor = preguntas[pregValueId];
+		console.log(valor);
+
+		// Comprobamos que la puntuación no esté vacía y que sea de tipo numérico
+		if ( isEmpty(valor) )
+		{						
+			// Aquí entramos si la puntuación está vacía
+			errors.preguntas[pregValueId] = "El campo valor no puede estar vacío y tiene que ser un número";
+			errors.active = true;			
+		}
+		else
+		{
+			// Aquí entramos si estamos recibiendo el tipo de datos que queremos
+
+				// Esta variable contendrá sumada la puntuación que ha asignado el usuario a cada pregunta.
+			totalPuntosAsignados += parseInt(valor);			
+		}
+	}
+
+	// Comprobamos si los puntos asignados por el usuario coinciden con los que permite el test
+
+	if ( totalPuntosAsignados != puntuacion )
+	{
+		errors.preguntas.puntuacion = "Los valores de las preguntas no pueden sumar más ni menos que la " +  
+		"puntuación seleccionada al crear test (" + puntuacion + ")";
+
+		errors.active = true;
+	}
+
+	for (var i in respuestas)
+	{
+		// Respuestas es un string y no están vacías.
+		if ( isEmpty(respuestas[i]) || ! isString(respuestas[i]))
+		{
+			errors.respuestas[i] = "El campo respuesta no puede estar vacío";
+			errors.active = true;
+		}
+	}	
+
+	/*  ID = adjdkjfaldlda3283746;
+	*	Comprobar si hay un check o radio marcado en cada pregunta, puedes traer los valores con 
+	*	getClassValues('checkradio'), vendrán ordenados tal como aparecen en maquetación por tanto
+	*	obteniendo el número de respuestas por cada pregunta(se encuentra en la variable "resCount") ya puedes 
+	*	atribuir los checks a la pregunta correspondiente y comprobar si entre los suyos hay alguno activo, 
+	*   si no es así, no se permite el envío.	
+	*/	
+
+	if (errors.active)
+	{
+		// Aquí entramos si hay algún error
+
+		//	Mostramos los errores.
+		showPregResErrors(errors);
+		return false;		
+	}
+
+	console.log('SIN ERRORES');
+	// Aquí llegamos si no hay ningún error
+	return true; 
+}
+
+// Muestra los errores de las preguntas y respuestas al usuario.
+function showPregResErrors(errors)
+{
+	// Conseguimos las claves de los errores para componer la id de los campos que los contendrán.
+	var preguntaIds  = getKeys(errors.preguntas), 
+		respuestaIds = getKeys(errors.respuestas), 
+		pregId, resId, i;
+
+	// Limpiamos los campos contenedores de los errores.
+	cleanClassInnerHTML('pregResSpansForErrors');
+
+	for (i in preguntaIds)
+	{		
+		// En cada vuelta mostramos un error en las preguntas, ya sea en el texto o en la puntuación.
+		pregId = preguntaIds[i];
+
+		if ( pregId != 'puntuacion' ) setInnerHTML(pregId + 'Error', errors.preguntas[pregId]);
+
+		for (i in respuestaIds)
+		{
+			// En cada vuelta mostramos un error en las respuestas.
+			resId = respuestaIds[i];
+
+			setInnerHTML(resId + 'Error', errors.respuestas[resId]);
+		}
+	}
+}
+
 // Envía los datos de preguntas y respuestas al servidor para su validación e inserción.
 function crearPregRes()
 {
@@ -246,45 +377,57 @@ function crearPregRes()
 
 	// Obtenemos los datos de las preguntas y respuestas.
 	var preguntas  = ajax.constructData(ids.preguntas),
-		respuestas = ajax.constructData(ids.respuestas);
+		respuestas = ajax.constructData(ids.respuestas),
+		// Valor asignado a las preguntas
+		values 	   = getClassValues('TestPregValue'),
+		counter	   = 0,
+		temp;
 
-	console.log(preguntas);
+		// Obtenemos el valor que se le da a cada pregunta y lo asignamos
+		for (var i in preguntas)
+		{
+			// Asociamos las preguntas con su valor creando una propiedad con la id de la pregunta y 'valor' al final.
+			preguntas[i + 'valor'] = values[counter];
+			counter++;
+		}	
 
-	// Petición ajax para enviar las preguntas.
-	ajax.request({
-					data: preguntas,
-					method: 'POST',
-					url: '/crear/preguntas/' + testObject.id,
-					processData: false,
-					responseType: 'json',
-					success: function(response){
-						console.log(response);
+	if ( checkPregRes(preguntas, respuestas) )
+	{
+		// Petición ajax para enviar las preguntas.
+		ajax.request({
+						data: preguntas,
+						method: 'POST',
+						url: '/crear/preguntas/' + testObject.id,
+						processData: false,
+						responseType: 'json',
+						success: function(response){
+							console.log(response);
+							// Instanciamos el objeto AjaxManager.
+							ajax = new AjaxManager();
 
-						// Instanciamos el objeto AjaxManager.
-						ajax = new AjaxManager();
+							// Obtenemos los valores de los checks o los radios para saber cuales están activos.
+							respuestas.checkradio = getClassValues('checkradio');
 
-						// Obtenemos los valores de los checks o los radios para saber cuales están activos.
-						respuestas.checkradio = getClassValues('checkradio');
-
-						// Petición ajax para enviar las respuestas.
-						ajax.request({
-										data: respuestas,
-										method: 'POST',
-										url: '/crear/respuestas/' + testObject.id,
-										processData: false,
-										responseType: 'json',
-										success: function(response){
-											console.log(response);
-										},
-										errors: function(err)
-										{
-											console.log("Aquí tienes el error: " + err);
-										}
-									});
-					},
-					errors: function(err)
-					{
-						console.log("Aquí tienes el error: " + err);
-					}
-				});	
+							// Petición ajax para enviar las respuestas.
+							ajax.request({
+											data: respuestas,
+											method: 'POST',
+											url: '/crear/respuestas/' + testObject.id,
+											processData: false,
+											responseType: 'json',
+											success: function(response){
+												console.log(response);
+											},
+											errors: function(err)
+											{
+												console.log("Aquí tienes el error: " + err);
+											}
+										});
+						},
+						errors: function(err)
+						{
+							console.log("Aquí tienes el error: " + err);
+						}
+					});	
+	}
 }

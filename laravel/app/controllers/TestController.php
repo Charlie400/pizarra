@@ -68,23 +68,22 @@ class TestController extends BaseController {
 			// Entramos aquí en caso de éxito y devolvemos el test y una propiedad que determina que no hay errores.
 			$test->errors = false;
 			echo json_encode($test);
+			exit;
 		}
-		else
-		{
-			// Entramos aquí en caso de error y devolvemos los mensajes dados por el manager.
-			$errors = $manager->errors();
-			//Añadimos una propiedad para determinar que hay errores.
-			$errors->add('errors', true);
 
-			echo json_encode($errors);			
-		}
+		// Entramos aquí en caso de error y devolvemos los mensajes dados por el manager.
+		$errors = $manager->errors();
+		//Añadimos una propiedad para determinar que hay errores.
+		$errors->add('errors', true);
+
+		echo json_encode($errors);			
 	}
 
 	// Crea las preguntas del test
 	public function createPreguntas($idTest)
 	{
 		// Recibimos los datos por POST.
-		$data  = \Input::all();
+		$data  = \Input::all();		
 		$save  = [];
 		$response = "";
 
@@ -103,7 +102,7 @@ class TestController extends BaseController {
 					$save['pregunta']   = $data['pregunta' . $i];
 					$save['respuestas'] = $test->respuestas;
 					$save['id_test']    = $test->id;
-					$save['valor']      = $test->puntuacion/$test->preguntas;
+					$save['valor']      = $data['pregunta' . $i . 'valor'];
 
 					// Instanciamos el manager
 					$manager = new PreguntaManager(new Pregunta(), $save);
