@@ -57,9 +57,9 @@ function changeAction(formID, action)
 }
 
 //Encuentra un valor en un array y devuelve su índice
-function find(array, value)
+function findValue(array, value)
 {	
-	if ( ! value )
+	if ( typeof(value) )
 	{
 		if (typeof array.indexOf === 'function') return array.indexOf(value);
 		else if(array instanceof Array)
@@ -71,7 +71,7 @@ function find(array, value)
 		}
 	}
 
-	return false;	
+	return -1;	
 }
 
 function simulateClick(id)

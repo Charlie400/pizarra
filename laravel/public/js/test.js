@@ -231,7 +231,8 @@ function insertPregResContent(object, responseType)
 
 	// Finalmente añadimos los botones.
 	
-	content.append('<div class="TestButtonsContainer">'+
+	content.append('<span id="generalTestError" class="CU_errors pregResSpansForErrors"></span>'+
+					'<div class="TestButtonsContainer" class="CU_errors pregResSpansForErrors">'+
 						'<div type="submit" onClick=crearPregRes() class="OkButton Button TestButton">Finalizar Test</div>'+
 						'<div class="BackButton Button TestButton" onClick="volverTest()">Volver Configuración Test</div>'+
 						'<input type="submit" class="CancelButton Button TestButton" onClick="closeAlert()" value="Cancelar">'+
@@ -306,29 +307,70 @@ function checkPregRes(preguntas, respuestas)
 		errors.active = true;
 	}
 
+	// Obtenemos los valores de los checks o radios del tests.
+		// La variable counter la usaremos para recorrer el array checkradios.
+		// La variable checkRadioActives irá almacenando el número de checks o radios checkeados.
+	var checkradios = getClassValues('checkradio'), counter = 0,
+	// Si ya hay un error en selección de checks o radios esta variable la usaremos para no revisar más esa parte.
+		hasErrorsCheckRadio = false, actualQuestionCheckRadios = [];
+
+	// Buscamos errores en las respuestas.
 	for (var i in respuestas)
 	{
+		// Comprobamos si ya hay algún error, de no ser así continuamos.		
+		if ( ! hasErrorsCheckRadio )
+		{	
+			// Aquí entramos si no hay ningún error aún en la selección de checks o radios.
+
+			// Almacenamos los valores de los checks o radios de la pregunta actual
+			actualQuestionCheckRadios.push(parseInt(checkradios[counter++]));
+
+			/*
+			*	Comprobamos si counter entre el número de respuestas por pregunta tiene como residuo 0
+			*	dado que cuando esto ocurre significa que hemos revisado una pregunta completa.
+			*/
+
+			if ( counter%resCount === 0 )
+			{
+				/*
+				*	Comprobamos si hay algún check o radio activo buscando el valor 1 en el array
+				* 	"actualQuestionCheckRadios", si no lo hay, se generará un error.
+				*/
+				if ( findValue(actualQuestionCheckRadios, 1) === -1 )
+				{
+					// Aquí entramos en caso de error.
+
+					errors.respuestas.generalTest = 'Debes seleccionar al menos una respuesta como correcta '+
+					'en cada pregunta';
+					hasErrorsCheckRadio = true;
+					
+					errors.active = true;
+				}
+				else
+				{
+					// Aquí entramos en caso de éxito.
+
+					// Vaciamos el array, así no se mezclarán los valores nuevos con los de la pregunta anterior.
+					actualQuestionCheckRadios = [];
+				}
+			}
+		}
+
 		// Respuestas es un string y no están vacías.
 		if ( isEmpty(respuestas[i]) || ! isString(respuestas[i]))
 		{
 			errors.respuestas[i] = "El campo respuesta no puede estar vacío";
 			errors.active = true;
-		}
-	}	
+		}		
+	}
 
-	/*  ID = adjdkjfaldlda3283746;
-	*	Comprobar si hay un check o radio marcado en cada pregunta, puedes traer los valores con 
-	*	getClassValues('checkradio'), vendrán ordenados tal como aparecen en maquetación por tanto
-	*	obteniendo el número de respuestas por cada pregunta(se encuentra en la variable "resCount") ya puedes 
-	*	atribuir los checks a la pregunta correspondiente y comprobar si entre los suyos hay alguno activo, 
-	*   si no es así, no se permite el envío.	
-	*/	
+	console.log(errors);
 
 	if (errors.active)
 	{
-		// Aquí entramos si hay algún error
+		// Aquí entramos si hay algún error.
 
-		//	Mostramos los errores.
+		//	Mostramos los errores y retornamos false.
 		showPregResErrors(errors);
 		return false;		
 	}
