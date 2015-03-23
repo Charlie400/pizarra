@@ -484,8 +484,6 @@ function getDomainTests(id_dominio, callback)
 {
 	var ajax = new AjaxManager();
 
-	console.log(id_dominio);
-
 	ajax.request({
 			method: 'GET',
 			url: '/traer/tests/' + id_dominio,
@@ -503,7 +501,7 @@ function getDomainTests(id_dominio, callback)
 function getDomainTestsForTbody(checkradio)
 {
 	getDomainTests(getSelectedDomain(), function(tests){
-		
+
 		var test;
 
 		for (var i in tests)
