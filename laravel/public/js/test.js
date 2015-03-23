@@ -33,6 +33,10 @@ function modificarTest()
 	// Borramos el contenido html del tbody
 	cleanInnerHTML('tbodySendAsignacion');
 
+	// Traemos los test del dominio y los mostramos
+
+	getDomainTestsForTbody('radio');	
+
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
 	showClass(clase);
@@ -49,6 +53,8 @@ function eliminarTest()
 {
 	// Borramos el contenido html del tbody
 	cleanInnerHTML('tbodySendAsignacion');
+
+	getDomainTestsForTbody('checkbox');
 	
 	var clase = ".Foo9";
 	$("#alertBody").removeClass("AlertBody").addClass("AlertBodyBig"); 
@@ -472,4 +478,44 @@ function crearPregRes()
 						}
 					});	
 	}
+}
+
+function getDomainTests(id_dominio, callback)
+{
+	var ajax = new AjaxManager();
+
+	console.log(id_dominio);
+
+	ajax.request({
+			method: 'GET',
+			url: '/traer/tests/' + id_dominio,
+			responseType: 'json',
+			success: function(res){
+				callback(res);
+			},
+			errors: function(err)
+			{
+				console.log("Aquí tienes el error: " + err);
+			}
+		});
+}
+
+function getDomainTestsForTbody(checkradio)
+{
+	getDomainTests(getSelectedDomain(), function(tests){
+		
+		var test;
+
+		for (var i in tests)
+		{
+			test = tests[i];
+
+			$('#tbodySendAsignacion').append('<tr>'+
+												'<td>' + parseInt(i + 1) + '</td>'+
+												'<td>' + test.test_category.nombre + '</td>'+
+												'<td><input name="id_test[]" type="' + checkradio + '"'+ 
+												'class="checkBoxModifyTest" value="' + test.id + '" /></td>'+
+											'</tr>');
+		}
+	});
 }

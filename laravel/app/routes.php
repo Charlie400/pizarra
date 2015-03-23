@@ -42,6 +42,7 @@ Route::group(['before' => 'auth'], function()
 	Route::post('/crear/test', ['as' => 'createTest', 'uses' => 'TestController@createTest']);
 	Route::post('/crear/preguntas/{id}', ['as' => 'createPreguntas', 'uses' => 'TestController@createPreguntas']);
 	Route::post('/crear/respuestas/{id}', ['as' => 'createRespuestas', 'uses' => 'TestController@createRespuestas']);
+	Route::get('/traer/tests/{idDominio}', ['as' => 'getDomainTests', 'uses' => 'TestController@getDomainTests']);
 	
 	Route::post('/baja/alumno', ['as' => 'unsubscribe', 'uses' => 'UserController@unsubscribe']);
 	Route::post('/alta/alumno', ['as' => 'subscribe', 'uses' => 'UserController@subscribe']);

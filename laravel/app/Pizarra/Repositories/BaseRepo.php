@@ -23,6 +23,11 @@ abstract class BaseRepo
 		return $this->model->where($field, $value);
 	}
 
+	public function with($relationship)
+	{
+		return $this->model->with($relationship);
+	}
+
 	public function findAll()
 	{
 		return $this->model->all();

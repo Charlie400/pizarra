@@ -19,4 +19,9 @@ class Test extends \Eloquent {
 	{
 		return $this->hasMany('Pizarra\Entities\Respuesta', 'id_test', 'id');	
 	}
+
+	public function testCategory()
+	{
+		return $this->hasOne('Pizarra\Entities\TestCategory', 'id', 'id_category');
+	}
 }

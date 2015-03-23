@@ -181,4 +181,15 @@ class TestController extends BaseController {
 
 		echo json_encode($response);
 	}
+
+	public function getDomainTests($id_dominio)
+	{		
+		$tests = $this->testRepo
+			->with('testCategory')
+			->where('id_dominio', $id_dominio)
+			->get();
+
+		echo json_encode($tests);
+		exit;
+	}
 }
